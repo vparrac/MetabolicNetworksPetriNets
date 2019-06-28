@@ -2,6 +2,7 @@ package principal;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,20 +23,15 @@ public class MetabolicNetwork {
 	private static Map<String,Metabolite> metabolites = new TreeMap<String,Metabolite>();
 	private Set<String> compartments = new TreeSet<String>();
 	private static Map<String,Reaction> reactions = new TreeMap<String,Reaction>();
-
 	private Map<Integer,String> keysG;
 	private Map<String,Integer> metabolitesG;	
 	private ArrayList<Set<Integer>> edges;
-
-
 	//Petri net
 	private  Map<Integer, Transition> transitions;
 	private  Map<String, Integer> transitions2;
 	private  Map<String,Integer> places;
 	private  Map<Integer,String> places2;
 	public static final int INFINITE=100000;
-
-
 	/**
 	 * Adds a new gene product that can catalyze reactions
 	 * @param product New gene product
@@ -366,37 +362,32 @@ public class MetabolicNetwork {
 	}	
 
 	public  void metabolicPathway(int[][] metabolitesVisited, String last) throws Exception{		
-		PrintWriter writer = new PrintWriter("./out/out.txt"); 
-		writer.println("source,target,interaction,directed,symbol,value");		
-		int[] state= new int[places.size()];	
-		if(metabolitesVisited[places.get(last)][1]==-1) {
-			writer.println("En los metabolitos de entrada ya esta el metabolito final");
-			writer.close();
+		try (PrintStream out = new PrintStream("./out/out.txt")) {
+			out.println("source,target,interaction,directed,symbol,value");		
+			int[] state= new int[places.size()];	
+			if(metabolitesVisited[places.get(last)][1]==-1) {
+				out.println("En los metabolitos de entrada ya esta el metabolito final");
+				
+			}
+			else if(metabolitesVisited[places.get(last)][2]==this.INFINITE) {
+				out.println("No es posible llegar al metabolito final");
+			}
+			else {
+				Transition t=transitions.get(metabolitesVisited[places.get(last)][1]);		
+				List<Edge> edgesIn= t.getIn();		
+				for (int i = 0; i < edgesIn.size(); i++) {
+					visitAMetabolite(metabolitesVisited, edgesIn.get(i).getMeta().getNumber(), state, t.getName(), out);
+				}
+			}
 		}
-		else if(metabolitesVisited[places.get(last)][2]==this.INFINITE) {
-			writer.println("No es posible llegar al metabolito final");
-			writer.flush();
-			writer.close();
-		}
-		else {
-			Transition t=transitions.get(metabolitesVisited[places.get(last)][1]);		
-			List<Edge> edgesIn= t.getIn();		
-			for (int i = 0; i < edgesIn.size(); i++) {
-				visitAMetabolite(metabolitesVisited, edgesIn.get(i).getMeta().getNumber(), state, t.getName());
-			}		
-			writer.flush();
-			writer.close();
-		}		
+				
 	}
 
-	public void visitAMetabolite(int[][] metabolitesVisited, int numberOfMetabolite,int[] state, String last) throws Exception{
-		PrintWriter writer = new PrintWriter("./out/out.txt");
+	public void visitAMetabolite(int[][] metabolitesVisited, int numberOfMetabolite,int[] state, String last, PrintStream out) throws Exception{
 		state[numberOfMetabolite]=1;
 		if(metabolitesVisited[numberOfMetabolite][1]==-1) {
 			System.out.println(last+","+last+","+"TRUE,aab,1213");
-			writer.print(last+","+last+","+"TRUE,aab,1213");
-			writer.flush();
-			writer.close();
+			out.print(last+","+last+","+"TRUE,aab,1213");
 		}
 		else {
 			Transition t= transitions.get(metabolitesVisited[numberOfMetabolite][1]);
@@ -404,17 +395,13 @@ public class MetabolicNetwork {
 			for (int i = 0; i < l.size(); i++) {
 				Edge e=l.get(i);
 				if(metabolitesVisited[e.getMeta().getNumber()][1]!=-1&&state[e.getMeta().getNumber()]==0) {
-					writer.print(last+","+t.getName()+","+"TRUE,aab,1213");
+					out.print(last+","+t.getName()+","+"TRUE,aab,1213");
 					System.out.println(last+","+t.getName()+","+"TRUE,aab,1213");
-					visitAMetabolite(metabolitesVisited, numberOfMetabolite, state, t.getName());
+					visitAMetabolite(metabolitesVisited, numberOfMetabolite, state, t.getName(),out);
 				}
 			}
-			writer.flush();
-			writer.close();
 		}
 	}
-
-
 	static class MetabolitesP implements Comparable<MetabolitesP>{
 		private Metabolite metabolite;
 		private int priority;		

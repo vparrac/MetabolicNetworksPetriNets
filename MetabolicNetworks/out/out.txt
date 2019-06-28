@@ -1,2 +1,2 @@
 source,target,interaction,directed,symbol,value
-hyde dehydrogenase (acetylating),TRUE,aab,1213
+Acetaldehyde dehydrogenase (acetylating),Acetaldehyde dehydrogenase (acetylating),TRUE,aab,1213Acetaldehyde dehydrogenase (acetylating),Acetaldehyde dehydrogenase (acetylating),TRUE,aab,1213Acetaldehyde dehydrogenase (acetylating),Acetaldehyde dehydrogenase (acetylating),TRUE,aab,1213
