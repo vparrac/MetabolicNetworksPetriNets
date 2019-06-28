@@ -1,0 +1,2 @@
+source,target,interaction,directed,symbol,value
+hyde dehydrogenase (acetylating),TRUE,aab,1213
