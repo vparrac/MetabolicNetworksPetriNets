@@ -398,6 +398,7 @@ public class MetabolicNetwork {
 					out.print(last+","+t.getName()+","+"TRUE,aab,1213");
 					System.out.println(last+","+t.getName()+","+"TRUE,aab,1213");
 					visitAMetabolite(metabolitesVisited, numberOfMetabolite, state, t.getName(),out);
+
 				}
 			}
 		}
