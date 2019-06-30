@@ -1,9 +1,8 @@
 package principal;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.io.PrintWriter;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -86,39 +85,40 @@ public class MetabolicNetwork {
 	public static void main(String[] args) throws Exception {
 		MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
 		MetabolicNetwork network = loader.loadNetwork(args[0]);
-		//		/*System.out.println("Gene products");
+		//		System.out.println("Gene products");
 		//		for(GeneProduct enzyme:network.geneProducts.values()) {
 		//			System.out.println(enzyme.getId()+" "+enzyme.getName());
-		//		}*/
+		//		}
 		//		List<Reaction> reactions = network.getReactionsAsList();
+		//		System.err.println(reactions.size());
 		//		System.out.println("Loaded "+reactions.size()+" reactions");
 		//		for(Reaction r:reactions) {
 		//			System.out.println(r.getId()+" "+r.getName()+" "+r.getReactants().size()+" "+r.getProducts().size()+" "+r.getEnzymes().size()+" "+r.getLowerBoundFlux()+" "+r.getUpperBoundFlux());
 		//		}
 		//
-		System.out.println("List of reactions of Metabolite: "+""
-				+ "M_acald_c");
-		Map<String,List<Reaction>> reactionsOFMetabolite =network.getReactionOfMetabolite("M_acald_c");
-		System.out.println("It is a substrate");
-		List<Reaction> substrate=reactionsOFMetabolite.get("Substrates");
-		for (Reaction reaction : substrate) {
-			System.out.println(reaction.getName());
-		}
-		System.out.println("It is a product");
-		List<Reaction> products=reactionsOFMetabolite.get("Products");
-		for (Reaction reaction : products) {
-			System.out.println(reaction.getName());
-		}
-		System.out.println("Reactions where "+"G_b1241"+" is a catalysts");
-		Map<String,List<Metabolite>> cata=network.catalysis("G_b1241");
-		Set<String> keys=cata.keySet();
-		for (String reaction : keys) {
-			System.out.println("Reaction: "+reaction);
-			List<Metabolite> metabolites = cata.get(reaction);
-			for (Metabolite meta : metabolites) {
-				System.out.println("- "+meta.getName());
-			}
-		}
+		//		System.out.println("List of reactions of Metabolite: "+""
+		//				+ "M_acald_c");
+		//		Map<String,List<Reaction>> reactionsOFMetabolite =network.getReactionOfMetabolite("M_acald_c");
+		//		System.out.println("It is a substrate");
+		//		List<Reaction> substrate=reactionsOFMetabolite.get("Substrates");
+		//		for (Reaction reaction : substrate) {
+		//			System.out.println(reaction.getName());
+		//		}
+		//		System.out.println("It is a product");
+		//		List<Reaction> products=reactionsOFMetabolite.get("Products");
+		//		for (Reaction reaction : products) {
+		//			System.out.println(reaction.getName());
+		//		}
+		//		System.out.println("Reactions where "+"G_b1241"+" is a catalysts");
+		//		Map<String,List<Metabolite>> cata=network.catalysis("G_b1241");
+		//		Set<String> keys=cata.keySet();
+		//		for (String reaction : keys) {
+		//			System.out.println("Reaction: "+reaction);
+		//			List<Metabolite> metabolites = cata.get(reaction);
+		//			for (Metabolite meta : metabolites) {
+		//				System.out.println("- "+meta.getName());
+		//			}
+		//		}
 		network.makeNet();
 		System.out.println("Petri net created");
 		System.out.println("Write the entry");
@@ -128,7 +128,7 @@ public class MetabolicNetwork {
 		for (int i = 0; i < list; i++) {
 			initialMetabolites.add(bf.readLine());
 		}
-		network.shortestPath(initialMetabolites, bf.readLine());		
+		network.shortestPath(initialMetabolites, bf.readLine(),bf.readLine());		
 	}
 
 	public Map<String,List<Reaction>> getReactionOfMetabolite(String metaboliteKeyName) {
@@ -223,7 +223,8 @@ public class MetabolicNetwork {
 		transitions2= new TreeMap<String,Integer>();
 		places = new TreeMap< String,Integer>();
 		places2 = new TreeMap< Integer,String>();
-		Set<String> keysReaction=reactions.keySet();		
+		Set<String> keysReaction=reactions.keySet();	
+		System.out.println("Reactions size : " +keysReaction.size());
 		for (String key : keysReaction) {					
 			Reaction rea = reactions.get(key);			
 			Transition transition = new Transition(rea.getEnzymes(),numberTransition,rea.getName());
@@ -257,9 +258,12 @@ public class MetabolicNetwork {
 				meta.addTransition(transition);
 			}			
 			transitions.put(transition.getNumber(), transition);
-			transitions2.put(transition.getName(),transition.getNumber());
-
+			transitions2.put(transition.getName(),transition.getNumber());			
 		}
+		System.out.println("Places "+places.size());
+		assert(places.size()==72);
+		System.out.println("Transitions "+transitions.size());
+		//assert(transitions.size()==95);		
 	}
 
 	public  ArrayList<Transition> transitionsThaCanBeTriggered(List<Transition> transitions, int[][] metabolitesVisited){
@@ -269,7 +273,7 @@ public class MetabolicNetwork {
 			//The greatest distance that is not infinite.
 			boolean canBeTriggered=true;
 			for (int k = 0; k <inEdges.size(); k++) {
-				int number=places.get(inEdges.get(k).getMeta().getId());
+				int number=inEdges.get(k).getMeta().getNumber();				
 				if(!((metabolitesVisited[number][0]==1)&&(metabolitesVisited[number][2]!=INFINITE))) {
 					canBeTriggered=false;
 				}
@@ -289,7 +293,7 @@ public class MetabolicNetwork {
 				max=metabolitesVisited[edgesIn.get(i).getMeta().getNumber()][2];
 			}
 		}		
-		return max;
+		return max;		
 	}
 
 	public void initialValuesOfShortestPath(int[][] metabolitesVisited,List<String> first) {
@@ -303,18 +307,18 @@ public class MetabolicNetwork {
 		}
 	}
 
-	public void shortestPath(List<String> first, String last) throws Exception{		
+	public int[][] shortestPath(List<String> first, String last, String nameOfFile) throws Exception{
+		int[][] graph = null;
 		//The reactions visited
 		int[] reactionsVisited; 
-		//Row 1. Moles Row 2. The reaction 3. The <<Distance>>		
-		int[][] metabolitesVisited=new int[places.size()][3];
-		int[] pqea; 
-		ArrayList<String> s= new ArrayList<>(); 
+		//Row 1. Moles Row 2. The reaction 3. The <<Distance>>	
+		int[][] metabolitesVisited=new int[places.size()+1][3]; //Places.size()+1 for enumeration
+		int[] pqea;		
 		int distanceBestPath=INFINITE+1;		
 		// Find for each metabolite the transitions that can be triggered
 		for (int i = 0; i <first.size(); i++) {			
 			reactionsVisited= new int[transitions.size()]; 
-			metabolitesVisited=new int[places.size()][3];			
+			metabolitesVisited=new int[places.size()+1][3];			
 			pqea= new int[places.size()];			
 			//Initial values
 			initialValuesOfShortestPath(metabolitesVisited, first);
@@ -354,22 +358,78 @@ public class MetabolicNetwork {
 			//Makes the metabolic Pathway
 			int numberLast =places.get(last);
 			if(metabolitesVisited[numberLast][2]<distanceBestPath) {
-				metabolicPathway(metabolitesVisited, last);	
+				graph=metabolicPathway(metabolitesVisited, last);	
 				distanceBestPath=metabolitesVisited[numberLast][2];
 			}			
 		}
-
+		writeGraph(nameOfFile, graph);
+		return graph;
 	}	
 
-	public  void metabolicPathway(int[][] metabolitesVisited, String last) throws Exception{		
-		try (PrintStream out = new PrintStream("./out/out.txt")) {
+	public void writeGraph(String nameOfFile,int[][] graph) throws Exception {
+		try (PrintStream out = new PrintStream(nameOfFile)) {
+			for (int i = 0; i < graph.length; i++) {
+				for (int j = 0; j < graph.length; j++) {
+					out.print(graph[i][j]);
+				}
+				out.print("\n");
+			}
+		}
+	}
+	public int[][] metabolicPathway(int[][] metabolitesVisited, String last) {
+		int[][] graph = new int [transitions.size()+1][transitions.size()+1];
+		int[] transitionsVisited=  new int[this.transitions.size()+1];
+		boolean isTheBegining=true;
+		if(metabolitesVisited[places.get(last)][1]==-1) {
+			System.out.println("En los metabolitos de entrada ya está el metabolito final");
+		}else if(metabolitesVisited[places.get(last)][2]==INFINITE) {
+			System.err.println("No es posible llegar al metabolito final");
+		}else {
+			ArrayDeque<Integer> transitionss = new ArrayDeque<>();
+			Transition currentTransition=transitions.get(metabolitesVisited[places.get(last)][1]);
+			do {				
+				if(transitionsVisited[currentTransition.getNumber()]!=0) {	
+					if(!transitionss.isEmpty()) {
+					currentTransition=transitions.get(transitionss.poll());}else {
+						currentTransition=null;
+					}
+					continue;}
+				transitionsVisited[currentTransition.getNumber()]++;
+				List<Edge> edgesIn= currentTransition.getIn();		
+				int nInitialMetabolites=0;
+				for (int i = 0; i < edgesIn.size(); i++) {
+					int meta = edgesIn.get(i).getMeta().getNumber();
+					int transition =metabolitesVisited[meta][1];
+					if(transition!=-1) {
+						graph[transition][currentTransition.getNumber()]=1;
+						System.err.println(transitions.get(transition).getName()+" // "+ transitions.get(currentTransition.getNumber()).getName());
+						transitionss.add(transition);
+					}else {
+						nInitialMetabolites++;
+					}
+				}
+				if(nInitialMetabolites==edgesIn.size()&&isTheBegining) {
+					System.out.println("Sólo es necesaria una transición para llegar al metabolito \n"+currentTransition.getName());
+					break;
+				}				
+				isTheBegining=false;
+				currentTransition=transitions.get(transitionss.poll());
+			}  while(currentTransition!=null);
+		}
+		return graph;
+	}
+
+
+
+	public  void metabolicPathway(int[][] metabolitesVisited, String last, String nameOfFile) throws Exception{		
+		try (PrintStream out = new PrintStream(nameOfFile)) {
 			out.println("source,target,interaction,directed,symbol,value");		
 			int[] state= new int[places.size()];	
 			if(metabolitesVisited[places.get(last)][1]==-1) {
 				out.println("En los metabolitos de entrada ya esta el metabolito final");
-				
+
 			}
-			else if(metabolitesVisited[places.get(last)][2]==this.INFINITE) {
+			else if(metabolitesVisited[places.get(last)][2]==INFINITE) {
 				out.println("No es posible llegar al metabolito final");
 			}
 			else {
@@ -380,7 +440,7 @@ public class MetabolicNetwork {
 				}
 			}
 		}
-				
+
 	}
 
 	public void visitAMetabolite(int[][] metabolitesVisited, int numberOfMetabolite,int[] state, String last, PrintStream out) throws Exception{

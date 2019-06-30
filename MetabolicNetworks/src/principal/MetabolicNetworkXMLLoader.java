@@ -149,11 +149,12 @@ public class MetabolicNetworkXMLLoader {
 
 	private void loadReactions(Element listElem, MetabolicNetwork network) throws IOException {
 		NodeList offspring = listElem.getChildNodes(); 
+		int k=0;
 		for(int i=0;i<offspring.getLength();i++){  
-			Node node = offspring.item(i);
-			if (node instanceof Element){ 
+			Node node = offspring.item(i);			
+			if (node instanceof Element){				
 				Element elem = (Element)node;
-				if(ELEMENT_REACTION.equals(elem.getNodeName())) {
+				if(ELEMENT_REACTION.equals(elem.getNodeName())) {					
 					String id = elem.getAttribute(ATTRIBUTE_ID);
 					if(id==null || id.length()==0) throw new IOException("Every reaction should have an id");
 					String name = elem.getAttribute(ATTRIBUTE_NAME);
@@ -183,16 +184,17 @@ public class MetabolicNetworkXMLLoader {
 						}
 					}
 					if(reactants.size()==0) throw new IOException("No reactants found for reaction "+id);
-					if(products.size()==0) {
+					if(products.size()==0) {						
 						//System.err.println("No products found for reaction "+id);
 						continue;
 					}
+					
 					Reaction r = new Reaction(id, name, reactants, products);
 					if("true".equals(reversibleStr)) r.setReversible(true);
 					r.setEnzymes(enzymes);
 					//TODO: Load bounds
 					if(lbCode!=null && lbCode.contains("cobra_0")) r.setLowerBoundFlux(0);
-					if(ubCode!=null && ubCode.contains("cobra_0")) r.setUpperBoundFlux(0);
+					if(ubCode!=null && ubCode.contains("cobra_0")) r.setUpperBoundFlux(0);					
 					network.addReaction(r);
 				}
 			}
