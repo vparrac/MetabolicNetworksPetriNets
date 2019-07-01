@@ -31,6 +31,7 @@ public class MetabolicNetwork {
 	private  Map<String,Integer> places;
 	private  Map<Integer,String> places2;
 	public static final int INFINITE=100000;
+	public static final String COMMA=",";
 	/**
 	 * Adds a new gene product that can catalyze reactions
 	 * @param product New gene product
@@ -227,7 +228,7 @@ public class MetabolicNetwork {
 		System.out.println("Reactions size : " +keysReaction.size());
 		for (String key : keysReaction) {					
 			Reaction rea = reactions.get(key);			
-			Transition transition = new Transition(rea.getEnzymes(),numberTransition,rea.getName());
+			Transition transition = new Transition(rea.getEnzymes(),numberTransition,rea.getName(),rea.getId());
 			numberTransition++;
 			List<ReactionComponent> reactantsC=rea.getReactants();
 			List<ReactionComponent> productsC=rea.getProducts();			
@@ -362,7 +363,7 @@ public class MetabolicNetwork {
 				distanceBestPath=metabolitesVisited[numberLast][2];
 			}			
 		}
-		writeGraph(nameOfFile, graph);
+		printCSV(graph,nameOfFile);
 		return graph;
 	}	
 
@@ -413,13 +414,31 @@ public class MetabolicNetwork {
 					break;
 				}				
 				isTheBegining=false;
-				currentTransition=transitions.get(transitionss.poll());
+				if(!transitionss.isEmpty()) {
+					currentTransition=transitions.get(transitionss.poll());
+				}				
 			}  while(currentTransition!=null);
 		}
 		return graph;
 	}
-
-
+	
+	
+	public void printCSV(int[][] graph, String fileName) throws Exception{		
+		try (PrintStream out = new PrintStream(fileName)) {
+			out.println("source,target,interaction,directed,symbol,value");
+			for (int i = 0; i < graph.length; i++) {
+				for (int j = 0; j < graph.length; j++) {
+					if(graph[i][j]!=0) {
+						String nameTransition1= transitions.get(i).getId();
+						String nameTransition2= transitions.get(j).getId();						
+						out.println(nameTransition1+COMMA+nameTransition2+",PP,TRUE,abc"+i+j+",1.234");
+						System.out.println("ENTRA");
+					}					
+				}
+				
+			}
+		}		
+	}
 
 	public  void metabolicPathway(int[][] metabolitesVisited, String last, String nameOfFile) throws Exception{		
 		try (PrintStream out = new PrintStream(nameOfFile)) {

@@ -5,3 +5,12 @@ M_h2o_c
 M_pep_c
 M_pyr_c
 ./out/out.txt
+
+5
+M_6pgl_c
+M_h2o_c
+M_nadp_c
+M_nadh_c
+M_pep_c
+M_pi_c
+./out/testCase2.csv
