@@ -60,28 +60,63 @@ public class Transition {
 	 */
 	public void addEdgeOut(Edge edge) {
 		out.add(edge);
-	}	
+	}
+	
+	/**	
+	 * @return The in edges of the transition
+	 */
 	public List<Edge> getIn() {
 		return in;
 	}
+	/**	
+	 * @return The out edges of the transition
+	 */
+	
 	public List<Edge> getOut() {
 		return out;
 	}	
+	/**	
+	 * @return The list of enzymes that catalyst the transition
+	 */
+	
 	public List<GeneProduct> getGeneProduct() {
 		return geneProduct;
 	}
+	
+	/**
+	* Set the number (id) of the transition
+	* @param number the new number (id) of transition
+	**/
 	public void setNumber(int number) {
 		this.number = number;
 	}
+	
+	/**
+	* @return the number (id) of this transition
+	**/
+	
 	public int getNumber() {
 		return number;
 	}
+	
+	/**
+	* @return the name of the transition (the reaction)
+	**/
+	
 	public String getName() {
 		return name;
 	}
+	
+	/**
+	* Set the id (the string id) of the transition
+	* @param id the new id (the string id) of the transition
+	**/
 	public void setId(String id) {
 		this.id = id;
 	}
+	/**
+	*@return the id (string id) of the transition)
+	**/
 	public String getId() {
 		return id;
 	}
