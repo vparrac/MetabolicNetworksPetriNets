@@ -1,9 +1,5 @@
 4
-M_gln__L_e
-M_atp_c
-M_h2o_c
-M_pep_c
-M_pyr_c
+M_gln__L_e,M_atp_c,M_h2o_c,M_pep_c,M_pyr_c
 ./out/testCase1MN.csv
 ./out/testCase1RG.csv
 	

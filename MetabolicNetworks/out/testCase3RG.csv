@@ -1,4 +1,0 @@
-source,target,interaction,directed,symbol,value
-R_GND,R_PPC,PP,TRUE,abc3759,1.234
-R_NADTRHD,R_GND,PP,TRUE,abc4837,1.234
-R_PGL,R_GND,PP,TRUE,abc5637,1.234

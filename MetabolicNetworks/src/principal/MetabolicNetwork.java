@@ -1,9 +1,8 @@
 package principal;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -26,11 +25,31 @@ public class MetabolicNetwork {
 	private Map<String,Integer> metabolitesG;	
 	private ArrayList<Set<Integer>> edges;
 	//Petri net
+	/**
+	 * A map of Integer to transition. The map represents the Transitions of Petri net 
+	 */
 	private  Map<Integer, Transition> transitions;
+	/**
+	 *  A map of Transitions to Integer. The map represents the transitions of Petri net
+	 */
 	private  Map<String, Integer> transitions2;
+	/**
+	 * A map of a String (that represents the id of the metabolite) to a Integer.
+	 * This map represents the places of Petri net
+	 */
 	private  Map<String,Integer> places;
+	/**
+	 * A map of a String (that represents the id of the metabolite) to a Integer.
+	 * This map represents the places of Petri net
+	 */
 	private  Map<Integer,String> places2;
+	/**
+	 * Represents the infinite distance between 2 metabolites
+	 */
 	public static final int INFINITE=100000;
+	/**
+	 * String with the value of comma (,) to generate the csv
+	 */
 	public static final String COMMA=",";
 	/**
 	 * Adds a new gene product that can catalyze reactions
@@ -82,22 +101,27 @@ public class MetabolicNetwork {
 	public List<Reaction> getReactionsAsList () {
 		return new ArrayList<Reaction>(reactions.values());
 	}
-
+	/**
+	 * The main method of class
+	 * @param args[0] the path of the XML file 
+	 * @param args[1] A list of initial metabolites separated with commas
+	 * @throws Exception if exists any error of I/O
+	 */
 	public static void main(String[] args) throws Exception {
 		MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
-		MetabolicNetwork network = loader.loadNetwork(args[0]);		
-		network.makeNet();
-		System.out.println("Petri net created");
-		System.out.println("Write the entry");
-		BufferedReader bf= new BufferedReader(new InputStreamReader(System.in));
-		int list = Integer.parseInt(bf.readLine());
-		List<String> initialMetabolites= new ArrayList<>();
-		for (int i = 0; i < list; i++) {
-			initialMetabolites.add(bf.readLine());
-		}
-		network.shortestPath2(initialMetabolites, bf.readLine(),bf.readLine(),bf.readLine());		
+		MetabolicNetwork network = loader.loadNetwork(args[0]);
+		String [] initialMetabolitesA = args[1].split(",");
+		String [] finalMetabolitesA = args[2].split(",");
+		String outPrefix = args[3];
+		network.makeNet();		
+		List<String> initialMetabolites= Arrays.asList(initialMetabolitesA);
+		network.shortestPath2(initialMetabolites, finalMetabolitesA[0],outPrefix+"PetriNet.csv",outPrefix+"Reactions.csv");		
 	}
-
+	/**
+	 * Method that find the reactions where a metabolite  
+	 * @param metaboliteKeyName the id of the metabolite
+	 * @return A map of the where reaction where metabolite is a substrate and where the metabolite is a product 
+	 */
 	public Map<String,List<Reaction>> getReactionOfMetabolite(String metaboliteKeyName) {
 		Map<String,List<Reaction>> reaction= new TreeMap<>();
 		Metabolite metabolite=metabolites.get(metaboliteKeyName);
@@ -123,6 +147,11 @@ public class MetabolicNetwork {
 		reaction.put("Products", rproducts);
 		return reaction;
 	}
+	/**
+	 * Find the reactions where the enzyme is the catalyst
+	 * @param enzymeName the id of Enzume
+	 * @return a mapa whith the reactions
+	 */
 
 	public Map<String,List<Metabolite>> catalysis(String enzymeName){
 		Map<String,List<Metabolite>> cata= new TreeMap<>();
@@ -145,7 +174,11 @@ public class MetabolicNetwork {
 		return cata;
 	}
 
-	public void makeGraph(boolean cicle) {
+	/**
+	 *  Create a graph with the metabolites as nodes 
+	 *  Exists a edge between a two nodes if exists a reaction where one of the metabolites is a substrate and the other one is the product
+	 */
+	public void makeGraph() {
 		//metabolites of Graph
 		metabolitesG=new TreeMap<>();
 		keysG=new TreeMap<>(); 
@@ -182,6 +215,9 @@ public class MetabolicNetwork {
 		}
 	}
 
+	/**
+	 * Create the petri net that represent the metabolic network
+	 */
 	public void  makeNet() {	
 		int numberMetabolites=1;
 		int numberTransition=1;
@@ -228,6 +264,13 @@ public class MetabolicNetwork {
 		}				
 	}
 
+	/**
+	 * Find the transition that can be triggered 
+	 * @param transitions the transitions to evaluate
+	 * @param metabolitesVisited a matrix where the rows are the metabolites, the first column indicate if exists the metabolite 
+	 * the second column is the reaction that allows to obtain the metabolite and the third column the distance of a initial reaction 
+	 * @return
+	 */
 	public  ArrayList<Transition> transitionsThaCanBeTriggered(List<Transition> transitions, int[][] metabolitesVisited){
 		ArrayList<Transition> transitionsThaCanBeTriggered= new ArrayList<>();
 		for (int j = 0; j < transitions.size(); j++) {
@@ -235,7 +278,7 @@ public class MetabolicNetwork {
 			//The greatest distance that is not infinite.
 			boolean canBeTriggered=true;
 			for (int k = 0; k <inEdges.size(); k++) {
-				int number=inEdges.get(k).getMeta().getNumber();				
+				int number=inEdges.get(k).getMetabolite().getNumber();				
 				if(!((metabolitesVisited[number][0]==1)&&(metabolitesVisited[number][2]!=INFINITE))) {
 					canBeTriggered=false;
 				}
@@ -247,17 +290,29 @@ public class MetabolicNetwork {
 		}
 		return transitionsThaCanBeTriggered;
 	}
-	public  int findMaximunDistanceOfTheInletMetabolitesOfATransition(Transition transition,int[][] metabolitesVisited) {
+	/**
+	 * Find the max distance of a metabolite in a specific transition
+	 * @param transition the transition to be evaluated
+	 * @param metabolitesVisited a matrix where the rows are the metabolites, the first column indicate if exists the metabolite 
+	 * the second column is the reaction that allows to obtain the metabolite and the third column the distance of a initial reaction
+	 * @return the max distance of a metabolite in the transition
+	 */
+	public int findMaximunDistanceOfTheInletMetabolitesOfATransition(Transition transition,int[][] metabolitesVisited) {
 		List<Edge> edgesIn=transition.getIn();
 		int max=-1;
 		for (int i = 0; i < edgesIn.size(); i++) {
-			if(metabolitesVisited[edgesIn.get(i).getMeta().getNumber()][2]>max) {
-				max=metabolitesVisited[edgesIn.get(i).getMeta().getNumber()][2];
+			if(metabolitesVisited[edgesIn.get(i).getMetabolite().getNumber()][2]>max) {
+				max=metabolitesVisited[edgesIn.get(i).getMetabolite().getNumber()][2];
 			}
 		}		
 		return max;		
 	}
 
+	/**
+	 * This method initializes the array metabolitesVisited the initial distance infinite and 0 for the initial metabolites
+	 * @param metabolitesVisited the array to initialize
+	 * @param first a list with initial metabolites
+	 */
 	public void initialValuesOfShortestPath(int[][] metabolitesVisited,List<String> first) {
 		for (int j= 0; j < metabolitesVisited.length; j++) {
 			metabolitesVisited[j][2]=INFINITE;
@@ -268,7 +323,6 @@ public class MetabolicNetwork {
 			metabolitesVisited[places.get(first.get(j))][1]=-1;								
 		}
 	}
-
 	public int[][] shortestPath(List<String> first, String last, String nameOfFile) throws Exception{
 		int[][] graph = null;
 		//The reactions visited
@@ -302,7 +356,7 @@ public class MetabolicNetwork {
 						int maxValue= findMaximunDistanceOfTheInletMetabolitesOfATransition(transitions.get(j),metabolitesVisited)+1;
 						//Update the distances
 						for (int k = 0; k < inEdgesOft.size(); k++) {
-							Metabolite meta = inEdgesOft.get(k).getMeta();
+							Metabolite meta = inEdgesOft.get(k).getMetabolite();
 							int number = meta.getNumber();
 							if((maxValue)<metabolitesVisited[number][2]) {
 								metabolitesVisited[number][2]=maxValue;
@@ -362,7 +416,7 @@ public class MetabolicNetwork {
 					int maxValue= findMaximunDistanceOfTheInletMetabolitesOfATransition(transitions.get(j),metabolitesVisited)+1;
 					//Update the distances
 					for (int k = 0; k < inEdgesOft.size(); k++) {
-						Metabolite meta = inEdgesOft.get(k).getMeta();
+						Metabolite meta = inEdgesOft.get(k).getMetabolite();
 						int number = meta.getNumber();
 						if((maxValue)<metabolitesVisited[number][2]) {
 							metabolitesVisited[number][2]=maxValue;
@@ -385,6 +439,13 @@ public class MetabolicNetwork {
 		printReactionsGraphInCSV(graph,fileName2);
 		return graph;
 	}	
+	
+	/**
+	 * Print the adjacency matrix of a graph 
+	 * @param nameOfFile the path of the file
+	 * @param graph the graph 
+	 * @throws Exception in errors of I/O
+	 */
 	public void writeGraph(String nameOfFile,int[][] graph) throws Exception {
 		try (PrintStream out = new PrintStream(nameOfFile)) {
 			for (int i = 0; i < graph.length; i++) {
@@ -395,6 +456,13 @@ public class MetabolicNetwork {
 			}
 		}
 	}
+	
+	/**
+	 * Cre
+	 * @param metabolitesVisited
+	 * @param last
+	 * @return
+	 */
 	public int[][] metabolicPathway(int[][] metabolitesVisited, String last) {
 		int[][] graph = new int [transitions.size()+1][transitions.size()+1];
 		int[] transitionsVisited=  new int[this.transitions.size()+1];
@@ -417,7 +485,7 @@ public class MetabolicNetwork {
 				List<Edge> edgesIn= currentTransition.getIn();		
 				int nInitialMetabolites=0;
 				for (int i = 0; i < edgesIn.size(); i++) {
-					int meta = edgesIn.get(i).getMeta().getNumber();
+					int meta = edgesIn.get(i).getMetabolite().getNumber();
 					int transition =metabolitesVisited[meta][1];
 					if(transition!=-1) {
 						graph[transition][currentTransition.getNumber()]=1;
@@ -456,6 +524,14 @@ public class MetabolicNetwork {
 		}		
 	}
 
+	/**
+	 * Print the graph entered by parameter in a CSV
+	 * @param graph The graph to be printed
+	 * @param fileName the path of CSV
+	 * @param first The ids of initial metabolites
+	 * @param last the final metabolite
+	 * @throws Exception in errors of I/O
+	 */
 	public void printMetabolicNetworkInCSV(int[][] graph, String fileName, List<String> first, String last) throws Exception{
 		int[] metabolitesVisited= new int[places.size()];
 		int[] transitionsVisited= new int[transitions.size()];
@@ -471,12 +547,25 @@ public class MetabolicNetwork {
 			}
 		}
 	}
+	
+	/**
+	 * Method that print the transition in the CSV entered by parameter 
+	 * @param t the transiton to be printed
+	 * @param out the Stream of the CSV
+	 * @param i A identifier
+	 * @param j A identifier
+	 * @param metabolitesVisited a matrix where the rows are the metabolites, the first column indicate if exists the metabolite 
+	 * the second column is the reaction that allows to obtain the metabolite and the third column the distance of a initial reaction
+	 * @param transitionsVisited the transition that were printed 
+	 * @param first The initial ids of metabolites
+	 * @param last The final metabolite
+	 */
 	public void printATransitionInCSV(Transition t, PrintStream out,int i, int j,int[] metabolitesVisited,int[] transitionsVisited, List<String> first, String last) {
 		List<Edge> metaInTransition = t.getIn();
 		if(transitionsVisited[t.getNumber()]==0) {
 			transitionsVisited[t.getNumber()]++;
 			for (Edge edge : metaInTransition) {
-				String nameOfMeta = edge.getMeta().getId();
+				String nameOfMeta = edge.getMetabolite().getId();
 				if(first.contains(nameOfMeta)) {
 					nameOfMeta="TT"+nameOfMeta;
 				}
@@ -487,7 +576,7 @@ public class MetabolicNetwork {
 			}
 			metaInTransition = t.getOut();		
 			for (Edge edge : metaInTransition) {
-				String nameOfMeta = edge.getMeta().getId();
+				String nameOfMeta = edge.getMetabolite().getId();
 				if(first.contains(nameOfMeta)) {
 					nameOfMeta="TT"+nameOfMeta;
 				}
@@ -498,17 +587,39 @@ public class MetabolicNetwork {
 			}	
 		}
 	}	
+	
+	/**
+	 * Class to create the priority queue. Represents a metabolite with a priority that is the distance to
+	 * any of initial reactions 
+	 * @author Valerie Parra
+	 */
 	static class MetabolitesP implements Comparable<MetabolitesP>{
+		/**
+		 * The metabolite 
+		 */		
 		private Metabolite metabolite;
-		private int priority;		
+		/**
+		 * The priority
+		 */
+		private int priority;	
+		/**
+		 * Constructor of the class, initializes the atributes in the value of the parameters
+		 * @param metabolite The metabolite
+		 * @param priority the priority
+		 */
 		public MetabolitesP(Metabolite metabolite, int priority) {
 			super();
 			this.metabolite = metabolite;
 			this.priority = priority;
 		}
+		/**
+		 * Method to get the metabolite
+		 * @return themetabolite
+		 */
 		public Metabolite getMetabolite() {
 			return metabolite;
 		}
+		
 		@Override
 		public int compareTo(MetabolitesP o) {		
 			return o.priority-this.priority;
