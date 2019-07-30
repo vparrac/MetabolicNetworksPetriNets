@@ -1,13 +1,1 @@
 source,target,interaction,directed,symbol,value
-TTM_atp_c,R_GLNabc,PP,TRUE,abc3263,1.234
-TTM_gln__L_e,R_GLNabc,PP,TRUE,abc3263,1.234
-TTM_h2o_c,R_GLNabc,PP,TRUE,abc3263,1.234
-R_GLNabc,M_adp_c,PP,TRUE,abc3263,1.234
-R_GLNabc,M_gln__L_c,PP,TRUE,abc3263,1.234
-R_GLNabc,M_h_c,PP,TRUE,abc3263,1.234
-R_GLNabc,M_pi_c,PP,TRUE,abc3263,1.234
-M_adp_c,R_PYK,PP,TRUE,abc3263,1.234
-M_h_c,R_PYK,PP,TRUE,abc3263,1.234
-TTM_pep_c,R_PYK,PP,TRUE,abc3263,1.234
-R_PYK,TTM_atp_c,PP,TRUE,abc3263,1.234
-R_PYK,OOM_pyr_c,PP,TRUE,abc3263,1.234

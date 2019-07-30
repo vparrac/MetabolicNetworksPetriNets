@@ -115,7 +115,8 @@ public class MetabolicNetwork {
 		String outPrefix = args[3];
 		network.makeNet();		
 		List<String> initialMetabolites= Arrays.asList(initialMetabolitesA);
-		network.shortestPath2(initialMetabolites, finalMetabolitesA[0],outPrefix+"PetriNet.csv",outPrefix+"Reactions.csv");		
+		network.shortestPath2(initialMetabolites, finalMetabolitesA[0],outPrefix+"PetriNet.csv",outPrefix+"Reactions.csv");
+		
 	}
 	/**
 	 * Method that find the reactions where a metabolite  
@@ -323,6 +324,20 @@ public class MetabolicNetwork {
 			metabolitesVisited[places.get(first.get(j))][1]=-1;								
 		}
 	}
+	
+	public void initialValuesOfShortestPath2(int[][] metabolitesVisited,List<String> first) {		
+		for (int j = 0; j <metabolitesVisited.length; j++) {				
+			metabolitesVisited[j][2]=0;
+			metabolitesVisited[j][0]=1;
+			metabolitesVisited[j][1]=-1;								
+		}
+		
+		metabolitesVisited[places.get("M_pyr_e")][2]=INFINITE;
+		metabolitesVisited[places.get("M_pyr_e")][1]=0;
+		metabolitesVisited[places.get("M_pyr_e")][0]=0;
+		
+	}
+	
 	public int[][] shortestPath(List<String> first, String last, String nameOfFile) throws Exception{
 		int[][] graph = null;
 		//The reactions visited
@@ -337,7 +352,7 @@ public class MetabolicNetwork {
 			metabolitesVisited=new int[places.size()+1][3];			
 			pqea= new int[places.size()];			
 			//Initial values
-			initialValuesOfShortestPath(metabolitesVisited, first);
+			initialValuesOfShortestPath2(metabolitesVisited, first);
 			PriorityQueue<MetabolitesP> pq = new PriorityQueue<>();						
 			pq.add(new MetabolitesP(metabolites.get(first.get(i)),0));
 			while (!pq.isEmpty()) { 
@@ -391,11 +406,11 @@ public class MetabolicNetwork {
 		int[] pqea;		
 		int distanceBestPath=INFINITE+1;		
 		// Find for each metabolite the transitions that can be triggered				
-		reactionsVisited= new int[transitions.size()]; 
+		reactionsVisited= new int[transitions.size()+1]; 
 		metabolitesVisited=new int[places.size()+1][3];			
-		pqea= new int[places.size()];			
+		pqea= new int[places.size()+1];			
 		//Initial values
-		initialValuesOfShortestPath(metabolitesVisited, first);
+		initialValuesOfShortestPath2(metabolitesVisited, first);
 		PriorityQueue<MetabolitesP> pq = new PriorityQueue<>();	
 		for (String i : first) {
 			pq.add(new MetabolitesP(metabolites.get(i),0));
@@ -406,6 +421,7 @@ public class MetabolicNetwork {
 			if(mp.getId().equals(last)) {
 				break;
 			}
+			System.out.println(pqea.length);
 			if(pqea[n]==0) {
 				pqea[n]++;			
 				List<Transition> transitions= transitionsThaCanBeTriggered(mp.getTransitions(),metabolitesVisited);
