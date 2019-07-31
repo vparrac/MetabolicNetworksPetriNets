@@ -410,7 +410,7 @@ public class MetabolicNetwork {
 		metabolitesVisited=new int[places.size()+1][3];			
 		pqea= new int[places.size()+1];			
 		//Initial values
-		initialValuesOfShortestPath2(metabolitesVisited, first);
+		initialValuesOfShortestPath(metabolitesVisited, first);
 		PriorityQueue<MetabolitesP> pq = new PriorityQueue<>();	
 		for (String i : first) {
 			pq.add(new MetabolitesP(metabolites.get(i),0));
