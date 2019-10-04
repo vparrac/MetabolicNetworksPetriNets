@@ -13,12 +13,17 @@ import java.util.TreeSet;
 import petriNet.Edge;
 import petriNet.Transition;
 /**
+ * 
  * Represents a metabolic network of reactions on metabolites
  * @author Jorge Duitama
  */
 public class MetabolicNetwork {
-	private Map<String,GeneProduct> geneProducts = new TreeMap<String,GeneProduct>(); 
+	private Map<String,GeneProduct> geneProducts = new TreeMap<String,GeneProduct>();
+	/**
+	 * Metabolites of  the metabolic Network
+	 */
 	private static Map<String,Metabolite> metabolites = new TreeMap<String,Metabolite>();
+
 	private Set<String> compartments = new TreeSet<String>();
 	private static Map<String,Reaction> reactions = new TreeMap<String,Reaction>();
 	private Map<Integer,String> keysG;
@@ -51,7 +56,7 @@ public class MetabolicNetwork {
 	 * String with the value of comma (,) to generate the csv
 	 */
 	public static final String COMMA=",";
-	/**
+	/**F
 	 * Adds a new gene product that can catalyze reactions
 	 * @param product New gene product
 	 */
@@ -116,8 +121,12 @@ public class MetabolicNetwork {
 		network.makeNet();		
 		List<String> initialMetabolites= Arrays.asList(initialMetabolitesA);
 		network.shortestPath2(initialMetabolites, finalMetabolitesA[0],outPrefix+"PetriNet.csv",outPrefix+"Reactions.csv");
-		
+
 	}
+	//-------------------------------------------------------------------
+	//-----------------------Metabolic Network --------------------------
+	//---------------------------As graph--------------------------------
+
 	/**
 	 * Method that find the reactions where a metabolite  
 	 * @param metaboliteKeyName the id of the metabolite
@@ -265,6 +274,12 @@ public class MetabolicNetwork {
 		}				
 	}
 
+
+	//-------------------------------------------------------------------
+	//-----------------------Metabolic Network --------------------------
+	//--------------------------As Petri Net-----------------------------
+
+
 	/**
 	 * Find the transition that can be triggered 
 	 * @param transitions the transitions to evaluate
@@ -310,7 +325,12 @@ public class MetabolicNetwork {
 	}
 
 	/**
-	 * This method initializes the array metabolitesVisited the initial distance infinite and 0 for the initial metabolites
+	 * This method initializes the array metabolitesVisited the initial distance infinite 
+	 * and 0 for the initial metabolites, the function returns a matrix of number of metabolites x
+	 * 3, where the first column represents the distance from the source to the target metabolite, 
+	 * the second column represents the absence/presence of metabolite (1 if the metabolite exists and
+	 * 0 if no) and the 3rd column represents the transitions that creates the matabolite, if the metabolite
+	 * is part of initial metabolites, the default value is -1  
 	 * @param metabolitesVisited the array to initialize
 	 * @param first a list with initial metabolites
 	 */
@@ -319,25 +339,33 @@ public class MetabolicNetwork {
 			metabolitesVisited[j][2]=INFINITE;
 		}
 		for (int j = 0; j <first.size(); j++) {				
-			metabolitesVisited[places.get(first.get(j))][2]=0;
-			metabolitesVisited[places.get(first.get(j))][0]=1;
-			metabolitesVisited[places.get(first.get(j))][1]=-1;								
+			metabolitesVisited[places.get(first.get(j))][2]=0; //Distance
+			metabolitesVisited[places.get(first.get(j))][0]=1; //is there that metabolite?
+			metabolitesVisited[places.get(first.get(j))][1]=-1; //The last transition, -1 if it is not assigned								
 		}
 	}
-	
+
 	public void initialValuesOfShortestPath2(int[][] metabolitesVisited,List<String> first) {		
-		for (int j = 0; j <metabolitesVisited.length; j++) {				
-			metabolitesVisited[j][2]=0;
-			metabolitesVisited[j][0]=1;
-			metabolitesVisited[j][1]=-1;								
+		for (int j = 0; j <metabolitesVisited.length; j++) {
+			metabolitesVisited[j][0]=1;		
+			metabolitesVisited[j][1]=-1;		
+			metabolitesVisited[j][2]=0;										
 		}
-		
+
 		metabolitesVisited[places.get("M_pyr_e")][2]=INFINITE;
 		metabolitesVisited[places.get("M_pyr_e")][1]=0;
 		metabolitesVisited[places.get("M_pyr_e")][0]=0;
-		
+
 	}
-	
+	/**
+	 * Find the shortest path from a group of initial metabolites to a unique target metabolite
+	 * @param first The list of initial metabolies
+	 * @param last Target metabolite
+	 * @param nameOfFile File where will be printed the graph 
+	 * @return graph that represents  the visited metabolites
+	 * @throws Exception  is  exists any  error  write  the file
+	 */
+
 	public int[][] shortestPath(List<String> first, String last, String nameOfFile) throws Exception{
 		int[][] graph = null;
 		//The reactions visited
@@ -455,7 +483,7 @@ public class MetabolicNetwork {
 		printReactionsGraphInCSV(graph,fileName2);
 		return graph;
 	}	
-	
+
 	/**
 	 * Print the adjacency matrix of a graph 
 	 * @param nameOfFile the path of the file
@@ -472,9 +500,9 @@ public class MetabolicNetwork {
 			}
 		}
 	}
-	
+
 	/**
-	 * Cre
+	 * Wtrite
 	 * @param metabolitesVisited
 	 * @param last
 	 * @return
@@ -483,20 +511,28 @@ public class MetabolicNetwork {
 		int[][] graph = new int [transitions.size()+1][transitions.size()+1];
 		int[] transitionsVisited=  new int[this.transitions.size()+1];
 		boolean isTheBegining=true;
+
 		if(metabolitesVisited[places.get(last)][1]==-1) {
 			System.err.println("En los metabolitos de entrada ya está el metabolito final");
-		}else if(metabolitesVisited[places.get(last)][2]==INFINITE) {
+		}
+
+		else if(metabolitesVisited[places.get(last)][2]==INFINITE) {
 			System.err.println("No es posible llegar al metabolito final");
-		}else {
+		}
+
+		else {
 			ArrayDeque<Integer> transitionss = new ArrayDeque<>();
 			Transition currentTransition=transitions.get(metabolitesVisited[places.get(last)][1]);
 			do {				
 				if(transitionsVisited[currentTransition.getNumber()]!=0) {	
 					if(!transitionss.isEmpty()) {
-						currentTransition=transitions.get(transitionss.poll());}else {
-							currentTransition=null;
-						}
-					continue;}
+						currentTransition=transitions.get(transitionss.poll());}
+					else {
+						currentTransition=null;
+					}
+					continue;
+				}
+
 				transitionsVisited[currentTransition.getNumber()]++;
 				List<Edge> edgesIn= currentTransition.getIn();		
 				int nInitialMetabolites=0;
@@ -505,9 +541,10 @@ public class MetabolicNetwork {
 					int transition =metabolitesVisited[meta][1];
 					if(transition!=-1) {
 						graph[transition][currentTransition.getNumber()]=1;
-						//System.err.println(transitions.get(transition).getName()+" // "+ transitions.get(currentTransition.getNumber()).getName());
 						transitionss.add(transition);
-					}else {
+
+					}
+					else {
 						nInitialMetabolites++;
 					}
 				}
@@ -542,7 +579,7 @@ public class MetabolicNetwork {
 
 	/**
 	 * Print the graph entered by parameter in a CSV
-	 * @param graph The graph to be printed
+	 * @param graph The graph to be printed, the graph represents the adyacent matrix of reactions
 	 * @param fileName the path of CSV
 	 * @param first The ids of initial metabolites
 	 * @param last the final metabolite
@@ -563,7 +600,7 @@ public class MetabolicNetwork {
 			}
 		}
 	}
-	
+
 	/**
 	 * Method that print the transition in the CSV entered by parameter 
 	 * @param t the transiton to be printed
@@ -603,13 +640,66 @@ public class MetabolicNetwork {
 			}	
 		}
 	}	
+
 	
+	
+	
+	
+	public void pathsFromInitialMetabolitesToTargetMetabolite(String current, String last, String path) {
+		ArrayDeque<MetaboliteTransitionCouple> metabolites= new ArrayDeque<>();
+		Metabolite meta = this.metabolites.get(current);
+		List<Transition> transitions= meta.getTransitions();
+		
+	}
+	
+	
+	/**
+	 * Find the transitions (reactions) where the metabolite is reagent
+	 * @param idMetabolite to find the transitions (reactions)
+	 */
+	public void findTransitionsOfAMetabolite(String idMetabolite) {
+		ArrayList<Transition> transitionsThaCanBeTriggered= new ArrayList<>();
+		
+	}
+
+	//-------------------------------------------------
+	//---------------Inner auxiliar classes------------
+	//-------------------------------------------------
+
+	/**
+	 * Class thar represents a tuple of metabolite-Transition
+	 * @author Valerie Parra Cortés
+	 */
+
+	class MetaboliteTransitionCouple {
+		/**
+		 * Id of transition
+		 */
+		private String idTransition;
+		/***
+		 * Id metabolite
+		 */
+		private String idMetabolite;
+
+		/**
+		 * Constructor of class MetaboliteTransitionCouple
+		 * @param idTransition the identifier of transition
+		 * @param idMetabolite the identifier of metabolite
+		 */
+		public MetaboliteTransitionCouple(String idTransition, String idMetabolite) {			
+			this.idTransition = idTransition;
+			this.idMetabolite = idMetabolite;
+		}				
+	}
+
+
+
 	/**
 	 * Class to create the priority queue. Represents a metabolite with a priority that is the distance to
 	 * any of initial reactions 
 	 * @author Valerie Parra
 	 */
-	static class MetabolitesP implements Comparable<MetabolitesP>{
+	class MetabolitesP implements Comparable<MetabolitesP>{
 		/**
 		 * The metabolite 
 		 */		
@@ -635,7 +725,7 @@ public class MetabolicNetwork {
 		public Metabolite getMetabolite() {
 			return metabolite;
 		}
-		
+
 		@Override
 		public int compareTo(MetabolitesP o) {		
 			return o.priority-this.priority;
