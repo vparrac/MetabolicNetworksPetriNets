@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -115,12 +116,14 @@ public class MetabolicNetwork {
 	public static void main(String[] args) throws Exception {
 		MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
 		MetabolicNetwork network = loader.loadNetwork(args[0]);
-		String [] initialMetabolitesA = args[1].split(",");
-		String [] finalMetabolitesA = args[2].split(",");
-		String outPrefix = args[3];
+		//String [] initialMetabolitesA = args[1].split(",");
+		//String [] finalMetabolitesA = args[2].split(",");
+		//String outPrefix = args[3];
 		network.makeNet();		
-		List<String> initialMetabolites= Arrays.asList(initialMetabolitesA);
-		network.shortestPath2(initialMetabolites, finalMetabolitesA[0],outPrefix+"PetriNet.csv",outPrefix+"Reactions.csv");
+		//List<String> initialMetabolites= Arrays.asList(initialMetabolitesA);
+		//network.shortestPath2(initialMetabolites, finalMetabolitesA[0],outPrefix+"PetriNet.csv",outPrefix+"Reactions.csv");
+		
+		network.connectedSpace();
 
 	}
 	//-------------------------------------------------------------------
@@ -640,16 +643,54 @@ public class MetabolicNetwork {
 			}	
 		}
 	}	
+	
+	
+	
 
 	
 	
 	
 	
-	public void pathsFromInitialMetabolitesToTargetMetabolite(String current, String last, String path) {
-		ArrayDeque<MetaboliteTransitionCouple> metabolites= new ArrayDeque<>();
-		Metabolite meta = this.metabolites.get(current);
-		List<Transition> transitions= meta.getTransitions();
+	public void connectedSpace() {
+		int i=0;
+		Queue<Metabolite> pq = new ArrayDeque<Metabolite>();		
+		int []metabolitesVisited=new int[places.size()+1];
+		boolean end=false;
+		while(!end) {
+			i++;
+			if(i==24) {
+				boolean a=false;
+				a=true;
+			}			
+			for (int j = 1; j < metabolitesVisited.length; j++) {				
+				if(metabolitesVisited[j]==0) {					
+					String idMeta=places2.get(j);
+					pq.add(metabolites.get(idMeta));
+					break;					
+				}
+				
+			}	
+			if(pq.isEmpty()) {
+				end=true;
+			}
+			while(!pq.isEmpty()) {
+				Metabolite m= pq.poll();
+				if(metabolitesVisited[m.getNumber()]!=0) {
+					continue;
+				}
+				metabolitesVisited[m.getNumber()]=i;				
+				List<Transition> transitions=m.getTransitions();
+				for (int j = 0; j < transitions.size(); j++) {
+					List<Edge> edges=transitions.get(j).getOut();
+					for (int k = 0; k < edges.size(); k++) {					
+							
+						pq.add(edges.get(k).getMetabolite());
+					}				
+				}			
+			}	
 		
+			System.out.println(	Arrays.toString(metabolitesVisited));
+		}	
 	}
 	
 	
