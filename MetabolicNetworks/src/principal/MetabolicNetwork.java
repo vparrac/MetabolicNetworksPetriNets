@@ -122,9 +122,12 @@ public class MetabolicNetwork {
 		network.makeNet();		
 		//List<String> initialMetabolites= Arrays.asList(initialMetabolitesA);
 		//network.shortestPath2(initialMetabolites, finalMetabolitesA[0],outPrefix+"PetriNet.csv",outPrefix+"Reactions.csv");
-		
-		network.connectedSpace();
-
+		List<Metabolite> ml = network.findSinks();
+		System.out.println(ml.size());
+		for (Metabolite metabolite : ml) {
+			System.out.println(metabolite);
+		}
+		System.out.println("Número de sumideros " +ml.size());
 	}
 	//-------------------------------------------------------------------
 	//-----------------------Metabolic Network --------------------------
@@ -228,6 +231,13 @@ public class MetabolicNetwork {
 		}
 	}
 
+	
+	//-------------------------------------------------------------------
+	//-----------------------Metabolic Network --------------------------
+	//--------------------------As Petri Net-----------------------------
+
+
+	
 	/**
 	 * Create the petri net that represent the metabolic network
 	 */
@@ -240,8 +250,11 @@ public class MetabolicNetwork {
 		places2 = new TreeMap< Integer,String>();
 		Set<String> keysReaction=reactions.keySet();	
 		System.out.println("Reactions size : " +keysReaction.size());
-		for (String key : keysReaction) {					
-			Reaction rea = reactions.get(key);			
+		for (String key : keysReaction) {		
+			
+			Reaction rea = reactions.get(key);	
+
+		
 			Transition transition = new Transition(rea.getEnzymes(),numberTransition,rea.getName(),rea.getId());
 			numberTransition++;
 			List<ReactionComponent> reactantsC=rea.getReactants();
@@ -249,7 +262,7 @@ public class MetabolicNetwork {
 			for (ReactionComponent rc : reactantsC) {
 				Metabolite meta = rc.getMetabolite();
 				if(meta.getNumber()==-1) {
-					meta.setNumber(numberMetabolites);
+					meta.setNumber(numberMetabolites);					
 					places.put(meta.getId(),numberMetabolites);
 					places2.put(numberMetabolites,meta.getId());
 					numberMetabolites++;					
@@ -276,11 +289,6 @@ public class MetabolicNetwork {
 			transitions2.put(transition.getName(),transition.getNumber());			
 		}				
 	}
-
-
-	//-------------------------------------------------------------------
-	//-----------------------Metabolic Network --------------------------
-	//--------------------------As Petri Net-----------------------------
 
 
 	/**
@@ -651,46 +659,15 @@ public class MetabolicNetwork {
 	
 	
 	
-	public void connectedSpace() {
-		int i=0;
-		Queue<Metabolite> pq = new ArrayDeque<Metabolite>();		
-		int []metabolitesVisited=new int[places.size()+1];
-		boolean end=false;
-		while(!end) {
-			i++;
-			if(i==24) {
-				boolean a=false;
-				a=true;
-			}			
-			for (int j = 1; j < metabolitesVisited.length; j++) {				
-				if(metabolitesVisited[j]==0) {					
-					String idMeta=places2.get(j);
-					pq.add(metabolites.get(idMeta));
-					break;					
-				}
-				
-			}	
-			if(pq.isEmpty()) {
-				end=true;
-			}
-			while(!pq.isEmpty()) {
-				Metabolite m= pq.poll();
-				if(metabolitesVisited[m.getNumber()]!=0) {
-					continue;
-				}
-				metabolitesVisited[m.getNumber()]=i;				
-				List<Transition> transitions=m.getTransitions();
-				for (int j = 0; j < transitions.size(); j++) {
-					List<Edge> edges=transitions.get(j).getOut();
-					for (int k = 0; k < edges.size(); k++) {					
-							
-						pq.add(edges.get(k).getMetabolite());
-					}				
-				}			
-			}	
-		
-			System.out.println(	Arrays.toString(metabolitesVisited));
-		}	
+	public List<Metabolite> findSinks() {	
+		List<Metabolite> sinks= new ArrayList<Metabolite>();
+		for (String key : metabolites.keySet()) {
+			 Metabolite m = metabolites.get(key);
+			 if(m.getEdgesOut().size()==0) {
+				 sinks.add(m);
+			 }
+		}
+		return sinks;
 	}
 	
 	

@@ -158,6 +158,7 @@ public class MetabolicNetworkXMLLoader {
 					String id = elem.getAttribute(ATTRIBUTE_ID);
 					if(id==null || id.length()==0) throw new IOException("Every reaction should have an id");
 					String name = elem.getAttribute(ATTRIBUTE_NAME);
+
 					if(name==null || name.length()==0) throw new IOException("Invalid name for reaction with id "+id);
 					String reversibleStr = elem.getAttribute(ATTRIBUTE_REVERSIBLE);
 					List<GeneProduct> enzymes = new ArrayList<GeneProduct>();
@@ -170,8 +171,8 @@ public class MetabolicNetworkXMLLoader {
 					for(int j=0;j<offspring2.getLength();j++) {
 						Node node2 = offspring2.item(j);
 						if (node2 instanceof Element){ 
-							Element elem2 = (Element)node2;
-							//System.out.println("CHild name: "+elem2.getNodeName());
+							Element elem2 = (Element) node2;
+							
 							if(ELEMENT_GENEASSOC.equals(elem2.getNodeName())) {
 								enzymes = loadEnzymes(id, elem2,network);
 							}

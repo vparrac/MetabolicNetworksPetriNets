@@ -92,4 +92,10 @@ public class Metabolite {
 	public List<Transition> getTransitions() {
 		return transition;
 	}
+	@Override
+	public String toString() {
+		return "Metabolite [number=" + number + ", id=" + id + ", name=" + name + ", compartment=" + compartment
+				+ ", chemicalFormula=" + chemicalFormula + "]";
+	}
+	
 }
