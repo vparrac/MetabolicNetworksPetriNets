@@ -4,7 +4,7 @@ package principal;
  * Represents a gene product (usually an enzyme) that participates in one reaction
  * @author Jorge Duitama
  */
-public class GeneProduct {
+public class GeneProduct implements Comparable<GeneProduct>{
 	private String id;
 	private String name;
 	private String label;
@@ -44,4 +44,15 @@ public class GeneProduct {
 	public void setLabel(String label) {
 		this.label = label;
 	}
+	@Override
+	public int compareTo(GeneProduct o) {	
+		return this.id.compareTo(o.id);
+	}
+	@Override
+	public String toString() {
+		return "GeneProduct [id=" + id + ", name=" + name + "]";
+	}
+	
+	
+	
 }

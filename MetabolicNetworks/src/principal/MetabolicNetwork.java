@@ -1,12 +1,13 @@
 package principal;
 import java.io.PrintStream;
+import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -14,7 +15,6 @@ import java.util.TreeSet;
 import petriNet.Edge;
 import petriNet.Transition;
 /**
- * 
  * Represents a metabolic network of reactions on metabolites
  * @author Jorge Duitama
  */
@@ -121,13 +121,20 @@ public class MetabolicNetwork {
 		//String outPrefix = args[3];
 		network.makeNet();		
 		//List<String> initialMetabolites= Arrays.asList(initialMetabolitesA);
-		//network.shortestPath2(initialMetabolites, finalMetabolitesA[0],outPrefix+"PetriNet.csv",outPrefix+"Reactions.csv");
-		List<Metabolite> ml = network.findSinks();
-		System.out.println(ml.size());
-		for (Metabolite metabolite : ml) {
-			System.out.println(metabolite);
-		}
-		System.out.println("Número de sumideros " +ml.size());
+		ArrayList<String> a = new ArrayList<String>();
+		a.add("M_acon_C_c");
+		a.add("M_h2o_c");
+		a.add("M_nadp_c");
+//		a.add("M_2pg_c");
+//		a.add("M_fum_c");
+//		a.add("M_q8h2_c");
+		network.shortestPath2(a,"M_akg_c","fileName1.txt","fileName2.txt","fileName3.txt");
+//		List<Metabolite> ml = network.findSinks();
+//		System.out.println(ml.size());
+//		for (Metabolite metabolite : ml) {
+//			System.out.println(metabolite);
+//		}
+//		System.out.println("Número de sumideros " +ml.size());
 	}
 	//-------------------------------------------------------------------
 	//-----------------------Metabolic Network --------------------------
@@ -346,10 +353,12 @@ public class MetabolicNetwork {
 	 * @param first a list with initial metabolites
 	 */
 	public void initialValuesOfShortestPath(int[][] metabolitesVisited,List<String> first) {
+		System.out.println(places);
 		for (int j= 0; j < metabolitesVisited.length; j++) {
 			metabolitesVisited[j][2]=INFINITE;
 		}
-		for (int j = 0; j <first.size(); j++) {				
+		for (int j = 0; j <first.size(); j++) {			
+			System.out.println(places.get(first.get(j)));
 			metabolitesVisited[places.get(first.get(j))][2]=0; //Distance
 			metabolitesVisited[places.get(first.get(j))][0]=1; //is there that metabolite?
 			metabolitesVisited[places.get(first.get(j))][1]=-1; //The last transition, -1 if it is not assigned								
@@ -436,8 +445,18 @@ public class MetabolicNetwork {
 		return graph;
 	}	
 
+		/**
+		 * 
+		 * @param first Lista metabolitos iniciales
+		 * @param last Metábolito a producir
+		 * @param fileName1 Metabolic Network In CSV
+		 * @param fileName2 Reactions Graph In CSV
+		 * @param fileName3 Methabolic Path
+		 * @return 
+		 * @throws Exception
+		 */
 
-	public int[][] shortestPath2(List<String> first, String last, String fileName1,String fileName2) throws Exception{
+	public int[][] shortestPath2(List<String> first, String last, String fileName1,String fileName2, String fileName3) throws Exception{
 		int[][] graph = null;		
 		int[] reactionsVisited; 
 		//Row 1. Moles Row 2. The reaction 3. The <<Distance>>	
@@ -449,6 +468,7 @@ public class MetabolicNetwork {
 		metabolitesVisited=new int[places.size()+1][3];			
 		pqea= new int[places.size()+1];			
 		//Initial values
+		System.out.println(first);
 		initialValuesOfShortestPath(metabolitesVisited, first);
 		PriorityQueue<MetabolitesP> pq = new PriorityQueue<>();	
 		for (String i : first) {
@@ -485,6 +505,8 @@ public class MetabolicNetwork {
 			}
 		}
 		//Makes the metabolic Pathway
+		System.out.println(last);
+		System.out.println(places.get(last));
 		int numberLast =places.get(last);
 		if(metabolitesVisited[numberLast][2]<distanceBestPath) {
 			graph=metabolicPathway(metabolitesVisited, last);	
@@ -492,15 +514,18 @@ public class MetabolicNetwork {
 		}			
 		printMetabolicNetworkInCSV(graph,fileName1,first,last);
 		printReactionsGraphInCSV(graph,fileName2);
+		printCatalystOfMethabolicPath(graph, fileName3);
+		
 		return graph;
 	}	
-
+ 
 	/**
 	 * Print the adjacency matrix of a graph 
 	 * @param nameOfFile the path of the file
 	 * @param graph the graph 
 	 * @throws Exception in errors of I/O
 	 */
+	
 	public void writeGraph(String nameOfFile,int[][] graph) throws Exception {
 		try (PrintStream out = new PrintStream(nameOfFile)) {
 			for (int i = 0; i < graph.length; i++) {
@@ -581,12 +606,43 @@ public class MetabolicNetwork {
 						String nameTransition1= transitions.get(i).getId();
 						String nameTransition2= transitions.get(j).getId();						
 						out.println(nameTransition1+COMMA+nameTransition2+",PP,TRUE,abc"+i+j+",1.234");						
-					}					
+					}						
 				}
 
 			}
 		}		
 	}
+	
+	/**
+	 * Buscar varias rutas
+	 * jduitama
+	 * @param graph
+	 * @param fileName
+	 * @throws Exception
+	 */
+	public void printCatalystOfMethabolicPath(int[][] graph, String fileName) throws Exception{	
+		Set<GeneProduct> allCatalyst = new TreeSet<GeneProduct>();
+		try (PrintStream out = new PrintStream(fileName)) {
+			out.println("Catalys of metabolic pathway");
+			for (int i = 0; i < graph.length; i++) {
+				for (int j = 0; j < graph.length; j++) {
+					if(graph[i][j]!=0) {
+						List<GeneProduct> catalysReaction1= transitions.get(i).getGeneProduct();
+						List<GeneProduct> catalysReaction2= transitions.get(j).getGeneProduct();
+						allCatalyst.addAll(catalysReaction1);
+						allCatalyst.addAll(catalysReaction2);
+					}						
+				}
+			}
+			
+			Iterator<GeneProduct> i = allCatalyst.iterator();
+			while(i.hasNext()) {
+				System.out.println(i.next());
+			}	
+
+		}		
+	}
+	
 
 	/**
 	 * Print the graph entered by parameter in a CSV
