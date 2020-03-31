@@ -221,6 +221,8 @@ public class MetabolicNetworkXMLLoader {
 				}
 			}
 		}
+		
+		
 		return answer;
 	}
 

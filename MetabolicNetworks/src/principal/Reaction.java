@@ -105,4 +105,57 @@ public class Reaction {
 	public void setUpperBoundFlux(double upperBound) {
 		this.upperBoundFlux = upperBound;
 	}
+
+	/**
+	 * Method that makes a String with the information about the reactants
+	 * of the Reaction
+	 * @return reactantSring
+	 */
+	private String printReactants() {
+		String reactantSring="";
+
+		for (int i = 0; i < reactants.size(); i++) {
+			if(i==reactants.size()-1) {
+				reactantSring+=reactants.get(i).toString();
+			}
+			else {
+				reactantSring+=reactants.get(i).toString()+",";
+			}			
+		}
+		return reactantSring;
 	}
+
+	/**
+	 * Method that makes a String with the information about the products
+	 * of the reaction
+	 * of the Reaction
+	 * @return A string with the information of the reaction
+	 */
+	private String printProducts() {
+		String productString="";
+
+		for (int i = 0; i < products.size(); i++) {
+			if(i==products.size()-1) {
+				productString+=products.get(i).toString();
+			}
+			else {
+				productString+=products.get(i).toString()+",";
+			}			
+		}
+		return productString;
+	}
+
+	@Override
+	public String toString() {
+		String jsonReaction="{";
+		jsonReaction+=" \"id\":"+"\""+id+"\",";
+		jsonReaction+=" \"name\":"+"\""+name+"\",";
+		jsonReaction+=" \"reversible\":"+reversible+",";
+		jsonReaction+=" \"reactants\":[";
+		jsonReaction+= printReactants()+" ],";
+		jsonReaction+=" \"products\":[";
+		jsonReaction+= printProducts()+" ]";
+		jsonReaction+="}";
+		return jsonReaction;
+	}
+}

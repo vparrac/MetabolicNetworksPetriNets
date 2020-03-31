@@ -30,4 +30,15 @@ public class ReactionComponent {
 	public double getStoichiometry() {
 		return stoichiometry;
 	}
+	@Override
+	public String toString() {
+		String JsonReactionComponent="{";
+		JsonReactionComponent+="\"metaboliteId\":"+"\""+metabolite.getId()+"\", ";
+		JsonReactionComponent+="\"metaboliteName\":"+"\""+metabolite.getName()+"\", ";
+		JsonReactionComponent+="\"stoichiometry\":"+"\""+stoichiometry+"\" ";
+		JsonReactionComponent+="}";
+		return JsonReactionComponent;
+	}
+	
+	
 }

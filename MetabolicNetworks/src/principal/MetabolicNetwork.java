@@ -147,8 +147,7 @@ public class MetabolicNetwork {
 	 * @return A map of the where reaction where metabolite is a substrate and where the metabolite is a product 
 	 */
 	public Map<String,List<Reaction>> getReactionOfMetabolite(String metaboliteKeyName) {
-		Map<String,List<Reaction>> reaction= new TreeMap<>();
-		Metabolite metabolite=metabolites.get(metaboliteKeyName);
+		Map<String,List<Reaction>> reaction= new TreeMap<>();	
 		List<Reaction> rsubstrates= new ArrayList<>();
 		List<Reaction> rproducts=new ArrayList<>();
 		Set<String> keys=reactions.keySet();		
@@ -157,12 +156,12 @@ public class MetabolicNetwork {
 			List<ReactionComponent> substrates= rea.getReactants();
 			List<ReactionComponent> products= rea.getProducts();			
 			for (int i = 0; i < substrates.size(); i++) {
-				if(substrates.get(i).getMetabolite().getId().equals(metabolite.getId())) {
+				if(substrates.get(i).getMetabolite().getId().equals(metaboliteKeyName)) {
 					rsubstrates.add(rea);					
 				}
 			}
 			for (int i = 0; i < products.size(); i++) {
-				if(products.get(i).getMetabolite().getId().equals(metabolite.getId())) {
+				if(products.get(i).getMetabolite().getId().equals(metaboliteKeyName)) {
 					rproducts.add(rea);					
 				}
 			}
@@ -177,20 +176,15 @@ public class MetabolicNetwork {
 	 * @return a mapa whith the reactions
 	 */
 
-	public Map<String,List<Metabolite>> catalysis(String enzymeName){
-		Map<String,List<Metabolite>> cata= new TreeMap<>();
+	public List<Reaction> getReactionsCatalyzedBy(String enzymeName){
+		List<Reaction> cata= new ArrayList<Reaction>();
 		Set<String> keys=reactions.keySet();		
 		for (String key : keys) {
 			Reaction rea= reactions.get(key);
 			List<GeneProduct> enzymes=rea.getEnzymes();
-			for (GeneProduct enzyme : enzymes) {
-				List<Metabolite> metabolites;
+			for (GeneProduct enzyme : enzymes) {				
 				if(enzyme.getName().equals(enzymeName)) {
-					metabolites= new ArrayList<>();
-					for (int i = 0; i < rea.getProducts().size(); i++) {
-						metabolites.add(rea.getProducts().get(i).getMetabolite());
-					}
-					cata.put(rea.getId(), metabolites);
+					cata.add(rea);
 					break;
 				}
 			}			
