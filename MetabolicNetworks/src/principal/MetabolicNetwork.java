@@ -125,16 +125,17 @@ public class MetabolicNetwork {
 		a.add("M_acon_C_c");
 		a.add("M_h2o_c");
 		a.add("M_nadp_c");
-//		a.add("M_2pg_c");
-//		a.add("M_fum_c");
-//		a.add("M_q8h2_c");
+		//		a.add("M_2pg_c");
+		//		a.add("M_fum_c");
+		//		a.add("M_q8h2_c");
 		network.shortestPath2(a,"M_akg_c","fileName1.txt","fileName2.txt","fileName3.txt");
-//		List<Metabolite> ml = network.findSinks();
-//		System.out.println(ml.size());
-//		for (Metabolite metabolite : ml) {
-//			System.out.println(metabolite);
-//		}
-//		System.out.println("Número de sumideros " +ml.size());
+		//		List<Metabolite> ml = network.findSinks();
+		//		System.out.println(ml.size());
+		//		for (Metabolite metabolite : ml) {
+		//			System.out.println(metabolite);
+		//		}
+		//		System.out.println("Número de sumideros " +ml.size());
+		network.printAllMetabolicNetworkInCSV("./out/AllNet.csv");
 	}
 	//-------------------------------------------------------------------
 	//-----------------------Metabolic Network --------------------------
@@ -238,13 +239,13 @@ public class MetabolicNetwork {
 		}
 	}
 
-	
+
 	//-------------------------------------------------------------------
 	//-----------------------Metabolic Network --------------------------
 	//--------------------------As Petri Net-----------------------------
 
 
-	
+
 	/**
 	 * Create the petri net that represent the metabolic network
 	 */
@@ -258,10 +259,10 @@ public class MetabolicNetwork {
 		Set<String> keysReaction=reactions.keySet();	
 		System.out.println("Reactions size : " +keysReaction.size());
 		for (String key : keysReaction) {		
-			
+
 			Reaction rea = reactions.get(key);	
 
-		
+
 			Transition transition = new Transition(rea.getEnzymes(),numberTransition,rea.getName(),rea.getId());
 			numberTransition++;
 			List<ReactionComponent> reactantsC=rea.getReactants();
@@ -445,16 +446,16 @@ public class MetabolicNetwork {
 		return graph;
 	}	
 
-		/**
-		 * 
-		 * @param first Lista metabolitos iniciales
-		 * @param last Metábolito a producir
-		 * @param fileName1 Metabolic Network In CSV
-		 * @param fileName2 Reactions Graph In CSV
-		 * @param fileName3 Methabolic Path
-		 * @return 
-		 * @throws Exception
-		 */
+	/**
+	 * 
+	 * @param first Lista metabolitos iniciales
+	 * @param last Metábolito a producir
+	 * @param fileName1 Metabolic Network In CSV
+	 * @param fileName2 Reactions Graph In CSV
+	 * @param fileName3 Methabolic Path
+	 * @return 
+	 * @throws Exception
+	 */
 
 	public int[][] shortestPath2(List<String> first, String last, String fileName1,String fileName2, String fileName3) throws Exception{
 		int[][] graph = null;		
@@ -515,17 +516,17 @@ public class MetabolicNetwork {
 		printMetabolicNetworkInCSV(graph,fileName1,first,last);
 		printReactionsGraphInCSV(graph,fileName2);
 		printCatalystOfMethabolicPath(graph, fileName3);
-		
+
 		return graph;
 	}	
- 
+
 	/**
 	 * Print the adjacency matrix of a graph 
 	 * @param nameOfFile the path of the file
 	 * @param graph the graph 
 	 * @throws Exception in errors of I/O
 	 */
-	
+
 	public void writeGraph(String nameOfFile,int[][] graph) throws Exception {
 		try (PrintStream out = new PrintStream(nameOfFile)) {
 			for (int i = 0; i < graph.length; i++) {
@@ -612,7 +613,7 @@ public class MetabolicNetwork {
 			}
 		}		
 	}
-	
+
 	/**
 	 * Buscar varias rutas
 	 * jduitama
@@ -633,8 +634,7 @@ public class MetabolicNetwork {
 						allCatalyst.addAll(catalysReaction2);
 					}						
 				}
-			}
-			
+			}			
 			Iterator<GeneProduct> i = allCatalyst.iterator();
 			while(i.hasNext()) {
 				System.out.println(i.next());
@@ -642,7 +642,7 @@ public class MetabolicNetwork {
 
 		}		
 	}
-	
+
 
 	/**
 	 * Print the graph entered by parameter in a CSV
@@ -667,6 +667,54 @@ public class MetabolicNetwork {
 			}
 		}
 	}
+
+	/**
+	 * Print the graph entered by parameter in a CSV
+	 * @param graph The graph to be printed, the graph represents the adyacent matrix of reactions
+	 * @param fileName the path of CSV
+	 * @param first The ids of initial metabolites
+	 * @param last the final metabolite
+	 * @throws Exception in errors of I/O
+	 */
+	public void printAllMetabolicNetworkInCSV(String fileName) throws Exception{
+		try (PrintStream out = new PrintStream(fileName)) {
+			out.println("source,target,interaction,directed,symbol,value");
+			Set<Integer> keys= transitions.keySet();
+			for (Integer integer : keys) {				
+				printATransitionInCSVToAllNetwork(transitions.get(integer),out);
+			}	
+		}
+	}
+
+
+	/**
+	 * Method that print the transition in the CSV entered by parameter 
+	 * @param t the transiton to be printed
+	 * @param out the Stream of the CSV
+	 * @param i A identifier	
+	 * @param j A identifier
+	 * @param metabolitesVisited a matrix where the rows are the metabolites, the first column indicate if exists the metabolite 
+	 * the second column is the reaction that allows to obtain the metabolite and the third column the distance of a initial reaction
+	 * @param transitionsVisited the transition that were printed 
+	 * @param first The initial ids of metabolites
+	 * @param last The final metabolite
+	 */
+	public void printATransitionInCSVToAllNetwork(Transition t, PrintStream out) {
+		List<Edge> metaInTransition = t.getIn();		
+		for (Edge edge : metaInTransition) {
+			String nameOfMeta = edge.getMetabolite().getId();		
+			out.println(nameOfMeta+COMMA+t.getId()+",PP,TRUE,abc"+",1.234");
+		}
+		metaInTransition = t.getOut();		
+		for (Edge edge : metaInTransition) {
+			String nameOfMeta = edge.getMetabolite().getId();		
+			out.println(t.getId()+COMMA+nameOfMeta+",PP,TRUE,abc"+",1.234");
+		}
+	}	
+
+
+
+
 
 	/**
 	 * Method that print the transition in the CSV entered by parameter 
@@ -707,33 +755,33 @@ public class MetabolicNetwork {
 			}	
 		}
 	}	
-	
-	
-	
 
-	
-	
-	
-	
+
+
+
+
+
+
+
 	public List<Metabolite> findSinks() {	
 		List<Metabolite> sinks= new ArrayList<Metabolite>();
 		for (String key : metabolites.keySet()) {
-			 Metabolite m = metabolites.get(key);
-			 if(m.getEdgesOut().size()==0) {
-				 sinks.add(m);
-			 }
+			Metabolite m = metabolites.get(key);
+			if(m.getEdgesOut().size()==0) {
+				sinks.add(m);
+			}
 		}
 		return sinks;
 	}
-	
-	
+
+
 	/**
 	 * Find the transitions (reactions) where the metabolite is reagent
 	 * @param idMetabolite to find the transitions (reactions)
 	 */
 	public void findTransitionsOfAMetabolite(String idMetabolite) {
 		ArrayList<Transition> transitionsThaCanBeTriggered= new ArrayList<>();
-		
+
 	}
 
 	//-------------------------------------------------
