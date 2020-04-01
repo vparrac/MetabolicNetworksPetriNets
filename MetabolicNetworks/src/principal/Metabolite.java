@@ -93,9 +93,9 @@ public class Metabolite {
 		return transition;
 	}
 	@Override
-	public String toString() {
-		return "Metabolite [number=" + number + ", id=" + id + ", name=" + name + ", compartment=" + compartment
-				+ ", chemicalFormula=" + chemicalFormula + "]";
+	public String toString() {		
+		String out="{"+"\"id\": "+"\""+id+"\", \"name\":"+"\""+name+"\"}";
+		return out;
 	}
 	
 }
