@@ -1,9 +1,10 @@
-package principal;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import petriNet.Edge;
-import petriNet.Transition;
+
+import petrinet.Edge;
+import petrinet.Transition;
 
 /**
  * Represents a metabolite that participates in chemical reactions

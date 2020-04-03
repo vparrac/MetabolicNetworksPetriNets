@@ -1,9 +1,10 @@
-package requirements;
+package commands;
 
 import java.util.ArrayList;
 import java.util.List;
-import principal.MetabolicNetwork;
-import principal.MetabolicNetworkXMLLoader;
+
+import model.MetabolicNetwork;
+import model.MetabolicNetworkXMLLoader;
 
 public class ShortestPathByMetabolitesNumber {
 	/**
@@ -25,7 +26,7 @@ public class ShortestPathByMetabolitesNumber {
 		for (int i = 0; i < initialMetabolites.length; i++) {
 			im.add(initialMetabolites[i]);			
 		}
-		network.shortestPathByMetabolitesNumber(im, args[2], "./out/"+args[3], "./out/"+args[4], "./out/"+args[5]);	
+		network.shortestPathByMetabolitesNumber(im, args[2], args[3], args[4], args[5]);	
 		
 	}
 }

@@ -1,14 +1,14 @@
-package requirements;
+package commands;
 
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
 
-import principal.MetabolicNetwork;
-import principal.MetabolicNetworkXMLLoader;
-import principal.Metabolite;
+import model.MetabolicNetwork;
+import model.MetabolicNetworkXMLLoader;
+import model.Metabolite;
 
-public class GetSources {
+public class SinksFinder {
 	/**
 	 * The main method of class
 	 * @param args[0] the path of the XML file of metabolic network
@@ -18,9 +18,9 @@ public class GetSources {
 		MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
 		MetabolicNetwork network = loader.loadNetwork(args[0]);
 		network.makeNet();
-		List<Metabolite> sinks = network.findSources();
-		try (PrintStream out = new PrintStream("./out/"+args[1])) {
-			out.print("{sources:[");
+		List<Metabolite> sinks = network.findSinks();
+		try (PrintStream out = new PrintStream(args[1])) {
+			out.print("{sinks:[");
 			for (int i = 0; i < sinks.size(); i++) {
 				if(i==sinks.size()-1) {
 					out.print(sinks.get(i).toString());

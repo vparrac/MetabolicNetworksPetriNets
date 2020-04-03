@@ -1,11 +1,11 @@
-package requirements;
+package commands;
 
 import java.io.IOException;
 
-import principal.MetabolicNetwork;
-import principal.MetabolicNetworkXMLLoader;
+import model.MetabolicNetwork;
+import model.MetabolicNetworkXMLLoader;
 
-public class PrintMetabolicNetworkInCSV {
+public class MetabolicNetworkCSVWriter {
 	/**
 	 * The main method of class
 	 * @param args[0] the path of the XML file of metabolic network
@@ -16,7 +16,7 @@ public class PrintMetabolicNetworkInCSV {
 		MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
 		MetabolicNetwork network = loader.loadNetwork(args[0]);
 		network.makeNet();
-		network.printAllMetabolicNetworkInCSV("./out/"+args[1]);
+		network.printAllMetabolicNetworkInCSV(args[1]);
 		
 	}
 }

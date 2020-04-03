@@ -1,12 +1,12 @@
-package requirements;
+package commands;
 
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
 
-import principal.MetabolicNetwork;
-import principal.MetabolicNetworkXMLLoader;
-import principal.Reaction;
+import model.MetabolicNetwork;
+import model.MetabolicNetworkXMLLoader;
+import model.Reaction;
 /**
  * Method that gived a Enzyme ID print a JSON with the information of reactions
  * where Enzyme is required
@@ -65,7 +65,7 @@ public class GetReactionsCatalyzedBy {
 		MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
 		MetabolicNetwork network = loader.loadNetwork(args[0]);
 		List<Reaction> result = network.getReactionsCatalyzedBy(args[1]);
-		try (PrintStream out = new PrintStream("./out/"+args[2])) {
+		try (PrintStream out = new PrintStream(args[2])) {
 			out.print("{reactions:[");
 			for (int i = 0; i < result.size(); i++) {
 				if(i==result.size()-1) {

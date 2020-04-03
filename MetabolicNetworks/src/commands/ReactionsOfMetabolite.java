@@ -1,10 +1,11 @@
-package requirements;
+package commands;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Map;
-import principal.MetabolicNetwork;
-import principal.MetabolicNetworkXMLLoader;
-import principal.Reaction;
+
+import model.MetabolicNetwork;
+import model.MetabolicNetworkXMLLoader;
+import model.Reaction;
 
 /**
  * Method that gived a metabolite ID print a JSON with the information of reactions
@@ -90,7 +91,7 @@ public class ReactionsOfMetabolite {
 		MetabolicNetwork network = loader.loadNetwork(args[0]);
 		//network.makeGraph();
 		Map<String,List<Reaction>> reactions= network.getReactionOfMetabolite(args[1]);
-		try (PrintStream out = new PrintStream("./out/"+args[2])) {			
+		try (PrintStream out = new PrintStream(args[2])) {			
 			List<Reaction> reactionsS = reactions.get("Substrates");
 			out.print("{");
 			if(!reactionsS.isEmpty()) {

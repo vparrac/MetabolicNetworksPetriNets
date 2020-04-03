@@ -1,4 +1,4 @@
-package principal;
+package model;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.Array;
@@ -13,8 +13,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import petriNet.Edge;
-import petriNet.Transition;
+import petrinet.Edge;
+import petrinet.Transition;
 /**
  * Represents a metabolic network of reactions on metabolites
  * @author Jorge Duitama
@@ -25,12 +25,9 @@ public class MetabolicNetwork {
 	 * Metabolites of  the metabolic Network
 	 */
 	private static Map<String,Metabolite> metabolites = new TreeMap<String,Metabolite>();
-
 	private Set<String> compartments = new TreeSet<String>();
 	private static Map<String,Reaction> reactions = new TreeMap<String,Reaction>();
-	private Map<Integer,String> keysG;
-	private Map<String,Integer> metabolitesG;	
-	private ArrayList<Set<Integer>> edges;
+
 	//Petri net
 	/**
 	 * A map of Integer to transition. The map represents the Transitions of Petri net 
@@ -164,48 +161,6 @@ public class MetabolicNetwork {
 		return cata;
 	}
 
-	/**
-	 *  Create a graph with the metabolites as nodes 
-	 *  Exists a edge between a two nodes if exists a reaction where one of the metabolites is a substrate and the other one is the product
-	 */
-	public void makeGraph() {
-		//metabolites of Graph
-		metabolitesG=new TreeMap<>();
-		keysG=new TreeMap<>(); 
-		Set<String> keysMetabolites=metabolites.keySet();
-		int i=0;
-		for (String key : keysMetabolites) {
-			Metabolite meta = metabolites.get(key);
-			if(!metabolitesG.containsValue(meta.getId())) {
-				metabolitesG.put(meta.getId(), i);
-				keysG.put(i, meta.getId());
-			}
-		}
-		//Edges
-		edges = new ArrayList<>();
-		Set<String> keysReaction=reactions.keySet();
-		for (String key : keysReaction) {
-			Reaction rea = reactions.get(key);
-			List<ReactionComponent> reactantsC=rea.getReactants();
-			List<ReactionComponent> productsC=rea.getProducts();
-			Set<Integer> products= new TreeSet<>();
-			for(ReactionComponent rcp: productsC) {
-				Metabolite m= rcp.getMetabolite();
-				products.add(metabolitesG.get(m.getName()));
-			}			
-			for (ReactionComponent rc : reactantsC) {
-				Metabolite meta = rc.getMetabolite();
-				int keyM= metabolitesG.get(meta.getId());
-				if(edges.get(keyM)==null) {
-					Set<Integer> newSet= new TreeSet<>();
-					newSet.addAll(products);
-					edges.set(keyM, newSet);
-				}				
-			}
-		}
-	}
-
-
 	//-------------------------------------------------------------------
 	//-----------------------Metabolic Network --------------------------
 	//--------------------------As Petri Net-----------------------------
@@ -223,11 +178,8 @@ public class MetabolicNetwork {
 		places = new TreeMap< String,Integer>();
 		places2 = new TreeMap< Integer,String>();
 		Set<String> keysReaction=reactions.keySet();			
-		for (String key : keysReaction) {		
-
-			Reaction rea = reactions.get(key);	
-
-
+		for (String key : keysReaction) {	
+			Reaction rea = reactions.get(key);
 			Transition transition = new Transition(rea.getEnzymes(),numberTransition,rea.getName(),rea.getId());
 			numberTransition++;
 			List<ReactionComponent> reactantsC=rea.getReactants();
@@ -328,19 +280,67 @@ public class MetabolicNetwork {
 			metabolitesVisited[places.get(first.get(j))][1]=-1; //The last transition, -1 if it is not assigned								
 		}
 	}
+		
 
-	public void initialValuesOfShortestPath2(int[][] metabolitesVisited,List<String> first) {		
-		for (int j = 0; j <metabolitesVisited.length; j++) {
-			metabolitesVisited[j][0]=1;		
-			metabolitesVisited[j][1]=-1;		
-			metabolitesVisited[j][2]=0;										
+	public int[][] shortestPathByCatalystsNumber(List<String> first, String last, String fileName1,String fileName2, String fileName3) throws Exception{
+		int[][] graph = null;		
+		int[] reactionsVisited; 
+		//Row 1. Moles Row 2. The reaction 3. The <<Distance>>	
+		int[][] metabolitesVisited=new int[places.size()+1][3]; //Places.size()+1 for enumeration
+		int[] pqea;		
+		int distanceBestPath=INFINITE+1;		
+		// Find for each metabolite the transitions that can be triggered				
+		reactionsVisited= new int[transitions.size()+1]; 
+		metabolitesVisited=new int[places.size()+1][3];			
+		pqea= new int[places.size()+1];			
+		//Initial values		
+		initialValuesOfShortestPath(metabolitesVisited, first);
+		PriorityQueue<MetabolitesP> pq = new PriorityQueue<>();	
+		for (String i : first) {
+			pq.add(new MetabolitesP(metabolites.get(i),0));
+		}						
+		while (!pq.isEmpty()) { 
+			Metabolite mp = pq.poll().getMetabolite();			
+			int n = mp.getNumber();
+			if(mp.getId().equals(last)) {
+				break;
+			}			
+			if(pqea[n]==0) {
+				pqea[n]++;			
+				List<Transition> transitions= transitionsThaCanBeTriggered(mp.getTransitions(),metabolitesVisited);
+				for (int j = 0; j < transitions.size(); j++) {
+					reactionsVisited[transitions.get(j).getNumber()]=1;
+					List <Edge> inEdgesOft = transitions.get(j).getOut();						
+					//The max distance
+					int maxValue= findMaximunDistanceOfTheInletMetabolitesOfATransition(transitions.get(j),metabolitesVisited)+1;
+					//Update the distances
+					for (int k = 0; k < inEdgesOft.size(); k++) {
+						Metabolite meta = inEdgesOft.get(k).getMetabolite();
+						int number = meta.getNumber();
+						if((maxValue)<metabolitesVisited[number][2]) {
+							metabolitesVisited[number][2]=maxValue;
+							metabolitesVisited[number][1]=transitions.get(j).getNumber();
+						}							
+						MetabolitesP mp1 = new MetabolitesP(meta,(int) metabolitesVisited[number][2]);
+						pq.add(mp1);							
+						metabolitesVisited[number][0]=1;								
+					}
+				}	
+			}
 		}
+		//Makes the metabolic Pathway
+		int numberLast =places.get(last);
+		if(metabolitesVisited[numberLast][2]<distanceBestPath) {
+			graph=metabolicPathway(metabolitesVisited, last);	
+			distanceBestPath=metabolitesVisited[numberLast][2];
+		}			
+		printMetabolicNetworkInCSV(graph,fileName1,first,last);
+		printReactionsGraphInCSV(graph,fileName2);
+		printCatalystOfMethabolicPath(graph, fileName3);
+		return graph;
+	}	
+	
 
-		metabolitesVisited[places.get("M_pyr_e")][2]=INFINITE;
-		metabolitesVisited[places.get("M_pyr_e")][1]=0;
-		metabolitesVisited[places.get("M_pyr_e")][0]=0;
-
-	}
 	/**
 	 * 
 	 * @param first Lista metabolitos iniciales
@@ -348,7 +348,6 @@ public class MetabolicNetwork {
 	 * @param fileName1 Metabolic Network In CSV
 	 * @param fileName2 Reactions Graph In CSV
 	 * @param fileName3 Methabolic Path
-	 * @return 
 	 * @throws Exception
 	 */
 
@@ -407,7 +406,6 @@ public class MetabolicNetwork {
 		printMetabolicNetworkInCSV(graph,fileName1,first,last);
 		printReactionsGraphInCSV(graph,fileName2);
 		printCatalystOfMethabolicPath(graph, fileName3);
-
 		return graph;
 	}	
 
@@ -512,7 +510,7 @@ public class MetabolicNetwork {
 	 * @param fileName
 	 * @throws Exception
 	 */
-	public void printCatalystOfMethabolicPath(int[][] graph, String fileName) throws Exception{	
+	private void printCatalystOfMethabolicPath(int[][] graph, String fileName) throws Exception{	
 		Set<GeneProduct> allCatalyst = new TreeSet<GeneProduct>();
 		try (PrintStream out = new PrintStream(fileName)) {
 			out.println("Catalys of metabolic pathway");
@@ -538,7 +536,7 @@ public class MetabolicNetwork {
 	 * @param last the final metabolite
 	 * @throws Exception in errors of I/O
 	 */
-	public void printMetabolicNetworkInCSV(int[][] graph, String fileName, List<String> first, String last) throws Exception{
+	private void printMetabolicNetworkInCSV(int[][] graph, String fileName, List<String> first, String last) throws Exception{
 		int[] metabolitesVisited= new int[places.size()];
 		int[] transitionsVisited= new int[transitions.size()];
 		try (PrintStream out = new PrintStream(fileName)) {
@@ -585,7 +583,7 @@ public class MetabolicNetwork {
 	 * @param first The initial ids of metabolites
 	 * @param last The final metabolite
 	 */
-	public void printATransitionInCSVToAllNetwork(Transition t, PrintStream out) {
+	private void printATransitionInCSVToAllNetwork(Transition t, PrintStream out) {
 		List<Edge> metaInTransition = t.getIn();		
 		for (Edge edge : metaInTransition) {
 			String nameOfMeta = edge.getMetabolite().getId();		
@@ -597,10 +595,6 @@ public class MetabolicNetwork {
 			out.println(t.getId()+COMMA+nameOfMeta+",PP,TRUE,abc"+",1.234");
 		}
 	}	
-
-
-
-
 
 	/**
 	 * Method that print the transition in the CSV entered by parameter 
@@ -614,7 +608,7 @@ public class MetabolicNetwork {
 	 * @param first The initial ids of metabolites
 	 * @param last The final metabolite
 	 */
-	public void printATransitionInCSV(Transition t, PrintStream out,int i, int j,int[] metabolitesVisited,int[] transitionsVisited, List<String> first, String last) {
+	private void printATransitionInCSV(Transition t, PrintStream out,int i, int j,int[] metabolitesVisited,int[] transitionsVisited, List<String> first, String last) {
 		List<Edge> metaInTransition = t.getIn();
 		if(transitionsVisited[t.getNumber()]==0) {
 			transitionsVisited[t.getNumber()]++;

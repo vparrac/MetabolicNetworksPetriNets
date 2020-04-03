@@ -1,6 +1,6 @@
-package petriNet;
+package petrinet;
 
-import principal.Metabolite;
+import model.Metabolite;
 /**
  * Represents a edge of the petri net
  * @author Valerie Parra Cortés

@@ -1,7 +1,8 @@
-package petriNet;
+package petrinet;
 import java.util.ArrayList;
 import java.util.List;
-import principal.GeneProduct;
+
+import model.GeneProduct;
 /**
  * Class that represent a transition
  * @author Valerie Parra
