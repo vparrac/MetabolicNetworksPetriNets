@@ -33,20 +33,13 @@ public class MetabolicNetwork {
 	 * A map of Integer to transition. The map represents the Transitions of Petri net 
 	 */
 	private  Map<Integer, Transition> transitions;
-	/**
-	 *  A map of Transitions to Integer. The map represents the transitions of Petri net
-	 */
-	private  Map<String, Integer> transitions2;
+
 	/**
 	 * A map of a String (that represents the id of the metabolite) to a Integer.
 	 * This map represents the places of Petri net
 	 */
 	private  Map<String,Integer> places;
-	/**
-	 * A map of a String (that represents the id of the metabolite) to a Integer.
-	 * This map represents the places of Petri net
-	 */
-	private  Map<Integer,String> places2;
+
 	/**
 	 * Represents the infinite distance between 2 metabolites
 	 */
@@ -174,9 +167,9 @@ public class MetabolicNetwork {
 		int numberMetabolites=1;
 		int numberTransition=1;
 		transitions= new TreeMap<Integer, Transition>();
-		transitions2= new TreeMap<String,Integer>();
+		
 		places = new TreeMap< String,Integer>();
-		places2 = new TreeMap< Integer,String>();
+		
 		Set<String> keysReaction=reactions.keySet();			
 		for (String key : keysReaction) {	
 			Reaction rea = reactions.get(key);
@@ -189,8 +182,7 @@ public class MetabolicNetwork {
 				if(meta.getNumber()==-1) {
 					meta.setNumber(numberMetabolites);					
 					places.put(meta.getId(),numberMetabolites);
-					places2.put(numberMetabolites,meta.getId());
-					numberMetabolites++;					
+		     		numberMetabolites++;					
 				}
 				Edge edge= new Edge(rc.getStoichiometry(),meta,transition);				
 				meta.addEdgeOut(edge);				
@@ -201,8 +193,7 @@ public class MetabolicNetwork {
 				Metabolite meta = rc.getMetabolite();
 				if(meta.getNumber()==-1) {
 					meta.setNumber(numberMetabolites);
-					places.put(meta.getId(),numberMetabolites);
-					places2.put(numberMetabolites,meta.getId());
+					places.put(meta.getId(),numberMetabolites);					
 					numberMetabolites++;					
 				}
 				Edge edge= new Edge(rc.getStoichiometry(),meta,transition);				
@@ -211,7 +202,7 @@ public class MetabolicNetwork {
 				meta.addTransition(transition);
 			}			
 			transitions.put(transition.getNumber(), transition);
-			transitions2.put(transition.getName(),transition.getNumber());			
+						
 		}				
 	}
 
