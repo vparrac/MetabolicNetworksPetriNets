@@ -1,4 +1,5 @@
 package petrinet;
+import java.util.ArrayList;
 import java.util.List;
 import model.Metabolite;
 /**
@@ -22,8 +23,28 @@ public class Place {
 	/**
 	 * The list of transitions where the metabolite 
 	 */
-	private List<Transition> transition;
+	private List<Transition> transitions;
+	
+	/**
+	 * Number of metabolite
+	 */
+	
+	private int numberMetabolite;
 
+	/**
+	 * Constuctor of place clase
+	 * @param metabolite of the place
+	 * @param numberMetabolite the number of metabolite in Petri net
+	 */
+	public Place(Metabolite metabolite , int numberMetabolite) {
+		this.metabolite= metabolite;
+		this.numberMetabolite= numberMetabolite;
+		this.edgesIn= new ArrayList<Edge>();
+		this.edgesOut= new ArrayList<Edge>();
+		this.transitions = new ArrayList<Transition>();
+	}
+	
+	
 	/**
 	 * Returns the inlet edges of place
 	 * @return Edges in of place
@@ -61,7 +82,7 @@ public class Place {
 	 */
 
 	public void addTransition(Transition t) {
-		transition.add(t);
+		transitions.add(t);
 	}
 	
 	/**
@@ -70,6 +91,31 @@ public class Place {
 	 */
 
 	public List<Transition> getTransitions() {
-		return transition;
+		return transitions;
+	}
+
+	/**
+	 * Method that returns the number of the places in petri net
+	 * @return numberMetabolite in petri net
+	 */
+	public int getNumberMetabolite() {
+		return numberMetabolite;
+	}
+
+	/**
+	 * Change Number of metabolite in the petri net
+	 * @param numberMetabolite
+	 */
+	public void setNumberMetabolite(Integer numberMetabolite) {
+		this.numberMetabolite = numberMetabolite;
+	}
+	
+	/**
+	 * Returns the metabolite of the place
+	 * @return the metablite
+	 */
+	
+	public Metabolite getMetabolite() {
+		return metabolite;
 	}
 }
