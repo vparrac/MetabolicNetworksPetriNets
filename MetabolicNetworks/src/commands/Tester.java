@@ -11,5 +11,6 @@ public class Tester {
 		MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
 		MetabolicNetwork network = loader.loadNetwork("./data/e_coli_core.xml");
 		network.makeNet();
+		
 	}
 }

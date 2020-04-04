@@ -11,14 +11,12 @@ import petrinet.Transition;
  * @author Jorge Duitama
  */
 public class Metabolite {
-	private int number;
+	
 	private String id;
 	private String name;
 	private String compartment;
 	private String chemicalFormula;	
-	private List<Edge> edgesIn;
-	private List<Edge> edgesOut;
-	private List<Transition> transition;
+	
 	/**
 	 * Creates a new metabolite with the given information
 	 * @param id of the new metabolite
@@ -29,11 +27,9 @@ public class Metabolite {
 		super();
 		this.id = id;
 		this.name = name;
-		this.compartment = compartment;
-		edgesIn=new ArrayList<>();
-		edgesOut=new ArrayList<>();
-		this.number=-1;
-		transition=new ArrayList<>();
+		this.compartment = compartment;		
+		
+		
 		
 	}
 	/**
@@ -68,31 +64,7 @@ public class Metabolite {
 		return compartment;
 	}
 	
-	public List<Edge> getEdgesIn() {
-		return edgesIn;
-	}
-	public List<Edge> getEdgesOut() {
-		return edgesOut;
-	}
 	
-	public void addEdgeIn(Edge edge) {
-		edgesIn.add(edge);
-	}
-	public void addEdgeOut(Edge edge) {
-		edgesOut.add(edge);
-	}	
-	public void setNumber(int number) {
-		this.number = number;
-	}
-	public int getNumber() {
-		return number;
-	}
-	public void addTransition(Transition t) {
-		transition.add(t);
-	}
-	public List<Transition> getTransitions() {
-		return transition;
-	}
 	@Override
 	public String toString() {		
 		String out="{"+"\"id\": "+"\""+id+"\", \"name\":"+"\""+name+"\"}";
