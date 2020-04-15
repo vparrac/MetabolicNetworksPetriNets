@@ -112,8 +112,9 @@ public class Place {
 	
 	/**
 	 * Returns the metabolite of the place
-	 * @return the metablite
+	 * @return the metabolite
 	 */
+	
 	
 	public Metabolite getMetabolite() {
 		return metabolite;
