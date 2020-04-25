@@ -1,14 +1,19 @@
-# MetabolicNetworksPetriNets
-4
-M_accoa_c
-M_acald_e
-M_actp_c
-M_for_c
-M_cit_c
+# A model of metabólic networks using petri nets
+
+This application model a Metabolic Network as a Petri Net. The program allows
+1. Get the common metabolites between two petri nets
+2. Get the reactions catalyzed by specific enzyme
+3. Print the network to a a csv that represent the graph in CytoScape
+4. Get all reactions of a metabolite
+5. Get the shortest path by metabolites number
+6. Get the shortest path by catalysts number
+7. Find the sinks of the net
+9. Find the sources of the net
 
 
-3
-M_acald_c
-M_coa_c
-M_nad_c
-M_accoa_c
+### Requirements
+Java 8 or greater
+
+
+## Author
+Valerie Parra Cortés
