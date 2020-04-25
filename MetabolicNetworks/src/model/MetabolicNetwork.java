@@ -38,9 +38,9 @@ public class MetabolicNetwork {
 	 * This map represents the places of Petri net
 	 */
 	private  Map<String,Place> places;
-	
-	
-	
+
+
+
 	/**
 	 * Represents the infinite distance between 2 metabolites
 	 */
@@ -99,7 +99,7 @@ public class MetabolicNetwork {
 	public List<Reaction> getReactionsAsList () {
 		return new ArrayList<Reaction>(reactions.values());
 	}
-	
+
 	//-------------------------------------------------------------------
 	//-----------------------Metabolic Network --------------------------
 	//---------------------------As graph--------------------------------
@@ -177,9 +177,9 @@ public class MetabolicNetwork {
 			List<ReactionComponent> productsC=rea.getProducts();			
 			for (ReactionComponent rc : reactantsC) {			
 				Metabolite meta = rc.getMetabolite();							
-				Place currentPlace = places.get(meta.getId());
+				Place<Metabolite> currentPlace = places.get(meta.getId());
 				if(currentPlace==null) {					
-					Place nm = new Place(meta, numberMetabolites);
+					Place<Metabolite> nm = new Place<Metabolite>(meta, numberMetabolites);
 					places.put(meta.getId(),nm);
 					numberMetabolites++;
 					currentPlace = nm;
@@ -191,9 +191,9 @@ public class MetabolicNetwork {
 			}			
 			for (ReactionComponent rc : productsC) {
 				Metabolite meta = rc.getMetabolite();				
-				Place currentPlace = places.get(meta.getId());
+				Place<Metabolite> currentPlace = places.get(meta.getId());
 				if(currentPlace==null) {					
-					Place nm = new Place(meta, numberMetabolites);
+					Place<Metabolite> nm = new Place<Metabolite>(meta, numberMetabolites);
 					places.put(meta.getId(),nm);
 					numberMetabolites++;	
 					currentPlace = nm;
@@ -252,6 +252,69 @@ public class MetabolicNetwork {
 		return max;		
 	}
 
+
+
+	/**
+	 * Find all paths between a List of initial metabolties to a target metabolite
+	 * @param first List o initial metabolites
+	 * @param last target metabolite
+	 * @param file file Where the paths will be printed
+	 */
+
+	public void getAllPaths(List<String> first, String last, String file) {
+		int[][] graph = null;			
+		//Row 1. Moles Row 2. The reaction 3. The <<Distance>>	
+		//Position 0 will be the distance
+		//Position 1 will be "is there that metabolite?"
+		int[][] metabolitesVisited=new int[places.size()+1][2]; //Places.size()+1 for enumeration
+		initialValuesOfAllPaths(metabolitesVisited,first);
+
+		PriorityQueue<MetabolitesP> pq = new PriorityQueue<>();	
+		for (String i : first) {
+			pq.add(new MetabolitesP(metabolites.get(i),0));
+		}
+		List<ArrayList<Metabolite>> paths = new ArrayList<ArrayList<Metabolite>>();
+		while (!pq.isEmpty()) { 
+			
+		}	
+
+	}
+
+	public void searchPaths(Metabolite m,int[][] metabolitesVisited) {
+		PriorityQueue<MetabolitesP> pq = new PriorityQueue<>();
+		List<Transition> transitions= transitionsThaCanBeTriggered(places.get(m.getId()).getTransitions(),metabolitesVisited);
+		if(transitions.size()==0) {
+			return;
+		}
+		for (Transition transition : transitions) {
+			int max = findMaximunDistanceOfTheInletMetabolitesOfATransition(transition, metabolitesVisited);
+			List<Edge> out=transition.getOut();
+			for (Edge edge : out) {
+				Metabolite mp = edge.getMetabolite();
+				int number = places.get(mp.getId()).getNumberMetabolite();
+				if((max)<metabolitesVisited[number][0]) {
+					metabolitesVisited[number][0]=max;					
+				}							
+				MetabolitesP mp1 = new MetabolitesP(mp,(int) metabolitesVisited[number][2]);
+				pq.add(mp1);							
+				metabolitesVisited[number][1]=1;
+			}
+		}	
+	}
+
+
+
+	public void initialValuesOfAllPaths(int[][] metabolitesVisited,List<String> first) {
+		for (int j= 0; j < metabolitesVisited.length; j++) {
+			metabolitesVisited[j][2]=INFINITE;
+		}
+		for (int j = 0; j <first.size(); j++) {					
+			metabolitesVisited[places.get(first.get(j)).getNumberMetabolite()][0]=0; //Distance
+			metabolitesVisited[places.get(first.get(j)).getNumberMetabolite()][1]=1; //is there that metabolite?											
+		}
+	}
+
+
 	/**
 	 * This method initializes the array metabolitesVisited the initial distance infinite 
 	 * and 0 for the initial metabolites, the function returns a matrix of number of metabolites x
@@ -262,18 +325,18 @@ public class MetabolicNetwork {
 	 * @param metabolitesVisited the array to initialize
 	 * @param first a list with initial metabolites
 	 */
-	
+
 	public void initialValuesOfShortestPath(int[][] metabolitesVisited,List<String> first) {
 		for (int j= 0; j < metabolitesVisited.length; j++) {
 			metabolitesVisited[j][2]=INFINITE;
 		}
 		for (int j = 0; j <first.size(); j++) {					
-			metabolitesVisited[places.get(first.get(j)).getNumberMetabolite()][2]=0; //Distance
+			metabolitesVisited[places.get(first.get(j)).getNumberMetabolite()][0]=0; //Distance
 			metabolitesVisited[places.get(first.get(j)).getNumberMetabolite()][0]=1; //is there that metabolite?
 			metabolitesVisited[places.get(first.get(j)).getNumberMetabolite()][1]=-1; //The last transition, -1 if it is not assigned								
 		}
 	}
-		
+
 
 	public int[][] shortestPathByCatalystsNumber(List<String> first, String last, String fileName1,String fileName2, String fileName3) throws Exception{
 		int[][] graph = null;		
@@ -299,14 +362,14 @@ public class MetabolicNetwork {
 				break;
 			}			
 			if(pqea[n]==0) {
-				pqea[n]++;		
-				
+				pqea[n]++;	
+
 				List<Transition> transitions= transitionsThaCanBeTriggered(places.get(mp.getId()).getTransitions(),metabolitesVisited);
 				for (int j = 0; j < transitions.size(); j++) {
 					reactionsVisited[transitions.get(j).getNumber()]=1;
 					List <Edge> inEdgesOft = transitions.get(j).getOut();						
-					//The max distance
-					int maxValue= findMaximunDistanceOfTheInletMetabolitesOfATransition(transitions.get(j),metabolitesVisited)+1;
+					//The max previous distance
+					int maxValue= findMaximunDistanceOfTheInletMetabolitesOfATransition(transitions.get(j),metabolitesVisited)+transitions.get(j).getGeneProduct().size();										
 					//Update the distances
 					for (int k = 0; k < inEdgesOft.size(); k++) {
 						Metabolite meta = inEdgesOft.get(k).getMetabolite();
@@ -333,7 +396,7 @@ public class MetabolicNetwork {
 		printCatalystOfMethabolicPath(graph, fileName3);
 		return graph;
 	}	
-	
+
 
 	/**
 	 * 
@@ -344,6 +407,7 @@ public class MetabolicNetwork {
 	 * @param fileName3 Methabolic Path
 	 * @throws Exception
 	 */
+
 
 	public int[][] shortestPathByMetabolitesNumber(List<String> first, String last, String fileName1,String fileName2, String fileName3) throws Exception{
 		int[][] graph = null;		
@@ -369,8 +433,8 @@ public class MetabolicNetwork {
 				break;
 			}			
 			if(pqea[n]==0) {
-				pqea[n]++;	
-				
+				pqea[n]++;		
+
 				List<Transition> transitions= transitionsThaCanBeTriggered(places.get(mp.getId()).getTransitions(),metabolitesVisited);
 				for (int j = 0; j < transitions.size(); j++) {
 					reactionsVisited[transitions.get(j).getNumber()]=1;
@@ -402,6 +466,7 @@ public class MetabolicNetwork {
 		printReactionsGraphInCSV(graph,fileName2);
 		printCatalystOfMethabolicPath(graph, fileName3);
 		return graph;
+
 	}	
 
 	/**
@@ -645,7 +710,7 @@ public class MetabolicNetwork {
 		}
 		return sinks;
 	}
-	
+
 	/**
 	 * Find the sinks of the net
 	 * @return List with sinks metabolites
