@@ -1,15 +1,17 @@
 package petrinet;
 import java.util.ArrayList;
 import java.util.List;
+
+import model.Metabolite;
 /**
  * This class representate a Place of Petri net
  * @author Valerie Parra
  */
-public class Place<T> {
+public class Place {
 	/**
 	 * The metabolite
 	 */
-	private T objectPlace;
+	private Metabolite objectPlace;
 	/**
 	 * The edges of reactions that comes to place
 	 */
@@ -35,7 +37,7 @@ public class Place<T> {
 	 * @param metabolite of the place
 	 * @param numberMetabolite the number of metabolite in Petri net
 	 */
-	public Place(T object , int numberMetabolite) {
+	public Place(Metabolite object , int numberMetabolite) {
 		this.objectPlace= object;
 		this.numberMetabolite= numberMetabolite;
 		this.edgesIn= new ArrayList<Edge>();
@@ -115,7 +117,7 @@ public class Place<T> {
 	 */
 	
 	
-	public T getMetabolite() {
+	public Metabolite getMetabolite() {
 		return objectPlace;
 	}
 }

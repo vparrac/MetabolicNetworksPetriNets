@@ -1,9 +1,10 @@
 package model;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -177,9 +178,9 @@ public class MetabolicNetwork {
 			List<ReactionComponent> productsC=rea.getProducts();			
 			for (ReactionComponent rc : reactantsC) {			
 				Metabolite meta = rc.getMetabolite();							
-				Place<Metabolite> currentPlace = places.get(meta.getId());
+				Place currentPlace = places.get(meta.getId());
 				if(currentPlace==null) {					
-					Place<Metabolite> nm = new Place<Metabolite>(meta, numberMetabolites);
+					Place nm = new Place(meta, numberMetabolites);
 					places.put(meta.getId(),nm);
 					numberMetabolites++;
 					currentPlace = nm;
@@ -191,9 +192,9 @@ public class MetabolicNetwork {
 			}			
 			for (ReactionComponent rc : productsC) {
 				Metabolite meta = rc.getMetabolite();				
-				Place<Metabolite> currentPlace = places.get(meta.getId());
+				Place currentPlace = places.get(meta.getId());
 				if(currentPlace==null) {					
-					Place<Metabolite> nm = new Place<Metabolite>(meta, numberMetabolites);
+					Place nm = new Place(meta, numberMetabolites);
 					places.put(meta.getId(),nm);
 					numberMetabolites++;	
 					currentPlace = nm;
@@ -206,7 +207,6 @@ public class MetabolicNetwork {
 			transitions.put(transition.getNumber(), transition);						
 		}				
 	}
-
 
 	/**
 	 * Find the transition that can be triggered 
@@ -259,60 +259,93 @@ public class MetabolicNetwork {
 	 * @param first List o initial metabolites
 	 * @param last target metabolite
 	 * @param file file Where the paths will be printed
+	 * @throws FileNotFoundException 
 	 */
 
-	public void getAllPaths(List<String> first, String last, String file) {
-		int[][] graph = null;			
-		//Row 1. Moles Row 2. The reaction 3. The <<Distance>>	
-		//Position 0 will be the distance
-		//Position 1 will be "is there that metabolite?"
-		int[][] metabolitesVisited=new int[places.size()+1][2]; //Places.size()+1 for enumeration
-		initialValuesOfAllPaths(metabolitesVisited,first);
-
-		PriorityQueue<MetabolitesP> pq = new PriorityQueue<>();	
-		for (String i : first) {
-			pq.add(new MetabolitesP(metabolites.get(i),0));
+	public void getAllPaths(List<String> first, String last, String file) throws FileNotFoundException {
+		int[] metabolitesVisited=new int[places.size()+1];
+		for (int j = 0; j <first.size(); j++) {					
+			metabolitesVisited[places.get(first.get(j)).getNumberMetabolite()]=1;														
 		}
-		List<ArrayList<Metabolite>> paths = new ArrayList<ArrayList<Metabolite>>();
-		while (!pq.isEmpty()) { 
-			
-		}	
-
+		String pathsString = "";		
+		for (String m : first) {
+			ArrayList<ArrayList<String>> paths = new ArrayList<ArrayList<String>>();
+			ArrayList<String> path = new ArrayList<String>();
+			Metabolite meta = places.get(m).getMetabolite();	
+			ArrayList<Metabolite> ancestors = new ArrayList<Metabolite>();
+			searchPaths(meta, metabolitesVisited, path, paths, last,ancestors);
+			for (ArrayList<String> p : paths) {
+				String pv="From: "+places.get(m).getMetabolite().getId()+"\n";				
+				for (int i = 0; i < p.size(); i++) {
+					pv+=(i==p.size()-1)?p.get(i)+"\n":p.get(i)+",";					
+				}						
+				pathsString+=pv;
+			}
+		}
+		try (PrintStream out = new PrintStream(file)) {
+			out.println(pathsString);
+		}
 	}
 
-	public void searchPaths(Metabolite m,int[][] metabolitesVisited) {
-		PriorityQueue<MetabolitesP> pq = new PriorityQueue<>();
-		List<Transition> transitions= transitionsThaCanBeTriggered(places.get(m.getId()).getTransitions(),metabolitesVisited);
-		if(transitions.size()==0) {
+	@SuppressWarnings("unchecked")
+	private void searchPaths(Metabolite m,int[] metabolitesVisited, ArrayList<String> path, ArrayList<ArrayList<String>> paths, String target, ArrayList<Metabolite> ancestors) {	
+		if(ancestors.contains(m)) {
 			return;
 		}
-		for (Transition transition : transitions) {
-			int max = findMaximunDistanceOfTheInletMetabolitesOfATransition(transition, metabolitesVisited);
+		ancestors.add(m);
+		int[] previousState = Arrays.copyOf(metabolitesVisited, metabolitesVisited.length);
+		List<Transition> transitions= transitionsThaCanBeTriggeredAllPaths(places.get(m.getId()).getTransitions(),metabolitesVisited);
+		if(transitions.size()==0||m.getId().equals(target)) {			
+			ArrayList<String> path_f = (ArrayList<String>) path.clone();
+			paths.add(path_f);
+			return;
+		}
+		
+		for (Transition transition : transitions) {			
 			List<Edge> out=transition.getOut();
 			for (Edge edge : out) {
 				Metabolite mp = edge.getMetabolite();
-				int number = places.get(mp.getId()).getNumberMetabolite();
-				if((max)<metabolitesVisited[number][0]) {
-					metabolitesVisited[number][0]=max;					
-				}							
-				MetabolitesP mp1 = new MetabolitesP(mp,(int) metabolitesVisited[number][2]);
-				pq.add(mp1);							
-				metabolitesVisited[number][1]=1;
+				int number = places.get(mp.getId()).getNumberMetabolite();					
+				metabolitesVisited[number]=1;
+			}			
+		}
+
+		for (Transition transition : transitions) {	
+			path.add(transition.getId());
+			List<Edge> out=transition.getOut();
+			for (Edge edge : out) {
+				Metabolite mp = edge.getMetabolite();
+				searchPaths(mp, metabolitesVisited, path, paths, target, ancestors);
 			}
-		}	
+			path.remove(path.size()-1);
+		}		
+		
+		ancestors.remove(m);
+		metabolitesVisited= previousState;		
 	}
 
 
-
-	public void initialValuesOfAllPaths(int[][] metabolitesVisited,List<String> first) {
-		for (int j= 0; j < metabolitesVisited.length; j++) {
-			metabolitesVisited[j][2]=INFINITE;
+	public List<Transition> transitionsThaCanBeTriggeredAllPaths(List<Transition> transitions, int[] metabolitesVisited){
+		ArrayList<Transition> transitionsThaCanBeTriggered= new ArrayList<>();
+		for (int j = 0; j < transitions.size(); j++) {
+			List<Edge> inEdges = transitions.get(j).getIn();		
+			boolean canBeTriggered=true;
+			for (int k = 0; k <inEdges.size(); k++) {
+				int number=places.get(inEdges.get(k).getMetabolite().getId()).getNumberMetabolite();				
+				if(metabolitesVisited[number]!=1) {
+					canBeTriggered=false;
+					break;
+				}
+			}
+			if(canBeTriggered) {
+				transitionsThaCanBeTriggered.add(transitions.get(j));
+			}
+			canBeTriggered=false;
 		}
-		for (int j = 0; j <first.size(); j++) {					
-			metabolitesVisited[places.get(first.get(j)).getNumberMetabolite()][0]=0; //Distance
-			metabolitesVisited[places.get(first.get(j)).getNumberMetabolite()][1]=1; //is there that metabolite?											
-		}
+		return transitionsThaCanBeTriggered;		
 	}
+
+
 
 
 	/**
