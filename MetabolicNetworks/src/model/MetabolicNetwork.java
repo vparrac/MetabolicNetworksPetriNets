@@ -267,19 +267,41 @@ public class MetabolicNetwork {
 		for (int j = 0; j <first.size(); j++) {					
 			metabolitesVisited[places.get(first.get(j)).getNumberMetabolite()]=1;														
 		}
+		ArrayList<Metabolite> first_metabolites= new ArrayList<Metabolite>();
 		String pathsString = "";		
 		for (String m : first) {
-			ArrayList<ArrayList<String>> paths = new ArrayList<ArrayList<String>>();
-			ArrayList<String> path = new ArrayList<String>();
+			ArrayList<ArrayList<Integer>> paths = new ArrayList<ArrayList<Integer>>();
+			ArrayList<Integer> path = new ArrayList<Integer>();
 			Metabolite meta = places.get(m).getMetabolite();	
+			first_metabolites.add(meta);
 			ArrayList<Metabolite> ancestors = new ArrayList<Metabolite>();
 			searchPaths(meta, metabolitesVisited, path, paths, last,ancestors);
-			for (ArrayList<String> p : paths) {
-				String pv="From: "+places.get(m).getMetabolite().getId()+"\n";				
-				for (int i = 0; i < p.size(); i++) {
-					pv+=(i==p.size()-1)?p.get(i)+"\n":p.get(i)+",";					
-				}						
-				pathsString+=pv;
+			ArrayList<ArrayList<Integer>> p_paths = new ArrayList<ArrayList<Integer>>();
+
+			for (ArrayList<Integer> p : paths) {
+
+				List<Edge> i_reaction= transitions.get(p.get(0)).getIn();
+
+				boolean allAtBegining=true;
+				for (Edge i : i_reaction) {
+					Metabolite mi = i.getMetabolite();
+					if(!first_metabolites.contains(mi)) {
+						allAtBegining=false;
+						break;
+					}
+				}
+
+				if(allAtBegining) {
+					if(!p_paths.contains(p)) {
+						p_paths.add(p);
+						String pv="Path: ";				
+						for (int i = 0; i < p.size(); i++) {
+							String r_s= transitions.get(p.get(0)).getName();
+							pv+=(i==p.size()-1)?r_s+"\n":r_s+",";					
+						}						
+						pathsString+=pv;
+					}
+				}
 			}
 		}
 		try (PrintStream out = new PrintStream(file)) {
@@ -288,7 +310,7 @@ public class MetabolicNetwork {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void searchPaths(Metabolite m,int[] metabolitesVisited, ArrayList<String> path, ArrayList<ArrayList<String>> paths, String target, ArrayList<Metabolite> ancestors) {	
+	private void searchPaths(Metabolite m,int[] metabolitesVisited, ArrayList<Integer> path, ArrayList<ArrayList<Integer>> paths, String target, ArrayList<Metabolite> ancestors) {	
 		if(ancestors.contains(m)) {
 			return;
 		}
@@ -296,11 +318,11 @@ public class MetabolicNetwork {
 		int[] previousState = Arrays.copyOf(metabolitesVisited, metabolitesVisited.length);
 		List<Transition> transitions= transitionsThaCanBeTriggeredAllPaths(places.get(m.getId()).getTransitions(),metabolitesVisited);
 		if(transitions.size()==0||m.getId().equals(target)) {			
-			ArrayList<String> path_f = (ArrayList<String>) path.clone();
+			ArrayList<Integer> path_f = (ArrayList<Integer>) path.clone();
 			paths.add(path_f);
 			return;
 		}
-		
+
 		for (Transition transition : transitions) {			
 			List<Edge> out=transition.getOut();
 			for (Edge edge : out) {
@@ -311,7 +333,7 @@ public class MetabolicNetwork {
 		}
 
 		for (Transition transition : transitions) {	
-			path.add(transition.getId());
+			path.add(transition.getNumber());
 			List<Edge> out=transition.getOut();
 			for (Edge edge : out) {
 				Metabolite mp = edge.getMetabolite();
@@ -319,7 +341,7 @@ public class MetabolicNetwork {
 			}
 			path.remove(path.size()-1);
 		}		
-		
+
 		ancestors.remove(m);
 		metabolitesVisited= previousState;		
 	}

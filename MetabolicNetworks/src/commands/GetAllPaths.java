@@ -1,13 +1,10 @@
 package commands;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import model.MetabolicNetwork;
 import model.MetabolicNetworkXMLLoader;
-
 public class GetAllPaths {
-	
 	/**
 	 * The main method of class
 	 * @param args[0] the path of the XML file 
