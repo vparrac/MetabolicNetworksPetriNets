@@ -7,7 +7,7 @@ import model.GeneProduct;
  * Class that represent a transition
  * @author Valerie Parra
  */
-public class Transition {
+public class Transition <O,OE>{
 	/**
 	 * The id of the transition
 	 */
@@ -15,15 +15,15 @@ public class Transition {
 	/**
 	 * The list of edges in
 	 */
-	private List<Edge> in;
+	private List<Edge<OE>> in;
 	/**
 	 * The list of edges out
 	 */
-	private List<Edge> out;
+	private List<Edge<OE>> out;
 	/**
 	 * The enzymes of the reaction
 	 */
-	private List<GeneProduct> geneProduct;
+	private List<O> objects;
 	/**
 	 * The name of the transition
 	 */
@@ -39,10 +39,10 @@ public class Transition {
 	 * @param name of the reaction
 	 * @param id (the string)
 	 */
-	public Transition(List<GeneProduct> gp,int number, String name, String id) {
+	public Transition(List<O> gp,int number, String name, String id) {
 		this.in = new ArrayList<>();
 		this.out = new ArrayList<>();
-		this.geneProduct=gp;
+		this.objects=gp;
 		this.number=-1;
 		this.number=number;
 		this.name=name;
@@ -52,36 +52,36 @@ public class Transition {
 	 * Add a edges in the list of edges in
 	 * @param edge to add
 	 */
-	public void addEdgeIn(Edge edge) {
+	public void addEdgeIn(Edge<OE> edge) {
 		in.add(edge);
 	}	
 	/**
 	 * Add a edges in the list of edges out
 	 * @param edge to add
 	 */
-	public void addEdgeOut(Edge edge) {
+	public void addEdgeOut(Edge<OE> edge) {
 		out.add(edge);
 	}
 	
 	/**	
 	 * @return The in edges of the transition
 	 */
-	public List<Edge> getIn() {
+	public List<Edge<OE>> getIn() {
 		return in;
 	}
 	/**	
 	 * @return The out edges of the transition
 	 */
 	
-	public List<Edge> getOut() {
+	public List<Edge<OE>> getOut() {
 		return out;
 	}	
 	/**	
 	 * @return The list of enzymes that catalyst the transition
 	 */
 	
-	public List<GeneProduct> getGeneProduct() {
-		return geneProduct;
+	public List<O> getGeneProduct() {
+		return objects;
 	}
 	
 	/**

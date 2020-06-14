@@ -7,24 +7,24 @@ import model.Metabolite;
  * This class representate a Place of Petri net
  * @author Valerie Parra
  */
-public class Place {
+public class Place <O,OT>{
 	/**
 	 * The metabolite
 	 */
-	private Metabolite objectPlace;
+	private O object;
 	/**
 	 * The edges of reactions that comes to place
 	 */
-	private List<Edge> edgesIn;
+	private List<Edge<O>> edgesIn;
 	/**
 	 * The edges 
 	 */
-	private List<Edge> edgesOut;
+	private List<Edge<O>> edgesOut;
 
 	/**
 	 * The list of transitions where the metabolite 
 	 */
-	private List<Transition> transitions;
+	private List<Transition<OT,O>> transitions;
 	
 	/**
 	 * Number of metabolite
@@ -37,12 +37,12 @@ public class Place {
 	 * @param metabolite of the place
 	 * @param numberMetabolite the number of metabolite in Petri net
 	 */
-	public Place(Metabolite object , int numberMetabolite) {
-		this.objectPlace= object;
+	public Place(O object , int numberMetabolite) {
+		this.object= object;
 		this.numberMetabolite= numberMetabolite;
-		this.edgesIn= new ArrayList<Edge>();
-		this.edgesOut= new ArrayList<Edge>();
-		this.transitions = new ArrayList<Transition>();
+		this.edgesIn= new ArrayList<Edge<O>>();
+		this.edgesOut= new ArrayList<Edge<O>>();
+		this.transitions = new ArrayList<Transition<OT,O>>();
 	}
 	
 	
@@ -50,7 +50,7 @@ public class Place {
 	 * Returns the inlet edges of place
 	 * @return Edges in of place
 	 */
-	public List<Edge> getEdgesIn() {
+	public List<Edge<O>> getEdgesIn() {
 		return edgesIn;
 	}
 
@@ -58,7 +58,7 @@ public class Place {
 	 * Returns the outlet edges of place
 	 * @return Edges out of place
 	 */
-	public List<Edge> getEdgesOut() {
+	public List<Edge<O>> getEdgesOut() {
 		return edgesOut;
 	}
 
@@ -66,14 +66,14 @@ public class Place {
 	 * Add an inlet edge to place
 	 * @param edge new inlter edge
 	 */
-	public void addEdgeIn(Edge edge) {
+	public void addEdgeIn(Edge<O> edge) {
 		edgesIn.add(edge);
 	}
 	/**
 	 * Add an oulet edge to place
 	 * @param edge new oulet edge
 	 */
-	public void addEdgeOut(Edge edge) {
+	public void addEdgeOut(Edge<O> edge) {
 		edgesOut.add(edge);
 	}
 
@@ -82,7 +82,7 @@ public class Place {
 	 * @param t the new transition
 	 */
 
-	public void addTransition(Transition t) {
+	public void addTransition(Transition<OT,O> t) {
 		transitions.add(t);
 	}
 	
@@ -91,7 +91,7 @@ public class Place {
 	 * @return the outlet transition
 	 */
 
-	public List<Transition> getTransitions() {
+	public List<Transition<OT,O>> getTransitions() {
 		return transitions;
 	}
 
@@ -117,7 +117,7 @@ public class Place {
 	 */
 	
 	
-	public Metabolite getMetabolite() {
-		return objectPlace;
+	public O getObject() {
+		return object;
 	}
 }

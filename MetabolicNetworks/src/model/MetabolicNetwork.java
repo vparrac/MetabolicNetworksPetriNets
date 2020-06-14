@@ -32,15 +32,13 @@ public class MetabolicNetwork {
 	/**
 	 * A map of Integer to transition. The map represents the Transitions of Petri net 
 	 */
-	private  Map<Integer, Transition> transitions;
+	private  Map<Integer, Transition<GeneProduct, Metabolite>> transitions;
 
 	/**
 	 * A map of a String (that represents the id of the metabolite) to a Integer.
 	 * This map represents the places of Petri net
 	 */
-	private  Map<String,Place> places;
-
-
+	private  Map<String,Place<Metabolite,GeneProduct>> places;
 
 	/**
 	 * Represents the infinite distance between 2 metabolites
@@ -167,39 +165,39 @@ public class MetabolicNetwork {
 	 */
 	public void  makeNet() {	
 		int numberMetabolites=1,numberTransition=1;
-		transitions= new TreeMap<Integer, Transition>();		
-		places = new TreeMap<String,Place>();
+		transitions= new TreeMap<Integer, Transition<GeneProduct, Metabolite>>();		
+		places = new TreeMap<String,Place<Metabolite,GeneProduct>>();
 		Set<String> keysReaction=reactions.keySet();			
 		for (String key : keysReaction) {	
 			Reaction rea = reactions.get(key);
-			Transition transition = new Transition(rea.getEnzymes(),numberTransition,rea.getName(),rea.getId());
+			Transition<GeneProduct, Metabolite> transition = new Transition<GeneProduct, Metabolite>(rea.getEnzymes(),numberTransition,rea.getName(),rea.getId());
 			numberTransition++;
 			List<ReactionComponent> reactantsC=rea.getReactants();
 			List<ReactionComponent> productsC=rea.getProducts();			
 			for (ReactionComponent rc : reactantsC) {			
 				Metabolite meta = rc.getMetabolite();							
-				Place currentPlace = places.get(meta.getId());
+				Place<Metabolite, GeneProduct> currentPlace = places.get(meta.getId());
 				if(currentPlace==null) {					
-					Place nm = new Place(meta, numberMetabolites);
+					Place<Metabolite, GeneProduct> nm = new Place<Metabolite, GeneProduct>(meta, numberMetabolites);
 					places.put(meta.getId(),nm);
 					numberMetabolites++;
 					currentPlace = nm;
 				}								
-				Edge edge= new Edge(rc.getStoichiometry(),meta,transition);		
+				Edge<Metabolite> edge= new Edge<Metabolite>(rc.getStoichiometry(),meta,transition);		
 				currentPlace.addEdgeOut(edge);						
 				transition.addEdgeIn(edge);
 				currentPlace.addTransition(transition);
 			}			
 			for (ReactionComponent rc : productsC) {
 				Metabolite meta = rc.getMetabolite();				
-				Place currentPlace = places.get(meta.getId());
+				Place<Metabolite, GeneProduct> currentPlace = places.get(meta.getId());
 				if(currentPlace==null) {					
-					Place nm = new Place(meta, numberMetabolites);
+					Place<Metabolite, GeneProduct> nm = new Place<Metabolite, GeneProduct>(meta, numberMetabolites);
 					places.put(meta.getId(),nm);
 					numberMetabolites++;	
 					currentPlace = nm;
 				}				
-				Edge edge= new Edge(rc.getStoichiometry(),meta,transition);				
+				Edge<Metabolite> edge= new Edge<Metabolite>(rc.getStoichiometry(),meta,transition);				
 				currentPlace.addEdgeIn(edge);
 				transition.addEdgeOut(edge);
 				currentPlace.addTransition(transition);
@@ -215,14 +213,14 @@ public class MetabolicNetwork {
 	 * the second column is the reaction that allows to obtain the metabolite and the third column the distance of a initial reaction 
 	 * @return
 	 */
-	public  ArrayList<Transition> transitionsThaCanBeTriggered(List<Transition> transitions, int[][] metabolitesVisited){
-		ArrayList<Transition> transitionsThaCanBeTriggered= new ArrayList<>();
+	public  ArrayList<Transition<GeneProduct, Metabolite>> transitionsThaCanBeTriggered(List<Transition<GeneProduct, Metabolite>> transitions, int[][] metabolitesVisited){
+		ArrayList<Transition<GeneProduct, Metabolite>> transitionsThaCanBeTriggered= new ArrayList<>();
 		for (int j = 0; j < transitions.size(); j++) {
-			List<Edge> inEdges = transitions.get(j).getIn();
+			List<Edge<Metabolite>> inEdges = transitions.get(j).getIn();
 			//The greatest distance that is not infinite.
 			boolean canBeTriggered=true;
 			for (int k = 0; k <inEdges.size(); k++) {
-				int number=places.get(inEdges.get(k).getMetabolite().getId()).getNumberMetabolite();				
+				int number=places.get(inEdges.get(k).getObject().getId()).getNumberMetabolite();				
 				if(!((metabolitesVisited[number][0]==1)&&(metabolitesVisited[number][2]!=INFINITE))) {
 					canBeTriggered=false;
 				}
@@ -241,12 +239,12 @@ public class MetabolicNetwork {
 	 * the second column is the reaction that allows to obtain the metabolite and the third column the distance of a initial reaction
 	 * @return the max distance of a metabolite in the transition
 	 */
-	public int findMaximunDistanceOfTheInletMetabolitesOfATransition(Transition transition,int[][] metabolitesVisited) {
-		List<Edge> edgesIn=transition.getIn();
+	public int findMaximunDistanceOfTheInletMetabolitesOfATransition(Transition<GeneProduct, Metabolite> transition,int[][] metabolitesVisited) {
+		List<Edge<Metabolite>> edgesIn=transition.getIn();
 		int max=-1;
 		for (int i = 0; i < edgesIn.size(); i++) {			
-			if(metabolitesVisited[places.get(edgesIn.get(i).getMetabolite().getId()).getNumberMetabolite()][2]>max) {
-				max=metabolitesVisited[places.get(edgesIn.get(i).getMetabolite().getId()).getNumberMetabolite()][2];
+			if(metabolitesVisited[places.get(edgesIn.get(i).getObject().getId()).getNumberMetabolite()][2]>max) {
+				max=metabolitesVisited[places.get(edgesIn.get(i).getObject().getId()).getNumberMetabolite()][2];
 			}
 		}		
 		return max;		
@@ -261,7 +259,6 @@ public class MetabolicNetwork {
 	 * @param file file Where the paths will be printed
 	 * @throws FileNotFoundException 
 	 */
-
 	public void getAllPaths(List<String> first, String last, String file) throws FileNotFoundException {
 		int[] metabolitesVisited=new int[places.size()+1];
 		for (int j = 0; j <first.size(); j++) {					
@@ -272,25 +269,21 @@ public class MetabolicNetwork {
 		for (String m : first) {
 			ArrayList<ArrayList<Integer>> paths = new ArrayList<ArrayList<Integer>>();
 			ArrayList<Integer> path = new ArrayList<Integer>();
-			Metabolite meta = places.get(m).getMetabolite();	
+			Metabolite meta = places.get(m).getObject();	
 			first_metabolites.add(meta);
 			ArrayList<Metabolite> ancestors = new ArrayList<Metabolite>();
 			searchPaths(meta, metabolitesVisited, path, paths, last,ancestors);
 			ArrayList<ArrayList<Integer>> p_paths = new ArrayList<ArrayList<Integer>>();
-
 			for (ArrayList<Integer> p : paths) {
-
-				List<Edge> i_reaction= transitions.get(p.get(0)).getIn();
-
+				List<Edge<Metabolite>> i_reaction= transitions.get(p.get(0)).getIn();
 				boolean allAtBegining=true;
-				for (Edge i : i_reaction) {
-					Metabolite mi = i.getMetabolite();
+				for (Edge<Metabolite> i : i_reaction) {
+					Metabolite mi = i.getObject();
 					if(!first_metabolites.contains(mi)) {
 						allAtBegining=false;
 						break;
 					}
 				}
-
 				if(allAtBegining) {
 					if(!p_paths.contains(p)) {
 						p_paths.add(p);
@@ -316,27 +309,25 @@ public class MetabolicNetwork {
 		}
 		ancestors.add(m);
 		int[] previousState = Arrays.copyOf(metabolitesVisited, metabolitesVisited.length);
-		List<Transition> transitions= transitionsThaCanBeTriggeredAllPaths(places.get(m.getId()).getTransitions(),metabolitesVisited);
+		List<Transition<GeneProduct, Metabolite>> transitions= transitionsThaCanBeTriggeredAllPaths(places.get(m.getId()).getTransitions(),metabolitesVisited);
 		if(transitions.size()==0||m.getId().equals(target)) {			
 			ArrayList<Integer> path_f = (ArrayList<Integer>) path.clone();
 			paths.add(path_f);
 			return;
 		}
-
-		for (Transition transition : transitions) {			
-			List<Edge> out=transition.getOut();
-			for (Edge edge : out) {
-				Metabolite mp = edge.getMetabolite();
+		for (Transition<GeneProduct, Metabolite> transition : transitions) {			
+			List<Edge<Metabolite>> out=transition.getOut();
+			for (Edge<Metabolite> edge : out) {
+				Metabolite mp = edge.getObject();
 				int number = places.get(mp.getId()).getNumberMetabolite();					
 				metabolitesVisited[number]=1;
 			}			
 		}
-
-		for (Transition transition : transitions) {	
+		for (Transition<GeneProduct, Metabolite> transition : transitions) {	
 			path.add(transition.getNumber());
-			List<Edge> out=transition.getOut();
-			for (Edge edge : out) {
-				Metabolite mp = edge.getMetabolite();
+			List<Edge<Metabolite>> out=transition.getOut();
+			for (Edge<Metabolite> edge : out) {
+				Metabolite mp = edge.getObject();
 				searchPaths(mp, metabolitesVisited, path, paths, target, ancestors);
 			}
 			path.remove(path.size()-1);
@@ -347,13 +338,13 @@ public class MetabolicNetwork {
 	}
 
 
-	public List<Transition> transitionsThaCanBeTriggeredAllPaths(List<Transition> transitions, int[] metabolitesVisited){
-		ArrayList<Transition> transitionsThaCanBeTriggered= new ArrayList<>();
+	public List<Transition<GeneProduct, Metabolite>> transitionsThaCanBeTriggeredAllPaths(List<Transition<GeneProduct,Metabolite>> transitions, int[] metabolitesVisited){
+		ArrayList<Transition<GeneProduct, Metabolite>> transitionsThaCanBeTriggered= new ArrayList<>();
 		for (int j = 0; j < transitions.size(); j++) {
-			List<Edge> inEdges = transitions.get(j).getIn();		
+			List<Edge<Metabolite>> inEdges = transitions.get(j).getIn();		
 			boolean canBeTriggered=true;
 			for (int k = 0; k <inEdges.size(); k++) {
-				int number=places.get(inEdges.get(k).getMetabolite().getId()).getNumberMetabolite();				
+				int number=places.get(inEdges.get(k).getObject().getId()).getNumberMetabolite();				
 				if(metabolitesVisited[number]!=1) {
 					canBeTriggered=false;
 					break;
@@ -366,8 +357,6 @@ public class MetabolicNetwork {
 		}
 		return transitionsThaCanBeTriggered;		
 	}
-
-
 
 
 	/**
@@ -419,15 +408,15 @@ public class MetabolicNetwork {
 			if(pqea[n]==0) {
 				pqea[n]++;	
 
-				List<Transition> transitions= transitionsThaCanBeTriggered(places.get(mp.getId()).getTransitions(),metabolitesVisited);
+				List<Transition<GeneProduct, Metabolite>> transitions= transitionsThaCanBeTriggered(places.get(mp.getId()).getTransitions(),metabolitesVisited);
 				for (int j = 0; j < transitions.size(); j++) {
 					reactionsVisited[transitions.get(j).getNumber()]=1;
-					List <Edge> inEdgesOft = transitions.get(j).getOut();						
+					List <Edge<Metabolite>> inEdgesOft = transitions.get(j).getOut();						
 					//The max previous distance
 					int maxValue= findMaximunDistanceOfTheInletMetabolitesOfATransition(transitions.get(j),metabolitesVisited)+transitions.get(j).getGeneProduct().size();										
 					//Update the distances
 					for (int k = 0; k < inEdgesOft.size(); k++) {
-						Metabolite meta = inEdgesOft.get(k).getMetabolite();
+						Metabolite meta = inEdgesOft.get(k).getObject();
 						int number = places.get(meta.getId()).getNumberMetabolite();
 						if((maxValue)<metabolitesVisited[number][2]) {
 							metabolitesVisited[number][2]=maxValue;
@@ -452,7 +441,6 @@ public class MetabolicNetwork {
 		return graph;
 	}	
 
-
 	/**
 	 * 
 	 * @param first Lista metabolitos iniciales
@@ -462,8 +450,6 @@ public class MetabolicNetwork {
 	 * @param fileName3 Methabolic Path
 	 * @throws Exception
 	 */
-
-
 	public int[][] shortestPathByMetabolitesNumber(List<String> first, String last, String fileName1,String fileName2, String fileName3) throws Exception{
 		int[][] graph = null;		
 		int[] reactionsVisited; 
@@ -490,15 +476,15 @@ public class MetabolicNetwork {
 			if(pqea[n]==0) {
 				pqea[n]++;		
 
-				List<Transition> transitions= transitionsThaCanBeTriggered(places.get(mp.getId()).getTransitions(),metabolitesVisited);
+				List<Transition<GeneProduct, Metabolite>> transitions= transitionsThaCanBeTriggered(places.get(mp.getId()).getTransitions(),metabolitesVisited);
 				for (int j = 0; j < transitions.size(); j++) {
 					reactionsVisited[transitions.get(j).getNumber()]=1;
-					List <Edge> inEdgesOft = transitions.get(j).getOut();						
+					List <Edge<Metabolite>> inEdgesOft = transitions.get(j).getOut();						
 					//The max distance
 					int maxValue= findMaximunDistanceOfTheInletMetabolitesOfATransition(transitions.get(j),metabolitesVisited)+1;
 					//Update the distances
 					for (int k = 0; k < inEdgesOft.size(); k++) {
-						Metabolite meta = inEdgesOft.get(k).getMetabolite();
+						Metabolite meta = inEdgesOft.get(k).getObject();
 						int number = places.get(meta.getId()).getNumberMetabolite();
 						if((maxValue)<metabolitesVisited[number][2]) {
 							metabolitesVisited[number][2]=maxValue;
@@ -563,7 +549,7 @@ public class MetabolicNetwork {
 
 		else {
 			ArrayDeque<Integer> transitionss = new ArrayDeque<>();
-			Transition currentTransition=transitions.get(metabolitesVisited[places.get(last).getNumberMetabolite()][1]);
+			Transition<GeneProduct, Metabolite> currentTransition=transitions.get(metabolitesVisited[places.get(last).getNumberMetabolite()][1]);
 			do {				
 				if(transitionsVisited[currentTransition.getNumber()]!=0) {	
 					if(!transitionss.isEmpty()) {
@@ -575,10 +561,10 @@ public class MetabolicNetwork {
 				}
 
 				transitionsVisited[currentTransition.getNumber()]++;
-				List<Edge> edgesIn= currentTransition.getIn();		
+				List<Edge<Metabolite>> edgesIn= currentTransition.getIn();		
 				int nInitialMetabolites=0;
 				for (int i = 0; i < edgesIn.size(); i++) {
-					int meta = places.get(edgesIn.get(i).getMetabolite().getId()).getNumberMetabolite();
+					int meta = places.get(edgesIn.get(i).getObject().getId()).getNumberMetabolite();
 					int transition =metabolitesVisited[meta][1];
 					if(transition!=-1) {
 						graph[transition][currentTransition.getNumber()]=1;
@@ -698,15 +684,15 @@ public class MetabolicNetwork {
 	 * @param first The initial ids of metabolites
 	 * @param last The final metabolite
 	 */
-	private void printATransitionInCSVToAllNetwork(Transition t, PrintStream out) {
-		List<Edge> metaInTransition = t.getIn();		
-		for (Edge edge : metaInTransition) {
-			String nameOfMeta = edge.getMetabolite().getId();		
+	private void printATransitionInCSVToAllNetwork(Transition<GeneProduct, Metabolite> t, PrintStream out) {
+		List<Edge<Metabolite>> metaInTransition = t.getIn();		
+		for (Edge<Metabolite> edge : metaInTransition) {
+			String nameOfMeta = edge.getObject().getId();		
 			out.println(nameOfMeta+COMMA+t.getId()+",PP,TRUE,abc"+",1.234");
 		}
 		metaInTransition = t.getOut();		
-		for (Edge edge : metaInTransition) {
-			String nameOfMeta = edge.getMetabolite().getId();		
+		for (Edge<Metabolite> edge : metaInTransition) {
+			String nameOfMeta = edge.getObject().getId();		
 			out.println(t.getId()+COMMA+nameOfMeta+",PP,TRUE,abc"+",1.234");
 		}
 	}	
@@ -723,12 +709,12 @@ public class MetabolicNetwork {
 	 * @param first The initial ids of metabolites
 	 * @param last The final metabolite
 	 */
-	private void printATransitionInCSV(Transition t, PrintStream out,int i, int j,int[] metabolitesVisited,int[] transitionsVisited, List<String> first, String last) {
-		List<Edge> metaInTransition = t.getIn();
+	private void printATransitionInCSV(Transition<GeneProduct, Metabolite> t, PrintStream out,int i, int j,int[] metabolitesVisited,int[] transitionsVisited, List<String> first, String last) {
+		List<Edge<Metabolite>> metaInTransition = t.getIn();
 		if(transitionsVisited[t.getNumber()]==0) {
 			transitionsVisited[t.getNumber()]++;
-			for (Edge edge : metaInTransition) {
-				String nameOfMeta = edge.getMetabolite().getId();
+			for (Edge<Metabolite> edge : metaInTransition) {
+				String nameOfMeta = edge.getObject().getId();
 				if(first.contains(nameOfMeta)) {
 					nameOfMeta="TT"+nameOfMeta;
 				}
@@ -738,8 +724,8 @@ public class MetabolicNetwork {
 				out.println(nameOfMeta+COMMA+t.getId()+",PP,TRUE,abc"+i+j+",1.234");
 			}
 			metaInTransition = t.getOut();		
-			for (Edge edge : metaInTransition) {
-				String nameOfMeta = edge.getMetabolite().getId();
+			for (Edge<Metabolite> edge : metaInTransition) {
+				String nameOfMeta = edge.getObject().getId();
 				if(first.contains(nameOfMeta)) {
 					nameOfMeta="TT"+nameOfMeta;
 				}
