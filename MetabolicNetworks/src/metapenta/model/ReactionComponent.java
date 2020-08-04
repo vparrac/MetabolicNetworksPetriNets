@@ -1,4 +1,4 @@
-package model;
+package metapenta.model;
 /**
  * This represents the data related to a metabolite within a reaction
  * @author Jorge Duitama

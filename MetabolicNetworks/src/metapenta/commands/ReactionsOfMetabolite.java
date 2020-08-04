@@ -1,11 +1,11 @@
-package commands;
+package metapenta.commands;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Map;
 
-import model.MetabolicNetwork;
-import model.MetabolicNetworkXMLLoader;
-import model.Reaction;
+import metapenta.model.MetabolicNetwork;
+import metapenta.model.MetabolicNetworkXMLLoader;
+import metapenta.model.Reaction;
 
 /**
  * Method that gived a metabolite ID print a JSON with the information of reactions

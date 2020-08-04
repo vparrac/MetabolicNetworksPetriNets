@@ -1,4 +1,4 @@
-package model;
+package metapenta.model;
 
 import java.util.List;
 

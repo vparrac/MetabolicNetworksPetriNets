@@ -1,4 +1,4 @@
-package model;
+package metapenta.model;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -12,9 +12,9 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import petrinet.Edge;
-import petrinet.Place;
-import petrinet.Transition;
+import metapenta.petrinet.Edge;
+import metapenta.petrinet.Place;
+import metapenta.petrinet.Transition;
 /**
  * Represents a metabolic network of reactions on metabolites
  * @author Jorge Duitama
@@ -157,7 +157,6 @@ public class MetabolicNetwork {
 	//-------------------------------------------------------------------
 	//-----------------------Metabolic Network --------------------------
 	//--------------------------As Petri Net-----------------------------
-
 
 
 	/**

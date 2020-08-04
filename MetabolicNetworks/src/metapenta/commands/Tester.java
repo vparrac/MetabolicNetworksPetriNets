@@ -1,9 +1,9 @@
-package commands;
+package metapenta.commands;
 
 import java.io.IOException;
 
-import model.MetabolicNetwork;
-import model.MetabolicNetworkXMLLoader;
+import metapenta.model.MetabolicNetwork;
+import metapenta.model.MetabolicNetworkXMLLoader;
 
 public class Tester {
 

@@ -1,12 +1,12 @@
-package commands;
+package metapenta.commands;
 
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
 
-import model.MetabolicNetwork;
-import model.MetabolicNetworkXMLLoader;
-import model.Reaction;
+import metapenta.model.MetabolicNetwork;
+import metapenta.model.MetabolicNetworkXMLLoader;
+import metapenta.model.Reaction;
 /**
  * Method that gived a Enzyme ID print a JSON with the information of reactions
  * where Enzyme is required

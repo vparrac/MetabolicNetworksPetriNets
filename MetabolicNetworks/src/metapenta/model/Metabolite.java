@@ -1,10 +1,10 @@
-package model;
+package metapenta.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import petrinet.Edge;
-import petrinet.Transition;
+import metapenta.petrinet.Edge;
+import metapenta.petrinet.Transition;
 
 /**
  * Represents a metabolite that participates in chemical reactions

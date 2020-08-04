@@ -1,16 +1,20 @@
-package commands;
+package metapenta.commands;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import model.MetabolicNetwork;
-import model.MetabolicNetworkXMLLoader;
-public class GetAllPaths {
+import metapenta.model.MetabolicNetwork;
+import metapenta.model.MetabolicNetworkXMLLoader;
+
+public class ShortestPathByMetabolitesNumber {
 	/**
 	 * The main method of class
 	 * @param args[0] the path of the XML file 
 	 * @param args[1] The initial metabolites separated by comma
 	 * @param args[2] Target metabolite
-	 * @param args[3] fileName1 Metabolic Network In CSV	
+	 * @param args[3] fileName1 Metabolic Network In CSV
+	 * @param args[4] fileName2 Reactions Graph In CSV
+	 * @param args[5] fileName3 print Catalyst Of MethabolicPath
 	 * @throws Exception if exists any error of I/O
 	 */
 	public static void main(String[] args) throws Exception {
@@ -22,6 +26,7 @@ public class GetAllPaths {
 		for (int i = 0; i < initialMetabolites.length; i++) {
 			im.add(initialMetabolites[i]);			
 		}
-		network.getAllPaths(im, args[2], args[3]);
+		network.shortestPathByMetabolitesNumber(im, args[2], args[3], args[4], args[5]);	
+		
 	}
 }

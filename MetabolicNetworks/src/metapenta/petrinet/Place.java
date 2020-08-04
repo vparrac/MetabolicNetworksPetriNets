@@ -1,8 +1,8 @@
-package petrinet;
+package metapenta.petrinet;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Metabolite;
+import metapenta.model.Metabolite;
 /**
  * This class representate a Place of Petri net
  * @author Valerie Parra

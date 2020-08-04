@@ -1,10 +1,10 @@
-package commands;
+package metapenta.commands;
 
 import java.io.IOException;
 import java.util.List;
 
-import model.MetabolicNetworkXMLLoader;
-import model.Metabolite;
+import metapenta.model.MetabolicNetworkXMLLoader;
+import metapenta.model.Metabolite;
 
 /**
  * Diferentes metabolitos

@@ -1,8 +1,8 @@
-package petrinet;
+package metapenta.petrinet;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.GeneProduct;
+import metapenta.model.GeneProduct;
 /**
  * Class that represent a transition
  * @author Valerie Parra
