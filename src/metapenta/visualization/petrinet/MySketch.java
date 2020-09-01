@@ -6,7 +6,7 @@ public class MySketch extends PApplet {
 	private final static RGBTuple BLUE = new RGBTuple(3, 152, 158); 
 	private static final RGBTuple BLUE_KING = new RGBTuple(0, 74, 173);
 	private static final RGBTuple ORANGE = new RGBTuple(255, 145, 77);
-	
+
 	private final static int BS = 50;	
 	private boolean bover = false;	
 	private float newx, newy;
@@ -15,8 +15,8 @@ public class MySketch extends PApplet {
 	private float[] positions_places = {100,20,250,30} ;
 	private float xOffset = 0; 
 	private float yOffset = 0; 
-	
-	
+
+
 	private boolean isTransition=false;
 	private int radious=50;
 	public static void main(String[] args) {
@@ -59,11 +59,15 @@ public class MySketch extends PApplet {
 		checkOver();
 		if (bover) { 
 			locked = true;
+			float[] nodes = (isTransition)? positions_transitions:positions_places;
+			xOffset = mouseX-nodes[whichImage*2]; 
+			yOffset = mouseY-nodes[whichImage*2+1];
+			System.out.println("xOffset: " +xOffset);
+
 		} 
 		else {
 			locked = false;			
 		}
-
 	}
 
 	public void mouseReleased() {
@@ -72,29 +76,21 @@ public class MySketch extends PApplet {
 	}
 
 	public void mouseDragged() {
-		if (locked) {
-//			float[] node = (isTransition)? positions_transitions:positions_places
-			newx = mouseX; 
-			newy = mouseY;
-		}
+
 
 		moveNodes();
 	}
 
 	void moveNodes() {
-		if(isTransition) {
-			positions_transitions [whichImage*2] = newx;
-			positions_transitions [(whichImage*2)+1] = newy;
-		}
-		else if(!isTransition) {			
-			positions_places [whichImage*2] = newx;
-			positions_places [(whichImage*2)+1] = newy;
+		if(locked) {
+			float[] nodes = (isTransition)? positions_transitions:positions_places;
+			nodes [whichImage*2] = mouseX-xOffset;
+			nodes [(whichImage*2)+1] = mouseY-yOffset;
 		}
 	}
 
 	void checkOver() {
 		boolean found=false;
-		
 		for (int i = 0; i <positions_places.length/2 ; i++) {
 			System.out.println("Verificando places");
 			if (Math.sqrt(Math.pow((mouseY-positions_places[i*2+1]),2)+Math.pow((mouseX-positions_places[i*2]),2))<= radious) {				
@@ -109,7 +105,7 @@ public class MySketch extends PApplet {
 				bover = false;
 			}
 		}
-		
+
 		if(!found) {
 			for (int i=0; i < positions_transitions.length/2; i++) {		
 				System.out.println("Verificando transitions");
