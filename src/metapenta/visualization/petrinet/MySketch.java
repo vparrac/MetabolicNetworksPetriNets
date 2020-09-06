@@ -103,26 +103,33 @@ public class MySketch extends PApplet {
 	}
 	
 	public void draw() {		
-		background(255, 255, 255);	
+		background(255, 255, 255);
+		fill(BLUE_KING.r,BLUE_KING.g,BLUE_KING.b);
+		int x1=200;
+		int y1=20;
+		int x2=80;
+		int y2=100;
+		line(x1, y1, x2, y2);
+		pushMatrix();
+		translate(x2, y2);
+		float a = atan2(x1-x2, y2-y1);
+		rotate(a);
+		line(0, 0, -10, -10);
+		line(0, 0, 10, -10);
+		popMatrix();
 		stroke(126);	
 		for (int j=0; j < positionTransitions.length/2; j++) {
-			if (bover && whichImage==j) 
-				stroke(255); 
-			else
-				noStroke(); 
 			fill(BLUE_KING.r,BLUE_KING.g,BLUE_KING.b);
 			rect ( positionTransitions[j*2], positionTransitions[j*2+1], BS, BS) ;
+			stroke(153);
 		}
 
 		for (int j=0; j < positionsPlaces.length/2; j++) {
-			if (bover && whichImage==j) 
-				stroke(255);  
-			else
-				noStroke(); 
 			fill(ORANGE.r,ORANGE.g,ORANGE.b);
 			ellipse( positionsPlaces[j*2], positionsPlaces[j*2+1], redius, redius);			
-			int[] x_coordinates = edgesPlaces.get(j);					
 		}
+		
+
 	}
 	
 	public void mousePressed() {
@@ -152,8 +159,7 @@ public class MySketch extends PApplet {
 	}
 	void checkOver() {
 		boolean found=false;
-		for (int i = 0; i <positionsPlaces.length/2 ; i++) {
-			System.out.println("Verificando places");
+		for (int i = 0; i <positionsPlaces.length/2 ; i++) {			
 			if (Math.sqrt(Math.pow((mouseY-positionsPlaces[i*2+1]),2)+Math.pow((mouseX-positionsPlaces[i*2]),2))<= redius) {				
 				System.out.println("Es place");
 				whichImage=i;	
@@ -167,8 +173,7 @@ public class MySketch extends PApplet {
 			}
 		}
 		if(!found) {
-			for (int i=0; i < positionTransitions.length/2; i++) {		
-				System.out.println("Verificando transitions");
+			for (int i=0; i < positionTransitions.length/2; i++) {					
 				if (mouseX > positionTransitions[i*2]-BS && mouseX < positionTransitions[i*2]+BS && 
 						mouseY > positionTransitions[i*2+1]-BS && mouseY < positionTransitions[i*2+1]+BS){
 					whichImage=i;
