@@ -1,7 +1,5 @@
 package metapenta.visualization.petrinet;
-import java.util.HashMap;
-import java.util.Map;
-
+import java.util.ArrayList;
 /**
  * Main class of the visualization panel this class extends of PApplet
  * the main class of processing library
@@ -13,11 +11,11 @@ public class MySketch extends PApplet {
 	 * It represents id a user is over a note
 	 */
 	private boolean locked=false;;
-	// Colors
-	
+	// Colors	
 	private final static RGBTuple BLUE = new RGBTuple(3, 152, 158); 
 	private static final RGBTuple BLUE_KING = new RGBTuple(0, 74, 173);
 	private static final RGBTuple ORANGE = new RGBTuple(255, 145, 77);
+	private static final RGBTuple WHITE = new RGBTuple(255, 255, 255);
 		
 	/**
 	 * Number of pixels of the boxes
@@ -34,19 +32,11 @@ public class MySketch extends PApplet {
 	/**
 	 * The position of the transitions
 	 */
-	private float[] positionTransitions = {200,20,250,20};
+	private ArrayList<Transition> positionTransitions = new ArrayList<Transition>();
 	/**
 	 * The location of places
 	 */
-	private float[] positionsPlaces = {100,20,250,30} ;
-	/**
-	 * The in edges of the transitions
-	 */
-	Map<Integer, int[]> edgesTransitions = new HashMap<Integer, int[]>();
-	/**
-	 * The location of edges
-	 */
-	Map<Integer, int[]> edgesPlaces = new HashMap<Integer, int[]>();
+	private ArrayList<Place> positionsPlaces = new ArrayList<Place>();
 	/**
 	 * The offset of the mouse and the center of the node in x-axis
 	 */
@@ -62,7 +52,7 @@ public class MySketch extends PApplet {
 	/**
 	 * Radius of the places
 	 */
-	private int redius=50;
+	private int redius=50;	
 	/**
 	 * The main method of the Sketch class
 	 * @param args 
@@ -97,9 +87,10 @@ public class MySketch extends PApplet {
 	}
 
 	public void setup() {
-		// x1,x2,y1,y2
-		int[] arrow1= {100,200,100,200};
-		edgesPlaces.put(0, arrow1);		
+		positionTransitions.add(new Transition(100, 200, BS, BS, "1", BLUE_KING, WHITE));
+		positionTransitions.add(new Transition(100, 200, BS, BS, "2", BLUE_KING, WHITE));
+		positionsPlaces.add(new Place(200, 300, BS, BS, "1", ORANGE, WHITE));	
+		positionsPlaces.add(new Place(200, 300, BS, BS, "2", ORANGE, WHITE));	
 	}
 	
 	public void draw() {		
@@ -118,27 +109,26 @@ public class MySketch extends PApplet {
 		line(0, 0, 10, -10);
 		popMatrix();
 		stroke(126);	
-		for (int j=0; j < positionTransitions.length/2; j++) {
+		for (int j=0; j < positionTransitions.size(); j++) {
 			fill(BLUE_KING.r,BLUE_KING.g,BLUE_KING.b);
-			rect ( positionTransitions[j*2], positionTransitions[j*2+1], BS, BS) ;
+			rect ( positionTransitions.get(j).getPx(), positionTransitions.get(j).getPy(), BS, BS) ;
 			stroke(153);
 		}
 
-		for (int j=0; j < positionsPlaces.length/2; j++) {
+		for (int j=0; j < positionsPlaces.size(); j++) {
 			fill(ORANGE.r,ORANGE.g,ORANGE.b);
-			ellipse( positionsPlaces[j*2], positionsPlaces[j*2+1], redius, redius);			
+			ellipse( positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy(), redius, redius);			
 		}
-		
-
 	}
 	
 	public void mousePressed() {
+		
 		checkOver();
 		if (bover) { 
 			locked = true;
-			float[] nodes = (isTransition)? positionTransitions:positionsPlaces;
-			xOffset = mouseX-nodes[whichImage*2]; 
-			yOffset = mouseY-nodes[whichImage*2+1];
+			Node currentNodes = (isTransition)? positionTransitions.get(whichImage):positionsPlaces.get(whichImage);
+			xOffset = mouseX-currentNodes.getPx(); 
+			yOffset = mouseY-currentNodes.getPy();
 		} 
 		else {
 			locked = false;			
@@ -152,16 +142,15 @@ public class MySketch extends PApplet {
 
 	public void mouseDragged() {
 		if(locked) {
-			float[] nodes = (isTransition)? positionTransitions:positionsPlaces;
-			nodes [whichImage*2] = mouseX-xOffset;
-			nodes [(whichImage*2)+1] = mouseY-yOffset;
+			Node currentNode=(isTransition)? positionTransitions.get(whichImage):positionsPlaces.get(whichImage);
+			currentNode.setPx(mouseX-xOffset);
+			currentNode.setPy(mouseY-yOffset);
 		}
 	}
 	void checkOver() {
 		boolean found=false;
-		for (int i = 0; i <positionsPlaces.length/2 ; i++) {			
-			if (Math.sqrt(Math.pow((mouseY-positionsPlaces[i*2+1]),2)+Math.pow((mouseX-positionsPlaces[i*2]),2))<= redius) {				
-				System.out.println("Es place");
+		for (int i = 0; i <positionsPlaces.size() ; i++) {			
+			if (Math.sqrt(Math.pow((mouseY-positionsPlaces.get(i).getPy()),2)+Math.pow((mouseX-positionsPlaces.get(i).getPx()),2))<= redius) {			
 				whichImage=i;	
 				bover = true;  
 				isTransition=false;
@@ -173,9 +162,9 @@ public class MySketch extends PApplet {
 			}
 		}
 		if(!found) {
-			for (int i=0; i < positionTransitions.length/2; i++) {					
-				if (mouseX > positionTransitions[i*2]-BS && mouseX < positionTransitions[i*2]+BS && 
-						mouseY > positionTransitions[i*2+1]-BS && mouseY < positionTransitions[i*2+1]+BS){
+			for (int i=0; i < positionTransitions.size(); i++) {					
+				if (mouseX > positionTransitions.get(i).getPx()-BS && mouseX < positionTransitions.get(i).getPx()+BS && 
+						mouseY > positionTransitions.get(i).getPy()-BS && mouseY < positionTransitions.get(i).getPy()+BS){
 					whichImage=i;
 					bover = true;  
 					isTransition=true;				
@@ -184,4 +173,6 @@ public class MySketch extends PApplet {
 			}
 		}		
 	}
+	
+	
 }
