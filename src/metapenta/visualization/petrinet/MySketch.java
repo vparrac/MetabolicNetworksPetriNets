@@ -54,9 +54,18 @@ public class MySketch extends PApplet {
 	 */
 	private int redius=50;	
 	/**
+	 * Matrix of adjacency of Petri Net 
+	 * 0 means no edge
+	 * 1 means edge Transition->Place
+	 * 2 means edge Place->Transition
+	 * 3 means edge Place->Transition and Transition->Place
+	 */
+	private int[][] adjacencyMatrix;
+	/**
 	 * The main method of the Sketch class
 	 * @param args 
 	 */
+	
 	public static void main(String[] args) {
 		PApplet.main(MySketch.class.getName());
 	}
@@ -91,24 +100,31 @@ public class MySketch extends PApplet {
 		positionTransitions.add(new Transition(100, 200, BS, BS, "2", BLUE_KING, WHITE));
 		positionsPlaces.add(new Place(200, 300, BS, BS, "1", ORANGE, WHITE));	
 		positionsPlaces.add(new Place(200, 300, BS, BS, "2", ORANGE, WHITE));	
+		adjacencyMatrix = new int[positionTransitions.size()][positionsPlaces.size()];
+		adjacencyMatrix[0][0]=1;
+		adjacencyMatrix[0][1]=1;
+		adjacencyMatrix[1][0]=1;
+		adjacencyMatrix[1][1]=1;
 	}
 	
 	public void draw() {		
 		background(255, 255, 255);
-		fill(BLUE_KING.r,BLUE_KING.g,BLUE_KING.b);
-		int x1=200;
-		int y1=20;
-		int x2=80;
-		int y2=100;
-		line(x1, y1, x2, y2);
-		pushMatrix();
-		translate(x2, y2);
-		float a = atan2(x1-x2, y2-y1);
-		rotate(a);
-		line(0, 0, -10, -10);
-		line(0, 0, 10, -10);
-		popMatrix();
+		fill(BLUE_KING.r,BLUE_KING.g,BLUE_KING.b);	
 		stroke(126);	
+		for (int i = 0; i < adjacencyMatrix.length; i++) {
+			for (int j = 0; j < adjacencyMatrix[0].length; j++) {
+				if(adjacencyMatrix[i][j]==1) {
+					line(positionTransitions.get(i).getPx()+BS/2, positionTransitions.get(i).getPy()+BS/2, positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy());
+				}
+				else if(adjacencyMatrix[i][j]==2) {
+					line(positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy(),positionTransitions.get(i).getPx(), positionTransitions.get(i).getPy());
+				}
+				else if(adjacencyMatrix[i][j]==3) {
+					line(positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy(),positionTransitions.get(i).getPx(), positionTransitions.get(i).getPy());
+					line(positionTransitions.get(i).getPx(), positionTransitions.get(i).getPy(), positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy());
+				}
+			}
+		}
 		for (int j=0; j < positionTransitions.size(); j++) {
 			fill(BLUE_KING.r,BLUE_KING.g,BLUE_KING.b);
 			rect ( positionTransitions.get(j).getPx(), positionTransitions.get(j).getPy(), BS, BS) ;
@@ -119,6 +135,8 @@ public class MySketch extends PApplet {
 			fill(ORANGE.r,ORANGE.g,ORANGE.b);
 			ellipse( positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy(), redius, redius);			
 		}
+		
+		
 	}
 	
 	public void mousePressed() {
@@ -147,7 +165,10 @@ public class MySketch extends PApplet {
 			currentNode.setPy(mouseY-yOffset);
 		}
 	}
-	void checkOver() {
+	/**
+	 * Check if the user press over a node
+	 */
+	public void checkOver() {
 		boolean found=false;
 		for (int i = 0; i <positionsPlaces.size() ; i++) {			
 			if (Math.sqrt(Math.pow((mouseY-positionsPlaces.get(i).getPy()),2)+Math.pow((mouseX-positionsPlaces.get(i).getPx()),2))<= redius) {			
