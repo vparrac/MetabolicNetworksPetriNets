@@ -15,8 +15,7 @@ public class MySketch extends PApplet {
 	private final static RGBTuple BLUE = new RGBTuple(3, 152, 158); 
 	private static final RGBTuple BLUE_KING = new RGBTuple(0, 74, 173);
 	private static final RGBTuple ORANGE = new RGBTuple(255, 145, 77);
-	private static final RGBTuple WHITE = new RGBTuple(255, 255, 255);
-		
+	private static final RGBTuple WHITE = new RGBTuple(255, 255, 255);		
 	/**
 	 * Number of pixels of the boxes
 	 */

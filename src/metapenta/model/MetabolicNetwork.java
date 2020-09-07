@@ -798,6 +798,43 @@ public class MetabolicNetwork {
 	}
 
 
+	/**
+	 * Construct the correspondent sub-net of the comparment 
+	 * @param comparment the comparment
+	 */
+	public void connectedComponents() {				
+		int[] metabolitesVisited = new int[places.size()];
+		int[] transitionsVisited = new int[transitions.size()];
+		int conectedComponentId =1;
+		int tiempo=0;
+		for (int i = 0; i < metabolites.size(); i++) {
+			if(metabolitesVisited[i]==0) {
+				visitNode(metabolitesVisited, transitionsVisited,i,tiempo,conectedComponentId);
+			}
+			conectedComponentId++;
+		}		
+	}
+
+	private void visitNode(int[] metabolitesVisited, int[] transitionsVisited, int node,  int tiempo, int conectedComponentId) {
+		metabolitesVisited[node] = 1;		
+		tiempo = tiempo+1;
+		PriorityQueue<MetabolitesP> pq = new PriorityQueue<>();	
+		List<Transition<GeneProduct, Metabolite>> neighbours = places.get(node).getTransitions();
+		for (int i = 0; i < neighbours.size(); i++) {
+			Transition<GeneProduct,Metabolite> reaction = neighbours.get(i);
+			transitionsVisited[reaction.getNumber()]=conectedComponentId;
+			List<Edge<Metabolite>> in= reaction.getIn();
+			List<Edge<Metabolite>> out=reaction.getOut();
+			for (int j = 0; j < in.size(); j++) {
+				pq.add(new MetabolitesP(metabolites.get(j),tiempo));
+			}
+			for (int j = 0; j < out.size(); j++) {
+				pq.add(new MetabolitesP(metabolites.get(j),tiempo));
+			}
+		}		
+	}
+
+
 
 	/**
 	 * Class to create the priority queue. Represents a metabolite with a priority that is the distance to
