@@ -1,6 +1,6 @@
 package metapenta.petrinet;
 
-import metapenta.model.Metabolite;
+
 /**
  * Represents a edge of the petri net
  * @author Valerie Parra Cortés
@@ -15,15 +15,12 @@ public class Edge <O> {
 	 * The metabolite
 	 */
 	private O object;
-	/**
-	 * The transition
-	 */
-	private Transition transition;
+
 	
-	public Edge(double tokens, O object, Transition transition) {		
+	public Edge(double tokens, O object) {		
 		this.tokens = tokens;			
 		this.object=object;
-		this.transition=transition;
+		
 	}
 	/**
 	 * @return the stoichiometry of the edge
@@ -43,11 +40,5 @@ public class Edge <O> {
 	 */
 	public O getObject() {
 		return object;
-	}
-	/**
-	 * @return the transition of the edge
-	 */
-	public Transition getTransition() {
-		return transition;
 	}
 }

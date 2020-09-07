@@ -182,7 +182,7 @@ public class MetabolicNetwork {
 					numberMetabolites++;
 					currentPlace = nm;
 				}								
-				Edge<Metabolite> edge= new Edge<Metabolite>(rc.getStoichiometry(),meta,transition);		
+				Edge<Metabolite> edge= new Edge<Metabolite>(rc.getStoichiometry(),meta);		
 				currentPlace.addEdgeOut(edge);						
 				transition.addEdgeIn(edge);
 				currentPlace.addTransition(transition);
@@ -196,7 +196,7 @@ public class MetabolicNetwork {
 					numberMetabolites++;	
 					currentPlace = nm;
 				}				
-				Edge<Metabolite> edge= new Edge<Metabolite>(rc.getStoichiometry(),meta,transition);				
+				Edge<Metabolite> edge= new Edge<Metabolite>(rc.getStoichiometry(),meta);				
 				currentPlace.addEdgeIn(edge);
 				transition.addEdgeOut(edge);
 				currentPlace.addTransition(transition);
@@ -771,66 +771,54 @@ public class MetabolicNetwork {
 	//---------------Inner auxiliar classes------------
 	//-------------------------------------------------
 
-	/**
-	 * Class thar represents a tuple of metabolite-Transition
-	 * @author Valerie Parra Cortés
-	 */
-
-	class MetaboliteTransitionCouple {
-		/**
-		 * Id of transition
-		 */
-		private String idTransition;
-		/***
-		 * Id metabolite
-		 */
-		private String idMetabolite;
-
-		/**
-		 * Constructor of class MetaboliteTransitionCouple
-		 * @param idTransition the identifier of transition
-		 * @param idMetabolite the identifier of metabolite
-		 */
-		public MetaboliteTransitionCouple(String idTransition, String idMetabolite) {			
-			this.idTransition = idTransition;
-			this.idMetabolite = idMetabolite;
-		}				
-	}
-
 
 	/**
 	 * Construct the correspondent sub-net of the comparment 
 	 * @param comparment the comparment
 	 */
 	public void connectedComponents() {				
-		int[] metabolitesVisited = new int[places.size()];
-		int[] transitionsVisited = new int[transitions.size()];
+		int[] metabolitesVisited = new int[places.size()+1];
+		int[] transitionsVisited = new int[transitions.size()+1];
 		int conectedComponentId =1;
 		int tiempo=0;
-		for (int i = 0; i < metabolites.size(); i++) {
-			if(metabolitesVisited[i]==0) {
-				visitNode(metabolitesVisited, transitionsVisited,i,tiempo,conectedComponentId);
-			}
-			conectedComponentId++;
-		}		
+	
+		Set<String> keys = places.keySet();
+		
+		for(String node: keys) {
+			if(metabolitesVisited[places.get(node).getNumberMetabolite()]==0) {
+				visitNode(metabolitesVisited, transitionsVisited, node, tiempo, conectedComponentId);
+				conectedComponentId++;
+			}			
+		}
+		System.out.println(Arrays.toString(transitionsVisited));
+		
 	}
 
-	private void visitNode(int[] metabolitesVisited, int[] transitionsVisited, int node,  int tiempo, int conectedComponentId) {
-		metabolitesVisited[node] = 1;		
-		tiempo = tiempo+1;
-		PriorityQueue<MetabolitesP> pq = new PriorityQueue<>();	
+	private void visitNode(int[] metabolitesVisited, int[] transitionsVisited, String node,  int tiempo, int conectedComponentId) {
+		metabolitesVisited[places.get(node).getNumberMetabolite()] = 1;		
+		tiempo = tiempo+1;					
 		List<Transition<GeneProduct, Metabolite>> neighbours = places.get(node).getTransitions();
 		for (int i = 0; i < neighbours.size(); i++) {
 			Transition<GeneProduct,Metabolite> reaction = neighbours.get(i);
+//			if(transitionsVisited[reaction.getNumber()]!=0) {
+//				continue;
+//			}
 			transitionsVisited[reaction.getNumber()]=conectedComponentId;
 			List<Edge<Metabolite>> in= reaction.getIn();
 			List<Edge<Metabolite>> out=reaction.getOut();
 			for (int j = 0; j < in.size(); j++) {
-				pq.add(new MetabolitesP(metabolites.get(j),tiempo));
+				String node_1=in.get(j).getObject().getId();
+				if(metabolitesVisited[places.get(node_1).getNumberMetabolite()]==0) {
+					visitNode(metabolitesVisited, transitionsVisited, node_1, tiempo, conectedComponentId);
+				}				
 			}
 			for (int j = 0; j < out.size(); j++) {
-				pq.add(new MetabolitesP(metabolites.get(j),tiempo));
+				String node_2=out.get(j).getObject().getId();
+				if(metabolitesVisited[places.get(node_2).getNumberMetabolite()]==0) {
+					visitNode(metabolitesVisited, transitionsVisited, node_2, tiempo, conectedComponentId);
+				}
 			}
+			
 		}		
 	}
 
