@@ -59,7 +59,8 @@ public class MySketch extends PApplet {
 	 * 2 means edge Place->Transition
 	 * 3 means edge Place->Transition and Transition->Place
 	 */
-	private int[][] adjacencyMatrix;
+	
+	private byte[][] adjacencyMatrix;
 	/**
 	 * The main method of the Sketch class
 	 * @param args 
@@ -99,7 +100,7 @@ public class MySketch extends PApplet {
 		positionTransitions.add(new Transition(100, 200, BS, BS, "2", BLUE_KING, WHITE));
 		positionsPlaces.add(new Place(200, 300, BS, BS, "1", ORANGE, WHITE));	
 		positionsPlaces.add(new Place(200, 300, BS, BS, "2", ORANGE, WHITE));	
-		adjacencyMatrix = new int[positionTransitions.size()][positionsPlaces.size()];
+		adjacencyMatrix = new byte[positionTransitions.size()][positionsPlaces.size()];
 		adjacencyMatrix[0][0]=1;
 		adjacencyMatrix[0][1]=1;
 		adjacencyMatrix[1][0]=1;
@@ -138,8 +139,7 @@ public class MySketch extends PApplet {
 		
 	}
 	
-	public void mousePressed() {
-		
+	public void mousePressed() {		
 		checkOver();
 		if (bover) { 
 			locked = true;
