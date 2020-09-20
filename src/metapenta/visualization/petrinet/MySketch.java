@@ -1,5 +1,7 @@
 package metapenta.visualization.petrinet;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Main class of the visualization panel this class extends of PApplet
  * the main class of processing library
@@ -84,7 +86,7 @@ public class MySketch extends PApplet {
 	 * @param x2 the first coordinate of  arrow's end
 	 * @param y2 the seconds coordinate of arrow's end
 	 */
-	public void arrow(int x1, int y1, int x2, int y2) {
+	public void arrow(float x1, float y1, float x2, float y2) {
 		line(x1, y1, x2, y2);
 		pushMatrix();
 		translate(x2, y2);
@@ -114,7 +116,10 @@ public class MySketch extends PApplet {
 		for (int i = 0; i < adjacencyMatrix.length; i++) {
 			for (int j = 0; j < adjacencyMatrix[0].length; j++) {
 				if(adjacencyMatrix[i][j]==1) {
-					line(positionTransitions.get(i).getPx()+BS/2, positionTransitions.get(i).getPy()+BS/2, positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy());
+					
+					float[] coordinates = intersectionPointCircleLine(positionTransitions.get(i).getPx()+BS/2, positionTransitions.get(i).getPy()+BS/2, positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy());
+					arrow(positionTransitions.get(i).getPx()+BS/2, positionTransitions.get(i).getPy()+BS/2, coordinates[0],coordinates[1]);
+					
 				}
 				else if(adjacencyMatrix[i][j]==2) {
 					line(positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy(),positionTransitions.get(i).getPx(), positionTransitions.get(i).getPy());
@@ -196,16 +201,16 @@ public class MySketch extends PApplet {
 	
 	
 	
-	private double[] intersectionPointCircleLine(double x1, double y1, double cx2, double cy2) {
+	private float[] intersectionPointCircleLine(double x1, double y1, double cx2, double cy2) {
 		double dx = cx2-x1;
 		double dy = cy2-y1;
 		double norm = norm(dx, dy);
-		double factor = (norm*-radius)/norm;
+		double factor = (norm-radius/2)/norm;
 		double ndx = dx*factor+x1;
 		double ndy = dy*factor+y1;
-		double[] coordinates = new double[2];
-		coordinates[0]=ndx;
-		coordinates[1]=ndy;
+		float[] coordinates = new float[2];
+		coordinates[0] = (float) ndx;
+		coordinates[1] = (float) ndy;
 		return coordinates;		
 	}
 	
