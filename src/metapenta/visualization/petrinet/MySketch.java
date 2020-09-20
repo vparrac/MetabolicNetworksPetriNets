@@ -51,7 +51,7 @@ public class MySketch extends PApplet {
 	/**
 	 * Radius of the places
 	 */
-	private int redius=50;	
+	private int radius=50;	
 	/**
 	 * Matrix of adjacency of Petri Net 
 	 * 0 means no edge
@@ -133,7 +133,7 @@ public class MySketch extends PApplet {
 
 		for (int j=0; j < positionsPlaces.size(); j++) {
 			fill(ORANGE.r,ORANGE.g,ORANGE.b);
-			ellipse( positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy(), redius, redius);			
+			ellipse( positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy(), radius, radius);			
 		}
 		
 		
@@ -170,7 +170,7 @@ public class MySketch extends PApplet {
 	public void checkOver() {
 		boolean found=false;
 		for (int i = 0; i <positionsPlaces.size() ; i++) {			
-			if (Math.sqrt(Math.pow((mouseY-positionsPlaces.get(i).getPy()),2)+Math.pow((mouseX-positionsPlaces.get(i).getPx()),2))<= redius) {			
+			if (Math.sqrt(Math.pow((mouseY-positionsPlaces.get(i).getPy()),2)+Math.pow((mouseX-positionsPlaces.get(i).getPx()),2))<= radius) {			
 				whichImage=i;	
 				bover = true;  
 				isTransition=false;
@@ -193,6 +193,27 @@ public class MySketch extends PApplet {
 			}
 		}		
 	}
+	
+	
+	
+	private double[] intersectionPointCircleLine(double x1, double y1, double cx2, double cy2) {
+		double dx = cx2-x1;
+		double dy = cy2-y1;
+		double norm = norm(dx, dy);
+		double factor = (norm*-radius)/norm;
+		double ndx = dx*factor+x1;
+		double ndy = dy*factor+y1;
+		double[] coordinates = new double[2];
+		coordinates[0]=ndx;
+		coordinates[1]=ndy;
+		return coordinates;		
+	}
+	
+	
+	private double norm(double dx, double dy) {
+		return Math.sqrt(Math.pow(dx, 2)+Math.pow(dy, 2));		
+	}
+	
 	
 	
 }

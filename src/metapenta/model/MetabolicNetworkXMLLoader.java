@@ -82,8 +82,10 @@ public class MetabolicNetworkXMLLoader {
 		}
 		throw new IOException("Malformed XML file. The element "+ELEMENT_MODEL+" could not be found");
 	}
-
-	private MetabolicNetwork loadModel(Element modelElem) throws IOException {
+	
+		
+	
+	private MetabolicNetwork loadModel(Element modelElem) throws IOException {		
 		MetabolicNetwork answer = new MetabolicNetwork();
 		NodeList offspring = modelElem.getChildNodes(); 
 		for(int i=0;i<offspring.getLength();i++){  
