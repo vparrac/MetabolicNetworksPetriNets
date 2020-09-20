@@ -116,10 +116,10 @@ public class MySketch extends PApplet {
 		for (int i = 0; i < adjacencyMatrix.length; i++) {
 			for (int j = 0; j < adjacencyMatrix[0].length; j++) {
 				if(adjacencyMatrix[i][j]==1) {
-					
-					float[] coordinates = intersectionPointCircleLine(positionTransitions.get(i).getPx()+BS/2, positionTransitions.get(i).getPy()+BS/2, positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy());
-					arrow(positionTransitions.get(i).getPx()+BS/2, positionTransitions.get(i).getPy()+BS/2, coordinates[0],coordinates[1]);
-					
+					float x1 = positionTransitions.get(i).getPx()+BS/2,y1 = positionTransitions.get(i).getPy()+BS/2;
+					float x2 = positionsPlaces.get(j).getPx(), y2 = positionsPlaces.get(j).getPy();					
+					float[] coordinates = intersectionPointCircleLine(x1, y1, x2, y2);
+					arrow(x1, y1, coordinates[0],coordinates[1]);					
 				}
 				else if(adjacencyMatrix[i][j]==2) {
 					line(positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy(),positionTransitions.get(i).getPx(), positionTransitions.get(i).getPy());
