@@ -1,6 +1,5 @@
 package metapenta.visualization.petrinet;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Main class of the visualization panel this class extends of PApplet
@@ -16,12 +15,13 @@ public class MySketch extends PApplet {
 	// Colors	
 	private final static RGBTuple BLUE = new RGBTuple(3, 152, 158); 
 	private static final RGBTuple BLUE_KING = new RGBTuple(0, 74, 173);
-	private static final RGBTuple ORANGE = new RGBTuple(255, 145, 77);
+	private static final RGBTuple ORANGE = new RGBTuple(252, 137, 0);
 	private static final RGBTuple WHITE = new RGBTuple(255, 255, 255);		
+	private static final RGBTuple BLACK = new RGBTuple(0, 0, 0);		
 	/**
 	 * Number of pixels of the boxes
 	 */
-	private final static int BS = 50;
+	private final static int BS = 65;
 	/**
 	 * is it the user over a node?
 	 */
@@ -53,7 +53,7 @@ public class MySketch extends PApplet {
 	/**
 	 * Radius of the places
 	 */
-	private int radius=50;	
+	private int radius=70;	
 	/**
 	 * Matrix of adjacency of Petri Net 
 	 * 0 means no edge
@@ -62,7 +62,13 @@ public class MySketch extends PApplet {
 	 * 3 means edge Place->Transition and Transition->Place
 	 */
 
-	private byte[][] adjacencyMatrix;
+	private byte[][] adjacencyMatrix;	
+	/**
+	 * Represents 
+	 */
+	private int[][] adjacencyMatrixWeightsTP;
+	
+	private int[][] adjacencyMatrixWeightsPT;
 	/**
 	 * The main method of the Sketch class
 	 * @param args 
@@ -86,7 +92,7 @@ public class MySketch extends PApplet {
 	 * @param x2 the first coordinate of  arrow's end
 	 * @param y2 the seconds coordinate of arrow's end
 	 */
-	public void arrow(float x1, float y1, float x2, float y2) {
+	public void arrow(float x1, float y1, float x2, float y2, int weight) {
 		line(x1, y1, x2, y2);
 		pushMatrix();
 		translate(x2, y2);
@@ -94,54 +100,96 @@ public class MySketch extends PApplet {
 		rotate(a);
 		line(0, 0, -10, -10);
 		line(0, 0, 10, -10);
+		text(weight+"", 8, -20);
 		popMatrix();
 	}
 
+	
+	public void bidirectionalArrow(float x1, float y1, float x2, float y2, int weight1, int weight2) {		
+		line(x1, y1, x2, y2);
+		pushMatrix();
+		translate(x2, y2);
+		float a = atan2(x1-x2, y2-y1);
+		rotate(a);
+		line(0, 0, -10, -10);
+		line(0, 0, 10, -10);
+		text(weight1+"", 8, -20);
+		popMatrix();
+		pushMatrix();
+		translate(x1, y1);
+		a = atan2(x2-x1, y1-y2);
+		rotate(a);
+		line(0, 0, -10, -10);
+		line(0, 0, 10, -10);
+		text(weight2+"", -16, -20);
+		popMatrix();
+		
+	
+	}	
+	
 	public void setup() {
-		positionTransitions.add(new Transition(100, 200, BS, BS, "1", BLUE_KING, WHITE));
-		positionTransitions.add(new Transition(100, 200, BS, BS, "2", BLUE_KING, WHITE));
-		positionsPlaces.add(new Place(200, 300, BS, BS, "1", ORANGE, WHITE));	
-		positionsPlaces.add(new Place(200, 300, BS, BS, "2", ORANGE, WHITE));	
+		positionTransitions.add(new Transition(100, 200, BS, BS, "6pgl_c", BLUE, WHITE));
+		positionTransitions.add(new Transition(100, 200, BS, BS, "mal__L_e", BLUE, WHITE));
+		positionTransitions.add(new Transition(100, 200, BS, BS, "6pgl_c", BLUE, WHITE));
+		positionTransitions.add(new Transition(100, 200, BS, BS, "mal__L_e", BLUE, WHITE));
+		positionsPlaces.add(new Place(200, 300, BS, BS, "mal__L_e", ORANGE, BLACK));	
+		positionsPlaces.add(new Place(200, 300, BS, BS, "Nodo 4", ORANGE, BLACK));	
+		positionsPlaces.add(new Place(200, 300, BS, BS, "mal__L_e", ORANGE, BLACK));	
+		positionsPlaces.add(new Place(200, 300, BS, BS, "Nodo 4", ORANGE, BLACK));	
 		adjacencyMatrix = new byte[positionTransitions.size()][positionsPlaces.size()];
-		adjacencyMatrix[0][0]=1;
+		adjacencyMatrixWeightsTP = new int[positionTransitions.size()][positionsPlaces.size()];
+		adjacencyMatrixWeightsPT = new int[positionTransitions.size()][positionsPlaces.size()];
+		adjacencyMatrix[0][0]=3;
 		adjacencyMatrix[0][1]=2;
-		adjacencyMatrix[1][0]=1;
-		adjacencyMatrix[1][1]=1;
+//		adjacencyMatrix[1][0]=1;
+		adjacencyMatrix[1][1]=2;
+		adjacencyMatrix[2][2]=1;	
+		adjacencyMatrix[3][3]=1;
+		adjacencyMatrixWeightsTP[0][0]=1;
 	}
 
 	public void draw() {		
 		background(255, 255, 255);
 		fill(BLUE_KING.r,BLUE_KING.g,BLUE_KING.b);	
-		stroke(126);	
+		stroke(100);	
 		for (int i = 0; i < adjacencyMatrix.length; i++) {
 			for (int j = 0; j < adjacencyMatrix[0].length; j++) {
-				if(adjacencyMatrix[i][j]==1) {
-					float x1 = positionTransitions.get(i).getPx()+BS/2,y1 = positionTransitions.get(i).getPy()+BS/2;
-					float x2 = positionsPlaces.get(j).getPx(), y2 = positionsPlaces.get(j).getPy();					
-					float[] coordinates = intersectionPointCircleLine(x1, y1, x2, y2);
-					arrow(x1, y1, coordinates[0],coordinates[1]);					
+				float x1, x2, y1, y2;
+				x1 = positionTransitions.get(i).getPx()+BS/2;
+				y1 = positionTransitions.get(i).getPy()+BS/2;
+				x2 = positionsPlaces.get(j).getPx();
+				y2 = positionsPlaces.get(j).getPy();	
+				float[] ipTransitionsToPlaces = intersectionPointCircleLine(x1, y1, x2, y2);
+				float[] ipPlacesToTransitions = intersectionPointRectLine(x2, y2, x1, y1);				
+				if(adjacencyMatrix[i][j]==1) {								
+					arrow(ipPlacesToTransitions[0], ipPlacesToTransitions[1], ipTransitionsToPlaces[0],ipTransitionsToPlaces[1], adjacencyMatrixWeightsPT[i][j]);					
 				}
 				else if(adjacencyMatrix[i][j]==2) {
-					float[] intersectionPoints = intersectionPointRectLine(positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy() ,positionTransitions.get(i).getPx()+BS/2, positionTransitions.get(i).getPy()+BS/2);
-					System.out.println(Arrays.toString(intersectionPoints));
-					arrow(positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy(), intersectionPoints[0],intersectionPoints[1]);
-					line(positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy(),positionTransitions.get(i).getPx()+BS/2, positionTransitions.get(i).getPy()+BS/2);
+					arrow(ipTransitionsToPlaces[0], ipTransitionsToPlaces[1], ipPlacesToTransitions[0],ipPlacesToTransitions[1], adjacencyMatrixWeightsTP[i][j]);					
 				}
-				else if(adjacencyMatrix[i][j]==3) {
-					line(positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy(),positionTransitions.get(i).getPx(), positionTransitions.get(i).getPy());
-					line(positionTransitions.get(i).getPx(), positionTransitions.get(i).getPy(), positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy());
+				else if(adjacencyMatrix[i][j]==3) {								
+					bidirectionalArrow(ipTransitionsToPlaces[0], ipTransitionsToPlaces[1], ipPlacesToTransitions[0], ipPlacesToTransitions[1], adjacencyMatrixWeightsTP[i][j],adjacencyMatrixWeightsPT[i][j]);		
 				}
 			}
 		}
-		for (int j=0; j < positionTransitions.size(); j++) {
-			fill(BLUE_KING.r,BLUE_KING.g,BLUE_KING.b);
-			rect ( positionTransitions.get(j).getPx(), positionTransitions.get(j).getPy(), BS, BS) ;
-			stroke(153);
+		for (int j=0; j < positionTransitions.size(); j++) {			
+			float px = positionTransitions.get(j).getPx(), py = positionTransitions.get(j).getPy();
+			String name = positionTransitions.get(j).getName();
+			float r =positionTransitions.get(j).getColor_text().r, g=positionTransitions.get(j).getColor_text().g, b = positionTransitions.get(j).getColor_text().b;
+			fill(positionTransitions.get(j).getColor_place().r, positionTransitions.get(j).getColor_place().g, positionTransitions.get(j).getColor_place().b);
+			rect ( px, py, BS, BS) ;
+			fill( r, g, b);
+			text( name, px+BS/2-textWidth(name)/2, py+BS/2);
+//			stroke(153);
 		}
 
 		for (int j=0; j < positionsPlaces.size(); j++) {
-			fill(ORANGE.r,ORANGE.g,ORANGE.b);
-			ellipse( positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy(), radius, radius);			
+			fill(positionsPlaces.get(j).getColor_place().r, positionsPlaces.get(j).getColor_place().g, positionsPlaces.get(j).getColor_place().b);
+			ellipse( positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy(), radius, radius);		
+			fill(positionsPlaces.get(j).getColor_text().r, positionsPlaces.get(j).getColor_text().g, positionsPlaces.get(j).getColor_text().b);
+			String name = positionsPlaces.get(j).getName();
+			float px = positionsPlaces.get(j).getPx(), py = positionsPlaces.get(j).getPy();			
+			text( positionsPlaces.get(j).getName(), px-textWidth(name)/2, py);
 		}
 
 
@@ -206,7 +254,7 @@ public class MySketch extends PApplet {
 
 	private float[] intersectionPointCircleLine(double x1, double y1, double cx2, double cy2) {
 		double dx = cx2-x1, dy = cy2-y1;
-		double norm = norm(dx, dy);
+		double norm = norm(dx,dy);
 		double factor = (norm-radius/2)/norm;
 		double ndx = dx*factor+x1, ndy = dy*factor+y1;
 		float[] coordinates = new float[2];
@@ -219,14 +267,14 @@ public class MySketch extends PApplet {
 	private float[] intersectionPointRectLine(double x1, double y1, double cx2, double cy2) {
 		double dx = cx2-x1, dy = cy2-y1;
 		float[] points = new float[2];
-		if( (dx >= 0 && Math.abs(dy) <= Math.abs(dx)) || (dx <= 0 && Math.abs(dy) <= Math.abs(dx)) ) { // Left
+		if( (dx >= 0 && Math.abs(dy) <= Math.abs(dx)) || (dx <= 0 && Math.abs(dy) <= Math.abs(dx)) ) { // Left and Right
 			double xl = (dx <= 0) ? cx2 + BS/2: cx2 - BS/2;
 			double[] lineEquation = lineEquation(x1, y1, cx2, cy2);
 			double yl = lineEquation[0]*xl + lineEquation[1];
 			points[0] = (float) xl;
 			points[1] = (float) yl;
 		}		
-		else if( (dy >= 0 && Math.abs(dy) >= Math.abs(dx)) || (dy <= 0 && Math.abs(dy) >= Math.abs(dx))) {			
+		else if( (dy >= 0 && Math.abs(dy) >= Math.abs(dx)) || (dy <= 0 && Math.abs(dy) >= Math.abs(dx))) {	//Up and down		
 			double yl = (float) ((dy>=0)? cy2 - BS/2: cy2 + BS/2);
 			if(cx2==x1) {
 				points[0] = (float) cx2;
@@ -242,10 +290,10 @@ public class MySketch extends PApplet {
 	}
 
 
-
 	private double norm(double dx, double dy) {
-		return Math.sqrt(Math.pow(dx, 2)+Math.pow(dy, 2));		
+		return Math.sqrt(Math.pow(dx, 2)+Math.pow(dy, 2));
 	}
+	
 	
 	private double[] lineEquation (double x1, double y1, double x2, double y2) {
 		double m = (y2-y1)/(x2-x1);

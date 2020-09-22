@@ -1,5 +1,4 @@
 package metapenta.visualization.petrinet;
-import processing.core.PApplet;
 /**
  * Class that represents a node that will be printed in the panel
  * @author Valerie Parra Cortés
@@ -8,31 +7,31 @@ public class Node{
 	/**
 	 * x-coordinate
 	 */
-	public float px;
+	private float px;
 	/**
 	 * y-coordinate
 	 */
-	public float py;
+	private float py;
 	/**
 	 * Tuple with the color of place
 	 */
-	public RGBTuple color_place;
+	private RGBTuple color_place;
 	/**
 	 * Tuple with the color of the text 
 	 */
-	public RGBTuple color_text;
+	private RGBTuple color_text;
 	/**
 	 * Width
 	 */
-	public float w;
+	private float w;
 	/**
 	 * Height
 	 */
-	public float h;	
+	private float h;	
 	/**
 	 * The name of the node
 	 */
-	public String name;
+	private String name;
 	
 	/**
 	 * Build a node with all its attributes
