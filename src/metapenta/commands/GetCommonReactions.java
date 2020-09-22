@@ -17,9 +17,9 @@ public class GetCommonReactions {
 		StringBuilder reactions = new StringBuilder("{\"commonReactions\":[");
 		for (int i = 0; i <commonReations.size(); i++) {
 			reactions.append(commonReations.get(i).toString());
-			reactions.append(",\n");
+			reactions.append((i==commonReations.size()-1)?"":",\n");
 		}		
-		reactions.deleteCharAt(reactions.length()-1);
+		
 		reactions.append("]}");
 		Files.write(Paths.get(args[2]), reactions.toString().getBytes());
 	}
