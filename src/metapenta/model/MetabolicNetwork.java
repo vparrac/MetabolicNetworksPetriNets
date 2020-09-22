@@ -777,7 +777,7 @@ public class MetabolicNetwork {
 	 * Construct the correspondent sub-net of the comparment 
 	 * @param comparment the comparment
 	 */
-	public void connectedComponents() {				
+	public Map<String, Integer> connectedComponents() {				
 		int[] metabolitesVisited = new int[places.size()+1];
 		int[] transitionsVisited = new int[transitions.size()+1];
 		int conectedComponentId =1;
@@ -791,8 +791,13 @@ public class MetabolicNetwork {
 				conectedComponentId++;
 			}			
 		}
-		System.out.println(Arrays.toString(transitionsVisited));
+		Map<String, Integer> connectedComponents = new TreeMap<String, Integer>();
+		Set<Integer> transitionsKeys = transitions.keySet();
 		
+		for (Integer integer : transitionsKeys) {
+			connectedComponents.put(transitions.get(integer).getName(), transitionsVisited[integer]);
+		}				
+		return connectedComponents;
 	}
 
 	private void visitNode(int[] metabolitesVisited, int[] transitionsVisited, String node,  int tiempo, int conectedComponentId) {
