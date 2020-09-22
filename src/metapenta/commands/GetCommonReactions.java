@@ -1,8 +1,9 @@
 package metapenta.commands;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
-
 import metapenta.model.MetabolicNetwork;
 import metapenta.model.MetabolicNetworkXMLLoader;
 import metapenta.model.Reaction;
@@ -13,9 +14,14 @@ public class GetCommonReactions {
 		MetabolicNetwork network1 = loader.loadNetwork(args[0]);
 		MetabolicNetwork network2 = loader.loadNetwork(args[1]);
 		List<Reaction> commonReations = network1.commonReactions(network2);
-		for (Reaction reaction : commonReations) {
-			System.out.println(reaction);
-		}
+		StringBuilder reactions = new StringBuilder("{\"commonReactions\":[");
+		for (int i = 0; i <commonReations.size(); i++) {
+			reactions.append(commonReations.get(i).toString());
+			reactions.append(",\n");
+		}		
+		reactions.deleteCharAt(reactions.length()-1);
+		reactions.append("]}");
+		Files.write(Paths.get(args[2]), reactions.toString().getBytes());
 	}
 
 }
