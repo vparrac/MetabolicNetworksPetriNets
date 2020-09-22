@@ -24,9 +24,9 @@ public class MetabolicNetwork {
 	/**
 	 * Metabolites of  the metabolic Network
 	 */
-	private static Map<String,Metabolite> metabolites = new TreeMap<String,Metabolite>();
+	private Map<String,Metabolite> metabolites = new TreeMap<String,Metabolite>();
 	private Set<String> compartments = new TreeSet<String>();
-	private static Map<String,Reaction> reactions = new TreeMap<String,Reaction>();
+	private Map<String,Reaction> reactions = new TreeMap<String,Reaction>();
 
 	//Petri net
 	/**
@@ -92,6 +92,8 @@ public class MetabolicNetwork {
 	public List<Metabolite> getMetabolitesAsList() {
 		return new ArrayList<Metabolite>(metabolites.values());
 	}
+	
+	
 	/**
 	 * @return List of reactions in the network
 	 */
@@ -821,5 +823,28 @@ public class MetabolicNetwork {
 		}		
 	}
 
+	public List<Metabolite> commonMetabolites(MetabolicNetwork mn2){
+		List<Metabolite> commonMetabolites = new ArrayList<Metabolite>();
+		List<Metabolite> metabolitesNetwork2 = mn2.getMetabolitesAsList();		
+		for (Metabolite metabolite : metabolitesNetwork2) {	
+			Metabolite place = this.metabolites.get(metabolite.getId());
+			if(place!=null) {
+				commonMetabolites.add(metabolite);
+			}
+		}		
+		return commonMetabolites;
+	}
+	
+	public List<Reaction> commonReactions(MetabolicNetwork mn2){
+		List<Reaction> commonReactions = new ArrayList<Reaction>();
+		List<Reaction> metabolitesNetwork2 = mn2.getReactionsAsList();		
+		for (Reaction reaction : metabolitesNetwork2) {
+			Reaction transicion = reactions.get(reaction.getId());
+			if(transicion!=null) {
+				commonReactions.add(reaction);
+			}
+		}		
+		return commonReactions;
+	}
 		
 }
