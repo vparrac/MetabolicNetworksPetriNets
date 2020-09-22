@@ -64,11 +64,14 @@ public class MySketch extends PApplet {
 
 	private byte[][] adjacencyMatrix;	
 	/**
-	 * Represents 
+	 * Represents the weight between transitions to places 
 	 */
 	private int[][] adjacencyMatrixWeightsTP;
-	
+	/**
+	 * Represents the weights between places to transition
+	 */
 	private int[][] adjacencyMatrixWeightsPT;
+	
 	/**
 	 * The main method of the Sketch class
 	 * @param args 
@@ -100,6 +103,7 @@ public class MySketch extends PApplet {
 		rotate(a);
 		line(0, 0, -10, -10);
 		line(0, 0, 10, -10);
+		fill(BLACK.r,BLACK.g,BLACK.b);
 		text(weight+"", 8, -20);
 		popMatrix();
 	}
@@ -113,6 +117,7 @@ public class MySketch extends PApplet {
 		rotate(a);
 		line(0, 0, -10, -10);
 		line(0, 0, 10, -10);
+		fill(BLACK.r,BLACK.g,BLACK.b);
 		text(weight1+"", 8, -20);
 		popMatrix();
 		pushMatrix();
@@ -121,6 +126,7 @@ public class MySketch extends PApplet {
 		rotate(a);
 		line(0, 0, -10, -10);
 		line(0, 0, 10, -10);
+		fill(BLACK.r,BLACK.g,BLACK.b);
 		text(weight2+"", -16, -20);
 		popMatrix();
 		
@@ -128,14 +134,14 @@ public class MySketch extends PApplet {
 	}	
 	
 	public void setup() {
-		positionTransitions.add(new Transition(100, 200, BS, BS, "6pgl_c", BLUE, WHITE));
-		positionTransitions.add(new Transition(100, 200, BS, BS, "mal__L_e", BLUE, WHITE));
-		positionTransitions.add(new Transition(100, 200, BS, BS, "6pgl_c", BLUE, WHITE));
-		positionTransitions.add(new Transition(100, 200, BS, BS, "mal__L_e", BLUE, WHITE));
-		positionsPlaces.add(new Place(200, 300, BS, BS, "mal__L_e", ORANGE, BLACK));	
-		positionsPlaces.add(new Place(200, 300, BS, BS, "Nodo 4", ORANGE, BLACK));	
-		positionsPlaces.add(new Place(200, 300, BS, BS, "mal__L_e", ORANGE, BLACK));	
-		positionsPlaces.add(new Place(200, 300, BS, BS, "Nodo 4", ORANGE, BLACK));	
+		positionTransitions.add(new Transition(100, 350, BS, BS, "6pgl_c", BLUE, WHITE));
+		positionTransitions.add(new Transition(100, 250, BS, BS, "mal__L_e", BLUE, WHITE));
+		positionTransitions.add(new Transition(100, 150, BS, BS, "6pgl_c", BLUE, WHITE));
+		positionTransitions.add(new Transition(100, 50, BS, BS, "mal__L_e", BLUE, WHITE));
+		positionsPlaces.add(new Place(500, 350, BS, BS, "mal__L_e", ORANGE, BLACK));	
+		positionsPlaces.add(new Place(500, 250, BS, BS, "Nodo 4", ORANGE, BLACK));	
+		positionsPlaces.add(new Place(500, 150, BS, BS, "mal__L_e", ORANGE, BLACK));	
+		positionsPlaces.add(new Place(500, 50, BS, BS, "Nodo 4", ORANGE, BLACK));	
 		adjacencyMatrix = new byte[positionTransitions.size()][positionsPlaces.size()];
 		adjacencyMatrixWeightsTP = new int[positionTransitions.size()][positionsPlaces.size()];
 		adjacencyMatrixWeightsPT = new int[positionTransitions.size()][positionsPlaces.size()];

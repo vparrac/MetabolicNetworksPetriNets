@@ -119,8 +119,7 @@ public class ReactionsOfMetabolite {
 					}										
 				}				
 				out.print("]");
-			}			
-			
+			}						
 			out.print("}");		
 			
 		}	

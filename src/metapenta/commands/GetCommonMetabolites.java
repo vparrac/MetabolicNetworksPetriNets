@@ -15,6 +15,6 @@ public class GetCommonMetabolites {
 		MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
 		List<Metabolite> network1 = loader.loadNetwork(args[0]).getMetabolitesAsList();
 		List<Metabolite> network2 = loader.loadNetwork(args[1]).getMetabolitesAsList();
-	
+		network1.
 	}
 }

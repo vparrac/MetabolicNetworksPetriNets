@@ -474,7 +474,6 @@ public class MetabolicNetwork {
 			}			
 			if(pqea[n]==0) {
 				pqea[n]++;		
-
 				List<Transition<GeneProduct, Metabolite>> transitions= transitionsThaCanBeTriggered(places.get(mp.getId()).getTransitions(),metabolitesVisited);
 				for (int j = 0; j < transitions.size(); j++) {
 					reactionsVisited[transitions.get(j).getNumber()]=1;
@@ -502,8 +501,8 @@ public class MetabolicNetwork {
 			graph=metabolicPathway(metabolitesVisited, last);	
 			distanceBestPath=metabolitesVisited[numberLast][2];
 		}			
-		printMetabolicNetworkInCSV(graph,fileName1,first,last);
-		printReactionsGraphInCSV(graph,fileName2);
+		printMetabolicNetworkInCSV(graph, fileName1, first,last);
+		printReactionsGraphInCSV(graph, fileName2);
 		printCatalystOfMethabolicPath(graph, fileName3);
 		return graph;
 
@@ -822,43 +821,5 @@ public class MetabolicNetwork {
 		}		
 	}
 
-
-
-	/**
-	 * Class to create the priority queue. Represents a metabolite with a priority that is the distance to
-	 * any of initial reactions 
-	 * @author Valerie Parra
-	 */
-	class MetabolitesP implements Comparable<MetabolitesP>{
-		/**
-		 * The metabolite 
-		 */		
-		private Metabolite metabolite;
-		/**
-		 * The priority
-		 */
-		private int priority;	
-		/**
-		 * Constructor of the class, initializes the atributes in the value of the parameters
-		 * @param metabolite The metabolite
-		 * @param priority the priority
-		 */
-		public MetabolitesP(Metabolite metabolite, int priority) {
-			super();
-			this.metabolite = metabolite;
-			this.priority = priority;
-		}
-		/**
-		 * Method to get the metabolite
-		 * @return themetabolite
-		 */
-		public Metabolite getMetabolite() {
-			return metabolite;
-		}
-
-		@Override
-		public int compareTo(MetabolitesP o) {		
-			return o.priority-this.priority;
-		}		
-	}	
+		
 }
