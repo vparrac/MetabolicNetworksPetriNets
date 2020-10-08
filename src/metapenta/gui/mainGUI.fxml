@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="metapenta.gui.Controller">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" text="New" />
+            <MenuItem mnemonicParsing="false" text="Open…" />
+            <Menu mnemonicParsing="false" text="Open Recent" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Close" />
+            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem mnemonicParsing="false" text="Save As…" />
+            <MenuItem mnemonicParsing="false" text="Revert" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Undo" />
+            <MenuItem mnemonicParsing="false" text="Redo" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Cut" />
+            <MenuItem mnemonicParsing="false" text="Copy" />
+            <MenuItem mnemonicParsing="false" text="Paste" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Select All" />
+            <MenuItem mnemonicParsing="false" text="Unselect All" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <SplitPane dividerPositions="0.2505567928730512, 0.7505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <items>
+        <AnchorPane style="-fx-background-color: #03989E;">
+               <children>
+                  <VBox alignment="TOP_CENTER" layoutX="71.0" layoutY="70.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Text fill="#fffbfb" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Separator prefWidth="200.0" />
+                        <Text fill="#fffbfb" strokeType="OUTSIDE" strokeWidth="0.0" text="Draw">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+        </AnchorPane>
+        <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
+          <content>
+            <AnchorPane id="Content" fx:id="processing" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0" />
+          </content>
+        </ScrollPane>
+        <AnchorPane fx:id="pane_details" nodeOrientation="LEFT_TO_RIGHT">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <VBox alignment="TOP_CENTER" layoutX="40.0" layoutY="40.0" prefHeight="74.0" prefWidth="180.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Text fx:id="details_title" fill="#05a6a6" strokeType="OUTSIDE" strokeWidth="0.0" text="Metabolite">
+                           <font>
+                              <Font name="Yu Gothic Light" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="details_title_name" strokeType="OUTSIDE" strokeWidth="0.0" text="D-Glycerate 2-phosphate">
+                           <font>
+                              <Font name="Yu Gothic Light" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="details_general_information" fill="#035aa6" strokeType="OUTSIDE" strokeWidth="0.0" text="General Information">
+                           <font>
+                              <Font name="Yu Gothic Light" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <TextField fx:id="details_id" alignment="TOP_LEFT" disable="true" editable="false" text="id: 2pg_c">
+                           <font>
+                              <Font name="Yu Gothic Regular" size="12.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="details_comparment" alignment="TOP_LEFT" disable="true" editable="false" text="Comparment: c - cytosol">
+                           <font>
+                              <Font name="Yu Gothic Regular" size="12.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="details_chemical_formula" alignment="TOP_LEFT" disable="true" editable="false" text="Chemical formula: C3H4O7P">
+                           <font>
+                              <Font name="Yu Gothic Regular" size="12.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Text fx:id="details_title_textArea_1" fill="#035aa6" strokeType="OUTSIDE" strokeWidth="0.0" text="Reactions is a substrate">
+                           <font>
+                              <Font name="Yu Gothic Light" size="15.0" />
+                           </font>
+                        </Text>
+                        <TextArea fx:id="details_textArea_1" editable="false" prefHeight="130.0" prefWidth="180.0" text="dsjndkasdasdsa&#10;das&#10;d&#10;ad&#10;as&#10;d&#10;asd&#10;sad&#10;">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </TextArea>
+                        <Text fx:id="details_title_textArea_2" fill="#035aa6" strokeType="OUTSIDE" strokeWidth="0.0" text="Reactions is a substrate">
+                           <font>
+                              <Font name="Yu Gothic Light" size="15.0" />
+                           </font>
+                        </Text>
+                        <TextArea fx:id="details_textArea_2" editable="false" prefHeight="130.0" prefWidth="180.0" text="dsjndkasdasdsa&#10;das&#10;d&#10;ad&#10;as&#10;d&#10;asd&#10;sad&#10;">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </TextArea>
+                        <Text fx:id="details_title_textArea_3" fill="#035aa6" strokeType="OUTSIDE" strokeWidth="0.0" text="Enzymes">
+                           <font>
+                              <Font name="Yu Gothic Light" size="15.0" />
+                           </font>
+                        </Text>
+                        <TextArea fx:id="details_textArea_2" editable="false" prefHeight="130.0" prefWidth="180.0" text="dsjndkasdasdsa&#10;das&#10;d&#10;ad&#10;as&#10;d&#10;asd&#10;sad&#10;" />
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+        </AnchorPane>
+      </items>
+    </SplitPane>
+    <HBox id="HBox" alignment="CENTER" prefHeight="77.0" prefWidth="900.0" spacing="5.0" VBox.vgrow="NEVER">
+      <padding>
+        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+      </padding>
+         <children>
+            <Button mnemonicParsing="false" style="-fx-background-color: #03989E;" text="Load file" />
+            <Button mnemonicParsing="false" style="-fx-background-color: #03989E;" text="Clean" />
+         </children>
+    </HBox>
+  </children>
+</VBox>

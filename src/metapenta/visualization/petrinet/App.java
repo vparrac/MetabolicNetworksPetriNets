@@ -1,12 +1,15 @@
-package metapenta.gui;
-import metapenta.visualization.petrinet.MySketch;
+package metapenta.visualization.petrinet;
+
 import processing.core.PApplet;
-public class Main{
+
+public class App {
+
 	/**
 	 * The main method of the Sketch class
 	 * @param args 
 	 */
-	public static void main(String[] args) {		
+	public static void main(String[] args) {
+		
 		PApplet.main(MySketch.class.getName());
 	}
 }

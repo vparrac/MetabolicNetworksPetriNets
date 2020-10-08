@@ -11,9 +11,7 @@ public class Edge <O> {
 	 * The stoichiometry of the metabolite
 	 */
 	private double tokens;
-	/**
-	 * The metabolite
-	 */
+
 	private O object;
 
 	

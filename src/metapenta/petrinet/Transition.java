@@ -7,23 +7,23 @@ import metapenta.model.GeneProduct;
  * Class that represent a transition
  * @author Valerie Parra
  */
-public class Transition <O,OE>{
+public class Transition <EnzymeClass, PlaceObjectClass, TransitionsObjectClass>{
 	/**
 	 * The id of the transition
 	 */
-	private int number;
+	private int transitionNumber;
 	/**
 	 * The list of edges in
 	 */
-	private List<Edge<OE>> in;
+	private List<Edge<Place<EnzymeClass, PlaceObjectClass, TransitionsObjectClass>>> inPlaces;
 	/**
 	 * The list of edges out
 	 */
-	private List<Edge<OE>> out;
+	private List<Edge<Place<EnzymeClass, PlaceObjectClass, TransitionsObjectClass>>> outPlaces;
 	/**
 	 * The enzymes of the reaction
 	 */
-	private List<O> objects;
+	private List<EnzymeClass> objects;
 	/**
 	 * The name of the transition
 	 */
@@ -39,12 +39,12 @@ public class Transition <O,OE>{
 	 * @param name of the reaction
 	 * @param id (the string)
 	 */
-	public Transition(List<O> gp,int number, String name, String id) {
-		this.in = new ArrayList<>();
-		this.out = new ArrayList<>();
+	public Transition(List<EnzymeClass> gp,int number, String name, String id) {
+		this.inPlaces = new ArrayList<>();
+		this.outPlaces = new ArrayList<>();
 		this.objects=gp;
-		this.number=-1;
-		this.number=number;
+		this.transitionNumber=-1;
+		this.transitionNumber=number;
 		this.name=name;
 		this.id=id;
 	}	
@@ -52,35 +52,35 @@ public class Transition <O,OE>{
 	 * Add a edges in the list of edges in
 	 * @param edge to add
 	 */
-	public void addEdgeIn(Edge<OE> edge) {
-		in.add(edge);
+	public void addPlaceIn(Edge<Place<EnzymeClass, PlaceObjectClass, TransitionsObjectClass>> edge) {
+		inPlaces.add(edge);
 	}	
 	/**
 	 * Add a edges in the list of edges out
 	 * @param edge to add
 	 */
-	public void addEdgeOut(Edge<OE> edge) {
-		out.add(edge);
+	public void addPlaceOut(Edge<Place<EnzymeClass, PlaceObjectClass, TransitionsObjectClass>> edge) {
+		outPlaces.add(edge);
 	}
 	
 	/**	
 	 * @return The in edges of the transition
 	 */
-	public List<Edge<OE>> getIn() {
-		return in;
+	public List<Edge<Place<EnzymeClass, PlaceObjectClass, TransitionsObjectClass>>> getInPlaces() {
+		return inPlaces;
 	}
 	/**	
 	 * @return The out edges of the transition
 	 */
 	
-	public List<Edge<OE>> getOut() {
-		return out;
+	public List<Edge<Place<EnzymeClass, PlaceObjectClass, TransitionsObjectClass>>> getOutPlaces() {
+		return outPlaces;
 	}	
 	/**	
 	 * @return The list of enzymes that catalyst the transition
 	 */
 	
-	public List<O> getGeneProduct() {
+	public List<EnzymeClass> getGeneProducts() {
 		return objects;
 	}
 	
@@ -89,7 +89,7 @@ public class Transition <O,OE>{
 	* @param number the new number (id) of transition
 	**/
 	public void setNumber(int number) {
-		this.number = number;
+		this.transitionNumber = number;
 	}
 	
 	/**
@@ -97,7 +97,7 @@ public class Transition <O,OE>{
 	**/
 	
 	public int getNumber() {
-		return number;
+		return transitionNumber;
 	}
 	
 	/**

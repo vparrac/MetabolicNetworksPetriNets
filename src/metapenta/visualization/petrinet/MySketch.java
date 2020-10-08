@@ -1,12 +1,19 @@
 package metapenta.visualization.petrinet;
 import java.util.ArrayList;
 
+import javafx.application.Application;
+import metapenta.gui.Controller;
+import metapenta.gui.JavaFXApplication;
 /**
  * Main class of the visualization panel this class extends of PApplet
  * the main class of processing library
  * @author Valerie Parra Cortés
  */
 import processing.core.PApplet;
+import processing.core.PSurface;
+import processing.javafx.PSurfaceFX;
+
+
 public class MySketch extends PApplet {
 	/**
 	 * It represents id a user is over a note
@@ -71,21 +78,38 @@ public class MySketch extends PApplet {
 	 * Represents the weights between places to transition
 	 */
 	private int[][] adjacencyMatrixWeightsPT;
-	
-	/**
-	 * The main method of the Sketch class
-	 * @param args 
-	 */
 
-	public static void main(String[] args) {
-		PApplet.main(MySketch.class.getName());
+
+
+	@Override
+	protected PSurface initSurface() {
+		g = createPrimaryGraphics();
+        PSurface genericSurface = g.createSurface();
+        PSurfaceFX fxSurface = (PSurfaceFX) genericSurface;
+        fxSurface.sketch = this;
+        JavaFXApplication.surface = fxSurface;
+        Controller.surface = fxSurface;
+        new Thread(() -> Application.launch(JavaFXApplication.class)).start();
+        while (fxSurface.stage == null) {
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException e) {
+            }
+        }
+        this.surface = fxSurface;
+        
+        return surface;
 	}
+
+	
+
 	public void settings() {
-		size(640, 640); //The size of the windos
-		smooth();
-		if (frame != null) {
-			frame.setResizable(true);
-		}
+        size(0, 0, FX2D);
+//		size(640, 640); //The size of the windos
+//		smooth();
+//		if (frame != null) {
+//			frame.setResizable(true);
+//		}
 	}	 
 
 	/**
@@ -108,7 +132,7 @@ public class MySketch extends PApplet {
 		popMatrix();
 	}
 
-	
+
 	public void bidirectionalArrow(float x1, float y1, float x2, float y2, int weight1, int weight2) {		
 		line(x1, y1, x2, y2);
 		pushMatrix();
@@ -129,11 +153,13 @@ public class MySketch extends PApplet {
 		fill(BLACK.r,BLACK.g,BLACK.b);
 		text(weight2+"", -16, -20);
 		popMatrix();
-		
-	
+
+
 	}	
-	
+
 	public void setup() {
+		System.out.println("bu2");
+        Controller.p = this;
 		positionTransitions.add(new Transition(100, 350, BS, BS, "6pgl_c", BLUE, WHITE));
 		positionTransitions.add(new Transition(100, 250, BS, BS, "mal__L_e", BLUE, WHITE));
 		positionTransitions.add(new Transition(100, 150, BS, BS, "6pgl_c", BLUE, WHITE));
@@ -147,7 +173,6 @@ public class MySketch extends PApplet {
 		adjacencyMatrixWeightsPT = new int[positionTransitions.size()][positionsPlaces.size()];
 		adjacencyMatrix[0][0]=3;
 		adjacencyMatrix[0][1]=2;
-//		adjacencyMatrix[1][0]=1;
 		adjacencyMatrix[1][1]=2;
 		adjacencyMatrix[2][2]=1;	
 		adjacencyMatrix[3][3]=1;
@@ -186,7 +211,7 @@ public class MySketch extends PApplet {
 			rect ( px, py, BS, BS) ;
 			fill( r, g, b);
 			text( name, px+BS/2-textWidth(name)/2, py+BS/2);
-//			stroke(153);
+			//			stroke(153);
 		}
 
 		for (int j=0; j < positionsPlaces.size(); j++) {
@@ -299,8 +324,8 @@ public class MySketch extends PApplet {
 	private double norm(double dx, double dy) {
 		return Math.sqrt(Math.pow(dx, 2)+Math.pow(dy, 2));
 	}
-	
-	
+
+
 	private double[] lineEquation (double x1, double y1, double x2, double y2) {
 		double m = (y2-y1)/(x2-x1);
 		double b = y1-((y2-y1)/(x2-x1))*x1;
@@ -310,6 +335,6 @@ public class MySketch extends PApplet {
 		return lineEquation;
 	}
 
-
+	
 
 }
