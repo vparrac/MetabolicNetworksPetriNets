@@ -44,6 +44,9 @@ public class MetabolicNetwork {
 	 * This map represents the places of Petri net
 	 */
 	private  Map<String,Place<Metabolite, Reaction>> places;
+	
+	
+	private  Map<Integer,Place<Metabolite, Reaction>> placesbyNumber;
 
 	/**
 	 * Represents the infinite distance between 2 metabolites
@@ -171,6 +174,7 @@ public class MetabolicNetwork {
 	 */
 	public void  makeNet() {	
 		int numberMetabolites=1,numberTransition=1;
+		placesbyNumber = new TreeMap<Integer, Place<Metabolite,Reaction>>();
 		transitions= new TreeMap<Integer, Transition<Metabolite, Reaction>>();		
 		places = new TreeMap<String,Place<Metabolite, Reaction>>();
 		Set<String> keysReaction=reactions.keySet();			
@@ -190,6 +194,7 @@ public class MetabolicNetwork {
 				if(currentPlace==null) {					
 					Place< Metabolite, Reaction> nm = new Place< Metabolite, Reaction>(meta, numberMetabolites);
 					places.put(meta.getId(),nm);
+					placesbyNumber.put(numberMetabolites, nm);
 					numberMetabolites++;
 					currentPlace = nm;
 				}				
@@ -207,6 +212,7 @@ public class MetabolicNetwork {
 				if(currentPlace==null) {					
 					Place< Metabolite, Reaction> nm = new Place< Metabolite, Reaction>(meta, numberMetabolites);
 					places.put(meta.getId(),nm);
+					placesbyNumber.put(numberMetabolites, nm);
 					numberMetabolites++;	
 					currentPlace = nm;
 				}
@@ -859,6 +865,14 @@ public class MetabolicNetwork {
 			}
 		}		
 		return commonReactions;
+	}
+	
+	public Map<Integer, Transition<Metabolite, Reaction>> getTransitions() {
+		return transitions;
+	}
+	
+	public Map<String, Place<Metabolite, Reaction>> getPlaces() {
+		return places;
 	}
 		
 }
