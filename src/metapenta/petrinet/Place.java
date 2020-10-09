@@ -8,7 +8,7 @@ import metapenta.model.Metabolite;
  * @author Valerie Parra
  */
 
-public class Place <EnzymesClass, PlaceObjectClass,TransitionsObjectClass>{
+public class Place <PlaceObjectClass,TransitionsObjectClass>{
 	/**
 	 * The object of the place
 	 */
@@ -17,8 +17,8 @@ public class Place <EnzymesClass, PlaceObjectClass,TransitionsObjectClass>{
 	/**
 	 * The list of transitions where the metabolite is reactant
 	 */
-	private List<Edge<Transition<EnzymesClass, PlaceObjectClass, TransitionsObjectClass>>> inTransitions;
-	private List<Edge<Transition<EnzymesClass, PlaceObjectClass, TransitionsObjectClass>>> outTransitions;
+	private List<Edge<Transition<PlaceObjectClass, TransitionsObjectClass>>> inTransitions;
+	private List<Edge<Transition<PlaceObjectClass, TransitionsObjectClass>>> outTransitions;
 	
 	/**
 	 * Number of metabolite
@@ -33,8 +33,8 @@ public class Place <EnzymesClass, PlaceObjectClass,TransitionsObjectClass>{
 	public Place(PlaceObjectClass object , int numberMetabolite) {
 		this.object= object;
 		this.metaboliteNumber= numberMetabolite;		
-		this.inTransitions = new ArrayList<Edge<Transition<EnzymesClass,PlaceObjectClass,TransitionsObjectClass>>>();
-		this.outTransitions = new ArrayList<Edge<Transition<EnzymesClass,PlaceObjectClass,TransitionsObjectClass>>>();
+		this.inTransitions = new ArrayList<Edge<Transition<PlaceObjectClass,TransitionsObjectClass>>>();
+		this.outTransitions = new ArrayList<Edge<Transition<PlaceObjectClass,TransitionsObjectClass>>>();
 	}
 	
 	
@@ -43,7 +43,7 @@ public class Place <EnzymesClass, PlaceObjectClass,TransitionsObjectClass>{
 	 * @param t the new transition
 	 */
 
-	public void addInTransition(Edge<Transition<EnzymesClass,PlaceObjectClass, TransitionsObjectClass>> t) {
+	public void addInTransition(Edge<Transition<PlaceObjectClass, TransitionsObjectClass>> t) {
 		inTransitions.add(t);
 	}
 	
@@ -51,7 +51,7 @@ public class Place <EnzymesClass, PlaceObjectClass,TransitionsObjectClass>{
 	 * Add a transition where the current metabolite is a reactant
 	 * @param t
 	 */
-	public void addOutTransition(Edge<Transition<EnzymesClass,PlaceObjectClass, TransitionsObjectClass>> t) {
+	public void addOutTransition(Edge<Transition<PlaceObjectClass, TransitionsObjectClass>> t) {
 		outTransitions.add(t);
 	}
 	
@@ -60,7 +60,7 @@ public class Place <EnzymesClass, PlaceObjectClass,TransitionsObjectClass>{
 	 * @return the outlet transition
 	 */
 
-	public List<Edge<Transition<EnzymesClass,PlaceObjectClass,TransitionsObjectClass>>> getInTransitions() {
+	public List<Edge<Transition<PlaceObjectClass,TransitionsObjectClass>>> getInTransitions() {
 		return inTransitions;
 	}
 
@@ -70,7 +70,7 @@ public class Place <EnzymesClass, PlaceObjectClass,TransitionsObjectClass>{
 	 * @return the outlet transition
 	 */
 
-	public List<Edge<Transition<EnzymesClass,PlaceObjectClass,TransitionsObjectClass>>> getOutTransitions() {
+	public List<Edge<Transition<PlaceObjectClass,TransitionsObjectClass>>> getOutTransitions() {
 		return outTransitions;
 	}
 
