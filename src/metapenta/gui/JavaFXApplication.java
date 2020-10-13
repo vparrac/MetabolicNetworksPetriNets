@@ -12,7 +12,7 @@ public class JavaFXApplication extends Application {
     public static PSurfaceFX surface;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-	    FXMLLoader loader = new FXMLLoader(getClass().getResource("ProcessingFX.fxml"));
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("mainGUI.fxml"));
         Parent root = loader.load();
         Controller.stage = primaryStage;
         Scene scene = new Scene(root, 1280, 720);

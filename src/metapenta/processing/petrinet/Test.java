@@ -1,4 +1,4 @@
-package metapenta.visualization.petrinet;
+package metapenta.processing.petrinet;
 
 public class Test {
 

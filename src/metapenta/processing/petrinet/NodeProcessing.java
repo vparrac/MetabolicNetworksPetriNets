@@ -1,9 +1,9 @@
-package metapenta.visualization.petrinet;
+package metapenta.processing.petrinet;
 /**
  * Class that represents a node that will be printed in the panel
  * @author Valerie Parra Cortés
  */
-public class Node{
+public class NodeProcessing{
 	/**
 	 * x-coordinate
 	 */
@@ -44,7 +44,7 @@ public class Node{
 	 * @param color_text, The color of the text 
 	 */
 	
-	public Node(float x, float y, float w, float h, String n, RGBTuple color_place, RGBTuple color_text) {
+	public NodeProcessing(float x, float y, float w, float h, String n, RGBTuple color_place, RGBTuple color_text) {
 		this.px = x;
 		this.py = y;			
 		this.w = w;

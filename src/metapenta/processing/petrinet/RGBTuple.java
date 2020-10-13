@@ -1,9 +1,9 @@
-package metapenta.visualization.petrinet;
+package metapenta.processing.petrinet;
 
 public class RGBTuple{    	
-		final float r;
-		final float g;
-		final float b;
+		public final float r;
+		public final float g;
+		public final float b;
 		public RGBTuple(float r,float g,float b) {
 			this.r = r;
 			this.g = g;

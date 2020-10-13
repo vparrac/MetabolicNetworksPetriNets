@@ -1,34 +1,45 @@
-package metapenta.visualization.petrinet;
+package metapenta.processing.petrinet;
 import java.util.ArrayList;
 
 import javafx.application.Application;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import metapenta.gui.Controller;
 import metapenta.gui.JavaFXApplication;
+import metapenta.model.Metabolite;
+import metapenta.model.Reaction;
 /**
  * Main class of the visualization panel this class extends of PApplet
  * the main class of processing library
  * @author Valerie Parra Cortés
  */
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PSurface;
 import processing.javafx.PSurfaceFX;
 
 
 public class MySketch extends PApplet {
+	Text details_title;
+	Text details_title_name;
+	TextField details_id;	
+	// Reaction
+	TextField details_compartment;
+	TextField details_chemical_formula;
+	Text details_title_textArea_1;
+	Text details_title_textArea_2;
+	TextArea details_textArea_2;
+	TextArea details_textArea_1;
 	/**
 	 * It represents id a user is over a note
 	 */
-	private boolean locked=false;;
+	private boolean locked = false;;
 	// Colors	
-	private final static RGBTuple BLUE = new RGBTuple(3, 152, 158); 
-	private static final RGBTuple BLUE_KING = new RGBTuple(0, 74, 173);
-	private static final RGBTuple ORANGE = new RGBTuple(252, 137, 0);
-	private static final RGBTuple WHITE = new RGBTuple(255, 255, 255);		
-	private static final RGBTuple BLACK = new RGBTuple(0, 0, 0);		
-	/**
-	 * Number of pixels of the boxes
-	 */
-	private final static int BS = 65;
+
+	private PFont myFont;
+
 	/**
 	 * is it the user over a node?
 	 */
@@ -40,11 +51,15 @@ public class MySketch extends PApplet {
 	/**
 	 * The position of the transitions
 	 */
-	private ArrayList<Transition> positionTransitions = new ArrayList<Transition>();
+	public ArrayList<TransitionProcessing> positionTransitions = new ArrayList<TransitionProcessing>();
 	/**
 	 * The location of places
 	 */
-	private ArrayList<Place> positionsPlaces = new ArrayList<Place>();
+	public ArrayList<PlaceProcessing> positionsPlaces = new ArrayList<PlaceProcessing>();
+
+
+	public Translator translator;
+
 	/**
 	 * The offset of the mouse and the center of the node in x-axis
 	 */
@@ -57,10 +72,7 @@ public class MySketch extends PApplet {
 	 * Is the current node a transition?
 	 */
 	private boolean isTransition=false;
-	/**
-	 * Radius of the places
-	 */
-	private int radius=70;	
+
 	/**
 	 * Matrix of adjacency of Petri Net 
 	 * 0 means no edge
@@ -69,47 +81,53 @@ public class MySketch extends PApplet {
 	 * 3 means edge Place->Transition and Transition->Place
 	 */
 
-	private byte[][] adjacencyMatrix;	
+	public int[][] adjacencyMatrix;	
 	/**
 	 * Represents the weight between transitions to places 
 	 */
-	private int[][] adjacencyMatrixWeightsTP;
+	public int[][] adjacencyMatrixWeightsTP;
 	/**
 	 * Represents the weights between places to transition
 	 */
-	private int[][] adjacencyMatrixWeightsPT;
+	public int[][] adjacencyMatrixWeightsPT;
 
 
 
 	@Override
 	protected PSurface initSurface() {
 		g = createPrimaryGraphics();
-        PSurface genericSurface = g.createSurface();
-        PSurfaceFX fxSurface = (PSurfaceFX) genericSurface;
-        fxSurface.sketch = this;
-        JavaFXApplication.surface = fxSurface;
-        Controller.surface = fxSurface;
-        new Thread(() -> Application.launch(JavaFXApplication.class)).start();
-        while (fxSurface.stage == null) {
-            try {
-                Thread.sleep(5);
-            } catch (InterruptedException e) {
-            }
-        }
-        this.surface = fxSurface;
-        
-        return surface;
+		PSurface genericSurface = g.createSurface();
+		PSurfaceFX fxSurface = (PSurfaceFX) genericSurface;
+		fxSurface.sketch = this;
+		JavaFXApplication.surface = fxSurface;
+		Controller.surface = fxSurface;
+		new Thread(() -> Application.launch(JavaFXApplication.class)).start();
+		while (fxSurface.stage == null) {
+			try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+			}
+		}
+		this.surface = fxSurface;
+		initJavaFXSceneElements();
+		return surface;
 	}
 
-	
+
+	private void initJavaFXSceneElements() {
+		Canvas canvas = (Canvas) surface.getNative();
+		details_title = (Text) canvas.getScene().lookup("#details_title");
+		details_title_name = (Text) canvas.getScene().lookup("#details_title_name");
+		details_id = (TextField) canvas.getScene().lookup("#details_id");
+		details_compartment = (TextField) canvas.getScene().lookup("#details_compartment");
+		details_chemical_formula = (TextField) canvas.getScene().lookup("#details_chemical_formula");
+
+	}
+
+
 
 	public void settings() {
-        size(0, 0, FX2D);
-//		size(640, 640); //The size of the windos
-//		smooth();
-//		if (frame != null) {
-//			frame.setResizable(true);
-//		}
+		size(100, 100, FX2D);
 	}	 
 
 	/**
@@ -127,7 +145,7 @@ public class MySketch extends PApplet {
 		rotate(a);
 		line(0, 0, -10, -10);
 		line(0, 0, 10, -10);
-		fill(BLACK.r,BLACK.g,BLACK.b);
+		fill(Constants.BLACK.r,Constants.BLACK.g,Constants.BLACK.b);
 		text(weight+"", 8, -20);
 		popMatrix();
 	}
@@ -141,7 +159,7 @@ public class MySketch extends PApplet {
 		rotate(a);
 		line(0, 0, -10, -10);
 		line(0, 0, 10, -10);
-		fill(BLACK.r,BLACK.g,BLACK.b);
+		fill(Constants.BLACK.r,Constants.BLACK.g,Constants.BLACK.b);
 		text(weight1+"", 8, -20);
 		popMatrix();
 		pushMatrix();
@@ -150,7 +168,7 @@ public class MySketch extends PApplet {
 		rotate(a);
 		line(0, 0, -10, -10);
 		line(0, 0, 10, -10);
-		fill(BLACK.r,BLACK.g,BLACK.b);
+		fill(Constants.BLACK.r,Constants.BLACK.g,Constants.BLACK.b);
 		text(weight2+"", -16, -20);
 		popMatrix();
 
@@ -158,36 +176,25 @@ public class MySketch extends PApplet {
 	}	
 
 	public void setup() {
-		System.out.println("bu2");
-        Controller.p = this;
-		positionTransitions.add(new Transition(100, 350, BS, BS, "6pgl_c", BLUE, WHITE));
-		positionTransitions.add(new Transition(100, 250, BS, BS, "mal__L_e", BLUE, WHITE));
-		positionTransitions.add(new Transition(100, 150, BS, BS, "6pgl_c", BLUE, WHITE));
-		positionTransitions.add(new Transition(100, 50, BS, BS, "mal__L_e", BLUE, WHITE));
-		positionsPlaces.add(new Place(500, 350, BS, BS, "mal__L_e", ORANGE, BLACK));	
-		positionsPlaces.add(new Place(500, 250, BS, BS, "Nodo 4", ORANGE, BLACK));	
-		positionsPlaces.add(new Place(500, 150, BS, BS, "mal__L_e", ORANGE, BLACK));	
-		positionsPlaces.add(new Place(500, 50, BS, BS, "Nodo 4", ORANGE, BLACK));	
-		adjacencyMatrix = new byte[positionTransitions.size()][positionsPlaces.size()];
+		Controller.p = this;
+		myFont = createFont("Yu Gothic Light", 12);
+		textFont(myFont);
+		adjacencyMatrix = new int[positionTransitions.size()][positionsPlaces.size()];
 		adjacencyMatrixWeightsTP = new int[positionTransitions.size()][positionsPlaces.size()];
 		adjacencyMatrixWeightsPT = new int[positionTransitions.size()][positionsPlaces.size()];
-		adjacencyMatrix[0][0]=3;
-		adjacencyMatrix[0][1]=2;
-		adjacencyMatrix[1][1]=2;
-		adjacencyMatrix[2][2]=1;	
-		adjacencyMatrix[3][3]=1;
-		adjacencyMatrixWeightsTP[0][0]=1;
+		//		noLoop();
 	}
 
-	public void draw() {		
+	public void draw() {
+
 		background(255, 255, 255);
-		fill(BLUE_KING.r,BLUE_KING.g,BLUE_KING.b);	
+		fill(Constants.BLUE_KING.r, Constants.BLUE_KING.g, Constants.BLUE_KING.b);	
 		stroke(100);	
 		for (int i = 0; i < adjacencyMatrix.length; i++) {
 			for (int j = 0; j < adjacencyMatrix[0].length; j++) {
 				float x1, x2, y1, y2;
-				x1 = positionTransitions.get(i).getPx()+BS/2;
-				y1 = positionTransitions.get(i).getPy()+BS/2;
+				x1 = positionTransitions.get(i).getPx()+Constants.BS/2;
+				y1 = positionTransitions.get(i).getPy()+Constants.BS/2;
 				x2 = positionsPlaces.get(j).getPx();
 				y2 = positionsPlaces.get(j).getPy();	
 				float[] ipTransitionsToPlaces = intersectionPointCircleLine(x1, y1, x2, y2);
@@ -208,45 +215,47 @@ public class MySketch extends PApplet {
 			String name = positionTransitions.get(j).getName();
 			float r =positionTransitions.get(j).getColor_text().r, g=positionTransitions.get(j).getColor_text().g, b = positionTransitions.get(j).getColor_text().b;
 			fill(positionTransitions.get(j).getColor_place().r, positionTransitions.get(j).getColor_place().g, positionTransitions.get(j).getColor_place().b);
-			rect ( px, py, BS, BS) ;
+			rect ( px, py, Constants.BS, Constants.BS) ;
 			fill( r, g, b);
-			text( name, px+BS/2-textWidth(name)/2, py+BS/2);
-			//			stroke(153);
+			text( name, px+Constants.BS/2-textWidth(name)/2, py+Constants.BS/2);			
 		}
 
 		for (int j=0; j < positionsPlaces.size(); j++) {
 			fill(positionsPlaces.get(j).getColor_place().r, positionsPlaces.get(j).getColor_place().g, positionsPlaces.get(j).getColor_place().b);
-			ellipse( positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy(), radius, radius);		
+			ellipse( positionsPlaces.get(j).getPx(), positionsPlaces.get(j).getPy(), Constants.RADIUS, Constants.RADIUS);		
 			fill(positionsPlaces.get(j).getColor_text().r, positionsPlaces.get(j).getColor_text().g, positionsPlaces.get(j).getColor_text().b);
 			String name = positionsPlaces.get(j).getName();
 			float px = positionsPlaces.get(j).getPx(), py = positionsPlaces.get(j).getPy();			
 			text( positionsPlaces.get(j).getName(), px-textWidth(name)/2, py);
 		}
 
-
 	}
 
-	public void mousePressed() {		
+	public void mousePressed() {	
+		//		loop();
 		checkOver();
 		if (bover) { 
 			locked = true;
-			Node currentNodes = (isTransition)? positionTransitions.get(whichImage):positionsPlaces.get(whichImage);
+			NodeProcessing currentNodes = (isTransition)? positionTransitions.get(whichImage):positionsPlaces.get(whichImage);
 			xOffset = mouseX-currentNodes.getPx(); 
 			yOffset = mouseY-currentNodes.getPy();
 		} 
 		else {
 			locked = false;			
 		}
+
 	}
 
 	public void mouseReleased() {
 		locked = false;
 		bover = false;
+		//		noLoop();
 	}
 
 	public void mouseDragged() {
+		//		loop();
 		if(locked) {
-			Node currentNode=(isTransition)? positionTransitions.get(whichImage):positionsPlaces.get(whichImage);
+			NodeProcessing currentNode=(isTransition)? positionTransitions.get(whichImage):positionsPlaces.get(whichImage);
 			currentNode.setPx(mouseX-xOffset);
 			currentNode.setPy(mouseY-yOffset);
 		}
@@ -254,10 +263,10 @@ public class MySketch extends PApplet {
 	/**
 	 * Check if the user press over a node
 	 */
-	public void checkOver() {
+	public void checkOver() {		
 		boolean found=false;
 		for (int i = 0; i <positionsPlaces.size() ; i++) {			
-			if (Math.sqrt(Math.pow((mouseY-positionsPlaces.get(i).getPy()),2)+Math.pow((mouseX-positionsPlaces.get(i).getPx()),2))<= radius) {			
+			if (Math.sqrt(Math.pow((mouseY-positionsPlaces.get(i).getPy()),2)+Math.pow((mouseX-positionsPlaces.get(i).getPx()),2))<= Constants.RADIUS) {			
 				whichImage=i;	
 				bover = true;  
 				isTransition=false;
@@ -270,8 +279,8 @@ public class MySketch extends PApplet {
 		}
 		if(!found) {
 			for (int i=0; i < positionTransitions.size(); i++) {					
-				if (mouseX > positionTransitions.get(i).getPx()-BS && mouseX < positionTransitions.get(i).getPx()+BS && 
-						mouseY > positionTransitions.get(i).getPy()-BS && mouseY < positionTransitions.get(i).getPy()+BS){
+				if (mouseX > positionTransitions.get(i).getPx()-Constants.BS && mouseX < positionTransitions.get(i).getPx()+Constants.BS && 
+						mouseY > positionTransitions.get(i).getPy()-Constants.BS && mouseY < positionTransitions.get(i).getPy()+Constants.BS){
 					whichImage=i;
 					bover = true;  
 					isTransition=true;				
@@ -279,6 +288,38 @@ public class MySketch extends PApplet {
 				} 
 			}
 		}		
+
+
+
+		if(bover) {			
+			if(!isTransition) {
+				setDetailsMetabolite();
+			}			
+			else {
+				setDetailsReaction();
+			}			
+		}		
+	}
+
+
+	private void setDetailsMetabolite() {
+		NodeProcessing currentNode = positionsPlaces.get(whichImage);
+		details_title.setText(Constants.METABOLITE);
+		Metabolite meta = translator.getMetabolite(currentNode.getName());
+		details_title_name.setText(meta.getName());
+		details_id.setText(Constants.ID + currentNode.getName());
+		details_chemical_formula.setVisible(true);
+		details_compartment.setText(Constants.COMPARTMENT+ meta.getCompartment());
+		details_chemical_formula.setText(Constants.CHEMICAL_FORMULA+meta.getChemicalFormula());
+
+	}
+	private void setDetailsReaction() {
+		NodeProcessing currentNode = positionTransitions.get(whichImage);
+		Reaction reaction = translator.getReaction(currentNode.getName());
+		details_title_name.setText(reaction.getName());
+		details_id.setText(Constants.ID + currentNode.getName());
+		details_compartment.setText(Constants.REVERSIBLE + reaction.isReversible());
+		details_chemical_formula.setVisible(false);
 	}
 
 
@@ -286,7 +327,7 @@ public class MySketch extends PApplet {
 	private float[] intersectionPointCircleLine(double x1, double y1, double cx2, double cy2) {
 		double dx = cx2-x1, dy = cy2-y1;
 		double norm = norm(dx,dy);
-		double factor = (norm-radius/2)/norm;
+		double factor = (norm-Constants.RADIUS/2)/norm;
 		double ndx = dx*factor+x1, ndy = dy*factor+y1;
 		float[] coordinates = new float[2];
 		coordinates[0] = (float) ndx;
@@ -299,14 +340,14 @@ public class MySketch extends PApplet {
 		double dx = cx2-x1, dy = cy2-y1;
 		float[] points = new float[2];
 		if( (dx >= 0 && Math.abs(dy) <= Math.abs(dx)) || (dx <= 0 && Math.abs(dy) <= Math.abs(dx)) ) { // Left and Right
-			double xl = (dx <= 0) ? cx2 + BS/2: cx2 - BS/2;
+			double xl = (dx <= 0) ? cx2 + Constants.BS/2: cx2 - Constants.BS/2;
 			double[] lineEquation = lineEquation(x1, y1, cx2, cy2);
 			double yl = lineEquation[0]*xl + lineEquation[1];
 			points[0] = (float) xl;
 			points[1] = (float) yl;
 		}		
 		else if( (dy >= 0 && Math.abs(dy) >= Math.abs(dx)) || (dy <= 0 && Math.abs(dy) >= Math.abs(dx))) {	//Up and down		
-			double yl = (float) ((dy>=0)? cy2 - BS/2: cy2 + BS/2);
+			double yl = (float) ((dy>=0)? cy2 - Constants.BS/2: cy2 + Constants.BS/2);
 			if(cx2==x1) {
 				points[0] = (float) cx2;
 				points[1] = (float) yl;
@@ -322,7 +363,7 @@ public class MySketch extends PApplet {
 
 
 	private double norm(double dx, double dy) {
-		return Math.sqrt(Math.pow(dx, 2)+Math.pow(dy, 2));
+		return Math.sqrt(Math.pow(dx,2) + Math.pow(dy, 2));
 	}
 
 
@@ -334,7 +375,4 @@ public class MySketch extends PApplet {
 		lineEquation[1] = b;		
 		return lineEquation;
 	}
-
-	
-
 }
