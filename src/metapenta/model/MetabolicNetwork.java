@@ -94,6 +94,12 @@ public class MetabolicNetwork {
 	public Metabolite getMetabolite (String id) {
 		return metabolites.get(id);
 	}
+	
+	
+	public Reaction getReaction(String id) {
+		return reactions.get(id);
+	}
+	
 	/**
 	 * @return List of metabolites in the network
 	 */
@@ -873,6 +879,10 @@ public class MetabolicNetwork {
 	
 	public Map<String, Place<Metabolite, Reaction>> getPlaces() {
 		return places;
+	}
+	
+	public Map<Integer,Place<Metabolite, Reaction>> getPlacesbyNumber() {
+		return placesbyNumber;
 	}
 		
 }
