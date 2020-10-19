@@ -20,7 +20,6 @@ import processing.core.PFont;
 import processing.core.PSurface;
 import processing.javafx.PSurfaceFX;
 
-
 public class MySketch extends PApplet {
 	Text details_title;
 	Text details_title_name;
@@ -37,9 +36,7 @@ public class MySketch extends PApplet {
 	 */
 	private boolean locked = false;;
 	// Colors	
-
 	private PFont myFont;
-
 	/**
 	 * is it the user over a node?
 	 */
@@ -56,10 +53,7 @@ public class MySketch extends PApplet {
 	 * The location of places
 	 */
 	public ArrayList<PlaceProcessing> positionsPlaces = new ArrayList<PlaceProcessing>();
-
-
 	public Translator translator;
-
 	/**
 	 * The offset of the mouse and the center of the node in x-axis
 	 */
@@ -91,8 +85,6 @@ public class MySketch extends PApplet {
 	 */
 	public int[][] adjacencyMatrixWeightsPT;
 
-
-
 	@Override
 	protected PSurface initSurface() {
 		g = createPrimaryGraphics();
@@ -112,8 +104,6 @@ public class MySketch extends PApplet {
 		initJavaFXSceneElements();
 		return surface;
 	}
-
-
 	private void initJavaFXSceneElements() {
 		Canvas canvas = (Canvas) surface.getNative();
 		details_title = (Text) canvas.getScene().lookup("#details_title");
@@ -121,15 +111,10 @@ public class MySketch extends PApplet {
 		details_id = (TextField) canvas.getScene().lookup("#details_id");
 		details_compartment = (TextField) canvas.getScene().lookup("#details_compartment");
 		details_chemical_formula = (TextField) canvas.getScene().lookup("#details_chemical_formula");
-
 	}
-
-
-
 	public void settings() {
 		size(100, 100, FX2D);
 	}	 
-
 	/**
 	 * This method print an arrow
 	 * @param x1 the first coordinate of the arrow's start
@@ -186,7 +171,6 @@ public class MySketch extends PApplet {
 	}
 
 	public void draw() {
-
 		background(255, 255, 255);
 		fill(Constants.BLUE_KING.r, Constants.BLUE_KING.g, Constants.BLUE_KING.b);	
 		stroke(100);	
@@ -228,7 +212,6 @@ public class MySketch extends PApplet {
 			float px = positionsPlaces.get(j).getPx(), py = positionsPlaces.get(j).getPy();			
 			text( positionsPlaces.get(j).getName(), px-textWidth(name)/2, py);
 		}
-
 	}
 
 	public void mousePressed() {	
@@ -288,9 +271,6 @@ public class MySketch extends PApplet {
 				} 
 			}
 		}		
-
-
-
 		if(bover) {			
 			if(!isTransition) {
 				setDetailsMetabolite();
@@ -300,8 +280,6 @@ public class MySketch extends PApplet {
 			}			
 		}		
 	}
-
-
 	private void setDetailsMetabolite() {
 		NodeProcessing currentNode = positionsPlaces.get(whichImage);
 		details_title.setText(Constants.METABOLITE);
@@ -321,9 +299,6 @@ public class MySketch extends PApplet {
 		details_compartment.setText(Constants.REVERSIBLE + reaction.isReversible());
 		details_chemical_formula.setVisible(false);
 	}
-
-
-
 	private float[] intersectionPointCircleLine(double x1, double y1, double cx2, double cy2) {
 		double dx = cx2-x1, dy = cy2-y1;
 		double norm = norm(dx,dy);
@@ -334,8 +309,6 @@ public class MySketch extends PApplet {
 		coordinates[1] = (float) ndy;
 		return coordinates;		
 	}
-
-
 	private float[] intersectionPointRectLine(double x1, double y1, double cx2, double cy2) {
 		double dx = cx2-x1, dy = cy2-y1;
 		float[] points = new float[2];
@@ -360,13 +333,9 @@ public class MySketch extends PApplet {
 		}
 		return points;
 	}
-
-
 	private double norm(double dx, double dy) {
 		return Math.sqrt(Math.pow(dx,2) + Math.pow(dy, 2));
 	}
-
-
 	private double[] lineEquation (double x1, double y1, double x2, double y2) {
 		double m = (y2-y1)/(x2-x1);
 		double b = y1-((y2-y1)/(x2-x1))*x1;

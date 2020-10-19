@@ -17,7 +17,6 @@ import metapenta.petrinet.Transition;
  * This class is to "translate" the data of the model to the correct visualization
  * @author Valerie Parra Cortés
  */
-
 public class Translator {
 
 	/**
@@ -55,8 +54,6 @@ public class Translator {
 
 	private int x_transitions = 300;
 	private int y_transitions = 50;
-
-
 
 
 	public Translator(MetabolicNetwork metabolicNetworkModel) {
@@ -132,6 +129,7 @@ public class Translator {
 			}			
 		}
 	}	
+	
 	public int[][] getAdjacencyMatrix() {
 		return adjacencyMatrix;
 	}
