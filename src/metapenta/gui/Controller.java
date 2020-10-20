@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.management.Notification;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,6 +20,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+
+
 import javafx.stage.Stage;
 import metapenta.model.MetabolicNetwork;
 import metapenta.model.MetabolicNetworkXMLLoader;
@@ -78,6 +82,9 @@ public class Controller implements Initializable  {
 //				p.adjacencyMatrixWeightsTP = translator.adjacencyMatrixWeightsTP;
 //				p.adjacencyMatrixWeightsPT = translator.adjacencyMatrixWeightsPT;
 //				p.translator = translator;
+//				
+				
+				System.out.println("Cargado");
 			} catch (IOException e) {				
 				e.printStackTrace();
 			}			
@@ -97,7 +104,7 @@ public class Controller implements Initializable  {
 	@FXML
 	public void paintSources() {
 		if(cbSources.isSelected()) {
-			translator.calculateSources();
+			translator.calculateSources();	
 		}	
 		else {
 			translator.restoreSources();

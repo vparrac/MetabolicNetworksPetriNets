@@ -210,12 +210,12 @@
                               <Insets bottom="20.0" />
                            </VBox.margin>
                         </TextArea>
+                        <TextArea fx:id="details_textArea_2" editable="false" prefHeight="130.0" prefWidth="180.0" text="dsjndkasdasdsa&#10;das&#10;d&#10;ad&#10;as&#10;d&#10;asd&#10;sad&#10;" />
                         <Text fx:id="details_title_textArea_3" fill="#035aa6" strokeType="OUTSIDE" strokeWidth="0.0" text="Enzymes">
                            <font>
                               <Font name="Yu Gothic Light" size="15.0" />
                            </font>
                         </Text>
-                        <TextArea fx:id="details_textArea_2" editable="false" prefHeight="130.0" prefWidth="180.0" text="dsjndkasdasdsa&#10;das&#10;d&#10;ad&#10;as&#10;d&#10;asd&#10;sad&#10;" />
                      </children>
                      <padding>
                         <Insets top="5.0" />

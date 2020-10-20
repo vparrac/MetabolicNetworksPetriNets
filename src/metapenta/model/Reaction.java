@@ -158,4 +158,8 @@ public class Reaction {
 		jsonReaction+="}";
 		return jsonReaction;
 	}
+	
+	public Reaction clone() {
+		return new Reaction(id, name, reactants, products);
+	}
 }

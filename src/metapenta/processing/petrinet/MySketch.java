@@ -79,11 +79,11 @@ public class MySketch extends PApplet {
 	/**
 	 * Represents the weight between transitions to places 
 	 */
-	public int[][] adjacencyMatrixWeightsTP;
+	public double[][] adjacencyMatrixWeightsTP;
 	/**
 	 * Represents the weights between places to transition
 	 */
-	public int[][] adjacencyMatrixWeightsPT;
+	public double[][] adjacencyMatrixWeightsPT;
 
 	@Override
 	protected PSurface initSurface() {
@@ -122,7 +122,7 @@ public class MySketch extends PApplet {
 	 * @param x2 the first coordinate of  arrow's end
 	 * @param y2 the seconds coordinate of arrow's end
 	 */
-	public void arrow(float x1, float y1, float x2, float y2, int weight) {
+	public void arrow(float x1, float y1, float x2, float y2, double weight) {
 		line(x1, y1, x2, y2);
 		pushMatrix();
 		translate(x2, y2);
@@ -136,7 +136,7 @@ public class MySketch extends PApplet {
 	}
 
 
-	public void bidirectionalArrow(float x1, float y1, float x2, float y2, int weight1, int weight2) {		
+	public void bidirectionalArrow(float x1, float y1, float x2, float y2, double weight1, double weight2) {		
 		line(x1, y1, x2, y2);
 		pushMatrix();
 		translate(x2, y2);
@@ -165,12 +165,12 @@ public class MySketch extends PApplet {
 		myFont = createFont("Yu Gothic Light", 12);
 		textFont(myFont);
 		adjacencyMatrix = new int[positionTransitions.size()][positionsPlaces.size()];
-		adjacencyMatrixWeightsTP = new int[positionTransitions.size()][positionsPlaces.size()];
-		adjacencyMatrixWeightsPT = new int[positionTransitions.size()][positionsPlaces.size()];
+		adjacencyMatrixWeightsTP = new double[positionTransitions.size()][positionsPlaces.size()];
+		adjacencyMatrixWeightsPT = new double[positionTransitions.size()][positionsPlaces.size()];
 		//		noLoop();
 	}
 
-	public void draw() {
+	public void draw() {		
 		background(255, 255, 255);
 		fill(Constants.BLUE_KING.r, Constants.BLUE_KING.g, Constants.BLUE_KING.b);	
 		stroke(100);	
@@ -184,10 +184,10 @@ public class MySketch extends PApplet {
 				float[] ipTransitionsToPlaces = intersectionPointCircleLine(x1, y1, x2, y2);
 				float[] ipPlacesToTransitions = intersectionPointRectLine(x2, y2, x1, y1);				
 				if(adjacencyMatrix[i][j]==1) {								
-					arrow(ipPlacesToTransitions[0], ipPlacesToTransitions[1], ipTransitionsToPlaces[0],ipTransitionsToPlaces[1], adjacencyMatrixWeightsPT[i][j]);					
+					arrow(ipPlacesToTransitions[0], ipPlacesToTransitions[1], ipTransitionsToPlaces[0],ipTransitionsToPlaces[1], adjacencyMatrixWeightsTP[i][j]);					
 				}
 				else if(adjacencyMatrix[i][j]==2) {
-					arrow(ipTransitionsToPlaces[0], ipTransitionsToPlaces[1], ipPlacesToTransitions[0],ipPlacesToTransitions[1], adjacencyMatrixWeightsTP[i][j]);					
+					arrow(ipTransitionsToPlaces[0], ipTransitionsToPlaces[1], ipPlacesToTransitions[0],ipPlacesToTransitions[1], adjacencyMatrixWeightsPT[i][j]);					
 				}
 				else if(adjacencyMatrix[i][j]==3) {								
 					bidirectionalArrow(ipTransitionsToPlaces[0], ipTransitionsToPlaces[1], ipPlacesToTransitions[0], ipPlacesToTransitions[1], adjacencyMatrixWeightsTP[i][j],adjacencyMatrixWeightsPT[i][j]);		

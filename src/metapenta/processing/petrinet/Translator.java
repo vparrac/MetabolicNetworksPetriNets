@@ -45,11 +45,11 @@ public class Translator {
 	/**
 	 * Represents the weight between transitions to places 
 	 */
-	public int[][] adjacencyMatrixWeightsTP;
+	public double[][] adjacencyMatrixWeightsTP;
 	/**
 	 * Represents the weights between places to transition
 	 */
-	public int[][] adjacencyMatrixWeightsPT;
+	public double[][] adjacencyMatrixWeightsPT;
 
 	private int x_places = 100;
 	private int y_places = 50;
@@ -71,7 +71,7 @@ public class Translator {
 
 	public Translator(MetabolicNetwork metabolicNetworkModel) {
 		this.metabolicNetworkModel = metabolicNetworkModel;		
-		translate();
+//		translate();
 	}	
 	
 	
@@ -89,6 +89,7 @@ public class Translator {
 			reactions_map.put(isProduct.get(i).getId(), isProduct.get(i));
 		}		
 		makeNet(reactions_map);
+		translate();
 	}	
 	
 	
@@ -97,7 +98,7 @@ public class Translator {
 	 */
 	public void  makeNet(Map<String,Reaction> reactions) {	
 		int numberMetabolites=1,numberTransition=1;		
-		Map<String, Place<Metabolite, Reaction>> places = metabolicNetworkModel.getPlaces();		
+		TreeMap<String,Place<Metabolite, Reaction>> places = new TreeMap<String,Place<Metabolite, Reaction>>();
 		Set<String> keysReaction = reactions.keySet();					
 		for (String key : keysReaction) {			
 			Reaction rea = reactions.get(key);
@@ -146,16 +147,14 @@ public class Translator {
 
 	
 	private void translate() {
-		Map<Integer, Transition<Metabolite, Reaction>> transitions = metabolicNetworkModel.getTransitions();
-		Map<Integer, Place<Metabolite, Reaction>> places = metabolicNetworkModel.getPlacesbyNumber();
-		Set<Integer> keysTransitions = transitions.keySet();
-		Set<Integer> keysPlaces = places.keySet();
+		Set<Integer> keysTransitions = this.transitions.keySet();
+		Set<Integer> keysPlaces = this.placesbyNumber.keySet();
 
 		double nodesPerColum = Math.max(Math.ceil(Math.sqrt(keysTransitions.size())), Math.ceil(Math.sqrt(keysPlaces.size())));
 
 		int counter = 0;
 		for (Integer key : keysPlaces) {
-			Place< Metabolite, Reaction> place = places.get(key);
+			Place< Metabolite, Reaction> place = placesbyNumber.get(key);
 			PlaceProcessing placeProcesing = new PlaceProcessing(x_places, y_places, Constants.BS, Constants.BS, place.getObject().getId(), Constants.PURPLE, Constants.BLACK);
 			this.positionsPlaces.add(placeProcesing);
 			counter++;
@@ -185,8 +184,8 @@ public class Translator {
 		}
 
 		this.adjacencyMatrix = new int[positionTransitions.size()][positionsPlaces.size()];
-		this.adjacencyMatrixWeightsTP = new int[positionTransitions.size()][positionsPlaces.size()];
-		this.adjacencyMatrixWeightsPT = new int[positionTransitions.size()][positionsPlaces.size()];
+		this.adjacencyMatrixWeightsTP = new double[positionTransitions.size()][positionsPlaces.size()];
+		this.adjacencyMatrixWeightsPT = new double[positionTransitions.size()][positionsPlaces.size()];
 		
 		for (Integer key : keysTransitions) {
 			Transition< Metabolite, Reaction> transition = transitions.get(key);
@@ -199,7 +198,10 @@ public class Translator {
 				}
 				else if(number==2) {
 					this.adjacencyMatrix[transition.getNumber()-1][outPlaces.get(i).getObject().getMetaboliteNumber()-1]=3;
-				}	
+				}
+				
+				adjacencyMatrixWeightsTP[transition.getNumber()-1][outPlaces.get(i).getObject().getMetaboliteNumber()-1]= outPlaces.get(i).getStoichiometry();
+				System.out.println(outPlaces.get(i).getStoichiometry());
 			}			
 			List<Edge<Place< Metabolite, Reaction>>> inPlaces = transition.getInPlaces();
 			for (int i = 0; i < inPlaces.size(); i++) {				
@@ -209,7 +211,9 @@ public class Translator {
 				}
 				else if (number==1) {
 					this.adjacencyMatrix[transition.getNumber()-1][inPlaces.get(i).getObject().getMetaboliteNumber()-1]=3;
-				}			
+				}		
+				adjacencyMatrixWeightsPT[transition.getNumber()-1][inPlaces.get(i).getObject().getMetaboliteNumber()-1]= inPlaces.get(i).getStoichiometry();
+				System.out.println(inPlaces.get(i).getStoichiometry());
 			}			
 		}
 	}	
@@ -217,10 +221,10 @@ public class Translator {
 	public int[][] getAdjacencyMatrix() {
 		return adjacencyMatrix;
 	}
-	public int[][] getAdjacencyMatrixWeightsPT() {
+	public double[][] getAdjacencyMatrixWeightsPT() {
 		return adjacencyMatrixWeightsPT;
 	}
-	public int[][] getAdjacencyMatrixWeightsTP() {
+	public double[][] getAdjacencyMatrixWeightsTP() {
 		return adjacencyMatrixWeightsTP;
 	}
 	public ArrayList<PlaceProcessing> getPositionsPlaces() {
