@@ -102,6 +102,36 @@
                               </CheckBox>
                            </children>
                         </VBox>
+                        <Text fill="#fffbfb" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <VBox alignment="CENTER" prefHeight="69.0" prefWidth="222.0" style="-fx-background-color: white;">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Find the reaction of a metabolite" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Yu Gothic Light" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <TextArea fx:id="id_metabolite_text" prefHeight="200.0" prefWidth="200.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </TextArea>
+                              <Button fx:id="tfind_reactions_button" mnemonicParsing="false" onAction="#findReactionButtonAction" text="Find reactions">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
                      </children>
                   </VBox>
                </children>

@@ -2,17 +2,18 @@ package metapenta.gui;
 
 
 
-import javafx.scene.control.CheckBox;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -44,7 +45,12 @@ public class Controller implements Initializable  {
     
    @FXML
    HBox options_bar;
+   
+   @FXML
+   ChoiceBox<String> metabolite_list;   
 	
+   @FXML
+   TextArea id_metabolite_text;
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Canvas canvas = (Canvas) surface.getNative();
@@ -64,18 +70,18 @@ public class Controller implements Initializable  {
 			MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
 			try {
 				this.metabolicNetwork = loader.loadNetwork(file.getCanonicalPath());
-				this.metabolicNetwork.makeNet();
+				this.metabolicNetwork.makeNet();				
 				translator = new Translator(metabolicNetwork);
-				p.positionTransitions = translator.positionTransitions;				
-				p.positionsPlaces = translator.positionsPlaces;
-				p.adjacencyMatrix = translator.adjacencyMatrix;
-				p.adjacencyMatrixWeightsTP = translator.adjacencyMatrixWeightsTP;
-				p.adjacencyMatrixWeightsPT = translator.adjacencyMatrixWeightsPT;
-				p.translator = translator;
+//				p.positionTransitions = translator.positionTransitions;				
+//				p.positionsPlaces = translator.positionsPlaces;
+//				p.adjacencyMatrix = translator.adjacencyMatrix;
+//				p.adjacencyMatrixWeightsTP = translator.adjacencyMatrixWeightsTP;
+//				p.adjacencyMatrixWeightsPT = translator.adjacencyMatrixWeightsPT;
+//				p.translator = translator;
 			} catch (IOException e) {				
 				e.printStackTrace();
 			}			
-		}
+		}		
 	}
 	
 	@FXML
@@ -96,5 +102,19 @@ public class Controller implements Initializable  {
 		else {
 			translator.restoreSources();
 		}
+	}
+	
+	
+	@FXML	
+	public void findReactionButtonAction() {
+		String metabolite = id_metabolite_text.getText();
+		translator.getReactionsOfMetabolite(metabolite);		
+		p.positionTransitions = translator.positionTransitions;				
+		p.positionsPlaces = translator.positionsPlaces;
+		p.adjacencyMatrix = translator.adjacencyMatrix;
+		p.adjacencyMatrixWeightsTP = translator.adjacencyMatrixWeightsTP;
+		p.adjacencyMatrixWeightsPT = translator.adjacencyMatrixWeightsPT;
+		p.translator = translator;
+		
 	}
 }

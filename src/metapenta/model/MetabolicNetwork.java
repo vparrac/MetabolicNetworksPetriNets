@@ -109,6 +109,18 @@ public class MetabolicNetwork {
 	
 	
 	/**
+	 * @return List of metabolites in the network
+	 */
+	public List<String> getMetabolitesAsListString() {
+		List<String> metabolitesString = new ArrayList<String>();
+		for (String string : metabolites.keySet()) {
+			metabolitesString.add(string);
+		}
+		
+		return metabolitesString;
+	}
+	
+	/**
 	 * @return List of reactions in the network
 	 */
 	public List<Reaction> getReactionsAsList () {
@@ -183,16 +195,15 @@ public class MetabolicNetwork {
 		placesbyNumber = new TreeMap<Integer, Place<Metabolite,Reaction>>();
 		transitions= new TreeMap<Integer, Transition<Metabolite, Reaction>>();		
 		places = new TreeMap<String,Place<Metabolite, Reaction>>();
-		Set<String> keysReaction=reactions.keySet();			
+	
 		
+		Set<String> keysReaction = reactions.keySet();					
 		for (String key : keysReaction) {			
 			Reaction rea = reactions.get(key);
 			Transition< Metabolite, Reaction> transition = new Transition< Metabolite, Reaction>(numberTransition, rea);
-			numberTransition++;
-			
+			numberTransition++;			
 			List<ReactionComponent> reactantsC=rea.getReactants();
-			List<ReactionComponent> productsC=rea.getProducts();	
-			
+			List<ReactionComponent> productsC=rea.getProducts();			
 			for (ReactionComponent rc : reactantsC) {			
 				Metabolite meta = rc.getMetabolite();							
 				Place< Metabolite, Reaction> currentPlace = places.get(meta.getId());
@@ -203,7 +214,7 @@ public class MetabolicNetwork {
 					placesbyNumber.put(numberMetabolites, nm);
 					numberMetabolites++;
 					currentPlace = nm;
-				}				
+			}				
 				
 				
 				Edge<Place< Metabolite, Reaction>> placeCurrentMetabolite= new Edge<Place< Metabolite, Reaction>>(rc.getStoichiometry(),currentPlace);
