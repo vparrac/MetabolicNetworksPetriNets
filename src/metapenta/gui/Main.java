@@ -1,4 +1,4 @@
-package metapenta.gui;
+	package metapenta.gui;
 import metapenta.processing.petrinet.MySketch;
 import processing.core.PApplet;
 public class Main {	

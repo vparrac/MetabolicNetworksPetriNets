@@ -35,12 +35,7 @@ public class Controller implements Initializable  {
 	public static MySketch p;
     protected static Stage stage;    
     private Translator translator;    
-   @FXML
-   CheckBox cbSinks;
-   
-   @FXML
-   CheckBox cbSources;
-    
+
    @FXML
    Text details_title;
    
@@ -75,53 +70,25 @@ public class Controller implements Initializable  {
 			try {
 				this.metabolicNetwork = loader.loadNetwork(file.getCanonicalPath());
 				this.metabolicNetwork.makeNet();				
-				translator = new Translator(metabolicNetwork);
-//				p.positionTransitions = translator.positionTransitions;				
-//				p.positionsPlaces = translator.positionsPlaces;
-//				p.adjacencyMatrix = translator.adjacencyMatrix;
-//				p.adjacencyMatrixWeightsTP = translator.adjacencyMatrixWeightsTP;
-//				p.adjacencyMatrixWeightsPT = translator.adjacencyMatrixWeightsPT;
-//				p.translator = translator;
-//				
-				
-				System.out.println("Cargado");
+				translator = new Translator(metabolicNetwork);		
+				System.out.println("Successful upload");
 			} catch (IOException e) {				
 				e.printStackTrace();
 			}			
 		}		
 	}
 	
-	@FXML
-	public void paintSinks() {		
-		if(cbSinks.isSelected()) {
-			translator.calculateSinks();
-		}		
-		else {
-			translator.restoreSinks();
-		}
-	}
-	
-	@FXML
-	public void paintSources() {
-		if(cbSources.isSelected()) {
-			translator.calculateSources();	
-		}	
-		else {
-			translator.restoreSources();
-		}
-	}
-	
 	
 	@FXML	
 	public void findReactionButtonAction() {
-		String metabolite = id_metabolite_text.getText();
-		translator.getReactionsOfMetabolite(metabolite);		
-		p.positionTransitions = translator.positionTransitions;				
-		p.positionsPlaces = translator.positionsPlaces;
-		p.adjacencyMatrix = translator.adjacencyMatrix;
-		p.adjacencyMatrixWeightsTP = translator.adjacencyMatrixWeightsTP;
-		p.adjacencyMatrixWeightsPT = translator.adjacencyMatrixWeightsPT;
-		p.translator = translator;
-		
+//		String metabolite = id_metabolite_text.getText();
+//		translator.getReactionsOfMetabolite(metabolite);		
+//		p.positionTransitions = translator.positionTransitions;				
+//		p.positionsPlaces = translator.positionsPlaces;
+//		p.adjacencyMatrix = translator.adjacencyMatrix;
+//		p.adjacencyMatrixWeightsTP = translator.adjacencyMatrixWeightsTP;
+//		p.adjacencyMatrixWeightsPT = translator.adjacencyMatrixWeightsPT;
+//		p.translator = translator;
+//		
 	}
 }

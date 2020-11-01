@@ -777,7 +777,7 @@ public class MetabolicNetwork {
 		List<Metabolite> sinks= new ArrayList<Metabolite>();
 		for (String key : metabolites.keySet()) {
 			Metabolite m = metabolites.get(key);
-			if(places.get(m.getId()).getInTransitions().size()==0) {
+			if(places.get(m.getId()).getOutTransitions().size()==0) {
 				sinks.add(m);
 			}
 		}
