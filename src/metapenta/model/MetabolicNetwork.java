@@ -130,6 +130,7 @@ public class MetabolicNetwork {
 	public MetabolicNetwork() {
 		
 	}
+	
 	public MetabolicNetwork(Map<String,Reaction> reactions) {
 		int numberMetabolites=1,numberTransition=1;		
 		placesbyNumber = new TreeMap<Integer, Place<Metabolite,Reaction>>();

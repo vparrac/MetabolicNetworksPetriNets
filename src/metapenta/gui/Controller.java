@@ -109,8 +109,7 @@ public class Controller implements Initializable  {
 		}		
 		try {
 			Set<String> graph = metabolicNetwork.shortestPathByMetabolitesNumber(im, targetStringMetabolite);
-			System.out.println(graph.toString());
-			
+			System.out.println(graph.toString());			
 		} catch (Exception e) {		
 			e.printStackTrace();
 		}		

@@ -15,7 +15,6 @@ import metapenta.model.ReactionComponent;
 import metapenta.petrinet.Edge;
 import metapenta.petrinet.Place;
 import metapenta.petrinet.Transition;
-
 /**
  * This class is to "translate" the data of the model to the correct visualization
  * @author Valerie Parra Cortés
@@ -26,6 +25,7 @@ public class Translator {
 	 * Main meabolic Network model
 	 */
 	public MetabolicNetwork metabolicNetworkModel;
+	public MetabolicNetwork subNetworkModel;
 	/**
 	 * The position of the transitions
 	 */
@@ -58,13 +58,7 @@ public class Translator {
 	private int x_transitions = 300;
 	private int y_transitions = 50;
 	
-	
-	
-	private Map<Integer,Place<Metabolite, Reaction>> placesbyNumber = new TreeMap<Integer, Place<Metabolite,Reaction>>();
-	private Map<Integer, Transition<Metabolite, Reaction>> transitions= new TreeMap<Integer, Transition<Metabolite, Reaction>>();		
-	
 
-	
 	private final static String IS_SUBSTRATE = "Substrates";
 	private final static String IS_PRODUCT = "Products";
 
@@ -88,73 +82,31 @@ public class Translator {
 		for (int i = 0; i < isProduct.size(); i++) {
 			reactions_map.put(isProduct.get(i).getId(), isProduct.get(i));
 		}		
-		makeNet(reactions_map);
+		this.subNetworkModel = new MetabolicNetwork(reactions_map);
 		translate();
 	}	
 	
-	
-	/**
-	 * Create the Petri Net that represent the metabolic network
-	 */
-	public void  makeNet(Map<String,Reaction> reactions) {	
-		int numberMetabolites=1,numberTransition=1;		
-		TreeMap<String,Place<Metabolite, Reaction>> places = new TreeMap<String,Place<Metabolite, Reaction>>();
-		Set<String> keysReaction = reactions.keySet();					
-		for (String key : keysReaction) {			
-			Reaction rea = reactions.get(key);
-			Transition< Metabolite, Reaction> transition = new Transition< Metabolite, Reaction>(numberTransition, rea);
-			numberTransition++;			
-			List<ReactionComponent> reactantsC=rea.getReactants();
-			List<ReactionComponent> productsC=rea.getProducts();			
-			for (ReactionComponent rc : reactantsC) {			
-				Metabolite meta = rc.getMetabolite();							
-				Place< Metabolite, Reaction> currentPlace = places.get(meta.getId());
-				
-				if(currentPlace==null) {					
-					Place< Metabolite, Reaction> nm = new Place< Metabolite, Reaction>(meta, numberMetabolites);
-					places.put(meta.getId(),nm);
-					placesbyNumber.put(numberMetabolites, nm);
-					numberMetabolites++;
-					currentPlace = nm;
-			}				
-				
-				
-				Edge<Place< Metabolite, Reaction>> placeCurrentMetabolite= new Edge<Place< Metabolite, Reaction>>(rc.getStoichiometry(),currentPlace);
-				Edge<Transition< Metabolite, Reaction>> edgeTransition= new Edge<Transition< Metabolite, Reaction>>(rc.getStoichiometry(), transition);								
-				transition.addPlaceIn(placeCurrentMetabolite);
-				currentPlace.addOutTransition(edgeTransition);
-				
-			}			
-			for (ReactionComponent rc : productsC) {
-				Metabolite meta = rc.getMetabolite();				
-				Place< Metabolite, Reaction> currentPlace = places.get(meta.getId());
-				if(currentPlace==null) {					
-					Place< Metabolite, Reaction> nm = new Place< Metabolite, Reaction>(meta, numberMetabolites);
-					places.put(meta.getId(),nm);
-					placesbyNumber.put(numberMetabolites, nm);
-					numberMetabolites++;	
-					currentPlace = nm;
-				}
-				
-				Edge<Place< Metabolite, Reaction>> placeCurrentMetabolite= new Edge<Place< Metabolite, Reaction>>(rc.getStoichiometry(),currentPlace);
-				Edge<Transition< Metabolite, Reaction>> edgeTransition= new Edge<Transition< Metabolite, Reaction>>(rc.getStoichiometry(), transition);
-				transition.addPlaceOut(placeCurrentMetabolite);
-				currentPlace.addInTransition(edgeTransition);
-			}			
-			transitions.put(transition.getNumber(), transition);						
-		}				
+	public void shortestPathByMetabolitesNumber(List<String> initialMetabolites, String last) throws Exception {
+		Set<String> reactionsS = metabolicNetworkModel.shortestPathByMetabolitesNumber(initialMetabolites, last);
+		Map<String,Reaction> reactions = new TreeMap<String, Reaction>();
+		for (String keyReaction : reactionsS) {
+			reactions.put(keyReaction, metabolicNetworkModel.getReaction(keyReaction));			
+		}
+		this.subNetworkModel = new MetabolicNetwork(reactions);
+		translate();
 	}
-
+	
+	
 	
 	private void translate() {
-		Set<Integer> keysTransitions = this.transitions.keySet();
-		Set<Integer> keysPlaces = this.placesbyNumber.keySet();
+		Set<Integer> keysTransitions = subNetworkModel.getTransitions().keySet();
+		Set<Integer> keysPlaces = subNetworkModel.getPlacesbyNumber().keySet();
 
 		double nodesPerColum = Math.max(Math.ceil(Math.sqrt(keysTransitions.size())), Math.ceil(Math.sqrt(keysPlaces.size())));
 
 		int counter = 0;
 		for (Integer key : keysPlaces) {
-			Place< Metabolite, Reaction> place = placesbyNumber.get(key);
+			Place< Metabolite, Reaction> place = subNetworkModel.getPlacesbyNumber().get(key);
 			PlaceProcessing placeProcesing = new PlaceProcessing(x_places, y_places, Constants.BS, Constants.BS, place.getObject().getId(), Constants.PURPLE, Constants.BLACK);
 			this.positionsPlaces.add(placeProcesing);
 			counter++;
@@ -170,7 +122,7 @@ public class Translator {
 		counter=0;
 
 		for (Integer key : keysTransitions) {
-			Transition<Metabolite, Reaction> transition = transitions.get(key);		
+			Transition<Metabolite, Reaction> transition = subNetworkModel.getTransitions().get(key);		
 			TransitionProcessing transitionProcessing = new PlaceProcessing(x_transitions, y_transitions, Constants.BS, Constants.BS, transition.getObject().getId(),Constants.BLUE_KING, Constants.WHITE);
 			this.positionTransitions.add(transitionProcessing);
 			counter++;
@@ -188,7 +140,7 @@ public class Translator {
 		this.adjacencyMatrixWeightsPT = new double[positionTransitions.size()][positionsPlaces.size()];
 		
 		for (Integer key : keysTransitions) {
-			Transition< Metabolite, Reaction> transition = transitions.get(key);
+			Transition< Metabolite, Reaction> transition = subNetworkModel.getTransitions().get(key);
 			List<Edge<Place< Metabolite, Reaction>>> outPlaces = transition.getOutPlaces();
 			
 			for (int i = 0; i < outPlaces.size(); i++) {
@@ -250,26 +202,6 @@ public class Translator {
 			Place<Metabolite, Reaction> place = places.get(sinks.get(i).getId());
 			PlaceProcessing placeProcessing = positionsPlaces.get(place.getMetaboliteNumber()-1);
 			placeProcessing.setColor_place(Constants.GREEN);
-		}	
-	}
-	
-	public void restoreSources() {
-		List<Metabolite> sinks= metabolicNetworkModel.findSources();
-		for (int i = 0; i < sinks.size(); i++) {			
-			Map<String, Place<Metabolite, Reaction>> places = metabolicNetworkModel.getPlaces();
-			Place<Metabolite, Reaction> place = places.get(sinks.get(i).getId());
-			PlaceProcessing placeProcessing = positionsPlaces.get(place.getMetaboliteNumber()-1);
-			placeProcessing.setColor_place(Constants.PURPLE);
-		}
-	}
-	
-	public void restoreSinks() {
-		List<Metabolite> sinks= metabolicNetworkModel.findSinks();		
-		for (int i = 0; i < sinks.size(); i++) {			
-			Map<String, Place<Metabolite, Reaction>> places = metabolicNetworkModel.getPlaces();
-			Place<Metabolite, Reaction> place = places.get(sinks.get(i).getId());
-			PlaceProcessing placeProcessing = positionsPlaces.get(place.getMetaboliteNumber()-1);
-			placeProcessing.setColor_place(Constants.PURPLE);
 		}	
 	}
 	
