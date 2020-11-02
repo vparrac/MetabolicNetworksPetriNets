@@ -21,8 +21,8 @@ import metapenta.petrinet.Transition;
  */
 public class MetabolicNetwork {
 	private Map<String,GeneProduct> geneProducts = new TreeMap<String,GeneProduct>();
-	
-	
+
+
 	/**
 	 * Metabolites of  the metabolic Network
 	 */
@@ -33,7 +33,7 @@ public class MetabolicNetwork {
 	//------------------------------------------------
 	//.----------------Petri Net----------------------
 	//------------------------------------------------
-	
+
 	/**
 	 * A map of Integer to transition. The map represents the Transitions of Petri net 
 	 */
@@ -44,8 +44,8 @@ public class MetabolicNetwork {
 	 * This map represents the places of Petri net
 	 */
 	private  Map<String,Place<Metabolite, Reaction>> places;
-	
-	
+
+
 	private  Map<Integer,Place<Metabolite, Reaction>> placesbyNumber;
 
 	/**
@@ -94,20 +94,20 @@ public class MetabolicNetwork {
 	public Metabolite getMetabolite (String id) {
 		return metabolites.get(id);
 	}
-	
-	
+
+
 	public Reaction getReaction(String id) {
 		return reactions.get(id);
 	}
-	
+
 	/**
 	 * @return List of metabolites in the network
 	 */
 	public List<Metabolite> getMetabolitesAsList() {
 		return new ArrayList<Metabolite>(metabolites.values());
 	}
-	
-	
+
+
 	/**
 	 * @return List of metabolites in the network
 	 */
@@ -116,15 +116,69 @@ public class MetabolicNetwork {
 		for (String string : metabolites.keySet()) {
 			metabolitesString.add(string);
 		}
-		
+
 		return metabolitesString;
 	}
-	
+
 	/**
 	 * @return List of reactions in the network
 	 */
 	public List<Reaction> getReactionsAsList () {
 		return new ArrayList<Reaction>(reactions.values());
+	}
+	
+	public MetabolicNetwork() {
+		
+	}
+	public MetabolicNetwork(Map<String,Reaction> reactions) {
+		int numberMetabolites=1,numberTransition=1;		
+		placesbyNumber = new TreeMap<Integer, Place<Metabolite,Reaction>>();
+		transitions= new TreeMap<Integer, Transition<Metabolite, Reaction>>();		
+		places = new TreeMap<String,Place<Metabolite, Reaction>>();
+		Set<String> keysReaction = reactions.keySet();					
+		for (String key : keysReaction) {			
+			Reaction rea = reactions.get(key);
+			Transition< Metabolite, Reaction> transition = new Transition< Metabolite, Reaction>(numberTransition, rea);
+			numberTransition++;			
+			List<ReactionComponent> reactantsC=rea.getReactants();
+			List<ReactionComponent> productsC=rea.getProducts();			
+			for (ReactionComponent rc : reactantsC) {			
+				Metabolite meta = rc.getMetabolite();							
+				Place< Metabolite, Reaction> currentPlace = places.get(meta.getId());
+				
+				if(currentPlace==null) {					
+					Place< Metabolite, Reaction> nm = new Place< Metabolite, Reaction>(meta, numberMetabolites);
+					places.put(meta.getId(),nm);
+					placesbyNumber.put(numberMetabolites, nm);
+					numberMetabolites++;
+					currentPlace = nm;
+			}				
+				
+				
+				Edge<Place< Metabolite, Reaction>> placeCurrentMetabolite= new Edge<Place< Metabolite, Reaction>>(rc.getStoichiometry(),currentPlace);
+				Edge<Transition< Metabolite, Reaction>> edgeTransition= new Edge<Transition< Metabolite, Reaction>>(rc.getStoichiometry(), transition);								
+				transition.addPlaceIn(placeCurrentMetabolite);
+				currentPlace.addOutTransition(edgeTransition);
+				
+			}			
+			for (ReactionComponent rc : productsC) {
+				Metabolite meta = rc.getMetabolite();				
+				Place< Metabolite, Reaction> currentPlace = places.get(meta.getId());
+				if(currentPlace==null) {					
+					Place< Metabolite, Reaction> nm = new Place< Metabolite, Reaction>(meta, numberMetabolites);
+					places.put(meta.getId(),nm);
+					placesbyNumber.put(numberMetabolites, nm);
+					numberMetabolites++;	
+					currentPlace = nm;
+				}
+				
+				Edge<Place< Metabolite, Reaction>> placeCurrentMetabolite= new Edge<Place< Metabolite, Reaction>>(rc.getStoichiometry(),currentPlace);
+				Edge<Transition< Metabolite, Reaction>> edgeTransition= new Edge<Transition< Metabolite, Reaction>>(rc.getStoichiometry(), transition);
+				transition.addPlaceOut(placeCurrentMetabolite);
+				currentPlace.addInTransition(edgeTransition);
+			}			
+			transitions.put(transition.getNumber(), transition);						
+		}	
 	}
 
 	//-------------------------------------------------------------------
@@ -195,8 +249,8 @@ public class MetabolicNetwork {
 		placesbyNumber = new TreeMap<Integer, Place<Metabolite,Reaction>>();
 		transitions= new TreeMap<Integer, Transition<Metabolite, Reaction>>();		
 		places = new TreeMap<String,Place<Metabolite, Reaction>>();
-	
-		
+
+
 		Set<String> keysReaction = reactions.keySet();					
 		for (String key : keysReaction) {			
 			Reaction rea = reactions.get(key);
@@ -207,21 +261,21 @@ public class MetabolicNetwork {
 			for (ReactionComponent rc : reactantsC) {			
 				Metabolite meta = rc.getMetabolite();							
 				Place< Metabolite, Reaction> currentPlace = places.get(meta.getId());
-				
+
 				if(currentPlace==null) {					
 					Place< Metabolite, Reaction> nm = new Place< Metabolite, Reaction>(meta, numberMetabolites);
 					places.put(meta.getId(),nm);
 					placesbyNumber.put(numberMetabolites, nm);
 					numberMetabolites++;
 					currentPlace = nm;
-			}				
-				
-				
+				}				
+
+
 				Edge<Place< Metabolite, Reaction>> placeCurrentMetabolite= new Edge<Place< Metabolite, Reaction>>(rc.getStoichiometry(),currentPlace);
 				Edge<Transition< Metabolite, Reaction>> edgeTransition= new Edge<Transition< Metabolite, Reaction>>(rc.getStoichiometry(), transition);								
 				transition.addPlaceIn(placeCurrentMetabolite);
 				currentPlace.addOutTransition(edgeTransition);
-				
+
 			}			
 			for (ReactionComponent rc : productsC) {
 				Metabolite meta = rc.getMetabolite();				
@@ -233,7 +287,7 @@ public class MetabolicNetwork {
 					numberMetabolites++;	
 					currentPlace = nm;
 				}
-				
+
 				Edge<Place< Metabolite, Reaction>> placeCurrentMetabolite= new Edge<Place< Metabolite, Reaction>>(rc.getStoichiometry(),currentPlace);
 				Edge<Transition< Metabolite, Reaction>> edgeTransition= new Edge<Transition< Metabolite, Reaction>>(rc.getStoichiometry(), transition);
 				transition.addPlaceOut(placeCurrentMetabolite);
@@ -539,7 +593,72 @@ public class MetabolicNetwork {
 		printReactionsGraphInCSV(graph, fileName2);
 		printCatalystOfMethabolicPath(graph, fileName3);
 		return graph;
+	}	
 
+
+	/**
+	 * 
+	 * @param first Lista metabolitos iniciales
+	 * @param last Metábolito a producir
+	 * @param fileName1 Metabolic Network In CSV
+	 * @param fileName2 Reactions Graph In CSV
+	 * @param fileName3 Methabolic Path
+	 * @throws Exception
+	 */
+	public Set<String> shortestPathByMetabolitesNumber(List<String> first, String last) throws Exception{
+		Set<String> reactionss = new TreeSet<String>();
+		int[][] graph = null;		
+		int[] reactionsVisited; 
+		//Row 1. Moles Row 2. The reaction 3. The <<Distance>>	
+		int[][] metabolitesVisited=new int[places.size()+1][3]; //Places.size()+1 for enumeration
+		int[] pqea;		
+		int distanceBestPath=INFINITE+1;		
+		// Find for each metabolite the transitions that can be triggered				
+		reactionsVisited= new int[transitions.size()+1]; 
+		metabolitesVisited=new int[places.size()+1][3];			
+		pqea= new int[places.size()+1];			
+		//Initial values		
+		initialValuesOfShortestPath(metabolitesVisited, first);
+		PriorityQueue<MetabolitesP> pq = new PriorityQueue<>();	
+		for (String i : first) {
+			pq.add(new MetabolitesP(metabolites.get(i),0));
+		}						
+		while (!pq.isEmpty()) { 
+			Metabolite mp = pq.poll().getMetabolite();			
+			int n = places.get(mp.getId()).getMetaboliteNumber();
+			if(mp.getId().equals(last)) {
+				break;
+			}			
+			if(pqea[n]==0) {
+				pqea[n]++;	
+				List<Transition< Metabolite, Reaction>> transitions= transitionsThaCanBeTriggered(places.get(mp.getId()).getOutTransitions(),metabolitesVisited);
+				for (int j = 0; j < transitions.size(); j++) {
+					reactionsVisited[transitions.get(j).getNumber()]=1;
+					List<Edge<Place< Metabolite, Reaction>>> inEdgesOft = transitions.get(j).getOutPlaces();						
+					//The max distance
+					int maxValue= findMaximunDistanceOfTheInletMetabolitesOfATransition(transitions.get(j),metabolitesVisited)+1;
+					//Update the distances
+					for (int k = 0; k < inEdgesOft.size(); k++) {
+						Metabolite meta = inEdgesOft.get(k).getObject().getObject();
+						int number = places.get(meta.getId()).getMetaboliteNumber();
+						if((maxValue)<metabolitesVisited[number][2]) {
+							metabolitesVisited[number][2]=maxValue;
+							metabolitesVisited[number][1]=transitions.get(j).getNumber();
+						}							
+						MetabolitesP mp1 = new MetabolitesP(meta,(int) metabolitesVisited[number][2]);
+						pq.add(mp1);							
+						metabolitesVisited[number][0]=1;								
+					}
+				}	
+			}
+		}
+		//Makes the metabolic Pathway
+		int numberLast =places.get(last).getMetaboliteNumber();
+		if(metabolitesVisited[numberLast][2]<distanceBestPath) {
+			 reactionss = reactionsMetabolicPathway(metabolitesVisited, last);	
+			distanceBestPath=metabolitesVisited[numberLast][2];
+		}				
+		return reactionss;
 	}	
 
 	/**
@@ -620,6 +739,65 @@ public class MetabolicNetwork {
 		return graph;
 	}
 
+
+
+	public Set<String> reactionsMetabolicPathway(int[][] metabolitesVisited, String last) {
+		Set<String> reactions = new TreeSet<String>();
+		int[][] graph = new int [transitions.size()+1][transitions.size()+1];
+		int[] transitionsVisited=  new int[this.transitions.size()+1];
+		boolean isTheBegining=true;
+
+		if(metabolitesVisited[places.get(last).getMetaboliteNumber()][1]==-1) {
+			System.err.println("En los metabolitos de entrada ya está el metabolito final");
+		}
+
+		else if(metabolitesVisited[places.get(last).getMetaboliteNumber()][2]==INFINITE) {
+			System.err.println("No es posible llegar al metabolito final");
+		}
+
+		else {
+			ArrayDeque<Integer> transitionss = new ArrayDeque<>();
+			Transition< Metabolite, Reaction> currentTransition=transitions.get(metabolitesVisited[places.get(last).getMetaboliteNumber()][1]);
+			do {				
+				if(transitionsVisited[currentTransition.getNumber()]!=0) {	
+					if(!transitionss.isEmpty()) {
+						currentTransition=transitions.get(transitionss.poll());						
+					}
+					else {
+						currentTransition=null;
+					}
+					continue;
+				}
+				transitionsVisited[currentTransition.getNumber()]++;
+				reactions.add(currentTransition.getObject().getId());
+				List<Edge<Place< Metabolite, Reaction>>> edgesIn= currentTransition.getInPlaces();		
+				int nInitialMetabolites=0;
+				for (int i = 0; i < edgesIn.size(); i++) {
+					int meta = places.get(edgesIn.get(i).getObject().getObject().getId()).getMetaboliteNumber();
+					int transition =metabolitesVisited[meta][1];
+					if(transition!=-1) {
+						graph[transition][currentTransition.getNumber()]=1;
+						transitionss.add(transition);
+						reactions.add(transitions.get(transition).getObject().getId());	
+						
+					}
+					else {
+						nInitialMetabolites++;
+					}
+				}
+				if(nInitialMetabolites==edgesIn.size()&&isTheBegining) {
+					System.err.println("Sólo es necesaria una transición para llegar al metabolito \n"+currentTransition.getObject().getName());
+					break;
+				}				
+				isTheBegining=false;
+				if(!transitionss.isEmpty()) {
+					currentTransition=transitions.get(transitionss.poll());
+				}				
+			}  while(currentTransition!=null);
+		}
+		return reactions;
+	}
+
 	public void printReactionsGraphInCSV(int[][] graph, String fileName) throws Exception{		
 		try (PrintStream out = new PrintStream(fileName)) {
 			out.println("source,target,interaction,directed,symbol,value");
@@ -635,6 +813,9 @@ public class MetabolicNetwork {
 			}
 		}		
 	}
+
+
+
 
 	/**
 	 * Buscar varias rutas
@@ -814,9 +995,9 @@ public class MetabolicNetwork {
 		int[] transitionsVisited = new int[transitions.size()+1];
 		int conectedComponentId =1;
 		int tiempo=0;
-	
+
 		Set<String> keys = places.keySet();
-		
+
 		for(String node: keys) {
 			if(metabolitesVisited[places.get(node).getMetaboliteNumber()]==0) {
 				visitNode(metabolitesVisited, transitionsVisited, node, tiempo, conectedComponentId);
@@ -825,7 +1006,7 @@ public class MetabolicNetwork {
 		}
 		Map<String, Integer> connectedComponents = new TreeMap<String, Integer>();
 		Set<Integer> transitionsKeys = transitions.keySet();
-		
+
 		for (Integer integer : transitionsKeys) {
 			connectedComponents.put(transitions.get(integer).getObject().getName(), transitionsVisited[integer]);
 		}				
@@ -838,9 +1019,9 @@ public class MetabolicNetwork {
 		List<Edge<Transition< Metabolite, Reaction>>> neighbours = places.get(node).getInTransitions();
 		for (int i = 0; i < neighbours.size(); i++) {
 			Edge<Transition< Metabolite, Reaction>> reaction = neighbours.get(i);
-//			if(transitionsVisited[reaction.getNumber()]!=0) {
-//				continue;
-//			}
+			//			if(transitionsVisited[reaction.getNumber()]!=0) {
+			//				continue;
+			//			}
 			transitionsVisited[reaction.getObject().getNumber()]=conectedComponentId;
 			List<Edge<Place< Metabolite, Reaction>>> in= reaction.getObject().getInPlaces();
 			List<Edge<Place< Metabolite, Reaction>>> out=reaction.getObject().getOutPlaces();
@@ -856,7 +1037,7 @@ public class MetabolicNetwork {
 					visitNode(metabolitesVisited, transitionsVisited, node_2, tiempo, conectedComponentId);
 				}
 			}
-			
+
 		}		
 	}
 
@@ -871,7 +1052,7 @@ public class MetabolicNetwork {
 		}		
 		return commonMetabolites;
 	}
-	
+
 	public List<Reaction> commonReactions(MetabolicNetwork mn2){
 		List<Reaction> commonReactions = new ArrayList<Reaction>();
 		List<Reaction> metabolitesNetwork2 = mn2.getReactionsAsList();		
@@ -883,17 +1064,17 @@ public class MetabolicNetwork {
 		}		
 		return commonReactions;
 	}
-	
+
 	public Map<Integer, Transition<Metabolite, Reaction>> getTransitions() {
 		return transitions;
 	}
-	
+
 	public Map<String, Place<Metabolite, Reaction>> getPlaces() {
 		return places;
 	}
-	
+
 	public Map<Integer,Place<Metabolite, Reaction>> getPlacesbyNumber() {
 		return placesbyNumber;
 	}
-		
+
 }
