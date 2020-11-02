@@ -101,9 +101,7 @@ public class Translator {
 	private void translate() {
 		Set<Integer> keysTransitions = subNetworkModel.getTransitions().keySet();
 		Set<Integer> keysPlaces = subNetworkModel.getPlacesbyNumber().keySet();
-
 		double nodesPerColum = Math.max(Math.ceil(Math.sqrt(keysTransitions.size())), Math.ceil(Math.sqrt(keysPlaces.size())));
-
 		int counter = 0;
 		for (Integer key : keysPlaces) {
 			Place< Metabolite, Reaction> place = subNetworkModel.getPlacesbyNumber().get(key);
@@ -118,9 +116,7 @@ public class Translator {
 				this.y_places = y_places + Constants.Y_OFFSET;
 			}
 		}
-
 		counter=0;
-
 		for (Integer key : keysTransitions) {
 			Transition<Metabolite, Reaction> transition = subNetworkModel.getTransitions().get(key);		
 			TransitionProcessing transitionProcessing = new PlaceProcessing(x_transitions, y_transitions, Constants.BS, Constants.BS, transition.getObject().getId(),Constants.BLUE_KING, Constants.WHITE);
@@ -185,27 +181,7 @@ public class Translator {
 	public ArrayList<TransitionProcessing> getPositionTransitions() {
 		return positionTransitions;
 	}	
-	public void calculateSinks() {
-		List<Metabolite> sinks= metabolicNetworkModel.findSinks();		
-		for (int i = 0; i < sinks.size(); i++) {			
-			Map<String, Place<Metabolite, Reaction>> places = metabolicNetworkModel.getPlaces();
-			Place<Metabolite, Reaction> place = places.get(sinks.get(i).getId());
-			PlaceProcessing placeProcessing = positionsPlaces.get(place.getMetaboliteNumber()-1);
-			placeProcessing.setColor_place(Constants.ORANGE);
-		}	
-	}
-	
-	public void calculateSources() {
-		List<Metabolite> sinks= metabolicNetworkModel.findSources();		
-		for (int i = 0; i < sinks.size(); i++) {			
-			Map<String, Place<Metabolite, Reaction>> places = metabolicNetworkModel.getPlaces();
-			Place<Metabolite, Reaction> place = places.get(sinks.get(i).getId());
-			PlaceProcessing placeProcessing = positionsPlaces.get(place.getMetaboliteNumber()-1);
-			placeProcessing.setColor_place(Constants.GREEN);
-		}	
-	}
-	
-	public Metabolite getMetabolite(String id) {
+		public Metabolite getMetabolite(String id) {
 		return this.metabolicNetworkModel.getMetabolite(id);
 	}
 	

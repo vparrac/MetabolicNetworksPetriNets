@@ -536,9 +536,9 @@ public class MetabolicNetwork {
 	 * @param fileName1 Metabolic Network In CSV
 	 * @param fileName2 Reactions Graph In CSV
 	 * @param fileName3 Methabolic Path
-	 * @throws Exception
+	 * @throws FileNotFoundException 
 	 */
-	public int[][] shortestPathByMetabolitesNumber(List<String> first, String last, String fileName1,String fileName2, String fileName3) throws Exception{
+	public int[][] shortestPathByMetabolitesNumber(List<String> first, String last, String fileName1,String fileName2, String fileName3) throws FileNotFoundException {
 		int[][] graph = null;		
 		int[] reactionsVisited; 
 		//Row 1. Moles Row 2. The reaction 3. The <<Distance>>	
@@ -799,7 +799,7 @@ public class MetabolicNetwork {
 		return reactions;
 	}
 
-	public void printReactionsGraphInCSV(int[][] graph, String fileName) throws Exception{		
+	public void printReactionsGraphInCSV(int[][] graph, String fileName) throws FileNotFoundException{		
 		try (PrintStream out = new PrintStream(fileName)) {
 			out.println("source,target,interaction,directed,symbol,value");
 			for (int i = 0; i < graph.length; i++) {
@@ -825,7 +825,7 @@ public class MetabolicNetwork {
 	 * @param fileName
 	 * @throws Exception
 	 */
-	private void printCatalystOfMethabolicPath(int[][] graph, String fileName) throws Exception{	
+	private void printCatalystOfMethabolicPath(int[][] graph, String fileName) throws FileNotFoundException{	
 		Set<GeneProduct> allCatalyst = new TreeSet<GeneProduct>();
 		try (PrintStream out = new PrintStream(fileName)) {
 			out.println("Catalys of metabolic pathway");
@@ -849,9 +849,10 @@ public class MetabolicNetwork {
 	 * @param fileName the path of CSV
 	 * @param first The ids of initial metabolites
 	 * @param last the final metabolite
+	 * @throws FileNotFoundException 
 	 * @throws Exception in errors of I/O
 	 */
-	private void printMetabolicNetworkInCSV(int[][] graph, String fileName, List<String> first, String last) throws Exception{
+	private void printMetabolicNetworkInCSV(int[][] graph, String fileName, List<String> first, String last) throws FileNotFoundException{
 		int[] metabolitesVisited= new int[places.size()];
 		int[] transitionsVisited= new int[transitions.size()];
 		try (PrintStream out = new PrintStream(fileName)) {
@@ -1020,9 +1021,6 @@ public class MetabolicNetwork {
 		List<Edge<Transition< Metabolite, Reaction>>> neighbours = places.get(node).getInTransitions();
 		for (int i = 0; i < neighbours.size(); i++) {
 			Edge<Transition< Metabolite, Reaction>> reaction = neighbours.get(i);
-			//			if(transitionsVisited[reaction.getNumber()]!=0) {
-			//				continue;
-			//			}
 			transitionsVisited[reaction.getObject().getNumber()]=conectedComponentId;
 			List<Edge<Place< Metabolite, Reaction>>> in= reaction.getObject().getInPlaces();
 			List<Edge<Place< Metabolite, Reaction>>> out=reaction.getObject().getOutPlaces();

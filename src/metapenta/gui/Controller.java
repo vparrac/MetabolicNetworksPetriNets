@@ -108,11 +108,17 @@ public class Controller implements Initializable  {
 			im.add(initialMetabolitesString[i]);			
 		}		
 		try {
-			Set<String> graph = metabolicNetwork.shortestPathByMetabolitesNumber(im, targetStringMetabolite);
-			System.out.println(graph.toString());			
-		} catch (Exception e) {		
+			translator.shortestPathByMetabolitesNumber(im, targetStringMetabolite);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}	
+		p.positionTransitions = translator.positionTransitions;				
+		p.positionsPlaces = translator.positionsPlaces;
+		p.adjacencyMatrix = translator.adjacencyMatrix;
+		p.adjacencyMatrixWeightsTP = translator.adjacencyMatrixWeightsTP;
+		p.adjacencyMatrixWeightsPT = translator.adjacencyMatrixWeightsPT;
+		p.translator = translator;
 	}
 	
 	
