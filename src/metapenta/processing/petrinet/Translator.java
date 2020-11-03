@@ -239,5 +239,9 @@ public class Translator {
 	public Map<String,String> getReactionsMetabolite(String keyName) {
 		return this.metabolicNetworkModel.reactiosnMetboliteString(keyName);
 	}
+	
+	public String getEnzymesReaction(String reactionName) {
+		return this.metabolicNetworkModel.getEnzymesAsString(reactionName);
+	}
 
 }

@@ -37,6 +37,7 @@ public class Constants {
 	public final static String CHEMICAL_FORMULA = "Chemical formula: ";		
 	public final static String SUBSTRATES="Substrates";
 	public final static String PRODUCTS="Products";
+	public final static String ENZYMES="Enzymes";
 	
 	/**
 	 * Metabolite

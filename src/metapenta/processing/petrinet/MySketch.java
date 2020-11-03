@@ -134,6 +134,8 @@ public class MySketch extends PApplet {
 		details_textArea_1.setText(reactiosn.get("Substrates"));
 		title2.setText(Constants.IS_PRODUCT);
 		details_textArea_2.setText(reactiosn.get("Products"));
+		title2.setVisible(true);
+		details_textArea_2.setVisible(true);
 
 	}
 	
@@ -145,7 +147,11 @@ public class MySketch extends PApplet {
 		details_id.setText(Constants.ID + currentNode.getName());
 		details_compartment.setText(Constants.REVERSIBLE + reaction.isReversible());
 		details_chemical_formula.setVisible(false);
-		title1.setText(Constants.SUBSTRATES);
+		title1.setText(Constants.ENZYMES);		
+		String reactionEnzymes = translator.getEnzymesReaction(currentNode.getName());
+		details_textArea_1.setText(reactionEnzymes);
+		title2.setVisible(false);
+		details_textArea_2.setVisible(false);
 
 	}
 	

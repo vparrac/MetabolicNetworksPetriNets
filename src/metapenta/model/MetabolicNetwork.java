@@ -1176,6 +1176,16 @@ public class MetabolicNetwork {
 		}		
 	}
 	
+	
+	public String getEnzymesAsString(String reaction) {
+		List<GeneProduct> enzymes = reactions.get(reaction).getEnzymes();
+		String enzymesString ="";
+		for (int i = 0; i < enzymes.size(); i++) {
+			enzymesString+=enzymes.get(0).getName()+"\n";
+		}
+		return enzymesString;
+	}
+	
 	public void printConnectedComponents(String filename) throws IOException {		
 		Map<String, Integer> connectedComponents = connectedComponents();
 		StringBuilder csv = new StringBuilder();
