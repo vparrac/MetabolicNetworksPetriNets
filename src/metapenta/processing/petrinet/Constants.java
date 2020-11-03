@@ -35,4 +35,15 @@ public class Constants {
 	public final static String ID = "id: ";
 	public final static String COMPARTMENT = "Compartment: ";
 	public final static String CHEMICAL_FORMULA = "Chemical formula: ";		
+	public final static String SUBSTRATES="Substrates";
+	public final static String PRODUCTS="Products";
+	
+	/**
+	 * Metabolite
+	 */
+	
+	public final static String IS_SUBSTRATE="Reactions metbolite is substrate";
+	public final static String IS_PRODUCT="Reactions metbolite is product";
+	
+	
 }

@@ -1,5 +1,6 @@
 package metapenta.processing.petrinet;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javafx.application.Application;
 import javafx.scene.canvas.Canvas;
@@ -31,6 +32,8 @@ public class MySketch extends PApplet {
 	Text details_title_textArea_2;
 	TextArea details_textArea_2;
 	TextArea details_textArea_1;
+	Text title1;
+	Text title2;
 	/**
 	 * It represents id a user is over a note
 	 */
@@ -111,7 +114,41 @@ public class MySketch extends PApplet {
 		details_id = (TextField) canvas.getScene().lookup("#details_id");
 		details_compartment = (TextField) canvas.getScene().lookup("#details_compartment");
 		details_chemical_formula = (TextField) canvas.getScene().lookup("#details_chemical_formula");
+		title1 = (Text) canvas.getScene().lookup("#title1");
+		details_textArea_1 = (TextArea) canvas.getScene().lookup("#details_textArea_1");
+		details_textArea_2 = (TextArea) canvas.getScene().lookup("#details_textArea_2");
+		title2 = (Text) canvas.getScene().lookup("#title2");
 	}
+	
+	private void setDetailsMetabolite() {
+		NodeProcessing currentNode = positionsPlaces.get(whichImage);
+		details_title.setText(Constants.METABOLITE);
+		Metabolite meta = translator.getMetabolite(currentNode.getName());
+		details_title_name.setText(meta.getName());
+		details_id.setText(Constants.ID + currentNode.getName());
+		details_chemical_formula.setVisible(true);
+		details_compartment.setText(Constants.COMPARTMENT+ meta.getCompartment());
+		details_chemical_formula.setText(Constants.CHEMICAL_FORMULA+meta.getChemicalFormula());
+		title1.setText(Constants.IS_SUBSTRATE);	
+		Map<String,String> reactiosn = translator.getReactionsMetabolite(currentNode.getName());
+		details_textArea_1.setText(reactiosn.get("Substrates"));
+		title2.setText(Constants.IS_PRODUCT);
+		details_textArea_2.setText(reactiosn.get("Products"));
+
+	}
+	
+	private void setDetailsReaction() {
+		NodeProcessing currentNode = positionTransitions.get(whichImage);
+		details_title.setText(Constants.REACTION);
+		Reaction reaction = translator.getReaction(currentNode.getName());
+		details_title_name.setText(reaction.getName());
+		details_id.setText(Constants.ID + currentNode.getName());
+		details_compartment.setText(Constants.REVERSIBLE + reaction.isReversible());
+		details_chemical_formula.setVisible(false);
+		title1.setText(Constants.SUBSTRATES);
+
+	}
+	
 	public void settings() {
 		size(100, 100, FX2D);
 	}	 
@@ -280,25 +317,7 @@ public class MySketch extends PApplet {
 			}			
 		}		
 	}
-	private void setDetailsMetabolite() {
-		NodeProcessing currentNode = positionsPlaces.get(whichImage);
-		details_title.setText(Constants.METABOLITE);
-		Metabolite meta = translator.getMetabolite(currentNode.getName());
-		details_title_name.setText(meta.getName());
-		details_id.setText(Constants.ID + currentNode.getName());
-		details_chemical_formula.setVisible(true);
-		details_compartment.setText(Constants.COMPARTMENT+ meta.getCompartment());
-		details_chemical_formula.setText(Constants.CHEMICAL_FORMULA+meta.getChemicalFormula());
 
-	}
-	private void setDetailsReaction() {
-		NodeProcessing currentNode = positionTransitions.get(whichImage);
-		Reaction reaction = translator.getReaction(currentNode.getName());
-		details_title_name.setText(reaction.getName());
-		details_id.setText(Constants.ID + currentNode.getName());
-		details_compartment.setText(Constants.REVERSIBLE + reaction.isReversible());
-		details_chemical_formula.setVisible(false);
-	}
 	private float[] intersectionPointCircleLine(double x1, double y1, double cx2, double cy2) {
 		double dx = cx2-x1, dy = cy2-y1;
 		double norm = norm(dx,dy);

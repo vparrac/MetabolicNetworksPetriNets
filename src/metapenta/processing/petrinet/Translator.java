@@ -234,5 +234,10 @@ public class Translator {
 	public Map<String, List<Reaction>> getReactionMetaboliteIsProduct(String metaboliteKeyName){
 		return this.metabolicNetworkModel.getReactionOfMetabolite(metaboliteKeyName);
 	}
+	
+	
+	public Map<String,String> getReactionsMetabolite(String keyName) {
+		return this.metabolicNetworkModel.reactiosnMetboliteString(keyName);
+	}
 
 }

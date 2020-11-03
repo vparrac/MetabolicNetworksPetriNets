@@ -89,7 +89,7 @@ public class Controller implements Initializable  {
 
 	@FXML
 	CheckBox isSubstrateCheckBox;
-	
+
 	@FXML
 	CheckBox isProductCheckBox;
 
@@ -98,8 +98,8 @@ public class Controller implements Initializable  {
 	List<String> initialMetabolitesString;
 	String targetStringMetabolite;
 	String metaboliteName;
-	
-	
+
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Canvas canvas = (Canvas) surface.getNative();
@@ -256,11 +256,11 @@ public class Controller implements Initializable  {
 		});		
 	}
 
-	
+
 	@FXML
 	public void downloadReactionsMetabolites() {
 		System.out.println("download");
-		
+
 		TextInputDialog td = new TextInputDialog("metabolicNetworkFileName");
 		td.setHeaderText("Enter the name of file"); 
 		Optional<String> result =td.showAndWait(); 
@@ -282,9 +282,9 @@ public class Controller implements Initializable  {
 			}
 		});		
 	}
-	
-	
-	
+
+
+
 	public void downloadFiles() {
 		if(!sinksSourcesCheckBox.isSelected()&&!connectedComponentsCheckbox.isSelected()) {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -298,23 +298,50 @@ public class Controller implements Initializable  {
 			td.setHeaderText("Enter the suffix of the files"); 
 			Optional<String> result =td.showAndWait(); 
 			result.ifPresent(name -> {
-				if(sinksSourcesCheckBox.isSelected()) {
-					
+
+				try {
+					if(sinksSourcesCheckBox.isSelected()) {
+					metabolicNetwork.printsSinksInAFile(name+"_sinks.txt");
+					metabolicNetwork.printsSourcesInAFile(name+"_sources.txt");
+					}
+					if(connectedComponentsCheckbox.isSelected()) {
+						metabolicNetwork.printConnectedComponents(name+"_cc.txt");
+					}					
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Success");
+					alert.setHeaderText("Success creating files");
+					alert.setContentText("The files were generated successfully");
+					alert.showAndWait();
+				} catch (FileNotFoundException e) {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error");
+					alert.setHeaderText("Error calculating the path");
+					alert.setContentText("An error occurred, please try again");
+					alert.showAndWait();
+				} catch (IOException e) {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error");
+					alert.setHeaderText("Error calculating the path");
+					alert.setContentText("An error occurred, please try again");
+					alert.showAndWait();
 				}
+
 			});		
 		}
 	}
-	
+
+
+
 	@FXML	
 	public void reactionsButtonAction(ActionEvent event) {
 		translator.resetSubnet();
 		assignAttributesToMetabolicNetwork();
-		
+
 
 		boolean productsb = isProductCheckBox.isSelected();
 		boolean substrateb = isSubstrateCheckBox.isSelected();
-		
-		
+
+
 		String metabolite = entryMetabolite.getText();
 		if(metabolite.equals("")) {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -330,7 +357,7 @@ public class Controller implements Initializable  {
 			alert.setContentText("The id entered is invalid");
 			alert.showAndWait();
 		}
-		
+
 		else {
 			metaboliteName = metabolite;
 			translator.getReactionsOfMetabolite(metabolite, productsb, substrateb);		

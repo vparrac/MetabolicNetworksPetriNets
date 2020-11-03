@@ -2,6 +2,8 @@ package metapenta.model;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1086,6 +1088,26 @@ public class MetabolicNetwork {
 	}
 
 	
+	public Map<String,String> reactiosnMetboliteString(String metabolite) {
+		Map<String,List<Reaction>> reactions= getReactionOfMetabolite(metabolite);
+		Map<String, String> mapa = new TreeMap<String, String>();
+		List<Reaction> reactionsS = reactions.get("Substrates");
+		String isSubstrate ="";
+		for (int i = 0; i < reactionsS.size(); i++) {
+			isSubstrate+=reactionsS.get(i).getName()+"\n";
+		}
+		List<Reaction> productsS = reactions.get("Products");
+		String isProduct ="";
+		for (int i = 0; i < productsS.size(); i++) {
+			isProduct+=productsS.get(i).getName()+"\n";
+		}
+		
+		mapa.put("Substrates", isSubstrate);
+		mapa.put("Products", isProduct);
+		
+		return mapa;
+		
+	}
 	public void printInAFileReactionsOfMetabolite(String metabolite, String fileName) throws FileNotFoundException {
 		Map<String,List<Reaction>> reactions= getReactionOfMetabolite(metabolite);
 		try (PrintStream out = new PrintStream(fileName)) {			
@@ -1154,8 +1176,14 @@ public class MetabolicNetwork {
 		}		
 	}
 	
-	public void printConnectedComponents() {
-		
+	public void printConnectedComponents(String filename) throws IOException {		
+		Map<String, Integer> connectedComponents = connectedComponents();
+		StringBuilder csv = new StringBuilder();
+		Set<String> reactionsSet = connectedComponents.keySet();
+		for (String reaction : reactionsSet) {
+			csv.append(reaction+","+connectedComponents.get(reaction)+"\n");
+		}
+		Files.write(Paths.get(filename), csv.toString().getBytes());
 	}
 	
 }

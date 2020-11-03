@@ -239,7 +239,7 @@
                                     <Insets left="5.0" />
                                  </GridPane.margin>
                               </CheckBox>
-                              <Button fx:id="downloadFilesButton" mnemonicParsing="false" prefHeight="6.0" prefWidth="105.0" text="Button" GridPane.rowIndex="1">
+                              <Button fx:id="downloadFilesButton" mnemonicParsing="false" onAction="#downloadFiles" prefHeight="6.0" prefWidth="105.0" text="Download" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" left="10.0" right="10.0" />
                                  </GridPane.margin>
@@ -262,7 +262,7 @@
                <children>
                   <VBox alignment="TOP_CENTER" layoutX="40.0" layoutY="40.0" prefHeight="74.0" prefWidth="180.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Text fx:id="details_title" fill="#05a6a6" strokeType="OUTSIDE" strokeWidth="0.0" text="Metabolite">
+                        <Text fx:id="details_title" fill="#05a6a6" strokeType="OUTSIDE" strokeWidth="0.0">
                            <font>
                               <Font name="Yu Gothic Light" size="18.0" />
                            </font>
@@ -270,7 +270,7 @@
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Text>
-                        <Text fx:id="details_title_name" strokeType="OUTSIDE" strokeWidth="0.0" text="D-Glycerate 2-phosphate">
+                        <Text fx:id="details_title_name" strokeType="OUTSIDE" strokeWidth="0.0">
                            <font>
                               <Font name="Yu Gothic Light" size="15.0" />
                            </font>
@@ -278,7 +278,7 @@
                               <Insets bottom="20.0" />
                            </VBox.margin>
                         </Text>
-                        <Text fx:id="details_general_information" fill="#035aa6" strokeType="OUTSIDE" strokeWidth="0.0" text="General Information">
+                        <Text fx:id="details_general_information" fill="#035aa6" strokeType="OUTSIDE" strokeWidth="0.0">
                            <font>
                               <Font name="Yu Gothic Light" size="15.0" />
                            </font>
@@ -286,17 +286,17 @@
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Text>
-                        <TextField fx:id="details_id" alignment="TOP_LEFT" disable="true" editable="false" text="id: 2pg_c">
+                        <TextField fx:id="details_id" alignment="TOP_LEFT" disable="true" editable="false">
                            <font>
                               <Font name="Yu Gothic Regular" size="12.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="details_compartment" alignment="TOP_LEFT" disable="true" editable="false" text="Compartment: c - cytosol">
+                        <TextField fx:id="details_compartment" alignment="TOP_LEFT" disable="true" editable="false">
                            <font>
                               <Font name="Yu Gothic Regular" size="12.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="details_chemical_formula" alignment="TOP_LEFT" disable="true" editable="false" text="Chemical formula: C3H4O7P">
+                        <TextField fx:id="details_chemical_formula" alignment="TOP_LEFT" disable="true" editable="false">
                            <font>
                               <Font name="Yu Gothic Regular" size="12.0" />
                            </font>
@@ -304,32 +304,26 @@
                               <Insets bottom="20.0" />
                            </VBox.margin>
                         </TextField>
-                        <Text fx:id="details_title_textArea_1" fill="#035aa6" strokeType="OUTSIDE" strokeWidth="0.0" text="Reactions is a substrate">
+                        <Text fx:id="title1" fill="#035aa6" strokeType="OUTSIDE" strokeWidth="0.0">
                            <font>
                               <Font name="Yu Gothic Light" size="15.0" />
                            </font>
                         </Text>
-                        <TextArea fx:id="details_textArea_1" editable="false" prefHeight="130.0" prefWidth="180.0" text="dsjndkasdasdsa&#10;das&#10;d&#10;ad&#10;as&#10;d&#10;asd&#10;sad&#10;">
-                           <VBox.margin>
-                              <Insets bottom="20.0" />
-                           </VBox.margin>
-                        </TextArea>
-                        <Text fx:id="details_title_textArea_2" fill="#035aa6" strokeType="OUTSIDE" strokeWidth="0.0" text="Reactions is a substrate">
-                           <font>
-                              <Font name="Yu Gothic Light" size="15.0" />
-                           </font>
-                        </Text>
-                        <TextArea fx:id="details_textArea_2" editable="false" prefHeight="130.0" prefWidth="180.0" text="dsjndkasdasdsa&#10;das&#10;d&#10;ad&#10;as&#10;d&#10;asd&#10;sad&#10;">
+                        <TextArea fx:id="details_textArea_1" editable="false" prefHeight="130.0" prefWidth="180.0">
                            <VBox.margin>
                               <Insets bottom="20.0" />
                            </VBox.margin>
                         </TextArea>
-                        <TextArea fx:id="details_textArea_2" editable="false" prefHeight="130.0" prefWidth="180.0" text="dsjndkasdasdsa&#10;das&#10;d&#10;ad&#10;as&#10;d&#10;asd&#10;sad&#10;" />
-                        <Text fx:id="details_title_textArea_3" fill="#035aa6" strokeType="OUTSIDE" strokeWidth="0.0" text="Enzymes">
+                        <Text fx:id="title2" fill="#035aa6" strokeType="OUTSIDE" strokeWidth="0.0">
                            <font>
                               <Font name="Yu Gothic Light" size="15.0" />
                            </font>
                         </Text>
+                        <TextArea fx:id="details_textArea_2" editable="false" prefHeight="130.0" prefWidth="180.0">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </TextArea>
                      </children>
                      <padding>
                         <Insets top="5.0" />
