@@ -31,7 +31,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import metapenta.model.MetabolicNetwork;
 import metapenta.model.MetabolicNetworkXMLLoader;
-import metapenta.model.Reaction;
 import metapenta.processing.petrinet.MySketch;
 import metapenta.processing.petrinet.Translator;
 import processing.javafx.PSurfaceFX;
@@ -57,9 +56,6 @@ public class Controller implements Initializable  {
 
 	@FXML
 	TextArea id_metabolite_text;
-
-	@FXML
-	ComboBox<String> optionsPath;
 
 	@FXML
 	TextArea initialMetabolites;
@@ -98,9 +94,7 @@ public class Controller implements Initializable  {
 		processing.getChildren().add(canvas);        
 		canvas.widthProperty().bind(processing.widthProperty());
 		canvas.heightProperty().bind(processing.heightProperty());	
-		ObservableList<String> items = FXCollections.observableArrayList();
-		items.addAll("Reactions number", "Enzymes number");
-		optionsPath.setItems(items);
+		
 
 	}	
 
@@ -131,7 +125,9 @@ public class Controller implements Initializable  {
 	@FXML
 	public void findMetabolicPath() {
 		boolean notNull = true;
-	
+		translator.resetSubnet();
+		assignAttributesToMetabolicNetwork();
+		downloadPathButton.setDisable(true);
 		
 		String[] initialMetabolitesString = initialMetabolites.getText().split(",");
 		String targetStringMetabolite = targetMetabolite.getText();
@@ -182,18 +178,22 @@ public class Controller implements Initializable  {
 					alert.setContentText("It is not possible with these initial metabolites to reach the final metabolite");
 					alert.showAndWait();	
 				}
-
-				p.positionTransitions = translator.positionTransitions;				
-				p.positionsPlaces = translator.positionsPlaces;
-				p.adjacencyMatrix = translator.adjacencyMatrix;
-				p.adjacencyMatrixWeightsTP = translator.adjacencyMatrixWeightsTP;
-				p.adjacencyMatrixWeightsPT = translator.adjacencyMatrixWeightsPT;
-				p.translator = translator;
+				downloadPathButton.setDisable(false);
+				assignAttributesToMetabolicNetwork();
 			}
 
 		}
 	}
 
+	
+	public void assignAttributesToMetabolicNetwork() {
+		p.positionTransitions = translator.positionTransitions;				
+		p.positionsPlaces = translator.positionsPlaces;
+		p.adjacencyMatrix = translator.adjacencyMatrix;
+		p.adjacencyMatrixWeightsTP = translator.adjacencyMatrixWeightsTP;
+		p.adjacencyMatrixWeightsPT = translator.adjacencyMatrixWeightsPT;
+		p.translator = translator;
+	}
 
 	@FXML
 	public void downloadButtonAction(ActionEvent event) {
@@ -204,12 +204,9 @@ public class Controller implements Initializable  {
 	private void enableComponets(){		
 		initialMetabolites.setEditable(true);			
 		targetMetabolite.setEditable(true);
-		optionsPath.setDisable(false);
 		findPathButton.setDisable(false);
-		downloadPathButton.setDisable(false);
 		entryMetabolite.setEditable(true);
 		findReactionMetaboliteButton.setDisable(false);
-		downloadReactionsMetaboliteButton.setDisable(false);
 		sinksSourcesCheckBox.setDisable(false);
 		connectedComponentsCheckbox.setDisable(false);
 		downloadFilesButton.setDisable(false);		

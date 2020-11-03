@@ -65,7 +65,6 @@ public class Translator {
 
 	public Translator(MetabolicNetwork metabolicNetworkModel) {
 		this.metabolicNetworkModel = metabolicNetworkModel;		
-//		translate();
 	}	
 	
 	
@@ -114,7 +113,22 @@ public class Translator {
 	}
 	
 	
+	public void resetSubnet() {
+		this.subNetworkModel = new MetabolicNetwork();
+		this.adjacencyMatrix = new int[0][0];
+		this.adjacencyMatrixWeightsTP = new double[0][0];
+		this.adjacencyMatrixWeightsPT = new double[0][0];
+		positionTransitions = new ArrayList<TransitionProcessing>();
+		positionsPlaces = new ArrayList<PlaceProcessing>();
+	}
+	
 	private void translate() {
+		x_places = 100;
+		y_places = 50;
+		x_transitions = 300;
+		y_transitions = 50;
+		positionTransitions = new ArrayList<TransitionProcessing>();
+		positionsPlaces = new ArrayList<PlaceProcessing>();
 		Set<Integer> keysTransitions = subNetworkModel.getTransitions().keySet();
 		Set<Integer> keysPlaces = subNetworkModel.getPlacesbyNumber().keySet();
 		double nodesPerColum = Math.max(Math.ceil(Math.sqrt(keysTransitions.size())), Math.ceil(Math.sqrt(keysPlaces.size())));

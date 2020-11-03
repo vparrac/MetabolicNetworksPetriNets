@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -96,7 +95,7 @@
                                     <Insets bottom="5.0" left="10.0" right="10.0" top="7.0" />
                                  </VBox.margin>
                               </Text>
-                              <TextArea fx:id="initialMetabolites" editable="false" prefHeight="77.0" prefWidth="226.0">
+                              <TextArea fx:id="initialMetabolites" editable="false" prefHeight="111.0" prefWidth="226.0">
                                  <VBox.margin>
                                     <Insets left="10.0" right="10.0" />
                                  </VBox.margin>
@@ -113,11 +112,6 @@
                                  <VBox.margin>
                                     <Insets left="10.0" right="10.0" />
                                  </VBox.margin></TextArea>
-                              <ComboBox fx:id="optionsPath" disable="true" prefHeight="15.0" prefWidth="227.0">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </ComboBox>
                               <GridPane>
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -129,12 +123,12 @@
                                  <children>
                                     <Button fx:id="findPathButton" disable="true" mnemonicParsing="false" onAction="#findMetabolicPath" prefHeight="25.0" prefWidth="125.0" text="Find">
                                        <GridPane.margin>
-                                          <Insets left="10.0" right="10.0" />
+                                          <Insets left="10.0" right="10.0" top="10.0" />
                                        </GridPane.margin>
                                     </Button>
                                     <Button fx:id="downloadPathButton" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" text="Download" GridPane.columnIndex="1">
                                        <GridPane.margin>
-                                          <Insets left="10.0" right="10.0" />
+                                          <Insets left="10.0" right="10.0" top="10.0" />
                                        </GridPane.margin>
                                     </Button>
                                  </children>
@@ -149,7 +143,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Text>
-                        <VBox alignment="CENTER" prefHeight="119.0" prefWidth="248.0" style="-fx-background-color: white;">
+                        <VBox alignment="CENTER" prefHeight="155.0" prefWidth="244.0" style="-fx-background-color: white;">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Find the reactions of a metabolite" textAlignment="CENTER">
                                  <font>

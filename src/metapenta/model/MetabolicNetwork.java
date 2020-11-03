@@ -37,16 +37,16 @@ public class MetabolicNetwork {
 	/**
 	 * A map of Integer to transition. The map represents the Transitions of Petri net 
 	 */
-	private  Map<Integer, Transition<Metabolite, Reaction>> transitions;
+	private  Map<Integer, Transition<Metabolite, Reaction>> transitions = new TreeMap<Integer, Transition<Metabolite,Reaction>>();
 
 	/**
 	 * A map of a String (that represents the id of the metabolite) to a Integer.
 	 * This map represents the places of Petri net
 	 */
-	private  Map<String,Place<Metabolite, Reaction>> places;
+	private  Map<String,Place<Metabolite, Reaction>> places = new TreeMap<String, Place<Metabolite,Reaction>>();
 
 
-	private  Map<Integer,Place<Metabolite, Reaction>> placesbyNumber;
+	private  Map<Integer,Place<Metabolite, Reaction>> placesbyNumber = new TreeMap<Integer, Place<Metabolite,Reaction>>();
 
 	/**
 	 * Represents the infinite distance between 2 metabolites
