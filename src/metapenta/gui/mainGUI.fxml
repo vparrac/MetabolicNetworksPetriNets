@@ -126,7 +126,7 @@
                                           <Insets left="10.0" right="10.0" top="10.0" />
                                        </GridPane.margin>
                                     </Button>
-                                    <Button fx:id="downloadPathButton" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" text="Download" GridPane.columnIndex="1">
+                                    <Button fx:id="downloadPathButton" disable="true" mnemonicParsing="false" onAction="#pathButtonAction" prefHeight="25.0" prefWidth="157.0" text="Download" GridPane.columnIndex="1">
                                        <GridPane.margin>
                                           <Insets left="10.0" right="10.0" top="10.0" />
                                        </GridPane.margin>

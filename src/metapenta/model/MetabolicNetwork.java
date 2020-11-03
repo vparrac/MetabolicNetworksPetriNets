@@ -131,6 +131,8 @@ public class MetabolicNetwork {
 		
 	}
 	
+	private int[][] graph;
+	
 	public MetabolicNetwork(Map<String,Reaction> reactions) {
 		int numberMetabolites=1,numberTransition=1;		
 		placesbyNumber = new TreeMap<Integer, Place<Metabolite,Reaction>>();
@@ -596,6 +598,13 @@ public class MetabolicNetwork {
 		return graph;
 	}	
 
+	
+	public void printShortestPath(String fileName1, String fileName2, String fileName3, List<String> first, String last) throws FileNotFoundException {
+		printMetabolicNetworkInCSV(graph, fileName1, first,last);
+		printReactionsGraphInCSV(graph, fileName2);
+		printCatalystOfMethabolicPath(graph, fileName3);
+	}
+	
 
 	/**
 	 * 
@@ -608,7 +617,6 @@ public class MetabolicNetwork {
 	 */
 	public Set<String> shortestPathByMetabolitesNumber(List<String> first, String last){
 		Set<String> reactionss = new TreeSet<String>();
-		int[][] graph = null;		
 		int[] reactionsVisited; 
 		//Row 1. Moles Row 2. The reaction 3. The <<Distance>>	
 		int[][] metabolitesVisited=new int[places.size()+1][3]; //Places.size()+1 for enumeration
@@ -658,6 +666,7 @@ public class MetabolicNetwork {
 		if(metabolitesVisited[numberLast][2]<distanceBestPath) {
 			 reactionss = reactionsMetabolicPathway(metabolitesVisited, last);	
 			distanceBestPath=metabolitesVisited[numberLast][2];
+			graph=metabolicPathway(metabolitesVisited, last);	
 		}				
 		return reactionss;
 	}	
