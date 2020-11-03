@@ -279,9 +279,30 @@ public class Controller implements Initializable  {
 				alert.setHeaderText("Error calculating the path");
 				alert.setContentText("An error occurred, please try again");
 				alert.showAndWait();
-
 			}
 		});		
+	}
+	
+	
+	
+	public void downloadFiles() {
+		if(!sinksSourcesCheckBox.isSelected()&&!connectedComponentsCheckbox.isSelected()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Error downloading the files");
+			alert.setContentText("Please select a type of analysis");
+			alert.showAndWait();
+		}
+		else {
+			TextInputDialog td = new TextInputDialog("metabolicNetworkFileName");
+			td.setHeaderText("Enter the suffix of the files"); 
+			Optional<String> result =td.showAndWait(); 
+			result.ifPresent(name -> {
+				if(sinksSourcesCheckBox.isSelected()) {
+					
+				}
+			});		
+		}
 	}
 	
 	@FXML	

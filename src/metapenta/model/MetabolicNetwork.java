@@ -1122,5 +1122,40 @@ public class MetabolicNetwork {
 		}	
 	}
 	 
+	public void printsSinksInAFile(String filename) throws FileNotFoundException {		
+		List<Metabolite> sinks = findSinks();
+		try (PrintStream out = new PrintStream(filename)) {
+			out.print("{sinks:[");
+			for (int i = 0; i < sinks.size(); i++) {
+				if(i==sinks.size()-1) {
+					out.print(sinks.get(i).toString());
+				}
+				else {
+					out.print(sinks.get(i).toString()+",");
+				}				
+			}
+			out.print("]}");			
+		}		
+	}
+	
+	public void printsSourcesInAFile(String filename) throws FileNotFoundException {		
+		List<Metabolite> sinks = findSources();
+		try (PrintStream out = new PrintStream(filename)) {
+			out.print("{sinks:[");
+			for (int i = 0; i < sinks.size(); i++) {
+				if(i==sinks.size()-1) {
+					out.print(sinks.get(i).toString());
+				}
+				else {
+					out.print(sinks.get(i).toString()+",");
+				}				
+			}
+			out.print("]}");			
+		}		
+	}
+	
+	public void printConnectedComponents() {
+		
+	}
 	
 }
