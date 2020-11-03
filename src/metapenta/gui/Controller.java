@@ -58,9 +58,6 @@ public class Controller implements Initializable  {
 	ChoiceBox<String> metabolite_list;   
 
 	@FXML
-	TextArea id_metabolite_text;
-
-	@FXML
 	TextArea initialMetabolites;
 
 	@FXML
@@ -90,11 +87,19 @@ public class Controller implements Initializable  {
 	@FXML
 	Button downloadFilesButton;
 
+	@FXML
+	CheckBox isSubstrateCheckBox;
 	
+	@FXML
+	CheckBox isProductCheckBox;
+
 	List<String> lista;
-	
+
 	List<String> initialMetabolitesString;
 	String targetStringMetabolite;
+	String metaboliteName;
+	
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Canvas canvas = (Canvas) surface.getNative();
@@ -176,7 +181,7 @@ public class Controller implements Initializable  {
 					break;
 				}
 			}		
-			
+
 			lista = im;
 
 			if(correctInput) {
@@ -220,18 +225,20 @@ public class Controller implements Initializable  {
 		sinksSourcesCheckBox.setDisable(false);
 		connectedComponentsCheckbox.setDisable(false);
 		downloadFilesButton.setDisable(false);		
+		isSubstrateCheckBox.setDisable(false);
+		isProductCheckBox.setDisable(false);
 	}
 
 	@FXML
 	public void pathButtonAction(ActionEvent event) {
-		TextInputDialog td = new TextInputDialog("Name of the files");
+		TextInputDialog td = new TextInputDialog("metabolicNetworkFileName");
 		td.setHeaderText("Enter the suffix of the files"); 
 		Optional<String> result =td.showAndWait(); 
 		result.ifPresent(name -> {
-		    try {
-		    	String file1 = name+"_metabolicNetwork.txt";
-		    	String file2 = name+"_reactions.txt";
-		    	String file3 = name+"_catalysts.txt";
+			try {
+				String file1 = name+"_metabolicNetwork.txt";
+				String file2 = name+"_reactions.txt";
+				String file3 = name+"_catalysts.txt";
 				metabolicNetwork.printShortestPath(file1, file2, file3, lista, targetStringMetabolite);
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Success");
@@ -244,23 +251,70 @@ public class Controller implements Initializable  {
 				alert.setHeaderText("Error calculating the path");
 				alert.setContentText("An error occurred, please try again");
 				alert.showAndWait();
-				
+
 			}
 		});		
 	}
 
+	
+	@FXML
+	public void downloadReactionsMetabolites() {
+		System.out.println("download");
+		
+		TextInputDialog td = new TextInputDialog("metabolicNetworkFileName");
+		td.setHeaderText("Enter the name of file"); 
+		Optional<String> result =td.showAndWait(); 
+		result.ifPresent(name -> {
+			try {
+				String file1 = name;				
+				metabolicNetwork.printInAFileReactionsOfMetabolite(metaboliteName, file1);
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Success");
+				alert.setHeaderText("Success creating files");
+				alert.setContentText("The files were generated successfully");
+				alert.showAndWait();
+			} catch (FileNotFoundException e) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText("Error calculating the path");
+				alert.setContentText("An error occurred, please try again");
+				alert.showAndWait();
 
-
+			}
+		});		
+	}
+	
 	@FXML	
-	public void findReactionButtonAction() {
-		//		String metabolite = id_metabolite_text.getText();
-		//		translator.getReactionsOfMetabolite(metabolite);		
-		//		p.positionTransitions = translator.positionTransitions;				
-		//		p.positionsPlaces = translator.positionsPlaces;
-		//		p.adjacencyMatrix = translator.adjacencyMatrix;
-		//		p.adjacencyMatrixWeightsTP = translator.adjacencyMatrixWeightsTP;
-		//		p.adjacencyMatrixWeightsPT = translator.adjacencyMatrixWeightsPT;
-		//		p.translator = translator;
-		//		
+	public void reactionsButtonAction(ActionEvent event) {
+		translator.resetSubnet();
+		assignAttributesToMetabolicNetwork();
+		
+
+		boolean productsb = isProductCheckBox.isSelected();
+		boolean substrateb = isSubstrateCheckBox.isSelected();
+		
+		
+		String metabolite = entryMetabolite.getText();
+		if(metabolite.equals("")) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Error calculating the reactions");
+			alert.setContentText("You must indicate the id of the metabolite to which you want to visualize the reactions.");
+			alert.showAndWait();
+		}
+		else if(metabolicNetwork.getMetabolite(metabolite)==null) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Error calculating the reactions");
+			alert.setContentText("The id entered is invalid");
+			alert.showAndWait();
+		}
+		
+		else {
+			metaboliteName = metabolite;
+			translator.getReactionsOfMetabolite(metabolite, productsb, substrateb);		
+			assignAttributesToMetabolicNetwork();
+			downloadReactionsMetaboliteButton.setDisable(false);
+		}		
 	}
 }

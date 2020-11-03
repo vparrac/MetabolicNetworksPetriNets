@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
-
-import metapenta.model.GeneProduct;
+import java.util.TreeSet;import metapenta.model.GeneProduct;
 import metapenta.model.MetabolicNetwork;
 import metapenta.model.Metabolite;
 import metapenta.model.Reaction;
@@ -57,7 +55,7 @@ public class Translator {
 
 	private int x_transitions = 300;
 	private int y_transitions = 50;
-	
+
 
 	private final static String IS_SUBSTRATE = "Substrates";
 	private final static String IS_PRODUCT = "Products";
@@ -66,25 +64,39 @@ public class Translator {
 	public Translator(MetabolicNetwork metabolicNetworkModel) {
 		this.metabolicNetworkModel = metabolicNetworkModel;		
 	}	
-	
-	
-	
-	public void getReactionsOfMetabolite(String metaboliteKeyName) {		
+
+
+
+	public void getReactionsOfMetabolite(String metaboliteKeyName, boolean productsb, boolean substratesb) {		
 		Map<String,List<Reaction>> reactions = metabolicNetworkModel.getReactionOfMetabolite(metaboliteKeyName);		
 		Map<String,Reaction> reactions_map = new TreeMap<String,Reaction>();		
-		
-		List<Reaction> isSubstrate =reactions.get(IS_SUBSTRATE);
-		for (int i = 0; i < isSubstrate.size(); i++) {
-			reactions_map.put(isSubstrate.get(i).getId(), isSubstrate.get(i));
+
+		if(substratesb) {
+			List<Reaction> isSubstrate =reactions.get(IS_SUBSTRATE);
+			for (int i = 0; i < isSubstrate.size(); i++) {
+				reactions_map.put(isSubstrate.get(i).getId(), isSubstrate.get(i));
+			}
 		}
-		List<Reaction> isProduct = reactions.get(IS_PRODUCT);
-		for (int i = 0; i < isProduct.size(); i++) {
-			reactions_map.put(isProduct.get(i).getId(), isProduct.get(i));
-		}		
+		if(productsb) {
+			List<Reaction> isProduct = reactions.get(IS_PRODUCT);
+			for (int i = 0; i < isProduct.size(); i++) {
+				reactions_map.put(isProduct.get(i).getId(), isProduct.get(i));
+			}
+		}				
 		this.subNetworkModel = new MetabolicNetwork(reactions_map);
 		translate();
+		changeColorsMetabolitesReacion(metaboliteKeyName);
 	}	
-	
+
+	private void changeColorsMetabolitesReacion(String metaboliteKeyName) {
+		for (int i = 0; i < positionsPlaces.size(); i++) {
+			if(positionsPlaces.get(i).getName().equalsIgnoreCase(metaboliteKeyName)) {
+				positionsPlaces.get(i).setColor_place(Constants.ORANGE); 
+			}
+		}
+	}
+
+
 	public Set<String> shortestPathByMetabolitesNumber(List<String> initialMetabolites, String last){
 		Set<String> reactionsS = metabolicNetworkModel.shortestPathByMetabolitesNumber(initialMetabolites, last);
 		Map<String,Reaction> reactions = new TreeMap<String, Reaction>();
@@ -96,9 +108,9 @@ public class Translator {
 		changeColorsMetabolites(initialMetabolites, last);	
 		return reactionsS;
 	}
-	
-	
-	
+
+
+
 	private void changeColorsMetabolites(List<String> initialMetabolites, String last) {	
 		for (int i = 0; i < positionsPlaces.size(); i++) {
 			if(initialMetabolites.contains(positionsPlaces.get(i).getName())) {
@@ -108,11 +120,11 @@ public class Translator {
 				positionsPlaces.get(i).setColor_place(Constants.GREEN);
 			}
 		}
-		
-		
+
+
 	}
-	
-	
+
+
 	public void resetSubnet() {
 		this.subNetworkModel = new MetabolicNetwork();
 		this.adjacencyMatrix = new int[0][0];
@@ -121,7 +133,7 @@ public class Translator {
 		positionTransitions = new ArrayList<TransitionProcessing>();
 		positionsPlaces = new ArrayList<PlaceProcessing>();
 	}
-	
+
 	private void translate() {
 		x_places = 100;
 		y_places = 50;
@@ -164,11 +176,11 @@ public class Translator {
 		this.adjacencyMatrix = new int[positionTransitions.size()][positionsPlaces.size()];
 		this.adjacencyMatrixWeightsTP = new double[positionTransitions.size()][positionsPlaces.size()];
 		this.adjacencyMatrixWeightsPT = new double[positionTransitions.size()][positionsPlaces.size()];
-		
+
 		for (Integer key : keysTransitions) {
 			Transition< Metabolite, Reaction> transition = subNetworkModel.getTransitions().get(key);
 			List<Edge<Place< Metabolite, Reaction>>> outPlaces = transition.getOutPlaces();
-			
+
 			for (int i = 0; i < outPlaces.size(); i++) {
 				int number = adjacencyMatrix[transition.getNumber()-1][outPlaces.get(i).getObject().getMetaboliteNumber()-1];
 				if(number==0) {
@@ -177,7 +189,7 @@ public class Translator {
 				else if(number==2) {
 					this.adjacencyMatrix[transition.getNumber()-1][outPlaces.get(i).getObject().getMetaboliteNumber()-1]=3;
 				}
-				
+
 				adjacencyMatrixWeightsTP[transition.getNumber()-1][outPlaces.get(i).getObject().getMetaboliteNumber()-1]= outPlaces.get(i).getStoichiometry();
 				System.out.println(outPlaces.get(i).getStoichiometry());
 			}			
@@ -195,7 +207,7 @@ public class Translator {
 			}			
 		}
 	}	
-	
+
 	public int[][] getAdjacencyMatrix() {
 		return adjacencyMatrix;
 	}
@@ -211,16 +223,16 @@ public class Translator {
 	public ArrayList<TransitionProcessing> getPositionTransitions() {
 		return positionTransitions;
 	}	
-		public Metabolite getMetabolite(String id) {
+	public Metabolite getMetabolite(String id) {
 		return this.metabolicNetworkModel.getMetabolite(id);
 	}
-	
+
 	public Reaction getReaction(String id) {
 		return this.metabolicNetworkModel.getReaction(id);
 	}
-	
+
 	public Map<String, List<Reaction>> getReactionMetaboliteIsProduct(String metaboliteKeyName){
 		return this.metabolicNetworkModel.getReactionOfMetabolite(metaboliteKeyName);
 	}
-	
+
 }

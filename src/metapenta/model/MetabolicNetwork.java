@@ -1085,4 +1085,42 @@ public class MetabolicNetwork {
 		return placesbyNumber;
 	}
 
+	
+	public void printInAFileReactionsOfMetabolite(String metabolite, String fileName) throws FileNotFoundException {
+		Map<String,List<Reaction>> reactions= getReactionOfMetabolite(metabolite);
+		try (PrintStream out = new PrintStream(fileName)) {			
+			List<Reaction> reactionsS = reactions.get("Substrates");
+			out.print("{");
+			if(!reactionsS.isEmpty()) {
+				out.print("\"isSubstrate\":[");
+				for (int i = 0; i < reactionsS.size(); i++) {
+					if(i==reactionsS.size()-1) {
+						out.print(reactionsS.get(i)+"");
+					}
+					else {
+						out.print(reactionsS.get(i)+", \n");
+					}										
+				}				
+				out.print("]\n");
+			}
+			List<Reaction> products = reactions.get("Products");
+			if(!products.isEmpty()) {
+				out.print(",");
+				out.print("\"isProduct\":[");
+				for (int i = 0; i < products.size(); i++) {
+					if(i==products.size()-1) {
+						out.print(products.get(i)+"");
+					}
+					else {
+						out.print(products.get(i)+", \n");
+					}										
+				}				
+				out.print("] \n");
+			}						
+			out.print("}");		
+			
+		}	
+	}
+	 
+	
 }
