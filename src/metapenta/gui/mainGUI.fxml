@@ -109,11 +109,11 @@
                                     <Insets bottom="5.0" top="5.0" />
                                  </VBox.margin>
                               </Text>
-                              <TextArea fx:id="targetMetabolite" prefHeight="16.0" prefWidth="230.0">
+                              <TextArea fx:id="targetMetabolite" editable="false" prefHeight="16.0" prefWidth="230.0">
                                  <VBox.margin>
                                     <Insets left="10.0" right="10.0" />
                                  </VBox.margin></TextArea>
-                              <ComboBox fx:id="optionsPath" prefHeight="15.0" prefWidth="227.0">
+                              <ComboBox fx:id="optionsPath" disable="true" prefHeight="15.0" prefWidth="227.0">
                                  <VBox.margin>
                                     <Insets bottom="10.0" top="10.0" />
                                  </VBox.margin>
@@ -127,12 +127,12 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#findMetabolicPath" prefHeight="25.0" prefWidth="125.0" text="Find">
+                                    <Button fx:id="findPathButton" disable="true" mnemonicParsing="false" onAction="#findMetabolicPath" prefHeight="25.0" prefWidth="125.0" text="Find">
                                        <GridPane.margin>
                                           <Insets left="10.0" right="10.0" />
                                        </GridPane.margin>
                                     </Button>
-                                    <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" text="Download" GridPane.columnIndex="1">
+                                    <Button fx:id="downloadPathButton" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="157.0" text="Download" GridPane.columnIndex="1">
                                        <GridPane.margin>
                                           <Insets left="10.0" right="10.0" />
                                        </GridPane.margin>
@@ -159,7 +159,7 @@
                                     <Insets bottom="5.0" left="10.0" />
                                  </VBox.margin>
                               </Text>
-                              <TextArea fx:id="id_metabolite_text" prefHeight="14.0" prefWidth="230.0">
+                              <TextArea fx:id="entryMetabolite" editable="false" prefHeight="14.0" prefWidth="230.0">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" />
                                  </VBox.margin>
@@ -179,12 +179,12 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Find">
+                                    <Button fx:id="findReactionMetaboliteButton" contentDisplay="CENTER" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Find">
                                        <GridPane.margin>
                                           <Insets left="5.0" right="5.0" />
                                        </GridPane.margin>
                                     </Button>
-                                    <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Download" GridPane.columnIndex="1">
+                                    <Button fx:id="downloadReactionsMetaboliteButton" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="133.0" text="Download" GridPane.columnIndex="1">
                                        <GridPane.margin>
                                           <Insets left="5.0" right="5.0" />
                                        </GridPane.margin>
@@ -214,17 +214,17 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <CheckBox mnemonicParsing="false" text="Sinks and sources">
+                              <CheckBox fx:id="sinksSourcesCheckBox" disable="true" mnemonicParsing="false" text="Sinks and sources">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </CheckBox>
-                              <CheckBox mnemonicParsing="false" prefHeight="16.0" prefWidth="165.0" text="Connected Comp." GridPane.columnIndex="1">
+                              <CheckBox fx:id="connectedComponentsCheckbox" disable="true" mnemonicParsing="false" prefHeight="16.0" prefWidth="165.0" text="Connected Comp." GridPane.columnIndex="1">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
                               </CheckBox>
-                              <Button mnemonicParsing="false" onAction="#downloadButtonAction" prefHeight="12.0" prefWidth="115.0" text="Download files" GridPane.rowIndex="1">
+                              <Button fx:id="downloadFilesButton" disable="true" mnemonicParsing="false" onAction="#downloadButtonAction" prefHeight="12.0" prefWidth="115.0" text="Download files" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets bottom="4.0" left="5.0" right="5.0" top="4.0" />
                                  </GridPane.margin>

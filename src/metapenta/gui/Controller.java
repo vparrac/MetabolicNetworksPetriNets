@@ -2,6 +2,7 @@ package metapenta.gui;
 
 
 
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +19,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
@@ -64,6 +67,30 @@ public class Controller implements Initializable  {
 	@FXML
 	TextArea targetMetabolite;
 
+	@FXML
+	Button findPathButton;
+	
+	@FXML
+	Button downloadPathButton;
+	
+	@FXML
+	TextArea entryMetabolite;
+	
+	@FXML
+	Button findReactionMetaboliteButton;
+	
+	@FXML
+	Button downloadReactionsMetaboliteButton;
+	
+	@FXML
+	CheckBox sinksSourcesCheckBox;
+	
+	@FXML
+	CheckBox connectedComponentsCheckbox;
+	
+	@FXML
+	Button downloadFilesButton;
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Canvas canvas = (Canvas) surface.getNative();
@@ -86,8 +113,9 @@ public class Controller implements Initializable  {
 			MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
 			try {
 				this.metabolicNetwork = loader.loadNetwork(file.getCanonicalPath());
-				this.metabolicNetwork.makeNet();				
+				this.metabolicNetwork.makeNet();	
 				translator = new Translator(metabolicNetwork);		
+				enableComponets();
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Sucess");
 				alert.setHeaderText("Successfully uploaded");
@@ -170,6 +198,21 @@ public class Controller implements Initializable  {
 	@FXML
 	public void downloadButtonAction(ActionEvent event) {
 
+	}
+	
+	
+	private void enableComponets(){		
+		initialMetabolites.setEditable(true);			
+		targetMetabolite.setEditable(true);
+		optionsPath.setDisable(false);
+		findPathButton.setDisable(false);
+		downloadPathButton.setDisable(false);
+		entryMetabolite.setEditable(true);
+		findReactionMetaboliteButton.setDisable(false);
+		downloadReactionsMetaboliteButton.setDisable(false);
+		sinksSourcesCheckBox.setDisable(false);
+		connectedComponentsCheckbox.setDisable(false);
+		downloadFilesButton.setDisable(false);		
 	}
 
 	@FXML	
