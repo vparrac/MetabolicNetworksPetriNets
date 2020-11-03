@@ -86,7 +86,7 @@ public class Translator {
 		translate();
 	}	
 	
-	public void shortestPathByMetabolitesNumber(List<String> initialMetabolites, String last) throws Exception {
+	public Set<String> shortestPathByMetabolitesNumber(List<String> initialMetabolites, String last){
 		Set<String> reactionsS = metabolicNetworkModel.shortestPathByMetabolitesNumber(initialMetabolites, last);
 		Map<String,Reaction> reactions = new TreeMap<String, Reaction>();
 		for (String keyReaction : reactionsS) {
@@ -94,8 +94,24 @@ public class Translator {
 		}
 		this.subNetworkModel = new MetabolicNetwork(reactions);
 		translate();
+		changeColorsMetabolites(initialMetabolites, last);	
+		return reactionsS;
 	}
 	
+	
+	
+	private void changeColorsMetabolites(List<String> initialMetabolites, String last) {	
+		for (int i = 0; i < positionsPlaces.size(); i++) {
+			if(initialMetabolites.contains(positionsPlaces.get(i).getName())) {
+				positionsPlaces.get(i).setColor_place(Constants.ORANGE);
+			}			
+			if(last.equalsIgnoreCase(positionsPlaces.get(i).getName())) {
+				positionsPlaces.get(i).setColor_place(Constants.GREEN);
+			}
+		}
+		
+		
+	}
 	
 	
 	private void translate() {

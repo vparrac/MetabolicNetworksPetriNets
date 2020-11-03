@@ -28,6 +28,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import metapenta.model.MetabolicNetwork;
 import metapenta.model.MetabolicNetworkXMLLoader;
+import metapenta.model.Reaction;
 import metapenta.processing.petrinet.MySketch;
 import metapenta.processing.petrinet.Translator;
 import processing.javafx.PSurfaceFX;
@@ -36,46 +37,46 @@ public class Controller implements Initializable  {
 	public MetabolicNetwork metabolicNetwork;
 	public static PSurfaceFX surface;
 	public static MySketch p;
-    protected static Stage stage;    
-    private Translator translator;    
+	protected static Stage stage;    
+	private Translator translator;    
 
-   @FXML
-   Text details_title;
-   
-   @FXML
-   AnchorPane processing;
-    
-   @FXML
-   HBox options_bar;
-   
-   @FXML
-   ChoiceBox<String> metabolite_list;   
-	
-   @FXML
-   TextArea id_metabolite_text;
-   
-   @FXML
-   ComboBox<String> optionsPath;
-   
-   @FXML
-   TextArea initialMetabolites;
-   
-   @FXML
-   TextArea targetMetabolite;
-   
+	@FXML
+	Text details_title;
+
+	@FXML
+	AnchorPane processing;
+
+	@FXML
+	HBox options_bar;
+
+	@FXML
+	ChoiceBox<String> metabolite_list;   
+
+	@FXML
+	TextArea id_metabolite_text;
+
+	@FXML
+	ComboBox<String> optionsPath;
+
+	@FXML
+	TextArea initialMetabolites;
+
+	@FXML
+	TextArea targetMetabolite;
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Canvas canvas = (Canvas) surface.getNative();
-        surface.fx.context = canvas.getGraphicsContext2D();        
-        processing.getChildren().add(canvas);        
-        canvas.widthProperty().bind(processing.widthProperty());
-        canvas.heightProperty().bind(processing.heightProperty());	
-        ObservableList<String> items = FXCollections.observableArrayList();
-        items.addAll("Reactions number", "Enzymes number");
-        optionsPath.setItems(items);
-        
+		surface.fx.context = canvas.getGraphicsContext2D();        
+		processing.getChildren().add(canvas);        
+		canvas.widthProperty().bind(processing.widthProperty());
+		canvas.heightProperty().bind(processing.heightProperty());	
+		ObservableList<String> items = FXCollections.observableArrayList();
+		items.addAll("Reactions number", "Enzymes number");
+		optionsPath.setItems(items);
+
 	}	
-	
+
 	@FXML
 	public void loadButtonAction(ActionEvent event){		
 		FileChooser fileChooser = new FileChooser();
@@ -88,55 +89,99 @@ public class Controller implements Initializable  {
 				this.metabolicNetwork.makeNet();				
 				translator = new Translator(metabolicNetwork);		
 				Alert alert = new Alert(AlertType.INFORMATION);
-		        alert.setTitle("Sucess");
-		        alert.setHeaderText("Successfully uploaded");
-		        alert.setContentText("The information of the network was updated successfully");
-		        alert.showAndWait();				
+				alert.setTitle("Sucess");
+				alert.setHeaderText("Successfully uploaded");
+				alert.setContentText("The information of the network was updated successfully");
+				alert.showAndWait();				
 			} catch (IOException e) {				
 				e.printStackTrace();
 			}			
 		}		
 	}
-	
-	
+
+
 	@FXML
 	public void findMetabolicPath() {
+		boolean notNull = true;
+	
+		
 		String[] initialMetabolitesString = initialMetabolites.getText().split(",");
 		String targetStringMetabolite = targetMetabolite.getText();
-		List<String> im= new ArrayList<String>();
-		for (int i = 0; i < initialMetabolitesString.length; i++) {
-			im.add(initialMetabolitesString[i]);			
-		}		
-		try {
-			translator.shortestPathByMetabolitesNumber(im, targetStringMetabolite);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		p.positionTransitions = translator.positionTransitions;				
-		p.positionsPlaces = translator.positionsPlaces;
-		p.adjacencyMatrix = translator.adjacencyMatrix;
-		p.adjacencyMatrixWeightsTP = translator.adjacencyMatrixWeightsTP;
-		p.adjacencyMatrixWeightsPT = translator.adjacencyMatrixWeightsPT;
-		p.translator = translator;
+		
+		if(initialMetabolitesString.length==0||targetStringMetabolite.equals("")) {
+			notNull=false;
+			
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Error calculating the path");
+			alert.setContentText("Please fill in all the fields in order to calculate your route");
+			alert.showAndWait();
+			
+		}
+		
+		
+		if(notNull) {
+			boolean correctInput = true;
+			List<String> im= new ArrayList<String>();		
+			if(metabolicNetwork.getMetabolite(targetStringMetabolite)==null) {
+				correctInput = false;
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText("Error calculating the path");
+				alert.setContentText("The final metabolite is not in the network. Please check the IDs and try again.");
+				alert.showAndWait();
+			}
+			
+			for (int i = 0; i < initialMetabolitesString.length && correctInput; i++) {
+				im.add(initialMetabolitesString[i]);	
+				if(metabolicNetwork.getMetabolite(initialMetabolitesString[i])==null) {
+					correctInput = false;
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error");
+					alert.setHeaderText("Error calculating the path");
+					alert.setContentText("One of the input metabolites is not defined. Please check the id.");
+					alert.showAndWait();
+					break;
+				}
+			}		
+
+			if(correctInput) {
+				Set<String> reactions = translator.shortestPathByMetabolitesNumber(im, targetStringMetabolite);
+				if(reactions.isEmpty()) {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error");
+					alert.setHeaderText("Error calculating the path");
+					alert.setContentText("It is not possible with these initial metabolites to reach the final metabolite");
+					alert.showAndWait();	
+				}
+
+				p.positionTransitions = translator.positionTransitions;				
+				p.positionsPlaces = translator.positionsPlaces;
+				p.adjacencyMatrix = translator.adjacencyMatrix;
+				p.adjacencyMatrixWeightsTP = translator.adjacencyMatrixWeightsTP;
+				p.adjacencyMatrixWeightsPT = translator.adjacencyMatrixWeightsPT;
+				p.translator = translator;
+			}
+
+		}
 	}
-	
-	
+
+
 	@FXML
 	public void downloadButtonAction(ActionEvent event) {
-		
+
 	}
-	
+
 	@FXML	
 	public void findReactionButtonAction() {
-//		String metabolite = id_metabolite_text.getText();
-//		translator.getReactionsOfMetabolite(metabolite);		
-//		p.positionTransitions = translator.positionTransitions;				
-//		p.positionsPlaces = translator.positionsPlaces;
-//		p.adjacencyMatrix = translator.adjacencyMatrix;
-//		p.adjacencyMatrixWeightsTP = translator.adjacencyMatrixWeightsTP;
-//		p.adjacencyMatrixWeightsPT = translator.adjacencyMatrixWeightsPT;
-//		p.translator = translator;
-//		
+		//		String metabolite = id_metabolite_text.getText();
+		//		translator.getReactionsOfMetabolite(metabolite);		
+		//		p.positionTransitions = translator.positionTransitions;				
+		//		p.positionsPlaces = translator.positionsPlaces;
+		//		p.adjacencyMatrix = translator.adjacencyMatrix;
+		//		p.adjacencyMatrixWeightsTP = translator.adjacencyMatrixWeightsTP;
+		//		p.adjacencyMatrixWeightsPT = translator.adjacencyMatrixWeightsPT;
+		//		p.translator = translator;
+		//		
 	}
 }

@@ -606,7 +606,7 @@ public class MetabolicNetwork {
 	 * @param fileName3 Methabolic Path
 	 * @throws Exception
 	 */
-	public Set<String> shortestPathByMetabolitesNumber(List<String> first, String last) throws Exception{
+	public Set<String> shortestPathByMetabolitesNumber(List<String> first, String last){
 		Set<String> reactionss = new TreeSet<String>();
 		int[][] graph = null;		
 		int[] reactionsVisited; 
