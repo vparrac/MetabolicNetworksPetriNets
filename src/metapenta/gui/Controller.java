@@ -251,7 +251,6 @@ public class Controller implements Initializable  {
 				alert.setHeaderText("Error calculating the path");
 				alert.setContentText("An error occurred, please try again");
 				alert.showAndWait();
-
 			}
 		});		
 	}
@@ -332,6 +331,13 @@ public class Controller implements Initializable  {
 
 
 
+	@FXML	
+	public void cleanButtonAction(ActionEvent event) {
+		System.out.println("Clean");
+		translator.resetSubnet();
+		assignAttributesToMetabolicNetwork();
+	}
+	
 	@FXML	
 	public void reactionsButtonAction(ActionEvent event) {
 		translator.resetSubnet();
