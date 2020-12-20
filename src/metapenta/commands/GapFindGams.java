@@ -11,6 +11,13 @@ import metapenta.model.ReactionComponent;
 
 public class GapFindGams {
 
+	/**
+	 * Class to test the generation of gap find GAMS script 
+	 * @param args[0] xml file of metabolic network
+	 * @throws Exception if exists any error of I/O
+	 */
+	
+	
 	public static void main(String[] args) throws IOException {
 		MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
 		MetabolicNetwork network = loader.loadNetwork(args[0]);

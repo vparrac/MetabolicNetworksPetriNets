@@ -10,7 +10,9 @@ import metapenta.model.MetabolicNetworkXMLLoader;
 import metapenta.model.Metabolite;
 
 /**
- * Diferentes metabolitos
+ * Returns the common metabolites of two differente metabolic networks
+ * @param args[0] path of XML file metbolic network 1
+ * @param args[0] path of XML file metbolic network 2
  * @author vparrac
  */
 public class GetCommonMetabolites {

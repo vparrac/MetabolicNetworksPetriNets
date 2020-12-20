@@ -6,9 +6,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import processing.javafx.PSurfaceFX;
-
-public class JavaFXApplication extends Application {
-	
+/**
+ * Class to init the Stage of JavaFX processing scenes
+ * @author vparrac
+ *
+ */
+public class MetaPenta extends Application {
+	/**
+	 * Surface of Processing
+	 */
     public static PSurfaceFX surface;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -16,11 +22,9 @@ public class JavaFXApplication extends Application {
         Parent root = loader.load();
         Controller.stage = primaryStage;
         Scene scene = new Scene(root, 1280, 720);
-
-        primaryStage.setTitle("ProcessingFX Demo");
+        primaryStage.setTitle("MetaPenta");
         primaryStage.setScene(scene);
         primaryStage.show();
-
         surface.stage = primaryStage;
         Controller.stage = primaryStage;
 	}

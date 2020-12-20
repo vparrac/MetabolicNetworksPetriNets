@@ -6,11 +6,14 @@ import java.util.Set;
 
 import metapenta.model.MetabolicNetwork;
 import metapenta.model.MetabolicNetworkXMLLoader;
-
+/**
+ * Class to test connected components method
+ * @author Valerie Parra Cortés
+ */
 public class ConnectedComponents {
 
 	/**
-	 * The main method of class
+	 * Class to test the conncected components of the metabolic networkd
 	 * @param args[0] the path of the XML file 
 	 * @param args[1] out file in csv	
 	 * @throws Exception if exists any error of I/O

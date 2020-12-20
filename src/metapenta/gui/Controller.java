@@ -1,8 +1,5 @@
 package metapenta.gui;
 
-
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,9 +9,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Set;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,7 +18,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
@@ -37,12 +30,30 @@ import metapenta.model.MetabolicNetworkXMLLoader;
 import metapenta.processing.petrinet.MySketch;
 import metapenta.processing.petrinet.Translator;
 import processing.javafx.PSurfaceFX;
+/**
+ * JavaFX MVC model controller class
+ * @author Valerie Parra Cortés
+ */
 public class Controller implements Initializable  {
-
+	/**
+	 * Main class of world
+	 */
 	public MetabolicNetwork metabolicNetwork;
+	/**
+	 * Surface that allows us to communicate with the main class of processing
+	 */
 	public static PSurfaceFX surface;
-	public static MySketch p;
-	protected static Stage stage;    
+	/**
+	 * Reference to processing main class
+	 */
+	public static MySketch metabolicNetworkProcessing;
+	/**
+	 *  Stage that will be used to display processing
+	 */
+	protected static Stage stage;  
+	/**
+	 * Class that translates the model used in the world so that it can be painted in the interface
+	 */
 	private Translator translator;    
 
 	@FXML
@@ -93,24 +104,30 @@ public class Controller implements Initializable  {
 	@FXML
 	CheckBox isProductCheckBox;
 
+	@FXML
+	CheckBox gapFindFilesCheckBox;
+
 	List<String> lista;
 
 	List<String> initialMetabolitesString;
 	String targetStringMetabolite;
 	String metaboliteName;
 
-
-	@Override
+		@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+			// These lines allow you to tell processing in which panel the entire JavaFX scene will be drawn
 		Canvas canvas = (Canvas) surface.getNative();
 		surface.fx.context = canvas.getGraphicsContext2D();        
 		processing.getChildren().add(canvas);        
 		canvas.widthProperty().bind(processing.widthProperty());
-		canvas.heightProperty().bind(processing.heightProperty());	
-
-
+		canvas.heightProperty().bind(processing.heightProperty());
 	}	
 
+		
+	/**
+	 * Method that load a metabolic network enter by parameters
+	 * @param event of button action (not used)
+	 */
 	@FXML
 	public void loadButtonAction(ActionEvent event){		
 		FileChooser fileChooser = new FileChooser();
@@ -135,6 +152,9 @@ public class Controller implements Initializable  {
 	}
 
 
+	/**
+	 * Method that calculates and show the metabolic path
+	 */
 	@FXML
 	public void findMetabolicPath() {
 		boolean notNull = true;
@@ -201,13 +221,17 @@ public class Controller implements Initializable  {
 	}
 
 
+	
+	/**
+	 * Method to init the petri net of processing class
+	 */
 	public void assignAttributesToMetabolicNetwork() {
-		p.positionTransitions = translator.positionTransitions;				
-		p.positionsPlaces = translator.positionsPlaces;
-		p.adjacencyMatrix = translator.adjacencyMatrix;
-		p.adjacencyMatrixWeightsTP = translator.adjacencyMatrixWeightsTP;
-		p.adjacencyMatrixWeightsPT = translator.adjacencyMatrixWeightsPT;
-		p.translator = translator;
+		metabolicNetworkProcessing.positionTransitions = translator.positionTransitions;				
+		metabolicNetworkProcessing.positionsPlaces = translator.positionsPlaces;
+		metabolicNetworkProcessing.adjacencyMatrix = translator.adjacencyMatrix;
+		metabolicNetworkProcessing.adjacencyMatrixWeightsTP = translator.adjacencyMatrixWeightsTP;
+		metabolicNetworkProcessing.adjacencyMatrixWeightsPT = translator.adjacencyMatrixWeightsPT;
+		metabolicNetworkProcessing.translator = translator;
 	}
 
 	@FXML
@@ -216,6 +240,9 @@ public class Controller implements Initializable  {
 	}
 
 
+	/**
+	 * Method to enable the components of UI where a network was upload
+	 */
 	private void enableComponets(){		
 		initialMetabolites.setEditable(true);			
 		targetMetabolite.setEditable(true);
@@ -227,7 +254,17 @@ public class Controller implements Initializable  {
 		downloadFilesButton.setDisable(false);		
 		isSubstrateCheckBox.setDisable(false);
 		isProductCheckBox.setDisable(false);
+		downloadFilesButton.setDisable(false);
+		sinksSourcesCheckBox.setDisable(false);
+		connectedComponentsCheckbox.setDisable(false);
+		gapFindFilesCheckBox.setDisable(false);
+
 	}
+	
+	/**
+	 * Method that allows to the user download the information of path calculated
+	 * @param event of button action (not used)
+	 */
 
 	@FXML
 	public void pathButtonAction(ActionEvent event) {
@@ -256,10 +293,11 @@ public class Controller implements Initializable  {
 	}
 
 
+	/**
+	 * Method to download the reaction of the current metabolite
+	 */
 	@FXML
 	public void downloadReactionsMetabolites() {
-		System.out.println("download");
-
 		TextInputDialog td = new TextInputDialog("metabolicNetworkFileName");
 		td.setHeaderText("Enter the name of file"); 
 		Optional<String> result =td.showAndWait(); 
@@ -283,7 +321,10 @@ public class Controller implements Initializable  {
 	}
 
 
-
+	/**
+	 * Method to download the files of sink, sources and connected components
+	 */
+	
 	public void downloadFiles() {
 		if(!sinksSourcesCheckBox.isSelected()&&!connectedComponentsCheckbox.isSelected()) {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -300,8 +341,8 @@ public class Controller implements Initializable  {
 
 				try {
 					if(sinksSourcesCheckBox.isSelected()) {
-					metabolicNetwork.printsSinksInAFile(name+"_sinks.txt");
-					metabolicNetwork.printsSourcesInAFile(name+"_sources.txt");
+						metabolicNetwork.printsSinksInAFile(name+"_sinks.txt");
+						metabolicNetwork.printsSourcesInAFile(name+"_sources.txt");
 					}
 					if(connectedComponentsCheckbox.isSelected()) {
 						metabolicNetwork.printConnectedComponents(name+"_cc.txt");
@@ -330,24 +371,27 @@ public class Controller implements Initializable  {
 	}
 
 
-
+	/**
+	 * Method that resets the metabolic network network
+	 * @param event
+	 */
+	
 	@FXML	
-	public void cleanButtonAction(ActionEvent event) {
-		System.out.println("Clean");
+	public void cleanButtonAction(ActionEvent event) {		
 		translator.resetSubnet();
 		assignAttributesToMetabolicNetwork();
 	}
-	
+	/**
+	 * Method to shows the reaction of currect selected metabolite
+	 * @param event of button (not used)
+	 */
+
 	@FXML	
 	public void reactionsButtonAction(ActionEvent event) {
 		translator.resetSubnet();
 		assignAttributesToMetabolicNetwork();
-
-
 		boolean productsb = isProductCheckBox.isSelected();
 		boolean substrateb = isSubstrateCheckBox.isSelected();
-
-
 		String metabolite = entryMetabolite.getText();
 		if(metabolite.equals("")) {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -363,7 +407,6 @@ public class Controller implements Initializable  {
 			alert.setContentText("The id entered is invalid");
 			alert.showAndWait();
 		}
-
 		else {
 			metaboliteName = metabolite;
 			translator.getReactionsOfMetabolite(metabolite, productsb, substrateb);		

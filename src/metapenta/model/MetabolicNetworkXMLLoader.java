@@ -21,6 +21,7 @@ import org.xml.sax.InputSource;
  */
 public class MetabolicNetworkXMLLoader {
 
+	private static final String ELEMENT_NOTES = "notes";
 	private static final String ELEMENT_MODEL = "model";
 	private static final String ELEMENT_LISTPRODUCTS = "fbc:listOfGeneProducts";
 	private static final String ELEMENT_LISTMETABOLITES = "listOfSpecies";
@@ -53,6 +54,7 @@ public class MetabolicNetworkXMLLoader {
 	 */
 	public MetabolicNetwork loadNetwork (String filename) throws IOException {
 		InputStream is = null;
+		MetabolicNetwork mn = null;
 		Document doc;
 		try {
 			is = new FileInputStream(filename);
@@ -71,19 +73,40 @@ public class MetabolicNetworkXMLLoader {
 		}
 		Element rootElement = doc.getDocumentElement();
 		NodeList offspring = rootElement.getChildNodes(); 
+		Element sbl = null;
 		for(int i=0;i<offspring.getLength();i++){  
 			Node node = offspring.item(i);
 			if (node instanceof Element){ 
-				Element elem = (Element)node;
+				Element elem = (Element)node;					
+				if(ELEMENT_NOTES.equals(elem.getNodeName())) {
+					sbl = elem;
+				}
 				if(ELEMENT_MODEL.equals(elem.getNodeName())) {
-					return loadModel(elem);
+					mn = loadModel(elem);
 				}
 			}
 		}
+		if(mn != null) {
+			return mn;
+		}
+		
 		throw new IOException("Malformed XML file. The element "+ELEMENT_MODEL+" could not be found");
 	}
 	
 		
+	
+	private void getNameModel(Element modelElem){
+		NodeList offspring = modelElem.getChildNodes();
+		for(int i=0;i<offspring.getLength();i++){  
+			Node node = offspring.item(i);
+			if (node instanceof Element){
+				Element elem = (Element)node;
+				if(ELEMENT_MODEL.equals(elem.getNodeName())) {
+					
+				}
+			}
+		}
+	}
 	
 	private MetabolicNetwork loadModel(Element modelElem) throws IOException {		
 		MetabolicNetwork answer = new MetabolicNetwork();

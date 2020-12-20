@@ -22,9 +22,7 @@ public class Constants {
 	 */
 	public static final int Y_INIT = 50;
 	public static final int X_OFFSET = 400;
-	public static final int Y_OFFSET = 100;
-	
-	
+	public static final int Y_OFFSET = 100;	
 	public final static String METABOLITE = "Metabolite";
 	public final static String REACTION = "Reaction";
 	public final static String REVERSIBLE = "Reversible: ";
@@ -42,9 +40,6 @@ public class Constants {
 	/**
 	 * Metabolite
 	 */
-	
 	public final static String IS_SUBSTRATE="Reactions metbolite is substrate";
 	public final static String IS_PRODUCT="Reactions metbolite is product";
-	
-	
 }

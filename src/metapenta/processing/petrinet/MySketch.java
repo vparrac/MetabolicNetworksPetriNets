@@ -1,26 +1,25 @@
 package metapenta.processing.petrinet;
 import java.util.ArrayList;
 import java.util.Map;
-
 import javafx.application.Application;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import metapenta.gui.Controller;
-import metapenta.gui.JavaFXApplication;
+import metapenta.gui.MetaPenta;
 import metapenta.model.Metabolite;
 import metapenta.model.Reaction;
-/**
- * Main class of the visualization panel this class extends of PApplet
- * the main class of processing library
- * @author Valerie Parra Cortés
- */
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PSurface;
 import processing.javafx.PSurfaceFX;
 
+/**
+ * Main class of the visualization panel this class extends of PApplet
+ * the main class of processing library
+ * @author Valerie Parra Cortés
+ */
 public class MySketch extends PApplet {
 	Text details_title;
 	Text details_title_name;
@@ -87,16 +86,15 @@ public class MySketch extends PApplet {
 	 * Represents the weights between places to transition
 	 */
 	public double[][] adjacencyMatrixWeightsPT;
-
 	@Override
 	protected PSurface initSurface() {
 		g = createPrimaryGraphics();
 		PSurface genericSurface = g.createSurface();
 		PSurfaceFX fxSurface = (PSurfaceFX) genericSurface;
 		fxSurface.sketch = this;
-		JavaFXApplication.surface = fxSurface;
+		MetaPenta.surface = fxSurface;
 		Controller.surface = fxSurface;
-		new Thread(() -> Application.launch(JavaFXApplication.class)).start();
+		new Thread(() -> Application.launch(MetaPenta.class)).start();
 		while (fxSurface.stage == null) {
 			try {
 				Thread.sleep(5);
@@ -107,6 +105,10 @@ public class MySketch extends PApplet {
 		initJavaFXSceneElements();
 		return surface;
 	}
+	
+	/**
+	 * Method that init the JavaFX components
+	 */
 	private void initJavaFXSceneElements() {
 		Canvas canvas = (Canvas) surface.getNative();
 		details_title = (Text) canvas.getScene().lookup("#details_title");
@@ -120,6 +122,9 @@ public class MySketch extends PApplet {
 		title2 = (Text) canvas.getScene().lookup("#title2");
 	}
 	
+	/**
+	 * Method to update the detail of metabolites
+	 */
 	private void setDetailsMetabolite() {
 		NodeProcessing currentNode = positionsPlaces.get(whichImage);
 		details_title.setText(Constants.METABOLITE);
@@ -136,9 +141,12 @@ public class MySketch extends PApplet {
 		details_textArea_2.setText(reactiosn.get("Products"));
 		title2.setVisible(true);
 		details_textArea_2.setVisible(true);
-
 	}
 	
+	
+	/**
+	 * Method to update teh detail of reactions
+	 */
 	private void setDetailsReaction() {
 		NodeProcessing currentNode = positionTransitions.get(whichImage);
 		details_title.setText(Constants.REACTION);
@@ -152,9 +160,11 @@ public class MySketch extends PApplet {
 		details_textArea_1.setText(reactionEnzymes);
 		title2.setVisible(false);
 		details_textArea_2.setVisible(false);
-
 	}
 	
+	/**
+	 * Method that sets the size of the processing panel
+	 */
 	public void settings() {
 		size(100, 100, FX2D);
 	}	 
@@ -164,6 +174,7 @@ public class MySketch extends PApplet {
 	 * @param y1 the seconds coordinate of arrow's start
 	 * @param x2 the first coordinate of  arrow's end
 	 * @param y2 the seconds coordinate of arrow's end
+	 * @param weight of the edge
 	 */
 	public void arrow(float x1, float y1, float x2, float y2, double weight) {
 		line(x1, y1, x2, y2);
@@ -179,6 +190,15 @@ public class MySketch extends PApplet {
 	}
 
 
+	/**
+	 * This method print a bidireccional arrow
+	 * @param x1 the first coordinate of the arrow's start
+	 * @param y1 the seconds coordinate of arrow's start
+	 * @param x2 the first coordinate of  arrow's end
+	 * @param y2 the seconds coordinate of arrow's end
+	 * @param weight of the edge of point 1
+	 * @param weight of edge 2
+	 */
 	public void bidirectionalArrow(float x1, float y1, float x2, float y2, double weight1, double weight2) {		
 		line(x1, y1, x2, y2);
 		pushMatrix();
@@ -199,12 +219,11 @@ public class MySketch extends PApplet {
 		fill(Constants.BLACK.r,Constants.BLACK.g,Constants.BLACK.b);
 		text(weight2+"", -16, -20);
 		popMatrix();
-
-
 	}	
 
+	
 	public void setup() {
-		Controller.p = this;
+		Controller.metabolicNetworkProcessing = this;
 		myFont = createFont("Yu Gothic Light", 12);
 		textFont(myFont);
 		adjacencyMatrix = new int[positionTransitions.size()][positionsPlaces.size()];
@@ -213,6 +232,7 @@ public class MySketch extends PApplet {
 		//		noLoop();
 	}
 
+	@Override
 	public void draw() {		
 		background(255, 255, 255);
 		fill(Constants.BLUE_KING.r, Constants.BLUE_KING.g, Constants.BLUE_KING.b);	
@@ -257,6 +277,7 @@ public class MySketch extends PApplet {
 		}
 	}
 
+	@Override
 	public void mousePressed() {	
 		//		loop();
 		checkOver();
@@ -272,12 +293,14 @@ public class MySketch extends PApplet {
 
 	}
 
+	@Override
 	public void mouseReleased() {
 		locked = false;
 		bover = false;
 		//		noLoop();
 	}
 
+	@Override
 	public void mouseDragged() {
 		//		loop();
 		if(locked) {
@@ -324,6 +347,9 @@ public class MySketch extends PApplet {
 		}		
 	}
 
+	/*
+	 * Method to calculate the intersection point between the circle and the arrow
+	 */
 	private float[] intersectionPointCircleLine(double x1, double y1, double cx2, double cy2) {
 		double dx = cx2-x1, dy = cy2-y1;
 		double norm = norm(dx,dy);
@@ -334,6 +360,14 @@ public class MySketch extends PApplet {
 		coordinates[1] = (float) ndy;
 		return coordinates;		
 	}
+	/**
+	 * Calculates tthe intersection point between the rect and the arrow and a rect
+	 * @param x1 center x-coordinate of the rect
+	 * @param y1 center y-coordinate of the rect
+	 * @param cx2 x-coordinate of the origin of the line
+	 * @param cy2 y-coordinae of the origin of the line
+	 * @return coordinates were the intersection occurs
+	 */
 	private float[] intersectionPointRectLine(double x1, double y1, double cx2, double cy2) {
 		double dx = cx2-x1, dy = cy2-y1;
 		float[] points = new float[2];
@@ -358,9 +392,25 @@ public class MySketch extends PApplet {
 		}
 		return points;
 	}
+	
+	/**
+	 * Calculates the dorm of a vector given dx and dy
+	 * @param dx
+	 * @param dy
+	 * @return normn of the vector
+	 */
 	private double norm(double dx, double dy) {
 		return Math.sqrt(Math.pow(dx,2) + Math.pow(dy, 2));
 	}
+	
+	/**
+	 * Calculates the slope and intersection of a line
+	 * @param x1 x-coordintae of point 1
+	 * @param y1 y-coordinate of point 1
+	 * @param x2 x-coordinate of point 2
+	 * @param y2 y-coordinate of point 2
+	 * @return an array with the slope and the intersection of the equation
+	 */
 	private double[] lineEquation (double x1, double y1, double x2, double y2) {
 		double m = (y2-y1)/(x2-x1);
 		double b = y1-((y2-y1)/(x2-x1))*x1;

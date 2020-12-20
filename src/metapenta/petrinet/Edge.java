@@ -1,6 +1,4 @@
 package metapenta.petrinet;
-
-
 /**
  * Represents a edge of the petri net
  * @author Valerie Parra Cortés
@@ -12,6 +10,9 @@ public class Edge <O> {
 	 */
 	private double tokens;
 
+	/**
+	 * The object of the edge
+	 */
 	private O object;
 
 	

@@ -24,6 +24,8 @@ import metapenta.petrinet.Transition;
 public class MetabolicNetwork {
 	private Map<String,GeneProduct> geneProducts = new TreeMap<String,GeneProduct>();
 
+	
+	private String name;
 
 	/**
 	 * Metabolites of  the metabolic Network
@@ -50,6 +52,11 @@ public class MetabolicNetwork {
 
 	private  Map<Integer,Place<Metabolite, Reaction>> placesbyNumber = new TreeMap<Integer, Place<Metabolite,Reaction>>();
 
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
 	/**
 	 * Represents the infinite distance between 2 metabolites
 	 */
