@@ -30,6 +30,17 @@ Este panel tiene dos botones. El primero, el de \textit{"load"}, permite cargar 
 
 ![ui](https://user-images.githubusercontent.com/32238112/120860331-217d2200-c54b-11eb-922e-02896dc9a20e.png)
 
+## Running
+Si estás utilizando un IDE (por ejemplo eclipse), puedes correrla la aplicación corriendo la clase principal de la aplicación:
+
+https://github.com/FLAGlab/MetaPeNTA/blob/master/src/metapenta/gui/Main.java
+
+Si lo quieres correr por línea de comandos necesitas los archivos `jar` de la libería de `Processing` y los binarios de `Java FX` y correr el siguiente comando
+
+`C:\Program Files\Java\jdk-11.0.7\bin\javaw.exe -Dfile.encoding=Cp1252 -classpath “<List of jar files>” metapenta.gui.Main <metabolic_file_path> <out_file>`
+
+Donde <List of jar files> son los archivos antes mencionados. Los `jar` de processing, pueden encontrarse en la carpeta `lib` 
+
 ## License
 
 MIT License
