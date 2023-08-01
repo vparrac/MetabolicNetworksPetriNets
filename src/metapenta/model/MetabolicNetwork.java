@@ -17,6 +17,9 @@ import java.util.TreeSet;
 import metapenta.petrinet.Edge;
 import metapenta.petrinet.Place;
 import metapenta.petrinet.Transition;
+import metapenta.tools.GapFillWriter;
+import metapenta.tools.StringUtils;
+
 /**
  * Represents a metabolic network of reactions on metabolites
  * @author Jorge Duitama
@@ -543,7 +546,7 @@ public class MetabolicNetwork {
 	/**
 	 * 
 	 * @param first Lista metabolitos iniciales
-	 * @param last Metábolito a producir
+	 * @param last Metï¿½bolito a producir
 	 * @param fileName1 Metabolic Network In CSV
 	 * @param fileName2 Reactions Graph In CSV
 	 * @param fileName3 Methabolic Path
@@ -618,7 +621,7 @@ public class MetabolicNetwork {
 	/**
 	 * 
 	 * @param first Lista metabolitos iniciales
-	 * @param last Metábolito a producir
+	 * @param last Metï¿½bolito a producir
 	 * @param fileName1 Metabolic Network In CSV
 	 * @param fileName2 Reactions Graph In CSV
 	 * @param fileName3 Methabolic Path
@@ -710,7 +713,7 @@ public class MetabolicNetwork {
 		boolean isTheBegining=true;
 
 		if(metabolitesVisited[places.get(last).getMetaboliteNumber()][1]==-1) {
-			System.err.println("En los metabolitos de entrada ya está el metabolito final");
+			System.err.println("En los metabolitos de entrada ya estï¿½ el metabolito final");
 		}
 
 		else if(metabolitesVisited[places.get(last).getMetaboliteNumber()][2]==INFINITE) {
@@ -746,7 +749,7 @@ public class MetabolicNetwork {
 					}
 				}
 				if(nInitialMetabolites==edgesIn.size()&&isTheBegining) {
-					System.err.println("Sólo es necesaria una transición para llegar al metabolito \n"+currentTransition.getObject().getName());
+					System.err.println("Sï¿½lo es necesaria una transiciï¿½n para llegar al metabolito \n"+currentTransition.getObject().getName());
 					break;
 				}				
 				isTheBegining=false;
@@ -767,7 +770,7 @@ public class MetabolicNetwork {
 		boolean isTheBegining=true;
 
 		if(metabolitesVisited[places.get(last).getMetaboliteNumber()][1]==-1) {
-			System.err.println("En los metabolitos de entrada ya está el metabolito final");
+			System.err.println("En los metabolitos de entrada ya estï¿½ el metabolito final");
 		}
 
 		else if(metabolitesVisited[places.get(last).getMetaboliteNumber()][2]==INFINITE) {
@@ -805,7 +808,7 @@ public class MetabolicNetwork {
 					}
 				}
 				if(nInitialMetabolites==edgesIn.size()&&isTheBegining) {
-					System.err.println("Sólo es necesaria una transición para llegar al metabolito \n"+currentTransition.getObject().getName());
+					System.err.println("Sï¿½lo es necesaria una transiciï¿½n para llegar al metabolito \n"+currentTransition.getObject().getName());
 					break;
 				}				
 				isTheBegining=false;
@@ -1008,8 +1011,111 @@ public class MetabolicNetwork {
 
 	/**
 	 * Construct the correspondent sub-net of the comparment 
-	 * @param comparment the comparment
+	 * @param prefixOut the output prefix
 	 */
+
+
+	public void GapFill(String prefixOut) throws Exception{
+		StringUtils stringUtils = new StringUtils();
+		GapFillWriter gfw = new GapFillWriter(prefixOut);
+
+		Set<String> metabolitesKeys = places.keySet();
+
+		for(String key: metabolitesKeys){
+			Metabolite metabolite = places.get(key).getObject();
+			stringUtils
+					.SetString(metabolite.getId())
+					.addSingleQuotes()
+					.addEmptySpace()
+					.addBreakLine();
+
+			gfw.WriteInMetabolites(stringUtils.GetString());
+
+			if (metabolite.getCompartment().equals("e")){
+				stringUtils
+						.SetString(metabolite.getId())
+						.addSingleQuotes()
+						.addBreakLine();
+
+				gfw.WriteEMetabolites(stringUtils.GetString());
+			}
+			else {
+				stringUtils
+						.SetString(metabolite.getId())
+						.addSingleQuotes()
+						.addBreakLine();
+
+				gfw.WriteCMetabolites(stringUtils.GetString());
+			}
+		}
+
+		Set<Integer> keys = transitions.keySet();
+		for (Integer key: keys){
+			Transition<Metabolite,Reaction> transition = transitions.get(key);
+			stringUtils
+					.SetString(transition.getObject().getId())
+					.addSingleQuotes()
+					.addBreakLine();
+
+			gfw.WriteInReactions(stringUtils.GetString());
+
+			Reaction r = transition.getObject();
+			List<ReactionComponent> reactants = r.getReactants();
+			for (ReactionComponent reactant: reactants){
+				stringUtils.SetString(reactant.getMetabolite().getId())
+						.addSingleQuotes()
+						.addEmptySpace()
+						.addDouble(-reactant.getStoichiometry())
+						.addBreakLine();
+				gfw.WriteInSMatrix(stringUtils.GetString());
+			}
+
+			List<ReactionComponent> products = r.getProducts();
+			for (ReactionComponent product: products){
+				stringUtils.SetString(product.getMetabolite().getId())
+						.addSingleQuotes()
+						.addEmptySpace()
+						.addDouble(product.getStoichiometry())
+						.addBreakLine();
+
+				gfw.WriteInSMatrix(stringUtils.GetString());
+			}
+
+			if (r.isReversible()){
+				stringUtils
+						.SetString(r.getId())
+						.addSingleQuotes()
+						.addBreakLine();
+
+				gfw.WriteInReversibleReactions(stringUtils.GetString());
+				boundsForReversibleReaction(r.getId(), gfw);
+			} else {
+				boundsForUnreversibleReaction(r.getId(), gfw);
+			}
+		}
+
+		gfw.Write();
+	}
+	private void boundsForReversibleReaction(String reactionName, GapFillWriter gfw){
+		StringUtils stringUtils = new StringUtils();
+		stringUtils.SetString(reactionName).addSingleQuotes().addEmptySpace().addInt(-1000).addBreakLine();
+		gfw.WriteInLowBound(stringUtils.GetString());
+
+		stringUtils.SetString(reactionName);
+		stringUtils.addSingleQuotes().addEmptySpace().addInt(1000).addBreakLine();
+		gfw.WriteImUpBound(stringUtils.GetString());
+	}
+
+	private void boundsForUnreversibleReaction(String reactionName,  GapFillWriter gfw){
+		StringUtils stringUtils = new StringUtils();
+		stringUtils.SetString(reactionName).addSingleQuotes().addEmptySpace().addInt(0).addBreakLine();
+		gfw.WriteInLowBound(stringUtils.GetString());
+
+		stringUtils.SetString(reactionName).addSingleQuotes().addEmptySpace().addInt(1000).addBreakLine();
+		gfw.WriteImUpBound(stringUtils.GetString());
+	}
+
+
 	public Map<String, Integer> connectedComponents() {				
 		int[] metabolitesVisited = new int[places.size()+1];
 		int[] transitionsVisited = new int[transitions.size()+1];

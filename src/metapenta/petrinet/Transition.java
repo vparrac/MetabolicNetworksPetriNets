@@ -59,6 +59,22 @@ public class Transition <PlaceObjectClass, TransitionsObjectClass>{
 	public List<Edge<Place<PlaceObjectClass, TransitionsObjectClass>>> getInPlaces() {
 		return inPlaces;
 	}
+
+	/**
+	 * @return The in edges of the transition
+	 */
+	public List<Edge<Place<PlaceObjectClass, TransitionsObjectClass>>> getAllPLaces() {
+		ArrayList allPlaces = new ArrayList<>();
+		for (Edge<Place<PlaceObjectClass, TransitionsObjectClass>> place: inPlaces){
+			allPlaces.add(place);
+		}
+		for (Edge<Place<PlaceObjectClass, TransitionsObjectClass>> place: outPlaces){
+			allPlaces.add(place);
+		}
+
+		return allPlaces;
+	}
+
 	/**	
 	 * @return The out edges of the transition
 	 */
