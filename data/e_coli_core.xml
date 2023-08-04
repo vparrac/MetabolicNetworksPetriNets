@@ -8291,12 +8291,3 @@ xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" xmlns:groups="
     </listOfReactions>
   </model>
 </sbml>
-
-        $TRINOTATE_HOME/Trinotate --db myTrinotate.sqlite --init \
---gene_trans_map anot_preparation.gene-to-trans-map \
-  --transcript_fasta anot_preparation.transcripts.cdna.fa \
-    --transdecoder_pep anot_preparation.proteins.fa
-
-
-        $TRINOTATE_HOME/Trinotate  --db myTrinotate.sqlite --CPU 1 --transcript_fasta anot_preparation.transcripts.cdna.fa --transdecoder_pep anot_preparation.proteins.fa --trinotate_data_dir /data/ --run "swissprot_blastp swissprot_blastx pfam signalp6 tmhmmv2 infernal EggnogMapper"
-      --use_diamond

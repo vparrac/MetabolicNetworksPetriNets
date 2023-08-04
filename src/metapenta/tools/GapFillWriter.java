@@ -6,26 +6,24 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class GapFillWriter {
-    private StringBuilder metabolitesBuilder = new StringBuilder();
-    private StringBuilder reactionsBuilder = new StringBuilder();
-    private StringBuilder sMatrixBuilder = new StringBuilder();
-    private StringBuilder eMetabolitesFileBuilder = new StringBuilder();
-    private StringBuilder cMetabolitesFileBuilder = new StringBuilder();
-    private StringBuilder reversibleRxnBuilder = new StringBuilder();
-    private StringBuilder upBoundFileBuilder = new StringBuilder();
-    private StringBuilder loBoundsFileBuilder = new StringBuilder();
-    private String prefix;
-    private String metabolitesFileName;
-    private String reactionsFile;
-    private String sMatrixFile;
-    private String eMetabolitesFile;
-    private String cMetabolitesFile;
-    private String reversibleRxnFile;
-    private String upBoundFile;
-    private String loBoundsFile;
+    private final StringBuilder metabolitesBuilder = new StringBuilder();
+    private final StringBuilder reactionsBuilder = new StringBuilder();
+    private final StringBuilder sMatrixBuilder = new StringBuilder();
+    private final StringBuilder eMetabolitesFileBuilder = new StringBuilder();
+    private final StringBuilder cMetabolitesFileBuilder = new StringBuilder();
+    private final StringBuilder reversibleRxnBuilder = new StringBuilder();
+    private final StringBuilder upBoundFileBuilder = new StringBuilder();
+    private final StringBuilder loBoundsFileBuilder = new StringBuilder();
+    private final String metabolitesFileName;
+    private final String reactionsFile;
+    private final String sMatrixFile;
+    private final String eMetabolitesFile;
+    private final String cMetabolitesFile;
+    private final String reversibleRxnFile;
+    private final String upBoundFile;
+    private final String loBoundsFile;
 
     public GapFillWriter(String prefix){
-        this.prefix = prefix;
         this.metabolitesFileName = prefix + "compounds.txt";
         this.reactionsFile = prefix + "reactions.txt";
         this.sMatrixFile = prefix + "S_matrix.txt";
