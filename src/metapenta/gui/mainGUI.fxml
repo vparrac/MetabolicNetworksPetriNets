@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="metapenta.gui.Controller">
+  <children>
+    <MenuBar VBox.vgrow="NEVER" />
+    <SplitPane dividerPositions="0.2505567928730512, 0.7505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
+      <items>
+        <AnchorPane style="-fx-background-color: #03989E;">
+               <children>
+                  <VBox alignment="TOP_CENTER" layoutX="71.0" layoutY="70.0" prefHeight="527.0" prefWidth="221.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Text fill="#fffbfb" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Separator prefWidth="200.0" />
+                        <Text fill="#fffbfb" strokeType="OUTSIDE" strokeWidth="0.0" text="Find metabolic path">
+                           <font>
+                              <Font name="Yu Gothic Regular" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Text>
+                        <VBox alignment="TOP_CENTER" prefHeight="193.0" prefWidth="250.0" style="-fx-background-color: white;">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Initial metabolites" textAlignment="CENTER" wrappingWidth="229.3525390625">
+                                 <font>
+                                    <Font name="Yu Gothic Light" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="7.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <TextArea fx:id="initialMetabolites" editable="false" prefHeight="48.0" prefWidth="230.0">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin>
+                              </TextArea>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Target metabolite" textAlignment="CENTER" wrappingWidth="229.3525390625">
+                                 <font>
+                                    <Font name="Yu Gothic Light" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <TextArea fx:id="targetMetabolite" editable="false" prefHeight="16.0" prefWidth="230.0">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin></TextArea>
+                              <GridPane>
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Button fx:id="findPathButton" disable="true" mnemonicParsing="false" onAction="#findMetabolicPath" prefHeight="25.0" prefWidth="125.0" text="Find">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" right="10.0" top="10.0" />
+                                       </GridPane.margin>
+                                    </Button>
+                                    <Button fx:id="downloadPathButton" disable="true" mnemonicParsing="false" onAction="#pathButtonAction" prefHeight="25.0" prefWidth="157.0" text="Download" GridPane.columnIndex="1">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" right="10.0" top="10.0" />
+                                       </GridPane.margin>
+                                    </Button>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </VBox>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Find reactions">
+                           <font>
+                              <Font name="Yu Gothic Light" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <VBox alignment="CENTER" prefHeight="155.0" prefWidth="244.0" style="-fx-background-color: white;">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Find the reactions of a metabolite" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Yu Gothic Light" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="10.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <TextArea fx:id="entryMetabolite" editable="false" prefHeight="14.0" prefWidth="230.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                 </VBox.margin>
+                                 <opaqueInsets>
+                                    <Insets left="5.0" right="5.0" />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="5.0" right="5.0" />
+                                 </padding>
+                              </TextArea>
+                              <GridPane>
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <CheckBox fx:id="isSubstrateCheckBox" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="127.0" text="is substrate">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </GridPane.margin>
+                                    </CheckBox>
+                                    <CheckBox fx:id="isProductCheckBox" disable="true" mnemonicParsing="false" prefHeight="18.0" prefWidth="129.0" text="is Product" GridPane.columnIndex="1">
+                                       <GridPane.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </GridPane.margin>
+                                    </CheckBox>
+                                 </children>
+                              </GridPane>
+                              <GridPane alignment="TOP_CENTER" prefHeight="26.0" prefWidth="245.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Button fx:id="findReactionMetaboliteButton" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#reactionsButtonAction" prefHeight="25.0" prefWidth="130.0" text="Find">
+                                       <GridPane.margin>
+                                          <Insets left="5.0" right="5.0" />
+                                       </GridPane.margin>
+                                    </Button>
+                                    <Button fx:id="downloadReactionsMetaboliteButton" disable="true" mnemonicParsing="false" onAction="#downloadReactionsMetabolites" prefHeight="25.0" prefWidth="133.0" text="Download" GridPane.columnIndex="1">
+                                       <GridPane.margin>
+                                          <Insets left="5.0" right="5.0" />
+                                       </GridPane.margin>
+                                    </Button>
+                                 </children>
+                              </GridPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Dowload files">
+                           <font>
+                              <Font name="Yu Gothic Regular" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <GridPane style="-fx-background-color: white;">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <CheckBox fx:id="sinksSourcesCheckBox" disable="true" mnemonicParsing="false" text="Sinks and sources">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                                 <GridPane.margin>
+                                    <Insets top="5.0" />
+                                 </GridPane.margin>
+                              </CheckBox>
+                              <CheckBox fx:id="connectedComponentsCheckbox" disable="true" mnemonicParsing="false" text="Conected Componets" GridPane.columnIndex="1">
+                                 <GridPane.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </GridPane.margin>
+                              </CheckBox>
+                              <CheckBox fx:id="gapFindFilesCheckBox" disable="true" mnemonicParsing="false" text="Gap Find GAMS" GridPane.rowIndex="1">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Yu Gothic Regular" size="12.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets top="5.0" />
+                                 </GridPane.margin>
+                              </CheckBox>
+                           </children>
+                        </GridPane>
+                        <Button fx:id="downloadFilesButton" disable="true" mnemonicParsing="false" onAction="#downloadFiles" prefHeight="25.0" prefWidth="105.0" text="Download">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+        </AnchorPane>
+        <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
+          <content>
+            <AnchorPane id="Content" fx:id="processing" minHeight="-1.0" minWidth="-1.0" prefHeight="5000" prefWidth="5000" style="-fx-background-color: white;" />
+          </content>
+        </ScrollPane>
+        <AnchorPane fx:id="pane_details" nodeOrientation="LEFT_TO_RIGHT">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <VBox alignment="TOP_CENTER" layoutX="40.0" layoutY="40.0" prefHeight="74.0" prefWidth="180.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Text fx:id="details_title" fill="#05a6a6" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font name="Yu Gothic Light" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="details_title_name" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font name="Yu Gothic Light" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="details_general_information" fill="#035aa6" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font name="Yu Gothic Light" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <TextField fx:id="details_id" alignment="TOP_LEFT" disable="true" editable="false">
+                           <font>
+                              <Font name="Yu Gothic Regular" size="12.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="details_compartment" alignment="TOP_LEFT" disable="true" editable="false">
+                           <font>
+                              <Font name="Yu Gothic Regular" size="12.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="details_chemical_formula" alignment="TOP_LEFT" disable="true" editable="false">
+                           <font>
+                              <Font name="Yu Gothic Regular" size="12.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Text fx:id="title1" fill="#035aa6" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font name="Yu Gothic Light" size="15.0" />
+                           </font>
+                        </Text>
+                        <TextArea fx:id="details_textArea_1" editable="false" prefHeight="130.0" prefWidth="180.0">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </TextArea>
+                        <Text fx:id="title2" fill="#035aa6" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font name="Yu Gothic Light" size="15.0" />
+                           </font>
+                        </Text>
+                        <TextArea fx:id="details_textArea_2" editable="false" prefHeight="130.0" prefWidth="180.0">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </TextArea>
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+        </AnchorPane>
+      </items>
+    </SplitPane>
+    <HBox id="HBox" fx:id="options_bar" alignment="CENTER" prefHeight="53.0" prefWidth="907.0" spacing="5.0" VBox.vgrow="NEVER">
+      <padding>
+        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+      </padding>
+         <children>
+            <Button fx:id="loadFileButton" mnemonicParsing="false" onAction="#loadButtonAction" style="-fx-background-color: #03989E;" text="Load Network" textFill="#fffdfd" />
+            <Button mnemonicParsing="false" onAction="#cleanButtonAction" style="-fx-background-color: #03989E;" text="Clean" textFill="#f5f0f0" />
+         </children>
+    </HBox>
+  </children>
+</VBox>
