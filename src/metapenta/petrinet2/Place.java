@@ -1,22 +1,23 @@
 package metapenta.petrinet2;
 
+import metapenta.model.Metabolite;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Place<Attribute> {
+public class Place<O> {
     public static final String SINK = "SINK";
     public static final String SOURCE = "SOURCE";
-
     private String Id;
     private String label;
-    private Attribute attributes;
+    private O object;
     List<Edge<?>> edgesIn;
     List<Edge<?>> edgesOut;
 
-    public Place(String id, String label, Attribute attributes) {
+    public Place(String id, String label, O object) {
         Id = id;
         this.label = label;
-        this.attributes = attributes;
+        this.object = object;
         this.edgesIn = new ArrayList<>();
         this.edgesOut = new ArrayList<>();
     }
@@ -26,8 +27,12 @@ public class Place<Attribute> {
     public void setId(String ID) {
         this.Id = ID;
     }
-    public void setAttributes(Attribute attributes){
-        this.attributes = attributes;
+    public void setObject(O object){
+        this.object = object;
+    }
+
+    public O getObject() {
+       return object;
     }
     public String getLabel() {
         return label;
@@ -44,8 +49,8 @@ public class Place<Attribute> {
     public String getID() {
         return Id;
     }
-    public Attribute getAttributes() {
-        return attributes;
+    public O getAttributes() {
+        return object;
     }
     public void AddEdgeIn(Edge transition){
         this.edgesIn.add(transition);

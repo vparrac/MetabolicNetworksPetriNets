@@ -2,15 +2,15 @@ package metapenta.petrinet2;
 
 public class Edge<Target>{
     private Target target;
-    private int weight;
-    public Edge(Target target, int weight) {
+    private double weight;
+    public Edge(Target target, double weight) {
         this.target = target;
         this.weight = weight;
     }
     public Target getTarget() {
         return target;
     }
-    public Integer getWeight() {
+    public double getWeight() {
         return weight;
     }
     public void setTarget(Target target){

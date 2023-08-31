@@ -4,63 +4,194 @@ import metapenta.commands.GapFIll;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class GapFillWriter {
-    private final StringBuilder metabolitesBuilder = new StringBuilder();
-    private final StringBuilder reactionsBuilder = new StringBuilder();
-    private final StringBuilder sMatrixBuilder = new StringBuilder();
-    private final StringBuilder eMetabolitesFileBuilder = new StringBuilder();
-    private final StringBuilder cMetabolitesFileBuilder = new StringBuilder();
-    private final StringBuilder reversibleRxnBuilder = new StringBuilder();
-    private final StringBuilder upBoundFileBuilder = new StringBuilder();
-    private final StringBuilder loBoundsFileBuilder = new StringBuilder();
-    private final String metabolitesFileName;
-    private final String reactionsFile;
-    private final String sMatrixFile;
-    private final String eMetabolitesFile;
-    private final String cMetabolitesFile;
-    private final String reversibleRxnFile;
-    private final String upBoundFile;
-    private final String loBoundsFile;
+
+    private StringBuilder metabolitesBuilder = new StringBuilder();
+    private StringBuilder reactionsBuilder = new StringBuilder();
+    private StringBuilder sMatrixBuilder = new StringBuilder();
+    private StringBuilder eMetabolitesFileBuilder = new StringBuilder();
+    private StringBuilder cMetabolitesFileBuilder = new StringBuilder();
+    private StringBuilder reversibleRxnBuilder = new StringBuilder();
+
+    private StringBuilder irreversibleRxnBuilder = new StringBuilder();
+    private StringBuilder upBoundFileBuilder = new StringBuilder();
+    private StringBuilder loBoundsFileBuilder = new StringBuilder();
+    private String prefix;
+    private String metabolitesFileName;
+    private String reactionsFile;
+    private String sMatrixFile;
+    private String eMetabolitesFile;
+    private String cMetabolitesFile;
+    private String reversibleRxnFile;
+    private String irreversibleRxnFile;
+    private String upBoundFile;
+    private String loBoundsFile;
+    private StringUtils stringUtils;
 
     public GapFillWriter(String prefix){
-        this.metabolitesFileName = prefix + "compounds.txt";
-        this.reactionsFile = prefix + "reactions.txt";
-        this.sMatrixFile = prefix + "S_matrix.txt";
-        this.eMetabolitesFile = prefix + "extracellularMetabolites.txt";
-        this.cMetabolitesFile = prefix + "cytosolic_Metabolites.txt";
-        this.reversibleRxnFile = prefix + "reversible_rxn.txt";
-        this.upBoundFile = prefix + "upperbounds_on_fluxes.txt";
-        this.loBoundsFile = prefix + "lowerbounds_on_fluxes.txt";
+        this.prefix = prefix;
+        this.metabolitesFileName = prefix + "_compounds.txt";
+        this.reactionsFile = prefix + "_reactions.txt";
+        this.sMatrixFile = prefix + "_s_matrix.txt";
+        this.eMetabolitesFile = prefix + "_extracellularMetabolites.txt";
+        this.cMetabolitesFile = prefix + "_cytosolic_Metabolites.txt";
+        this.reversibleRxnFile = prefix + "_reversible_rxn.txt";
+        this.upBoundFile = prefix + "_upperbounds_on_fluxes.txt";
+        this.loBoundsFile = prefix + "_lowerbounds_on_fluxes.txt";
+        this.irreversibleRxnFile = prefix + "_irreversible_reactions";
+        this.stringUtils = new StringUtils();
     }
 
-    public void WriteInMetabolites(String s){
-        metabolitesBuilder.append(s);
+    public void WriteInMetabolites(String metabolite){
+        stringUtils
+                .SetString(metabolite)
+                .addSingleQuotes()
+                .addEmptySpace()
+                .addBreakLine();
+
+        metabolitesBuilder.append(stringUtils.GetString());
     }
 
-    public void WriteInReactions(String s){
-        reactionsBuilder.append(s);
-
+    public void writeMetabolites(List<String> ids){
+        for(String metaboliteId: ids){
+         WriteInMetabolites(metaboliteId);
+        }
     }
 
-    public void WriteInSMatrix(String s){
-        sMatrixBuilder.append(s);
+    public void writeEMetabolites(List<String> ids){
+        for(String metaboliteId: ids){
+            WriteEMetabolite(metaboliteId);
+        }
     }
 
-    public void WriteEMetabolites(String s){
-        eMetabolitesFileBuilder.append(s);
+    public void writeCMetabolites(List<String> ids){
+        for(String metaboliteId: ids){
+            WriteCMetabolite(metaboliteId);
+        }
     }
 
-    public void WriteCMetabolites(String s){
-        cMetabolitesFileBuilder.append(s);
+    public void writeReactions(List<String> ids){
+        for(String reactionId: ids){
+            WriteInReactions(reactionId);
+        }
+    }
+
+    public void writeReversibleReactions(List<String> ids){
+        for(String reactionId: ids){
+            WriteInReversibleReactions(reactionId);
+            writeBoundsForReversibleReaction(reactionId);
+        }
+    }
+
+
+    public void writeIrreversibleReactions(List<String> ids){
+        for(String reactionId: ids){
+            writeIrreversibleReactions(reactionId);
+            writeBoundsForReversibleReaction(reactionId);
+        }
+    }
+
+
+    public void WriteInReactions(String reactionID){
+        stringUtils
+                .SetString(reactionID)
+                .addSingleQuotes()
+                .addBreakLine();
+
+        reactionsBuilder.append(stringUtils.GetString());
+    }
+
+    public void WriteInSMatrix(String metaboliteID, double stoichiometry){
+        stringUtils.SetString(metaboliteID)
+                .addSingleQuotes()
+                .addEmptySpace()
+                .addDouble(stoichiometry)
+                .addBreakLine();
+
+        sMatrixBuilder.append(stringUtils.GetString());
+    }
+
+    public void WriteEMetabolite(String metaboliteID){
+        stringUtils
+                .SetString(metaboliteID)
+                .addSingleQuotes()
+                .addBreakLine();
+
+        eMetabolitesFileBuilder.append(stringUtils.GetString());
+    }
+
+    public void WriteCMetabolite(String metaboliteID){
+        stringUtils
+                .SetString(metaboliteID)
+                .addSingleQuotes()
+                .addBreakLine();
+
+        cMetabolitesFileBuilder.append(stringUtils.GetString());
     }
 
     public void WriteImUpBound(String s){
         upBoundFileBuilder.append(s);
     }
 
-    public void WriteInReversibleReactions(String s){
-        reversibleRxnBuilder.append(s);
+    public void WriteInReversibleReactions(String reactionID){
+        stringUtils
+                .SetString(reactionID)
+                .addSingleQuotes()
+                .addBreakLine();
+
+        reversibleRxnBuilder.append(stringUtils.GetString());
+    }
+
+    public void writeIrreversibleReactions(String reactionID){
+        stringUtils
+                .SetString(reactionID)
+                .addSingleQuotes()
+                .addBreakLine();
+
+        irreversibleRxnBuilder.append(stringUtils.GetString());
+    }
+
+    public void writeBoundsForReversibleReaction(String reactionName){
+        stringUtils.
+                SetString(reactionName).
+                addSingleQuotes().
+                addEmptySpace().
+                addInt(-1000).
+                addBreakLine();
+
+        WriteInLowBound(stringUtils.GetString());
+
+        stringUtils.
+                SetString(reactionName);
+        stringUtils.
+                addSingleQuotes().
+                addEmptySpace().
+                addInt(1000).
+                addBreakLine();
+
+        WriteImUpBound(stringUtils.GetString());
+    }
+
+    public void writeBoundsForUnreversibleReaction(String reactionId){
+        StringUtils stringUtils = new StringUtils();
+        stringUtils.
+                SetString(reactionId).
+                addSingleQuotes().
+                addEmptySpace().
+                addInt(0).
+                addBreakLine();
+        WriteInLowBound(stringUtils.GetString());
+
+        stringUtils.
+                SetString(reactionId).
+                addSingleQuotes().
+                addEmptySpace().
+                addInt(1000).
+                addBreakLine();
+
+        WriteImUpBound(stringUtils.GetString());
     }
 
     public void WriteInLowBound(String s){

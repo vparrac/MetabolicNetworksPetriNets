@@ -3,17 +3,17 @@ package metapenta.petrinet2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Transition<A extends Attributes> {
+public class Transition<A> {
     private String ID;
     private String label;
-    private Attributes attributes;
+    private A object;
     List<Edge> edgesIn;
     List<Edge> edgesOut;
 
-    public Transition(String id, String label, Attributes attributes) {
+    public Transition(String id, String label, A object) {
         ID = id;
         this.label = label;
-        this.attributes = attributes;
+        this.object = object;
         this.edgesIn = new ArrayList<>();
         this.edgesOut = new ArrayList<>();
     }
@@ -26,12 +26,12 @@ public class Transition<A extends Attributes> {
         return label;
     }
 
-    public Attributes getAttributes() {
-        return attributes;
+    public A getObject() {
+        return object;
     }
 
-    public void setAttributes(Attributes attributes){
-        this.attributes = attributes;
+    public void setObject(A attributes){
+        this.object = attributes;
     }
 
     public void setID(String ID){
@@ -42,14 +42,19 @@ public class Transition<A extends Attributes> {
         this.label = label;
     }
 
-    public void AddEdgeIn(Edge<?> transition){
-        this.edgesIn.add(transition);
+    public void AddEdgeIn(Edge<?> edge){
+        this.edgesIn.add(edge);
     }
+
+    public void AddEdgesIn(List<Edge<?>> edges){
+        for(Edge edge: edges){
+            this.edgesIn.add(edge);
+        }
+    }
+
+
     public void AddEdgeOut(Edge<?> transition){
         this.edgesOut.add(transition);
     }
 
-    public boolean stringAttributeFieldValueMatch(String field, String value){
-        return attributes.fieldValueMatch(field, value);
-    }
 }

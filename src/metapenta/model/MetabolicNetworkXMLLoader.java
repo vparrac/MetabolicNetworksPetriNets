@@ -20,7 +20,6 @@ import org.xml.sax.InputSource;
  * @author Jorge Duitama
  */
 public class MetabolicNetworkXMLLoader {
-
 	private static final String ELEMENT_NOTES = "notes";
 	private static final String ELEMENT_MODEL = "model";
 	private static final String ELEMENT_LISTPRODUCTS = "fbc:listOfGeneProducts";
@@ -91,21 +90,6 @@ public class MetabolicNetworkXMLLoader {
 		}
 		
 		throw new IOException("Malformed XML file. The element "+ELEMENT_MODEL+" could not be found");
-	}
-	
-		
-	
-	private void getNameModel(Element modelElem){
-		NodeList offspring = modelElem.getChildNodes();
-		for(int i=0;i<offspring.getLength();i++){  
-			Node node = offspring.item(i);
-			if (node instanceof Element){
-				Element elem = (Element)node;
-				if(ELEMENT_MODEL.equals(elem.getNodeName())) {
-					
-				}
-			}
-		}
 	}
 	
 	private MetabolicNetwork loadModel(Element modelElem) throws IOException {		

@@ -26,8 +26,6 @@ import metapenta.tools.StringUtils;
  */
 public class MetabolicNetwork {
 	private Map<String,GeneProduct> geneProducts = new TreeMap<String,GeneProduct>();
-
-	
 	private String name;
 
 	/**
@@ -111,6 +109,8 @@ public class MetabolicNetwork {
 	public Reaction getReaction(String id) {
 		return reactions.get(id);
 	}
+
+
 
 	/**
 	 * @return List of metabolites in the network
@@ -622,9 +622,6 @@ public class MetabolicNetwork {
 	 * 
 	 * @param first Lista metabolitos iniciales
 	 * @param last Met�bolito a producir
-	 * @param fileName1 Metabolic Network In CSV
-	 * @param fileName2 Reactions Graph In CSV
-	 * @param fileName3 Methabolic Path
 	 * @throws Exception
 	 */
 	public Set<String> shortestPathByMetabolitesNumber(List<String> first, String last){
@@ -891,10 +888,6 @@ public class MetabolicNetwork {
 
 	/**
 	 * Print the graph entered by parameter in a CSV
-	 * @param graph The graph to be printed, the graph represents the adyacent matrix of reactions
-	 * @param fileName the path of CSV
-	 * @param first The ids of initial metabolites
-	 * @param last the final metabolite
 	 * @throws Exception in errors of I/O
 	 */
 	public void printAllMetabolicNetworkInCSV(String fileName) throws IOException{
@@ -912,13 +905,6 @@ public class MetabolicNetwork {
 	 * Method that print the transition in the CSV entered by parameter 
 	 * @param t the transiton to be printed
 	 * @param out the Stream of the CSV
-	 * @param i A identifier	
-	 * @param j A identifier
-	 * @param metabolitesVisited a matrix where the rows are the metabolites, the first column indicate if exists the metabolite 
-	 * the second column is the reaction that allows to obtain the metabolite and the third column the distance of a initial reaction
-	 * @param transitionsVisited the transition that were printed 
-	 * @param first The initial ids of metabolites
-	 * @param last The final metabolite
 	 */
 	private void printATransitionInCSVToAllNetwork(Transition< Metabolite, Reaction> t, PrintStream out) {
 		List<Edge<Place< Metabolite, Reaction>>> metaInTransition = t.getInPlaces();		
@@ -1015,106 +1001,128 @@ public class MetabolicNetwork {
 	 */
 
 
-	public void GapFill(String prefixOut) throws Exception{
-		StringUtils stringUtils = new StringUtils();
+	public void describeNet(String prefixOut) throws Exception{
 		GapFillWriter gfw = new GapFillWriter(prefixOut);
 
-		Set<String> metabolitesKeys = places.keySet();
+		List<String> metaboliteIds = getMetaboliteIds();
+		gfw.writeMetabolites(metaboliteIds);
 
-		for(String key: metabolitesKeys){
-			Metabolite metabolite = places.get(key).getObject();
-			stringUtils
-					.SetString(metabolite.getId())
-					.addSingleQuotes()
-					.addEmptySpace()
-					.addBreakLine();
+		List<String> eMetaboliteIds = getEMetaboliteIds();
+		gfw.writeEMetabolites(eMetaboliteIds);
 
-			gfw.WriteInMetabolites(stringUtils.GetString());
+		List<String> cMetaboliteIds = getCMetaboliteIds();
+		gfw.writeCMetabolites(cMetaboliteIds);
 
-			if (metabolite.getCompartment().equals("e")){
-				stringUtils
-						.SetString(metabolite.getId())
-						.addSingleQuotes()
-						.addBreakLine();
+		List<String> reactionIds = getReactionIds();
+		gfw.writeReactions(reactionIds);
 
-				gfw.WriteEMetabolites(stringUtils.GetString());
-			}
-			else {
-				stringUtils
-						.SetString(metabolite.getId())
-						.addSingleQuotes()
-						.addBreakLine();
+		List<String> reversibleReactionsIds = getReversibleReactionsIds();
+		gfw.writeReversibleReactions(reversibleReactionsIds);
 
-				gfw.WriteCMetabolites(stringUtils.GetString());
-			}
-		}
+		List<String> irreversibleReactionsIds = getIrreversibleReactionsIds();
+		gfw.writeIrreversibleReactions(irreversibleReactionsIds);
 
 		Set<Integer> keys = transitions.keySet();
 		for (Integer key: keys){
 			Transition<Metabolite,Reaction> transition = transitions.get(key);
-			stringUtils
-					.SetString(transition.getObject().getId())
-					.addSingleQuotes()
-					.addBreakLine();
-
-			gfw.WriteInReactions(stringUtils.GetString());
-
-			Reaction r = transition.getObject();
-			List<ReactionComponent> reactants = r.getReactants();
+			Reaction reaction = transition.getObject();
+			List<ReactionComponent> reactants = reaction.getReactants();
 			for (ReactionComponent reactant: reactants){
-				stringUtils.SetString(reactant.getMetabolite().getId())
-						.addSingleQuotes()
-						.addEmptySpace()
-						.addDouble(-reactant.getStoichiometry())
-						.addBreakLine();
-				gfw.WriteInSMatrix(stringUtils.GetString());
+				Metabolite reactantMetabolite = reactant.getMetabolite();
+;				double reactantStoichiometry = - reactant.getStoichiometry();
+				gfw.WriteInSMatrix(reactantMetabolite.getId(), reactantStoichiometry);
 			}
 
-			List<ReactionComponent> products = r.getProducts();
+			List<ReactionComponent> products = reaction.getProducts();
 			for (ReactionComponent product: products){
-				stringUtils.SetString(product.getMetabolite().getId())
-						.addSingleQuotes()
-						.addEmptySpace()
-						.addDouble(product.getStoichiometry())
-						.addBreakLine();
-
-				gfw.WriteInSMatrix(stringUtils.GetString());
-			}
-
-			if (r.isReversible()){
-				stringUtils
-						.SetString(r.getId())
-						.addSingleQuotes()
-						.addBreakLine();
-
-				gfw.WriteInReversibleReactions(stringUtils.GetString());
-				boundsForReversibleReaction(r.getId(), gfw);
-			} else {
-				boundsForUnreversibleReaction(r.getId(), gfw);
+				Metabolite productMetabolite = product.getMetabolite();
+				gfw.WriteInSMatrix(productMetabolite.getId(), product.getStoichiometry());
 			}
 		}
 
 		gfw.Write();
 	}
-	private void boundsForReversibleReaction(String reactionName, GapFillWriter gfw){
-		StringUtils stringUtils = new StringUtils();
-		stringUtils.SetString(reactionName).addSingleQuotes().addEmptySpace().addInt(-1000).addBreakLine();
-		gfw.WriteInLowBound(stringUtils.GetString());
 
-		stringUtils.SetString(reactionName);
-		stringUtils.addSingleQuotes().addEmptySpace().addInt(1000).addBreakLine();
-		gfw.WriteImUpBound(stringUtils.GetString());
+	public List<String> getMetaboliteIds(){
+		List<String> metabolitesIds = new ArrayList();
+		Set<String> metabolitesKeys = places.keySet();
+
+		for(String key: metabolitesKeys) {
+			Metabolite metabolite = places.get(key).getObject();
+			metabolitesIds.add(metabolite.getId());
+		}
+
+		return metabolitesIds;
 	}
 
-	private void boundsForUnreversibleReaction(String reactionName,  GapFillWriter gfw){
-		StringUtils stringUtils = new StringUtils();
-		stringUtils.SetString(reactionName).addSingleQuotes().addEmptySpace().addInt(0).addBreakLine();
-		gfw.WriteInLowBound(stringUtils.GetString());
+	public List<String> getEMetaboliteIds(){
+		List<String> metabolitesIds = new ArrayList();
+		Set<String> metabolitesKeys = places.keySet();
 
-		stringUtils.SetString(reactionName).addSingleQuotes().addEmptySpace().addInt(1000).addBreakLine();
-		gfw.WriteImUpBound(stringUtils.GetString());
+		for(String key: metabolitesKeys) {
+			Metabolite metabolite = places.get(key).getObject();
+			if (metabolite.getCompartment().equals("e")){
+				metabolitesIds.add(metabolite.getId());
+			}
+		}
+
+		return metabolitesIds;
 	}
 
+	public List<String> getCMetaboliteIds(){
+		List<String> metabolitesIds = new ArrayList();
+		Set<String> metabolitesKeys = places.keySet();
+
+		for(String key: metabolitesKeys) {
+			Metabolite metabolite = places.get(key).getObject();
+			if (!metabolite.getCompartment().equals("e")){
+				metabolitesIds.add(metabolite.getId());
+			}
+		}
+
+		return metabolitesIds;
+	}
+
+	public List<String> getReactionIds(){
+		List<String> reactionIds = new ArrayList();
+		Set<Integer> keys = transitions.keySet();
+
+		for(Integer key: keys) {
+			Reaction reaction = transitions.get(key).getObject();
+			reactionIds.add(reaction.getId());
+		}
+
+		return reactionIds;
+	}
+
+
+	public List<String> getReversibleReactionsIds(){
+		List<String> reactionIds = new ArrayList();
+		Set<Integer> keys = transitions.keySet();
+
+		for(Integer key: keys) {
+			Reaction reaction = transitions.get(key).getObject();
+			if(reaction.isReversible()){
+				reactionIds.add(reaction.getId());
+			}
+		}
+
+		return reactionIds;
+	}
+
+	public List<String> getIrreversibleReactionsIds(){
+		List<String> reactionIds = new ArrayList();
+		Set<Integer> keys = transitions.keySet();
+
+		for(Integer key: keys) {
+			Reaction reaction = transitions.get(key).getObject();
+			if(!reaction.isReversible()){
+				reactionIds.add(reaction.getId());
+			}
+		}
+
+		return reactionIds;
+	}
 
 	public Map<String, Integer> connectedComponents() {				
 		int[] metabolitesVisited = new int[places.size()+1];
