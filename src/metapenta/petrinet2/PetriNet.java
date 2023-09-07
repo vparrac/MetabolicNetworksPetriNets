@@ -3,9 +3,8 @@ package metapenta.petrinet2;
 import metapenta.model.Metabolite;
 import metapenta.model.Reaction;
 import metapenta.model.ReactionComponent;
-import metapenta.tools.GapFillWriter;
+import metapenta.tools.DescribeNetworkWriter;
 
-import java.io.IOException;
 import java.util.*;
 
 public class PetriNet implements IPetriNet {
@@ -18,6 +17,10 @@ public class PetriNet implements IPetriNet {
     }
     public Map<String, Transition<Reaction>> getTransitions() {
         return transitions;
+    }
+
+    public Transition getTransition(String key){
+        return transitions.get(key);
     }
 
     public Map<String, Place<Metabolite>> getPlaces() {
@@ -67,9 +70,8 @@ public class PetriNet implements IPetriNet {
     }
 
 
-
-    public void describeNet(String prefixOut) throws Exception {
-        GapFillWriter gfw = new GapFillWriter(prefixOut);
+    public void describeMetabolicNetwork(String prefixOut) throws Exception {
+        DescribeNetworkWriter gfw = new DescribeNetworkWriter(prefixOut);
 
         List<String> metaboliteIds = getMetaboliteIds();
         gfw.writeMetabolites(metaboliteIds);

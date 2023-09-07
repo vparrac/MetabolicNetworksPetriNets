@@ -15,6 +15,7 @@ public class MetaPenta implements IMetaPenta{
     public MetaPenta(String networkFile){
         try {
             loader = new MetabolicNetworkXMLLoader();
+            petriNet = new PetriNet();
             MetabolicNetwork network = loader.loadNetwork(networkFile);
             loadPetriNet(network);
         } catch (IOException e) {
@@ -24,7 +25,12 @@ public class MetaPenta implements IMetaPenta{
 
     @Override
     public void describeMetabolicNetwork(String outFilePrefix) throws Exception {
-        petriNet.describeNet(outFilePrefix);
+        petriNet.describeMetabolicNetwork(outFilePrefix);
+    }
+
+    @Override
+    public void getSinks(String outFilePrefix) throws Exception {
+        petriNet.getSinks();
     }
 
     private void loadPetriNet(MetabolicNetwork network){
@@ -40,14 +46,17 @@ public class MetaPenta implements IMetaPenta{
 
             List<ReactionComponent> products = reaction.getProducts();
             List<Edge> edgesOut = this.loadMetabolitesAndCreateEdgeList(products);
-            transition.AddEdgesIn(edgesOut);
-
+            transition.AddEdgesOut(edgesOut);
         }
     }
 
     private Transition createAndLoadTransitionToPetriNet(Reaction reaction){
-        Transition<Reaction> transition = new Transition(reaction.getId(), reaction.getName(), reaction);
-        petriNet.AddTransition(reaction.getId(), transition);
+        Transition transition = petriNet.getTransition(reaction.getId());
+
+        if ( transition == null ){
+            transition = new Transition(reaction.getId(), reaction.getName(), reaction);
+            petriNet.AddTransition(reaction.getId(), transition);
+        }
 
         return transition;
     }

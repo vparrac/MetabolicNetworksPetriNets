@@ -17,8 +17,7 @@ import java.util.TreeSet;
 import metapenta.petrinet.Edge;
 import metapenta.petrinet.Place;
 import metapenta.petrinet.Transition;
-import metapenta.tools.GapFillWriter;
-import metapenta.tools.StringUtils;
+import metapenta.tools.DescribeNetworkWriter;
 
 /**
  * Represents a metabolic network of reactions on metabolites
@@ -1002,7 +1001,7 @@ public class MetabolicNetwork {
 
 
 	public void describeNet(String prefixOut) throws Exception{
-		GapFillWriter gfw = new GapFillWriter(prefixOut);
+		DescribeNetworkWriter gfw = new DescribeNetworkWriter(prefixOut);
 
 		List<String> metaboliteIds = getMetaboliteIds();
 		gfw.writeMetabolites(metaboliteIds);
@@ -1085,11 +1084,10 @@ public class MetabolicNetwork {
 
 	public List<String> getReactionIds(){
 		List<String> reactionIds = new ArrayList();
-		Set<Integer> keys = transitions.keySet();
+		Set<String> keys = reactions.keySet();
 
-		for(Integer key: keys) {
-			Reaction reaction = transitions.get(key).getObject();
-			reactionIds.add(reaction.getId());
+		for(String key: keys) {
+			reactionIds.add(key);
 		}
 
 		return reactionIds;

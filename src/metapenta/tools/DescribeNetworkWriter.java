@@ -1,12 +1,10 @@
 package metapenta.tools;
 
-import metapenta.commands.GapFIll;
-
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class GapFillWriter {
+public class DescribeNetworkWriter {
 
     private StringBuilder metabolitesBuilder = new StringBuilder();
     private StringBuilder reactionsBuilder = new StringBuilder();
@@ -30,7 +28,7 @@ public class GapFillWriter {
     private String loBoundsFile;
     private StringUtils stringUtils;
 
-    public GapFillWriter(String prefix){
+    public DescribeNetworkWriter(String prefix){
         this.prefix = prefix;
         this.metabolitesFileName = prefix + "_compounds.txt";
         this.reactionsFile = prefix + "_reactions.txt";

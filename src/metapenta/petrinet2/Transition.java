@@ -51,10 +51,14 @@ public class Transition<A> {
             this.edgesIn.add(edge);
         }
     }
-
-
     public void AddEdgeOut(Edge<?> transition){
         this.edgesOut.add(transition);
+    }
+
+    public void AddEdgesOut(List<Edge> edgesOut){
+        for(Edge edge: edgesOut){
+            this.edgesOut.add(edge);
+        }
     }
 
 }
