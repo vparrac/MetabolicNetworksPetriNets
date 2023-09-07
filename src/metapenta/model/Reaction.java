@@ -162,4 +162,6 @@ public class Reaction {
 	public Reaction clone() {
 		return new Reaction(id, name, reactants, products);
 	}
+
+
 }

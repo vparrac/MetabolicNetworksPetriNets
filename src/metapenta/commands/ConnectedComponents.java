@@ -8,14 +8,13 @@ import metapenta.model.MetabolicNetwork;
 import metapenta.model.MetabolicNetworkXMLLoader;
 /**
  * Class to test connected components method
- * @author Valerie Parra Cortés
+ * @author Valerie Parra Cortï¿½s
  */
 public class ConnectedComponents {
 
 	/**
 	 * Class to test the conncected components of the metabolic networkd
-	 * @param args[0] the path of the XML file 
-	 * @param args[1] out file in csv	
+	 * @param args [0] the path of the XML file and args[1] out file in csv
 	 * @throws Exception if exists any error of I/O
 	 */
 	public static void main(String[] args) throws Exception {
