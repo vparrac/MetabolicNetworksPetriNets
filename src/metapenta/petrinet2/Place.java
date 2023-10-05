@@ -22,6 +22,7 @@ public class Place<O> {
         this.edgesOut = new ArrayList<>();
     }
     public void setLabel(String label) {
+    	
         this.label = label;
     }
     public void setId(String ID) {

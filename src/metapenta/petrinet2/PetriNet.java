@@ -4,6 +4,7 @@ import metapenta.model.Metabolite;
 import metapenta.model.Reaction;
 import metapenta.model.ReactionComponent;
 import metapenta.tools.DescribeNetworkWriter;
+import metapenta.tools.SourceSinksFInderWriter;
 
 import java.util.*;
 
@@ -39,11 +40,8 @@ public class PetriNet implements IPetriNet {
         this.transitions = transitions;
     }
 
-    @Override
-    public List<Place<?>> getSources() {
-        return getPlacesByStatus(Place.SOURCE);
-    }
-
+ 
+    
     @Override
     public List<Place<?>> getSinks() {
         return getPlacesByStatus(Place.SINK);
@@ -68,6 +66,14 @@ public class PetriNet implements IPetriNet {
         }
         return sources;
     }
+    
+    public void getSources(String prefixOut) throws Exception{
+    	List<Place<?>> sources = getPlacesByStatus(Place.SOURCE);
+    	SourceSinksFInderWriter gfw = new SourceSinksFInderWriter(prefixOut);
+    	gfw.writeSources(sources);
+    	gfw.Write();
+    }
+
 
 
     public void describeMetabolicNetwork(String prefixOut) throws Exception {
@@ -192,6 +198,11 @@ public class PetriNet implements IPetriNet {
 
         return reactionIds;
     }
+	@Override
+	public List<Place<?>> getSources() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 

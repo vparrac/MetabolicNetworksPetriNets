@@ -6,17 +6,19 @@ import metapenta.petrinet2.Transition;
 import metapenta.petrinet2.PetriNet;
 
 import java.io.IOException;
+import java.nio.channels.NetworkChannel;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MetaPenta implements IMetaPenta{
     private MetabolicNetworkXMLLoader loader;
     private PetriNet petriNet;
+    private MetabolicNetwork network;
     public MetaPenta(String networkFile){
         try {
             loader = new MetabolicNetworkXMLLoader();
             petriNet = new PetriNet();
-            MetabolicNetwork network = loader.loadNetwork(networkFile);
+            network = loader.loadNetwork(networkFile);
             loadPetriNet(network);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -28,6 +30,11 @@ public class MetaPenta implements IMetaPenta{
         petriNet.describeMetabolicNetwork(outFilePrefix);
     }
 
+    @Override
+    public void sourcesFinder(String outFilePrefix) throws Exception {
+        petriNet.getSources(outFilePrefix);
+        
+    }
     @Override
     public void getSinks(String outFilePrefix) throws Exception {
         petriNet.getSinks();
