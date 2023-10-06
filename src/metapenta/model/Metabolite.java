@@ -9,7 +9,7 @@ public class Metabolite {
 	private String id;
 	private String name;
 	private String compartment;
-	private String chemicalFormula;	
+	private ChemicalFormula chemicalFormula;	
 	
 	/**
 	 * Creates a new metabolite with the given information
@@ -21,15 +21,12 @@ public class Metabolite {
 		super();
 		this.id = id;
 		this.name = name;
-		this.compartment = compartment;		
-		
-		
-		
+		this.compartment = compartment;
 	}
 	/**
 	 * @return String chemical formula of this metabolite 
 	 */
-	public String getChemicalFormula() {
+	public ChemicalFormula getChemicalFormula() {
 		return chemicalFormula;
 	}
 	/**
@@ -37,7 +34,8 @@ public class Metabolite {
 	 * @param chemicalFormula new formula
 	 */
 	public void setChemicalFormula(String chemicalFormula) {
-		this.chemicalFormula = chemicalFormula;
+		ChemicalFormula formula = new ChemicalFormula(chemicalFormula);
+		this.chemicalFormula = formula;
 	}
 	/**
 	 * @return id of this metabolite

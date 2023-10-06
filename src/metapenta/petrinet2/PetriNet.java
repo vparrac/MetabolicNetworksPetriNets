@@ -44,7 +44,8 @@ public class PetriNet implements IPetriNet {
     
     @Override
     public List<Place<?>> getSinks() {
-        return getPlacesByStatus(Place.SINK);
+        //return getPlacesByStatus(Place.SINK);
+    	return null;
     }
 
 
@@ -57,22 +58,22 @@ public class PetriNet implements IPetriNet {
     }
 
 
-    private List<Place<?>> getPlacesByStatus(String status){
-        List<Place<?>> sources = new ArrayList<>();
-        for (String key : places.keySet()) {
-            if (places.get(key).isStatus(status)){
-                sources.add(places.get(key));
-            }
-        }
-        return sources;
-    }
+//    private List<Place<?>> getPlacesByStatus(String status){
+//        List<Place<?>> sources = new ArrayList<>();
+//        for (String key : places.keySet()) {
+//            if (places.get(key).isStatus(status)){
+//                sources.add(places.get(key));
+//            }
+//        }
+//        return sources;
+//    }
     
-    public void getSources(String prefixOut) throws Exception{
-    	List<Place<?>> sources = getPlacesByStatus(Place.SOURCE);
-    	SourceSinksFInderWriter gfw = new SourceSinksFInderWriter(prefixOut);
-    	gfw.writeSources(sources);
-    	gfw.Write();
-    }
+//    public void getSources(String prefixOut) throws Exception{
+//    	List<Place<?>> sources = getPlacesByStatus(Place.SOURCE);
+//    	SourceSinksFInderWriter gfw = new SourceSinksFInderWriter(prefixOut);
+//    	gfw.writeSources(sources);
+//    	gfw.Write();
+//    }
 
 
 

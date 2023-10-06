@@ -1,6 +1,9 @@
 package metapenta.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Represents a reaction between metabolites
@@ -123,6 +126,31 @@ public class Reaction {
 			}			
 		}
 		return reactantSring;
+	}
+	
+	private List<Map<String, Integer>> getListElements(List<ReactionComponent> reactionsComponent) {
+		List<Map<String, Integer>> listElements = new ArrayList<>();
+		for(ReactionComponent reaction: reactionsComponent) {
+			Map<String, Integer> elements = reaction.getFormulaReactionComponent();
+			listElements.add(elements);
+		}
+			return listElements;
+	}
+	
+	private Map<String, Integer> getSumElements(List<Map<String, Integer>> listElements) {
+		Map<String, Integer> sum = listElements.stream().flatMap(elements -> elements.entrySet().stream()).collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue,Integer::sum));
+		return sum;
+	}
+	
+	public boolean isBalance() {
+		List<Map<String, Integer>> listElemReactants = getListElements(reactants);
+		Map<String, Integer> sumlistElemReactants = getSumElements(listElemReactants);
+		
+		List<Map<String, Integer>> listElemProducts = getListElements(products);
+		Map<String, Integer> sumlistElemProducts = getSumElements(listElemProducts);
+		
+		return sumlistElemReactants.equals(sumlistElemProducts);
+		
 	}
 
 	/**

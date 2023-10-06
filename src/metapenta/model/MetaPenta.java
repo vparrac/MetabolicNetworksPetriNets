@@ -32,7 +32,7 @@ public class MetaPenta implements IMetaPenta{
 
     @Override
     public void sourcesFinder(String outFilePrefix) throws Exception {
-        petriNet.getSources(outFilePrefix);
+        //petriNet.getSources(outFilePrefix);
         
     }
     @Override

@@ -34,6 +34,6 @@ public class SourcesFinder {
 //			out.print("]}");			
 //		}
 		IMetaPenta network = new MetaPenta(args[0]);
-        network.sourcesFinder(args[1]);
+        //network.sourcesFinder(args[1]);
 	}
 }

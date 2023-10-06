@@ -257,6 +257,7 @@ public class MetabolicNetworkXMLLoader {
 						throw new IOException("Invalid stoichiometry "+stchmStr+" for metabolite "+metabId+" in reaction "+reactionId,e);
 					}
 					ReactionComponent component = new ReactionComponent(m, stoichiometry);
+					component.setFormulaReactionComponent(m);
 					answer.add(component);
 				}
 			}

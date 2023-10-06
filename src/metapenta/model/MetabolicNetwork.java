@@ -228,6 +228,23 @@ public class MetabolicNetwork {
 		reaction.put("Products", rproducts);
 		return reaction;
 	}
+	public List<Reaction> getReactionsBalance() {
+		List<Reaction> reactionsBalanced = new ArrayList<>();
+		
+		Set<String> keys=reactions.keySet();		
+		for (String key : keys) {
+			Reaction reaction = reactions.get(key);
+			boolean isBalance = reaction.isBalance();
+			
+			if(isBalance) {
+				reactionsBalanced.add(reaction);
+			}
+		}		
+		return reactionsBalanced;
+	}
+	
+	
+	
 	/**
 	 * Find the reactions where the enzyme is the catalyst
 	 * @param enzymeName the id of Enzume

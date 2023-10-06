@@ -60,13 +60,13 @@ public class Place<O> {
         this.edgesOut.add(transition);
     }
 
-    public boolean isStatus(String status){
-        return switch (status) {
-            case SINK -> isSource();
-            case SOURCE -> isSink();
-            default -> false;
-        };
-    }
+//    public boolean isStatus(String status){
+//        return switch (status) {
+//            case SINK -> isSource();
+//            case SOURCE -> isSink();
+//            default -> false;
+//        };
+//    }
 
     public boolean isSource(){
         return edgesIn.isEmpty();
