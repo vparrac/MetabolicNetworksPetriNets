@@ -1,6 +1,7 @@
 package metapenta.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,6 +19,7 @@ public class Reaction {
 	private double lowerBoundFlux = -1000;
 	private double upperBoundFlux = 1000;
 	private List<GeneProduct> enzymes;
+	private Map<String, Integer> stoichiometryDifference;
 	/**
 	 * Creates a new reaction with the given information
 	 * @param id of the reaction
@@ -152,6 +154,31 @@ public class Reaction {
 		return sumlistElemReactants.equals(sumlistElemProducts);
 		
 	}
+	
+	public Map<String, Integer> getDifference() {
+        List<Map<String, Integer>> listElemReactants = getListElements(reactants);
+        Map<String, Integer> sumlistElemReactants = getSumElements(listElemReactants);
+
+        List<Map<String, Integer>> listElemProducts = getListElements(products);
+        Map<String, Integer> sumlistElemProducts = getSumElements(listElemProducts);
+
+        Map<String, Integer> difference = new HashMap<>();
+
+        for (String key : sumlistElemReactants.keySet()) {
+        	int reactantValue = sumlistElemReactants.getOrDefault(key, 0);
+            int productValue = sumlistElemProducts.getOrDefault(key, 0);
+
+            if (reactantValue - productValue != 0) {
+                difference.put(key, reactantValue - productValue);
+            }
+        }
+        System.out.println("DIFERENCIA");
+        for (Map.Entry<String, Integer> entry : difference.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+
+        return difference;
+    }
 
 	/**
 	 * Method that makes a String with the information about the products
@@ -172,6 +199,24 @@ public class Reaction {
 		}
 		return productString;
 	}
+//	private String printStoichiometryDifference() {
+//		String StoichiometryDifference="";
+//		
+//		for (Map.Entry<String, Integer> entry : stoichiometryDifference.entrySet()) {
+//			String
+//			
+//		}
+//
+//		for (int i = 0; i < products.size(); i++) {
+//			if(i==products.size()-1) {
+//				productString+=products.get(i).toString();
+//			}
+//			else {
+//				productString+=products.get(i).toString()+",";
+//			}			
+//		}
+//		return productString;
+//	}
 
 	@Override
 	public String toString() {

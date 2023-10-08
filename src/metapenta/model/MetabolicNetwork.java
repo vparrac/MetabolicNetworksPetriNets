@@ -228,7 +228,7 @@ public class MetabolicNetwork {
 		reaction.put("Products", rproducts);
 		return reaction;
 	}
-	public List<Reaction> getReactionsBalance() {
+	public List<Reaction> getReactionsBalanced() {
 		List<Reaction> reactionsBalanced = new ArrayList<>();
 		
 		Set<String> keys=reactions.keySet();		
@@ -241,6 +241,49 @@ public class MetabolicNetwork {
 			}
 		}		
 		return reactionsBalanced;
+	}
+	public List<Reaction> getReactionsUnbalanced() {
+		List<Reaction> reactionsBalanced = new ArrayList<>();
+		
+		Set<String> keys=reactions.keySet();		
+		for (String key : keys) {
+			Reaction reaction = reactions.get(key);
+			boolean isBalance = reaction.isBalance();
+			
+			if(!isBalance) {
+				reactionsBalanced.add(reaction);
+			}
+		}		
+		return reactionsBalanced;
+	}
+	
+	public void testBalanceo() {
+		List<Reaction> reactions = getReactionsUnbalanced();	
+		for (Reaction r : reactions) {
+			r.getDifference();
+			List<ReactionComponent> reactants= r.getReactants();
+			List<ReactionComponent> products= r.getProducts();
+			System.out.println("REACTANTES: ");
+			for(ReactionComponent reactant: reactants) {
+				//reactant.getDetailFormula();
+				Map<String, Integer> formula = reactant.getMetabolite().getChemicalFormula().getElements();
+				System.out.println("stoichimoetry: " + reactant.getStoichiometry());
+				for (Map.Entry<String, Integer> entry : formula.entrySet()) {
+		            System.out.println(entry.getKey() + ": " + entry.getValue());
+		        }
+			}
+			System.out.println("PRODUCTOS: ");
+			for(ReactionComponent product: products) {
+				
+				Map<String, Integer> formula = product.getMetabolite().getChemicalFormula().getElements();
+				System.out.println("stoichimoetry: " + product.getStoichiometry());
+				for (Map.Entry<String, Integer> entry : formula.entrySet()) {
+		            System.out.println(entry.getKey() + ": " + entry.getValue());
+		        }
+				
+			}
+			
+		}
 	}
 	
 	

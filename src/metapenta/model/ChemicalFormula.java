@@ -52,24 +52,36 @@ public class ChemicalFormula {
 			StringBuilder element = new StringBuilder();
 			StringBuilder stoichiom = new StringBuilder();
 			Integer stoichiometry = 0;
+			int terminaElemen = 0;
 			
 			if (Character.isLetter(e)){
 				element.append(e);
+				terminaElemen = i;
 				int j = i+1;
 				if(j < chemformula.length() && Character.isLowerCase(chemformula.charAt(j))) {
 					element.append(chemformula.charAt(j));
+					terminaElemen = j;
 				}
-				else if(j < chemformula.length() && Character.isDigit(chemformula.charAt(j))) {
-					stoichiom.append(chemformula.charAt(j));
-					Integer sig = j +1;
+				int num = terminaElemen+ 1;
+				if(num < chemformula.length() && Character.isDigit(chemformula.charAt(num))) {
+					stoichiom.append(chemformula.charAt(num));
+					Integer sig = num +1;
 					if (sig < chemformula.length() && Character.isDigit(chemformula.charAt(sig))) {
 						stoichiom.append(chemformula.charAt(sig));
+						Integer sig2 = sig +1;
+						if (sig2 < chemformula.length() && Character.isDigit(chemformula.charAt(sig2))) {
+							stoichiom.append(chemformula.charAt(sig2));
+						}
 					}	
 	            }
-				else if (j == chemformula.length() || Character.isUpperCase(chemformula.charAt(j))) {
-					stoichiom.append("1");
+				if( num == chemformula.length() || Character.isUpperCase(chemformula.charAt(num))) {
+					stoichiom.append('1');
+					
 				}
-				
+				System.out.println(chemformula);
+//				System.out.println(element);
+//				System.out.println(stoichiom);
+				i = terminaElemen;
 				stoichiometry =Integer.parseInt(stoichiom.toString());
 				elements.put(element.toString(), stoichiometry);
 			}
@@ -80,6 +92,7 @@ public class ChemicalFormula {
 			
 		}
 		for (Map.Entry<String, Integer> entry : elements.entrySet()) {
+			System.out.println("Formula: " + chemformula);
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
 		
