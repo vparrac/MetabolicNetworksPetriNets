@@ -38,6 +38,10 @@ public class ReactionComponent {
 		return stoichiometry;
 	}
 	
+	
+	public void setStoichiometry(double stoichiometry) {
+		this.stoichiometry = stoichiometry;
+	}
 	public Map<String, Integer> getFormulaReactionComponent() {
 		return formulaReactionComponent;
 	}

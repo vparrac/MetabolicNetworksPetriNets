@@ -20,6 +20,7 @@ public class Reaction {
 	private double upperBoundFlux = 1000;
 	private List<GeneProduct> enzymes;
 	private Map<String, Integer> stoichiometryDifference;
+	private boolean isBalanced = false;
 	/**
 	 * Creates a new reaction with the given information
 	 * @param id of the reaction
@@ -110,7 +111,14 @@ public class Reaction {
 	public void setUpperBoundFlux(double upperBound) {
 		this.upperBoundFlux = upperBound;
 	}
+	
 
+	public boolean isBalanced() {
+		return isBalanced;
+	}
+	public void setIsBalanced(boolean isBalanced) {
+		this.isBalanced = isBalanced;
+	}
 	/**
 	 * Method that makes a String with the information about the reactants
 	 * of the Reaction
@@ -151,6 +159,10 @@ public class Reaction {
 		List<Map<String, Integer>> listElemProducts = getListElements(products);
 		Map<String, Integer> sumlistElemProducts = getSumElements(listElemProducts);
 		
+		if(sumlistElemReactants.equals(sumlistElemProducts)) {
+			setIsBalanced(true);
+		}
+		
 		return sumlistElemReactants.equals(sumlistElemProducts);
 		
 	}
@@ -172,6 +184,14 @@ public class Reaction {
                 difference.put(key, reactantValue - productValue);
             }
         }
+        System.out.println("suma reactantes");
+        for (Map.Entry<String, Integer> entry : sumlistElemReactants.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+        System.out.println("suma productos");
+        for (Map.Entry<String, Integer> entry : sumlistElemProducts.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
         System.out.println("DIFERENCIA");
         for (Map.Entry<String, Integer> entry : difference.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
@@ -179,7 +199,107 @@ public class Reaction {
 
         return difference;
     }
+	
+	public boolean balanceReaction() {
+		List<Map<String, Integer>> listElemReactants = getListElements(reactants);
+		Map<String, Integer> sumlistElemReactants = getSumElements(listElemReactants);
+		
+		List<Map<String, Integer>> listElemProducts = getListElements(products);
+		Map<String, Integer> sumlistElemProducts = getSumElements(listElemProducts);
+		
+		int mcm = 0;
+		
+		for(Map<String, Integer> elementReactants: listElemReactants) {
+			if(elementReactants == null) {
+				setIsBalanced(false);
+			}
+		}
+		for(Map<String, Integer> elementProducts: listElemProducts) {
+			if(elementProducts == null) {
+				setIsBalanced(false);
+			}
+		}
+		
+		if(sumlistElemReactants.size() != sumlistElemProducts.size()) {
+			setIsBalanced(false);
+		}
+		else if (reactants.size() == 1 && products.size()==1) {
+			if(reactants.get(0).getStoichiometry() == 1.0 && products.get(0).getStoichiometry() == 1.0) {
+				ReactionComponent reactant = reactants.get(0);
+				ReactionComponent product = products.get(0);
+				
+				Map<String, Integer> formulaReactant = reactant.getFormulaReactionComponent();
+				Map<String, Integer> formulaProduct = product.getFormulaReactionComponent();
+				
+				
+				
+				if (formulaReactant.keySet().equals(formulaProduct.keySet())) {
+					int contIgual = 0;
+					String mayor = "";
+					
+					for (String element : formulaReactant.keySet()) {
+						
+						int numReactant = formulaReactant.get(element);
+		                int numProduct = formulaProduct.get(element);
+		                
+		                int a = Math.max(numReactant, numProduct);
+		                int b = Math.min(numReactant, numProduct);
+		                
+		                if (a == numReactant) {
+		                	mayor = "reactant";
+		                }else {
+		                	mayor = "product";
+		                }
+		                
+		                int mcmReactProduct = minimoComunMultiplo(a, b);
+		                
+		                if(mcm == 0) {
+		                	mcm = mcmReactProduct;
+		                	contIgual++;
+		                }else {
+		                	if(mcmReactProduct != mcm) {
+		                		setIsBalanced(false);
+		                		break;
+		                	}else {
+		                		contIgual++;
+		                	}
+		                }  
+						
+					}
+					if(contIgual == formulaReactant.keySet().size()) {
+						if(mayor.equals("reactant")) {
+							reactant.setStoichiometry(mcm);
+							if(isBalance()) {
+								setIsBalanced(true);
+							}
+						}
+						
+					}
+					
+					
+					
+				}
+			}
+		}
+		
+		return sumlistElemReactants.equals(sumlistElemProducts);
+		
+	}
+	
+	public static int maximoComunDivisor(int a, int b) {
+        int temporal;
+        while (b != 0) {
+            temporal = b;
+            b = a % b;
+            a = temporal;
+        }
+        return a;
+    }
 
+    public static int minimoComunMultiplo(int a, int b) {
+        // MCM(a, b) = (a * b) / MCD(a, b)
+        return (a * b) / maximoComunDivisor(a, b);
+    }
 	/**
 	 * Method that makes a String with the information about the products
 	 * of the reaction

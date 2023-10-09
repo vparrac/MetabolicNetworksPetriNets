@@ -243,7 +243,7 @@ public class MetabolicNetwork {
 		return reactionsBalanced;
 	}
 	public List<Reaction> getReactionsUnbalanced() {
-		List<Reaction> reactionsBalanced = new ArrayList<>();
+		List<Reaction> reactionsUnBalanced = new ArrayList<>();
 		
 		Set<String> keys=reactions.keySet();		
 		for (String key : keys) {
@@ -251,15 +251,16 @@ public class MetabolicNetwork {
 			boolean isBalance = reaction.isBalance();
 			
 			if(!isBalance) {
-				reactionsBalanced.add(reaction);
+				reactionsUnBalanced.add(reaction);
 			}
 		}		
-		return reactionsBalanced;
+		return reactionsUnBalanced;
 	}
 	
 	public void testBalanceo() {
 		List<Reaction> reactions = getReactionsUnbalanced();	
 		for (Reaction r : reactions) {
+			//Reaction r = reactions.get(1);
 			r.getDifference();
 			List<ReactionComponent> reactants= r.getReactants();
 			List<ReactionComponent> products= r.getProducts();
