@@ -228,6 +228,12 @@ public class MetabolicNetwork {
 		reaction.put("Products", rproducts);
 		return reaction;
 	}
+	
+	
+	/**
+	 * Method that find the balanced reactions 
+	 * @return The list of balanced reactions
+	 */
 	public List<Reaction> getReactionsBalanced() {
 		List<Reaction> reactionsBalanced = new ArrayList<>();
 		
@@ -242,6 +248,12 @@ public class MetabolicNetwork {
 		}		
 		return reactionsBalanced;
 	}
+	
+	/**
+	 * Method that find the unbalanced reactions 
+	 * @return The list of unbalanced reactions in 
+	 */
+
 	public List<Reaction> getReactionsUnbalanced() {
 		List<Reaction> reactionsUnBalanced = new ArrayList<>();
 		
