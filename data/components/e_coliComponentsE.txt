@@ -1,0 +1,25 @@
+2 oxoglutarate reversible transport via symport,0
+ATP synthase (four protons for one ATP),0
+Acetaldehyde reversible transport,0
+Acetate reversible transport via proton symport,0
+Ammonia reversible transport,0
+CO2 transporter via diffusion,0
+Cytochrome oxidase bd (ubiquinol-8: 2 protons),13
+D lactate transport via proton symport,0
+D-glucose transport via PEP:Pyr PTS,0
+Ethanol reversible transport via proton symport,0
+Formate transport in via proton symport,0
+Formate transport via diffusion,0
+Fructose transport via PEP:Pyr PTS (f6p generating),0
+Fumarate transport via proton symport (2 H),0
+H2O transport via diffusion,0
+L glutamate transport via proton symport  reversible,0
+L-glutamine transport via ABC system,0
+Malate transport via proton symport (2 H),0
+NAD(P) transhydrogenase,0
+NADH dehydrogenase (ubiquinone-8 & 3 protons),13
+O2 transport  diffusion ,0
+Phosphate reversible transport via symport,0
+Pyruvate transport in via proton symport,0
+Succinate transport out via proton antiport,20
+Succinate transport via proton symport (2 H),0

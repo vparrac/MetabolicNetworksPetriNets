@@ -34,6 +34,9 @@ public class Reaction {
 		this.name = name;
 		this.reactants = reactants;
 		this.products = products;
+		if (isBalanced()) {
+			this.isBalanced = true;
+		}
 	}
 	/**
 	 * @return true if the reaction is reversible, false otherwise
@@ -113,7 +116,7 @@ public class Reaction {
 	}
 	
 
-	public boolean isBalanced() {
+	public boolean getIsBalanced() {
 		return isBalanced;
 	}
 	public void setIsBalanced(boolean isBalanced) {
@@ -152,16 +155,12 @@ public class Reaction {
 		return sum;
 	}
 	
-	public boolean isBalance() {
+	public boolean isBalanced() {
 		List<Map<String, Integer>> listElemReactants = getListElements(reactants);
 		Map<String, Integer> sumlistElemReactants = getSumElements(listElemReactants);
 		
 		List<Map<String, Integer>> listElemProducts = getListElements(products);
 		Map<String, Integer> sumlistElemProducts = getSumElements(listElemProducts);
-		
-		if(sumlistElemReactants.equals(sumlistElemProducts)) {
-			setIsBalanced(true);
-		}
 		
 		return sumlistElemReactants.equals(sumlistElemProducts);
 		
@@ -198,7 +197,51 @@ public class Reaction {
         }
 
         return difference;
-    }
+    } 
+	
+	public String casesNoBalanced() {
+		
+		String reason = "";
+		List<Map<String, Integer>> listElemReactants = getListElements(reactants);
+		Map<String, Integer> sumlistElemReactants = getSumElements(listElemReactants);
+		
+		List<Map<String, Integer>> listElemProducts = getListElements(products);
+		Map<String, Integer> sumlistElemProducts = getSumElements(listElemProducts);
+		
+		for(Map<String, Integer> elementReactants: listElemReactants) {
+			if(elementReactants == null) {
+				reason = "At least one reactant does not have chemical formula ";
+			}
+		}
+		for(Map<String, Integer> elementProducts: listElemProducts) {
+			if(elementProducts == null) {
+				reason = "At least one product does not have chemical formula ";
+			}
+		}
+		
+		if(sumlistElemReactants.size() != sumlistElemProducts.size()) {
+			reason = "Reactants and product do not have the same elements ";
+		}
+		else {
+			reason = "Sum of stoichiometric coefficients(reactants): ";
+	        for (Map.Entry<String, Integer> entry : sumlistElemReactants.entrySet()) {
+	            reason = reason + "{ "+entry.getKey() + ": " + entry.getValue()+ "} ";
+	        }
+	        reason = reason + "Sum of stoichiometric coefficients(products): ";
+	        for (Map.Entry<String, Integer> entry : sumlistElemProducts.entrySet()) {
+	        	reason = reason + "{ "+entry.getKey() + ": " + entry.getValue()+ "} ";
+	        }
+	        Map<String, Integer> difference = getDifference();
+	        reason = reason + "Difference between reactants and products: ";
+	        for (Map.Entry<String, Integer> entry : difference.entrySet()) {
+	        	reason = reason + "{ "+entry.getKey() + ": " + entry.getValue()+ "} ";
+	        }
+			
+		}
+		
+		return reason;
+		
+	}
 	
 	public boolean balanceReaction() {
 		List<Map<String, Integer>> listElemReactants = getListElements(reactants);
@@ -269,7 +312,7 @@ public class Reaction {
 					if(contIgual == formulaReactant.keySet().size()) {
 						if(mayor.equals("reactant")) {
 							reactant.setStoichiometry(mcm);
-							if(isBalance()) {
+							if(isBalanced()) {
 								setIsBalanced(true);
 							}
 						}

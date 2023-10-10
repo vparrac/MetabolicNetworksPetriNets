@@ -1,0 +1,353 @@
+(R)-Propane-1,2-diol transport via diffusion (extracellular to periplasm),0
+(S)-Propane-1,2-diol transport via diffusion (extracellular to periplasm),0
+1,4-alpha-D-glucan transport via diffusion (extracellular to periplasm) irreversible,0
+1,5-Diaminopentane transport via diffusion (extracellular to periplasm),0
+1-deoxy-d-xyluose transport,0
+2,3-diaminopropionate transport via diffusion,0
+2-O-alpha-mannosyl-D-glycerate transport via diffusion (extracellular to periplasm),0
+2-dehydro-3-deoxy-D-gluconate transport via diffusion (extracellular to periplasm),0
+23cAMP transport via diffusion (extracellular to periplasm),0
+23cCMP transport via diffusion (extracellular to periplasm),0
+23cGMP transport via diffusion (extracellular to periplasm),0
+23cUMP transport via diffusion (extracellular to periplasm),0
+23dhbsz secretion,10
+23dhbsz3  Fe III import,0
+23dhbsz3 Fe III sequestration,122
+3 Phospho D glycerate transport via diffusion extracellular to periplasm ,0
+3-(3-hydroxyphenyl)propionate transport via diffusion (extracellular to periplasm),0
+3-hydroxycinnamic acid transport via diffusion (extracellular to periplasm),0
+3-phenylpropionate transport via diffusion (extracellular to periplasm),0
+3AMP transport via diffusion (extracellular to periplasm),0
+3CMP transport via diffusion (extracellular to periplasm),0
+3GMP transport via diffusion (extracellular to periplasm),0
+3UMP transport via diffusion (extracellular to periplasm),0
+4 Aminobenzoate mitochondrial transport via diffusion,24
+4 hydroxyphenylacetate transport via diffusion extracellular to periplasm ,0
+4-aminobutyrate transport via diffusion (extracellular to periplasm),0
+4-hydroxy-L-threonine transport,0
+4-hydroxyphenylacetaldehyde transport via diffusion (extracellular to periplasm),0
+5-Dehydro-D-gluconate transport via diffusion (extracellular to periplasm),0
+AEP transport via diffusion extracellular to periplasm ,0
+AMP transport via diffusion (extracellular to periplasm),0
+Acetaldehyde transport via diffusion (extracellular to periplasm),0
+Acetate transport via diffusion (extracellular to periplasm),0
+Acetoacetate transport via diffusion (extracellular to periplasm),0
+Adenine transport via diffusion (extracellular to periplasm),0
+Adenosine transport via diffusion (extracellular to periplasm),0
+Adenosylcobalimin transport via ton system (extermal),0
+Aerobactin Fe-loading reaction (spontaneous),60
+Aerobactin secretion (to extracellular),59
+Aerobactin transport via ton system (extracellular),0
+Agmatine transport via diffusion (extracellular to periplasm),0
+Allantoin transport via diffusion (extracellular to periplasm),0
+Allose transport via diffusion (extracellular to periplasm),0
+Alpha-ketoglutarate transport via diffusion (extracellular to periplasm),0
+Aminoimidazole riboside transport via diffusion extracellular to periplasm ,0
+Ammonia transport via diffusion (extracellular to periplasm),0
+Arabinose modified core oligosaccharide lipid A transport via vector (periplasm to extracellular),41
+Arsenite transport via diffusion (extracellular to periplasm),0
+Beta D-galactose transport via diffusion (extracellular to periplasm),0
+Beta-alanine transport via diffusion (extracellular to periplasm),0
+Biomass equation from http://www.biomedcentral.com/1752-0509/3/38,0
+Biomass equation from http://www.biomedcentral.com/1752-0509/3/38 including metals from iAF1260 biomass function,0
+Butanesulfonate transport via diffusion (extracellular to periplasm),0
+Butyrate transport via diffusion (extracellular to periplasm),0
+CMP transport via diffusion (extracellular to periplasm),0
+CO2 transport via diffusion (extracellular to periplasm),0
+Cadmium (Cd+2) transport via diffusion (extracellular to periplasm),0
+Calcium (Ca+2) transport via diffusion (extracellular to periplasm),0
+Chitobiose transport into periplasm,0
+Chloride (Cl-1) transport via diffusion (extracellular to periplasm),0
+Choline transport via diffusion (extracellular to periplasm),0
+Cisaconitat transport via diffusion extracellular to periplasm ,0
+Citrate transport via diffusion (extracellular to periplasm),0
+Citrate transport via diffusion extracellular to periplasm ,0
+Cob(1)alamin transport via ton system (extermal),0
+Cobalt (Co+2) transport via diffusion (extracellular to periplasm),0
+Cobinamide transport via ton system (extermal),0
+Cold lipid A transport via vector (periplasm to extracellular),206
+Copper (Cu+1) transport via diffusion (extracellular to periplasm),0
+Copper (Cu+2) transport via diffusion (extracellular to periplasm),0
+Coprogen Fe-loading reaction (spontaneaous),83
+Coprogen transport via ton system (extracellular),0
+Coprogen unloaded secretion (extracellular),83
+Core oligosaccharide lipid A transport via vector (periplasm to extracellular),82
+Core oligosaccharide lipid A:hexadecanoate transferase (n-C16:0) (extracellular membrane),184
+Cyanate transport via diffusion (extracellular to periplasm),0
+Cyanide transport via diffusion (extracellular to periplasm),0
+Cytidine transport via diffusion (extracellular to periplasm),0
+Cytosine transport via diffusion (extracellular to periplasm),0
+D Glycerate 2 phosphate transport via diffusion extracellular to periplasm ,0
+D Tagatose transport via diffusion extracellular to periplasm ,0
+D-Alanine transport via diffusion (extracellular to periplasm),0
+D-Malate transport via diffusion (extracellular to periplasm),0
+D-alanyl-D-alanine (DalaDala) transport via diffusion (extracellular to periplasm),0
+D-cysteine transport via diffusion (extracellular to periplasm),0
+D-fructose transport via diffusion (extracellular to periplasm),0
+D-fructuronate transport via diffusion (extracellular),0
+D-galactarte transport via diffusion (extracellular to periplasm),0
+D-galactonate transport via diffusion (extracellular to periplasm),0
+D-galactose 1-phosphate transport via diffusion (extracellular to periplasm),0
+D-galactose transport via diffusion (extracellular to periplasm),0
+D-galacturonate transport via diffusion (extracellular to periplasm),0
+D-glucarate transport via diffusion (extracellular to periplasm),0
+D-gluconate transport via diffusion (extracellular to periplasm),0
+D-glucosamine 6-phosphate transport via diffusion (extracellular to periplasm),0
+D-glucosamine transport via diffusion (extracellular to periplasm),0
+D-glucose 1-phosphate transport via diffusion,0
+D-glucuronat transport via diffusion (extracellular to periplasm),0
+D-glucuronate 1-phosphate transport via diffusion (extracellular to periplasm),0
+D-glycerate transport via diffusion (extracellular to periplasm),0
+D-lactate transport via diffusion (extracellular to periplasm),0
+D-mannose transport via diffusion (extracellular to periplasm),0
+D-methionine transport via diffusion (extracellular to periplasm),0
+D-serine transport via diffusion (extracellular to periplasm),0
+D-sorbitol transport via diffusion (extracellular to periplasm),0
+D-tartrate transport via diffusion (extracellular to periplasm),0
+D-xylose transport via diffusion (extracellular to periplasm),0
+DAMP transport via diffusion (extracellular to periplasm),0
+DCMP transport via diffusion (extracellular to periplasm),0
+DGMP transport via diffusion (extracellular to periplasm),0
+DIMP transport via diffusion (extracellular to periplasm),0
+DTMP transport via diffusion (extracellular to periplasm),0
+DUMP transport via diffusion (extracellular to periplasm),0
+Decanoate transport via diffusion (extracellular to periplasm),0
+Deoxyadenosine transport via diffusion (extracellular to periplasm),0
+Deoxycytidine transport via diffusion (extracellular to periplasm),0
+Deoxyguanosine transport via diffusion (extracellular to periplasm),0
+Deoxyinosine transport via diffusion (extracellular to periplasm),0
+Deoxyribose transport via diffusion extracellular to periplasm ,0
+Deoxyuridine transport via diffusion (extracellular to periplasm),0
+Dihydroxyacetone transport via diffusion (extracellular to periplasm),0
+Dihydroxyphenylacetaldehyde transport via diffusion (extracellular to periplasm),0
+Dimethyl sulfide transport via diffusion (extracellular to periplasm),0
+Dimethyl sulfoxide transport via diffusion (extracellular to periplasm),0
+Dopamine transport via diffusion (extracellular to periplasm),0
+E. coli biomass objective function (iAF1260) - core - with 59.81 GAM estimate,0
+Enterobacterial common antigen (x4) core oligosaccharide lipid A transport (periplasm to extracellular),113
+Enterobactin Fe(III) binding (spontaneous),126
+Enterochelin transport (secretion periplasm),115
+Ethanesulfonate transport via diffusion (extracellular to periplasm),0
+Ethanol transport via diffusion (extracellular to periplasm),0
+Ethanolamine transport via diffusion (extracellular),0
+Fatty acid (dodecanoate) transport via facilitated irreversible diffusion (extracellular to periplasm),0
+Fe(III) hydroxamate Fe-loading reaction (spontaneaous),124
+Fe(III)hydroxamate unloaded secretion (extracellular),124
+Fe(III)hydroxamine transport via ton system (extracellular),0
+Fe-enterobactin transport via ton system (extracellular),0
+Ferric 2,3-dihydroxybenzoylserine transport via ton system (extracellular),0
+Ferrichrome (minus Fe) secretion (to extracellular),125
+Ferrichrome Fe(III)-loading reaction (spontaneous),125
+Ferrichrome transport via ton system (extracellular),0
+Ferrioxamine B fe transport via diffusion extracellular to periplasm ,0
+Ferrioxamine B transport via diffusion extracellular to periplasm ,0
+Ferrioxamine E fe transport via diffusion extracellular to periplasm ,0
+Ferrioxamine E transport via diffusion extracellular to periplasm ,0
+Ferrioxamine G fe transport via ton system extermal ,0
+Ferrioxamine G transport via diffusion extracellular to periplasm ,0
+Ferroxamine (minus Fe3) secretion (to extracellular),127
+Ferroxamine Fe3-loading reaction (spontaneous),127
+Ferroxamine transport via ton system (extracellular),0
+Formaldehyde transport via diffusion (extracellular to periplasm),0
+Formamide transport via diffusion extracellular to periplasm ,0
+Formate transport via diffusion (extracellular to periplasm),0
+Fructose 6-phosphate transport via diffusion (extracellular to periplasm),0
+Fructoselysine transporter via diffusion (extracellular),0
+Fumarate transport via diffusion (extracellular to periplasm),0
+GDP transport via diffusion (extracellular to periplasm),0
+GMP transport via diffusion (extracellular to periplasm),0
+GTP transport via diffusion (extracellular to periplasm),0
+Galactitol transport via diffusion (extracellular to periplasm),0
+Gamma-butyrobetaine transport via diffusion (extracellular to periplasm),0
+GlcNAc-anhMurNAc transport via diffusion (extracellular to periplasm),0
+Glucose 6-phosphate transport via diffusion (extracellular to periplasm),0
+Glucose transport via diffusion (extracellular to periplasm),0
+Glutathione (ox) transport via diffusion (extracellular to periplasm),0
+Glutathione transport via diffusion (extracellular to periplasm),0
+Glyceraldehyde transport via diffusion (extracellular to periplasm),0
+Glycero-3-phospho-1-inositol transport via diffusion (extracellular to periplasm),0
+Glycero-3-phosphocholine transport via diffusion (extracellular to periplasm),0
+Glycero-3-phosphoethanolamine transport via diffusion (extracellular to periplasm),0
+Glycerol transport via diffusion (extracellular to periplasm),0
+Glycerol-2-phosphate transport via diffusion (extracellular to periplasm),0
+Glycerol-3-phosphate transport via diffusion (extracellular to periplasm),0
+Glycerophoglycerol transport via diffusion (extracellular to periplasm),0
+Glycerophosphserine transport via diffusion (extracellular to periplasm),0
+Glycine betaine transport via diffusion (extracellular to periplasm),0
+Glycine transport via diffusion (extracellular to periplasm),0
+Glycolate transport via diffusion (extracellular to periplasm),0
+Guanine transport via diffusion (extracellular to periplasm),0
+Guanosine transport via diffusion (extracellular to periplasm),0
+H2O transport via diffusion (extracellular to periplasm),0
+H2s transport via diffusion (extracellular to periplasm),0
+Hexadecanoate transport via facilitated irreversible diffusion (extracellular to periplasm),0
+Hexadecenoate transport via facilitated irreversible diffusion (extracellular to periplasm),0
+Hexanoate transport via diffusion (extracellular to periplasm),0
+Hydrogen peroxide transport via diffusion (external),0
+Hydrogen transport via diffusion (extracellular to periplasm),0
+Hypoxanthine transport via diffusion (extracellular to periplasm),0
+IMP transport via diffusion (extracellular to periplasm),0
+Indole transport via diffusion (extracellular to periplasm),0
+Inosine transport via diffusion (extracellular to periplasm),0
+Inositol transport via diffusion (extracellular to periplasm),0
+Iron (II) transport via diffusion (extracellular to periplasm),0
+Iron (III) transport via diffusion (extracellular to periplasm),0
+Isethionate transport via diffusion (extracellular to periplasm),0
+KDO(2)-lipid IV A transport via vector (periplasm to extracellular),201
+L cystine transport via diffusion extracellular to periplasm ,0
+L-Cysteinylglycine transport via diffusion (extracellular to periplasm),0
+L-Lyxose transport via diffusion (extracellular to periplasm),0
+L-Prolinylglycine transport via diffusion (extracellular to periplasm),0
+L-alanine transport via diffusion (extracellular to periplasm),0
+L-arabinose transport via diffusion (extracellular to periplasm),0
+L-arginine transport via diffusion (extracellular to periplasm),0
+L-ascorbate transport via diffusion (extracellular to periplasm),0
+L-asparagine transport via diffusion (extracellular to periplasm),0
+L-aspartate transport via diffusion (extracellular to periplasm),0
+L-carnitine transport via diffusion (extracellular to periplasm),0
+L-cysteine transport via diffusion (extracellular to periplasm),0
+L-fucose transport via diffusion (extracellular to periplasm),0
+L-galactonate transport via diffusion (extracellular to periplasm),0
+L-glutamate transport via diffusion (extracellular to periplasm),0
+L-glutamine transport via diffusion (extracellular to periplasm),0
+L-gulonate transport,0
+L-histidine transport via diffusion (extracellular to periplasm),0
+L-homoserine transport via diffusion (extracellular to periplasm),0
+L-idonate transport via diffusion (extracellular to periplasm),0
+L-isoleucine transport via diffusion (extracellular to periplasm),0
+L-lactate transport via diffusion (extracellular to periplasm),0
+L-leucine transport via diffusion (extracellular to periplasm),0
+L-lysine transport via diffusion (extracellular to periplasm),0
+L-methionine R-oxide diffusion (extracellular),0
+L-methionine S-oxide diffusion (extracellular),0
+L-methionine transport via diffusion (extracellular to periplasm),0
+L-phenylalanine transport via diffusion (extracellular to periplasm),0
+L-proline transport via diffusion (extracellular to periplasm),0
+L-rhamnose transport via diffusion (extracellular to periplasm),0
+L-serine transport via diffusion (extracellular to periplasm),0
+L-threonine transport via diffusion (extracellular to periplasm),0
+L-tryptophan transport via diffusion (extracellular to periplasm),0
+L-tyrosine transport via diffusion (extracellular to periplasm),0
+L-valine transport via diffusion (extracellular to periplasm),0
+L-xylulose transport via diffusion (extracellular to periplasm),0
+Lactose transport via diffusion (extracellular to periplasm),0
+LalaDgluMdap (tripeptide) transport via diffusion (extracellular to periplasm),0
+LalaDgluMdapDala (pentapeptide) transport via diffusion (extracellular to periplasm),0
+Lipid A transport via vector (periplasm to extracellular),184
+Lipid A:hexadecanoate transferase (n-C16:0) (extracellular membrane),184
+Magnesium (Mg+2) transport via diffusion (extracellular to periplasm),0
+Malate transport via diffusion (extracellular to periplasm),0
+Maltohexaose transport via diffusion (extracellular to periplasm) irreversible,0
+MaltopentaoseMaltotriose transport via diffusion (extracellular to periplasm) irreversible,0
+MaltoseMaltotriose transport via diffusion (extracellular to periplasm) irreversible,0
+MaltotetraoseMaltotriose transport via diffusion (extracellular to periplasm) irreversible,0
+Maltotriose transport via diffusion (extracellular to periplasm) irreversible,0
+Manganese (Mn+2) transport via diffusion (extracellular to periplasm),0
+Mannitol transport via diffusion (extracellular to periplasm),0
+Mannose 6-phosphate transport via diffusion (extracellular to periplasm),0
+Melibiose transport via diffusion (extracellular to periplasm),0
+Mercury (Hg+2) transport via diffusion (extracellular to periplasm),0
+Meso-2,6-Diaminoheptanedioate transport via diffusion (extracellular to periplasm),0
+Methanesulfonate transport via diffusion (extracellular to periplasm),0
+Molybdate transport via diffusion (extracellular to periplasm),0
+Myo-inositol phosphate transport via diffusion (extracellular to periplasm),0
+N-Acetyl-D-glucosamine transport via diffusion (extracellular to periplasm),0
+N-acetyl-D-galactosamine 1-phosphate transport via diffusion (extracellular to periplasm),0
+N-acetyl-D-galactosamine transport via diffusion (extracellular to periplasm),0
+N-acetyl-D-glucosamine 1-phosphate transport via diffusion (extracellular to periplasm),0
+N-acetyl-D-mannosamine transport via diffusion (extracellular to periplasm),0
+N-acetylmuramate transport via diffusion (extracellular to periplasm),0
+N-acetylneuraminate transport via diffusion (extracellular to periplasm),0
+NMN transport via diffusion (extracellular to periplasm),0
+Nickel transport via diffusion (extracellular to periplasm),0
+Nicotinamide riboside transport into periplasm,0
+Nicotinic acid transport via diffusion (extracellular to periplasm),0
+Nitrate transport via diffusion (extracellular to periplasm),0
+Nitric oxide transport via diffusion (extracellular to periplasm),0
+Nitrious oxide transport via diffusion (extracellular to periplasm),0
+Nitrite transport via diffusion (extracellular to periplasm),0
+Nmn hydrolysis,253
+O antigen x20 core oligosaccharide lipid A transport periplasm to extracellular ,80
+O-Acetyl-L-serine transport via diffusion (extracellular to periplasm),0
+O-antigen ligase,81
+O-antigen translocase,310
+O-antigen unit (O5) translocase,311
+Octadecanoate transport via facilitated irreversible diffusion (extracellular to periplasm),0
+Octadecenoate (n-C18:1) transport via facilitated irreversible diffusion (extracellular to periplasm),0
+Octanoate transport via diffusion (extracellular to periplasm),0
+Ornithine transport via diffusion (extracellular to periplasm),0
+Orotate transport via diffusion (extracellular to periplasm),0
+Oxaloacetate transport via diffusion extracellular to periplasm ,0
+Oxygen transport via diffusion (extracellular to periplasm),0
+Pantothenate transport via diffusion (extracellular to periplasm),0
+Phenethylacetaldehyde transport via diffusion (extracellular to periplasm),0
+Phenethylamine transport via diffusion (extracellular to periplasm),0
+Phopho-L-tyrosine transport via diffusion (extracellular to periplasm),0
+Phosphate transport via diffusion (extracellular to periplasm),0
+Phospho-L-serine transport via diffusion (extracellular to periplasm),0
+Phospho-L-threonine transport via diffusion (extracellular to periplasm),0
+Phosphoenolpyruvate transport via diffusion extracellular to periplasm ,0
+Phosphoethanolamine lipid A transport via vector (periplasm to extracellular),114
+Phosphonate transport via diffusion (extracellular to periplasm),0
+Potassium transport via diffusion (extracellular to periplasm),0
+Propanal transport via diffusion (extracellular to periplasm),0
+Propionate transport via diffusion,0
+Protoheme transport irreversible out via diffusion (periplasm to extracellular),252
+Proton transport via diffusion (extracellular to periplasm),0
+Psicoselysine transporter via diffusion (extracellular),0
+Putrescine transport via diffusion (extracellular to periplasm),0
+Pyridoxal transport via diffusion (extracellular),0
+Pyridoxine transport via diffusion (extracellular),0
+Pyruvate transport via diffusion (extracellular to periplasm),0
+Residual atoms of reaction DMBZIDSYN transport via diffusion extracellular to periplasm ,0
+Ribose 5-phosphate transport via diffusion (extracellular to periplasm),0
+Ribose transport via diffusion (extracellular to periplasm),0
+S-methyl-L-methionine transport via diffusion (extracellular to periplasm),0
+SO2 transport via diffusion (extracellular to periplasm),0
+Salmochelin S4 Fe III binding spontaneous ,274
+Salmochelin S4 Fe III transport via ton system extracellular ,0
+Salmochelin S4 transport secretion periplasm ,273
+Salmochelin SX via diffusion extracellular to periplasm ,0
+Salmochelin s2 Fe III import,0
+Salmochelin s2 Fe III sequestration,272
+Salmochelin s2 secretion,271
+Shikimate transport via diffusion (extracellular to periplasm),0
+Sodium transport via diffusion (extracellular to periplasm),0
+Spermidine transport via diffusion (extracellular to periplasm),0
+Succinate transport via diffusion (extracellular to periplasm),0
+Sucrose transport transport via diffusion (extracellular to periplasm),0
+Sulfate transport via diffusion (extracellular to periplasm),0
+Sulfite transport via diffusion (extracellular to periplasm),0
+Sulfoaceate transport via diffusion (extracellular to periplasm),0
+Superoxide anion transport via diffusion (extracellular to periplasm),0
+Tartrate transport via diffusion (extracellular to periplasm),0
+Taurine transport via diffusion (extracellular to periplasm),0
+Tetradecanoate transport via facilitated irreversible diffusion (extracellular to periplasm),0
+Tetradecenoate transport via facilitated irreversible diffusion (extracellular to periplasm),0
+Tetrathionate transport via diffusion extracellular to periplasm ,0
+Thiamine transport via diffusion (extracellular to periplasm),0
+Thiocyanate transport via diffusion (extracellular to periplasm),0
+Thiosulfate transport via diffusion (extracellular to periplasm),0
+Thymidine transport via diffusion (extracellular to periplasm),0
+Thymine transport via diffusion (extracellular to periplasm),0
+Trehalose transport via diffusion (extracellular to periplasm),0
+Tricarballylate transport into periplasm,0
+Trimethylamine N-oxide transport via diffusion (extracellular to periplasm),0
+Trimethylamine transport via diffusion (extracellular to periplasm),0
+Trithionate Reductase,281
+Trithionate transport,0
+Tungstate transport via diffusion (extracellular to periplasm),0
+Tyramine transport via diffusion (extracellular to periplasm),0
+UDP-D-glucuronate transport via diffusion (extracellular to periplasm),0
+UDP-N-acetyl-D-galactosamine transport via diffusion (extracellular to periplasm),0
+UDP-N-acetyl-D-glucosamine transport via diffusion (extracellular to periplasm),0
+UDPgalactose transport via diffusion (extracellular to periplasm),0
+UDPglucose transport via diffusion (extracellular to periplasm),0
+UMP transport via diffusion (extracellular to periplasm),0
+Uracil transport via diffusion (extracellular to periplasm),0
+Urea transport via diffusion (extracellular to periplasm),0
+Uridine transport via diffusion (extracellular to periplasm),0
+XMP transport via diffusion (extracellular to periplasm),0
+Xanthine transport via diffusion (extracellular to periplasm),0
+Xanthosine transport via diffusion (extracellular to periplasm),0
+Zinc (Zn+2) transport via diffusion (extracellular to periplasm),0

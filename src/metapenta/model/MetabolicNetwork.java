@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -240,7 +241,7 @@ public class MetabolicNetwork {
 		Set<String> keys=reactions.keySet();		
 		for (String key : keys) {
 			Reaction reaction = reactions.get(key);
-			boolean isBalance = reaction.isBalance();
+			boolean isBalance = reaction.getIsBalanced();
 			
 			if(isBalance) {
 				reactionsBalanced.add(reaction);
@@ -260,13 +261,29 @@ public class MetabolicNetwork {
 		Set<String> keys=reactions.keySet();		
 		for (String key : keys) {
 			Reaction reaction = reactions.get(key);
-			boolean isBalance = reaction.isBalance();
+			boolean isBalance = reaction.getIsBalanced();
 			
 			if(!isBalance) {
 				reactionsUnBalanced.add(reaction);
 			}
 		}		
 		return reactionsUnBalanced;
+	}
+	
+	public Map<Reaction, String> reactionsUnbalancedReason(List<Reaction> reactionsUnbalanced){
+		
+		Map<Reaction, String> reactionsUnbalancedReason = new HashMap<>();
+		
+		for (Reaction reaction: reactionsUnbalanced) {
+			
+			String reason =reaction.casesNoBalanced();
+			
+			reactionsUnbalancedReason.put(reaction, reason);
+		}
+		
+		return reactionsUnbalancedReason;
+		
+		
 	}
 	
 	public void testBalanceo() {

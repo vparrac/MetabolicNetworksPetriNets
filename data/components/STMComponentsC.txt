@@ -1,0 +1,1575 @@
+ R Propane 1 2 diol dehydratase,1
+(L-seryl)adenylate synthase,1
+(R)-Propane-1,2-diol facilitated transport (periplasm),1
+(S)-Propane-1,2-diol facilitated transport (periplasm),1
+1 amino 2 propanol kinase,1
+1,2 diacylglycerol transport via flipping (periplasm to cytoplasm, n-C12:0),1
+1,2 diacylglycerol transport via flipping (periplasm to cytoplasm, n-C14:0),1
+1,2 diacylglycerol transport via flipping (periplasm to cytoplasm, n-C14:1),1
+1,2 diacylglycerol transport via flipping (periplasm to cytoplasm, n-C16:0),1
+1,2 diacylglycerol transport via flipping (periplasm to cytoplasm, n-C16:1),1
+1,2 diacylglycerol transport via flipping (periplasm to cytoplasm, n-C18:0),1
+1,2 diacylglycerol transport via flipping (periplasm to cytoplasm, n-C18:1),1
+1,4-alpha-D-glucan transport via ABC system (periplasm),1
+1,4-alpha-glucan branching enzyme (glycogen -> bglycogen),1
+1,4-dihydroxy-2-naphthoate octaprenyltransferase,1
+1,6-anhydrous-N-Acetylmuramate kinase,1
+1-(5-phosphoribosyl)-5-[(5-phosphoribosylamino)methylideneamino)imidazole-4-carboxamide isomerase,1
+1-Deoxy-D-xylulose kinase,1
+1-deoxy-D-xylulose 5-phosphate synthase,1
+1-deoxy-D-xylulose reductoisomerase,1
+1-deoxy-d-xyluose transport,1
+1-hexadec-7-enoyl-sn-glycerol 3-phosphate O-acyltransferase (n-C16:1),1
+1-hexadecanoyl-sn-glycerol 3-phosphate O-acyltransferase (n-C16:0),1
+1-hydroxy-2-methyl-2-(E)-butenyl 4-diphosphate reductase (dmpp),1
+1-hydroxy-2-methyl-2-(E)-butenyl 4-diphosphate reductase (ipdp),1
+1-octadec-7-enoyl-sn-glycerol 3-phosphate O-acyltransferase (n-C18:1),1
+1-octadecanoyl-sn-glycerol 3-phosphate O-acyltransferase (n-C18:0),1
+1-pyrroline-5-carboxylate dehydrogenase,1
+1-tetradec-7-enoyl-sn-glycerol 3-phosphate O-acyltransferase (n-C14:1),1
+1-tetradecanoyl-sn-glycerol 3-phosphate O-acyltransferase (n-C12:0),1
+1-tetradecanoyl-sn-glycerol 3-phosphate O-acyltransferase (n-C14:0),1
+2 3 dihydroxybenzoylserine hydrolase,1
+2 aminoethylphosphonate pyruvate transaminase,1
+2,3 dioxo-L-gulonate reductase,1
+2,3-diaminopropionate amonnia lyase,1
+2,3-diaminopropionate transport in via proton symport,1
+2,3-dihydro-2,3-dihydroxybenzoate dehydrogenase,1
+2,3-dihydroxybenzoate adenylate synthase,1
+2,3-diketo-5-methylthio-1-phosphopentane degradation reaction,1
+2,4-dihydroxyhept-2-ene-1,7-dioic acid aldolase,1
+2,5-diketo-D-gluconate reductase,1
+2,5-diketo-D-gluconate reductase (NADH),1
+2,5-diketo-D-gluconate reductase (NADPH),1
+2-Acyl-sn-glycero-3-phosphatidate (n-C12:0) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphatidate (n-C14:0) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphatidate (n-C14:1) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphatidate (n-C16:0) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphatidate (n-C16:1) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphatidate (n-C18:0) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphatidate (n-C18:1) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphoethanolamine (n-C12:0) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphoethanolamine (n-C14:0) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphoethanolamine (n-C14:1) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphoethanolamine (n-C16:0) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphoethanolamine (n-C16:1) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphoethanolamine (n-C18:0) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphoethanolamine (n-C18:1) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphoglycerol (n-C12:0) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphoglycerol (n-C14:0) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphoglycerol (n-C14:1) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphoglycerol (n-C16:0) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphoglycerol (n-C16:1) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphoglycerol (n-C18:0) transporter via facilitated diffusion (periplasm),1
+2-Acyl-sn-glycero-3-phosphoglycerol (n-C18:1) transporter via facilitated diffusion (periplasm),1
+2-C-methyl-D-erythritol 2,4-cyclodiphosphate synthase,1
+2-C-methyl-D-erythritol 4-phosphate cytidylyltransferase,1
+2-Deoxy-5-Keto-D-gluconate kinase,1
+2-Deoxy-5-keto-D-gluconate 6-phosphate aldolase,1
+2-Inosose dehydratase,1
+2-Methyl-4-amino-5-hydroxymethylpyrimidine diphosphatase,1
+2-Octaprenyl-3-methyl-6-methoxy-1,4-benzoquinol hydroxylase,1
+2-Octaprenyl-3-methyl-6-methoxy-1,4-benzoquinol hydroxylase (anaerobic),1
+2-Octaprenyl-6-methoxy-benzoquinol methylase,1
+2-Octaprenylphenol hydroxylase,1
+2-Octaprenylphenol hydroxylase (anaerobic),1
+2-Oxo-4-methyl-3-carboxypentanoate decarboxylation,1
+2-Oxobutanoate formate lyase,1
+2-Oxogluterate dehydrogenase,1
+2-aceto-2-hydroxybutanoate synthase,1
+2-acyl-glycerophospho-ethanolamine acyltransferase (n-C12:0),1
+2-acyl-glycerophospho-ethanolamine acyltransferase (n-C14:0),1
+2-acyl-glycerophospho-ethanolamine acyltransferase (n-C14:1),1
+2-acyl-glycerophospho-ethanolamine acyltransferase (n-C16:0),1
+2-acyl-glycerophospho-ethanolamine acyltransferase (n-C16:1),1
+2-acyl-glycerophospho-ethanolamine acyltransferase (n-C18:0),1
+2-acyl-glycerophospho-ethanolamine acyltransferase (n-C18:1),1
+2-acyl-glycerophospho-glycerol acyltransferase (n-C12:0),1
+2-acyl-glycerophospho-glycerol acyltransferase (n-C14:0),1
+2-acyl-glycerophospho-glycerol acyltransferase (n-C14:1),1
+2-acyl-glycerophospho-glycerol acyltransferase (n-C16:0),1
+2-acyl-glycerophospho-glycerol acyltransferase (n-C16:1),1
+2-acyl-glycerophospho-glycerol acyltransferase (n-C18:0),1
+2-acyl-glycerophospho-glycerol acyltransferase (n-C18:1),1
+2-dehydro-3-deoxy-6-phosphogalactonate aldolase,1
+2-dehydro-3-deoxy-D-gluconate transport via proton symport, reversible (periplasm),1
+2-dehydro-3-deoxy-phosphogluconate aldolase,1
+2-dehydro-3-deoxygalactonokinase,1
+2-dehydro-3-deoxygluconokinase,1
+2-dehydro-D-gluconate reductase (NADH),1
+2-dehydro-D-gluconate reductase (NADPH),1
+2-dehydro-L-gulonate reductase (NADH),1
+2-dehydro-L-gulonate reductase (NADPH),1
+2-dehydropantoate 2-reductase,1
+2-hydroxyhepta-2,4-diene-1,7-dioate isomerase,2
+2-isopropylmalate hydratase,1
+2-isopropylmalate synthase,1
+2-keto-4-methylthiobutyrate transamination,1
+2-methylcitrate dehydratase,1
+2-methylcitrate synthase,1
+2-methylisocitrate dehydratase,1
+2-octaprenyl-6-hydroxyphenol methylase,1
+2-octaprenyl-6-methoxyphenol hydroxylase,1
+2-octaprenyl-6-methoxyphenol hydroxylase (anaerobic),1
+2-oxoglutarate decarboxylase,1
+2-oxoglutarate reversible transport via symport (periplasm),1
+2-succinyl-6-hydroxy-2,4-cyclohexadiene 1-carboxylate synthase,1
+23DHBS polymer hydrolase,1
+23dhbsz3  Fe III import,1
+23dhbsz3 Fe III transport via ABC system periplasm,1
+2C-methyl-D-erythritol 2,4 cyclodiphosphate dehydratase,1
+2hh24dd hydratase,1
+3 4 dihydroxyphenylacetate 2 3 dioxygenase,1
+3 Phospho D glycerate phosphate antiporter periplasm ,1
+3',5'-bisphosphate nucleotidase,1
+3',5'-cyclic-nucleotide phosphodiesterase,1
+3,4-Dihydroxy-2-butanone-4-phosphate synthase,1
+3-Dimethylubiquinonol 3-methyltransferase,1
+3-cis-2-trans-enoyl-CoA isomerase,1
+3-dehydroquinate dehydratase, irreversible,1
+3-dehydroquinate synthase,1
+3-deoxy -D-manno-octulosonic -acid 8-phosphate synthase,1
+3-deoxy-D-arabino-heptulosonate 7-phosphate synthetase,1
+3-deoxy-D-manno-octulosonic acid transferase,1
+3-deoxy-D-manno-octulosonic acid transferase III (LPS core biosynthesis),1
+3-deoxy-manno-octulosonate cytidylyltransferase,1
+3-deoxy-manno-octulosonate-8-phosphatase,1
+3-hydroxyacyl-CoA dehydratase (3-hydroxybutanoyl-CoA),1
+3-hydroxyacyl-CoA dehydratase (3-hydroxydecanoyl-CoA),1
+3-hydroxyacyl-CoA dehydratase (3-hydroxydodecanoyl-CoA),1
+3-hydroxyacyl-CoA dehydratase (3-hydroxyhexadecanoyl-CoA),1
+3-hydroxyacyl-CoA dehydratase (3-hydroxyhexanoyl-CoA),1
+3-hydroxyacyl-CoA dehydratase (3-hydroxyoctadecanoyl-CoA),1
+3-hydroxyacyl-CoA dehydratase (3-hydroxyoctanoyl-CoA),1
+3-hydroxyacyl-CoA dehydratase (3-hydroxytetradecanoyl-CoA),1
+3-hydroxyacyl-CoA dehydrogenase (3-oxodecanoyl-CoA),1
+3-hydroxyacyl-CoA dehydrogenase (3-oxododecanoyl-CoA),1
+3-hydroxyacyl-CoA dehydrogenase (3-oxohexadecanoyl-CoA),1
+3-hydroxyacyl-CoA dehydrogenase (3-oxohexanoyl-CoA),1
+3-hydroxyacyl-CoA dehydrogenase (3-oxooctadecanoyl-CoA),1
+3-hydroxyacyl-CoA dehydrogenase (3-oxooctanoyl-CoA),1
+3-hydroxyacyl-CoA dehydrogenase (3-oxotetradecanoyl-CoA),1
+3-hydroxyacyl-CoA dehydrogenase (acetoacetyl-CoA),1
+3-hydroxyacyl-[acyl-carrier-protein] dehydratase (n-C10:0),1
+3-hydroxyacyl-[acyl-carrier-protein] dehydratase (n-C12:0),1
+3-hydroxyacyl-[acyl-carrier-protein] dehydratase (n-C12:1),1
+3-hydroxyacyl-[acyl-carrier-protein] dehydratase (n-C14:0),1
+3-hydroxyacyl-[acyl-carrier-protein] dehydratase (n-C14:1),1
+3-hydroxyacyl-[acyl-carrier-protein] dehydratase (n-C16:0),1
+3-hydroxyacyl-[acyl-carrier-protein] dehydratase (n-C16:1),1
+3-hydroxyacyl-[acyl-carrier-protein] dehydratase (n-C18:0),1
+3-hydroxyacyl-[acyl-carrier-protein] dehydratase (n-C18:1),1
+3-hydroxyacyl-[acyl-carrier-protein] dehydratase (n-C4:0),1
+3-hydroxyacyl-[acyl-carrier-protein] dehydratase (n-C6:0),1
+3-hydroxyacyl-[acyl-carrier-protein] dehydratase (n-C8:0),1
+3-isopropylmalate dehydratase,1
+3-isopropylmalate dehydrogenase,1
+3-keto-L-gulonate 6-phosphate decarboxylase,1
+3-keto-L-gulonate kinase,1
+3-ketoacyl-CoA thiolase,1
+3-mercaptopyruvate sulfurtransferase,1
+3-methyl-2-oxobutanoate hydroxymethyltransferase,1
+3-oxoacyl-[acyl-carrier-protein] reductase (n-C10:0),1
+3-oxoacyl-[acyl-carrier-protein] reductase (n-C12:0),1
+3-oxoacyl-[acyl-carrier-protein] reductase (n-C12:1),1
+3-oxoacyl-[acyl-carrier-protein] reductase (n-C14:0),1
+3-oxoacyl-[acyl-carrier-protein] reductase (n-C14:1),1
+3-oxoacyl-[acyl-carrier-protein] reductase (n-C16:0),1
+3-oxoacyl-[acyl-carrier-protein] reductase (n-C16:1),1
+3-oxoacyl-[acyl-carrier-protein] reductase (n-C18:0),1
+3-oxoacyl-[acyl-carrier-protein] reductase (n-C18:1),1
+3-oxoacyl-[acyl-carrier-protein] reductase (n-C4:0),1
+3-oxoacyl-[acyl-carrier-protein] reductase (n-C6:0),1
+3-oxoacyl-[acyl-carrier-protein] reductase (n-C8:0),1
+3-oxoacyl-[acyl-carrier-protein] synthase (n-C10:0),1
+3-oxoacyl-[acyl-carrier-protein] synthase (n-C12:0),1
+3-oxoacyl-[acyl-carrier-protein] synthase (n-C12:1),1
+3-oxoacyl-[acyl-carrier-protein] synthase (n-C14:0),1
+3-oxoacyl-[acyl-carrier-protein] synthase (n-C14:1),1
+3-oxoacyl-[acyl-carrier-protein] synthase (n-C16:0),1
+3-oxoacyl-[acyl-carrier-protein] synthase (n-C16:1),1
+3-oxoacyl-[acyl-carrier-protein] synthase (n-C18:0),1
+3-oxoacyl-[acyl-carrier-protein] synthase (n-C18:1),1
+3-oxoacyl-[acyl-carrier-protein] synthase (n-C6:0),1
+3-oxoacyl-[acyl-carrier-protein] synthase (n-C8:0),1
+3-phenylpropionate transport via proton symport, reversible (periplasm),1
+3-phosphoshikimate 1-carboxyvinyltransferase,1
+4 Aminobenzoate mitochondrial transport via diffusion,0
+4 Imidazolone 5 propanoate propionase,1
+4 carboxy 2 hydroxymuconate 6 semialdehyde dehydrogenase,1
+4 hydroxyphenylacetate 3 monooxygenase FADH2,1
+4 hydroxyphenylacetate 3 monooxygenase nadh,1
+4 hydroxyphenylacetate transport in via proton symport periplasm ,1
+4,5-dihydroxy-2,3-pentanedione cyclization (spontaneous),1
+4-(cytidine 5'-diphospho)-2-C-methyl-D-erythritol kinase,1
+4-Hydroxy-L-threonine kinase,1
+4-amino-2-methyl-5-phosphomethylpyrimidine synthetase,1
+4-amino-4-deoxychorismate synthase,1
+4-aminobenzoate synthase,1
+4-aminobutyrate transaminase,1
+4-aminobutyrate transport in via proton symport (periplasm),1
+4-hydroxy-L-threonine transport,1
+4h2kpi Lyase,1
+5 carboxy 2 oxohept 3 enedioate decarboxylation,1
+5 carboxymethyl 2 hydroxymuconate delta isomerase,1
+5'-deoxyadenosine nuclosidase,1
+5'-nucleotidase (AMP),1
+5'-nucleotidase (CMP),1
+5'-nucleotidase (GMP),1
+5'-nucleotidase (IMP),1
+5'-nucleotidase (UMP),1
+5'-nucleotidase (XMP),1
+5'-nucleotidase (dAMP),1
+5'-nucleotidase (dCMP),1
+5'-nucleotidase (dGMP),1
+5'-nucleotidase (dIMP),1
+5'-nucleotidase (dTMP),1
+5'-nucleotidase (dUMP),1
+5,10-methylenetetrahydrofolate reductase (NADH),1
+5-Dehydro-D-gluconate transport via proton symport, reversible (periplasm),1
+5-Methylthio-5-deoxy-D-ribulose 1-phosphate dehydratase,1
+5-amino-6-(5-phosphoribosylamino)uracil reductase,1
+5-dehydro-4-deoxyglucarate aldolase,1
+5-dehydro-D-gluconate reductase,1
+5-methylthioribose kinase,1
+5-methylthioribose-1-phosphate isomerase,1
+6-hydroxymethyl-dihydropterin pyrophosphokinase,1
+6-phosphogluconate dehydratase,1
+6-phosphogluconolactonase,1
+8-amino-7-oxononanoate synthase,1
+A-galactosidase (melibiose),1
+ADP-D-glycero-D-manno-heptose epimerase,1
+ADPribose diphosphatase,1
+AEP transport via ABC system periplasm ,1
+AMP nucleosidase,1
+ATP amine hydrolysis (spontaneous),1
+ATP maintenance requirement,1
+ATP phosphoribosyltransferase,1
+ATP synthase (four protons for one ATP) (periplasm),1
+Abequosyl transferase,1
+Abequosyl transferase LPS O antigen biosynthesis ,1
+Acetaldehyde dehydrogenase (acetylating),1
+Acetaldehyde reversible transport (periplasm),1
+Acetate kinase,1
+Acetate reversible transport via proton symport (periplasm),1
+Acetate-CoA ligase (ADP-forming),1
+Acetolactate synthase,1
+Acetyl-CoA ACP transacylase,1
+Acetyl-CoA acyltransferase (hexadecanoyl-CoA), (r),1
+Acetyl-CoA carboxylase,1
+Acetyl-CoA synthetase,1
+Acetyl-CoA:anthranilate acetyltransferase,1
+Acetylglutamate kinase,1
+Acetylornithine deacetylase,1
+Acetylornithine transaminase,1
+Aconitase (half-reaction A, Citrate hydro-lyase),1
+Aconitase (half-reaction B, Isocitrate hydro-lyase),1
+Aconitate isomerase (spontaneous),1
+Acyl-CoA dehydrogenase (butanoyl-CoA),1
+Acyl-CoA dehydrogenase (decanoyl-CoA),1
+Acyl-CoA dehydrogenase (dodecanoyl-CoA),1
+Acyl-CoA dehydrogenase (hexadecanoyl-CoA),1
+Acyl-CoA dehydrogenase (hexanoyl-CoA),1
+Acyl-CoA dehydrogenase (octadecanoyl-CoA),1
+Acyl-CoA dehydrogenase (octanoyl-CoA),1
+Acyl-CoA dehydrogenase (tetradecanoyl-CoA),1
+Acyl-[acyl-carrier-protein] synthetase  (n-C10:0),1
+Acyl-[acyl-carrier-protein] synthetase  (n-C12:0),1
+Acyl-[acyl-carrier-protein] synthetase  (n-C14:1),1
+Acyl-[acyl-carrier-protein] synthetase  (n-C16:0),1
+Acyl-[acyl-carrier-protein] synthetase  (n-C16:1),1
+Acyl-[acyl-carrier-protein] synthetase  (n-C18:0),1
+Acyl-[acyl-carrier-protein] synthetase  (n-C18:1),1
+Acyl-[acyl-carrier-protein] synthetase  (n-C8:0),1
+Acyl-[acyl-carrier-protein] synthetase (n-C14:0),1
+Acyl-carrier protein synthase,1
+Adenine phosphoribosyltransferase,1
+Adenine transport via proton symport (reversible) (periplasm),1
+Adenosine deaminase,1
+Adenosine hydrolase,1
+Adenosine kinase,1
+Adenosine transport in via proton symport (periplasm),1
+Adenosyl cobinamide kinase,1
+Adenosyl cobinamide phosphate guanyltransferase,1
+Adenosyl cobinamide phosphate synthase,1
+Adenosylcobalamin phosphate phosphatase,1
+Adenosylcobalamin phosphate synthase,1
+Adenosylcobalamin transport via ABC system (periplasm),1
+Adenosylcobalimin transport via ton system (extermal),1
+Adenosylcobyric acid synthase,1
+Adenosylmethionine decarboxylase,1
+Adenosylmethionine-8-amino-7-oxononanoate transaminase,1
+Adentylate kinase (GTP),1
+Adentylate kinase (ITP),1
+Adenylate cyclase,1
+Adenylate kinase,1
+Adenylosuccinate lyase,1
+Adenylosuccinate synthase,1
+Adenylsuccinate lyase,1
+Adenylyl-sulfate kinase,1
+Aerobactin reductase,1
+Aerobactin secretion (to extracellular),1
+Aerobactin secretion (to periplasm),1
+Aerobactin transport via ABC system (periplasm),1
+Aerobactin transport via ton system (extracellular),1
+Agmatinase,1
+Alanine racemase,1
+Alanine transaminase,1
+Alanyl aminopeptidase (cys-gly),1
+Alanyl-tRNA synthetase,1
+Alcohol dehydrogenase (ethanol),1
+Alcohol dehydrogenase (glycerol),1
+Alcohol dehydrogenase Propanal ,1
+Aldehyde dehydrogenase (acetaldehyde, NADP),1
+Aldehyde dehydrogenase (propanal, NADP),1
+Aldose reductase (acetol),1
+Aldose reductase (methylglyoxal),1
+Allantoate amidohydrolase,1
+Allantoin transport in via proton symport (periplasm),1
+Allantoinase,1
+Alpha,alpha-trehalase,1
+Alpha,alpha-trehalose-phosphate synthase (UDP-forming),1
+Alpha-D-glucose cytidylyltransferase,1
+Alpha-amylase,1
+Aminoacetone:oxygen oxidoreductase(deaminating)(flavin-containing),1
+Aminobutyraldehyde dehydrogenase,1
+Aminoimidazole riboside facilitated transport periplasm ,1
+Aminoimidazole riboside kinase,1
+Aminopeptidase (pro-gly),1
+Ammonia reversible transport (periplasm),1
+Amylomaltase (maltohexaose),1
+Amylomaltase (maltopentaose),1
+Amylomaltase (maltotetraose),1
+Amylomaltase (maltotriose),1
+Anhydrous-N-Acetylmuramyl-tetrapeptide L,D-carboxypeptidase,1
+Anhydrous-N-Acetylmuramyl-tetrapeptide amidase,1
+Anhydrous-N-Acetylmuramyl-tripeptide amidase,1
+Anthranilate phosphoribosyltransferase,1
+Anthranilate synthase,1
+Ap4A hydrolase,1
+Ap5A hydrolase,1
+Arabinose-5-phosphate isomerase,1
+Arbutin 6-phosphate glucohydrolase,1
+Arginine decarboxylase,1
+Arginine deiminase,1
+Arginine succinyltransferase,1
+Arginine/agmatine antiport (periplasm),1
+Arginine/ornithine antiporter (periplasm),1
+Argininosuccinate lyase,1
+Argininosuccinate synthase,1
+Arginyl-tRNA synthetase,1
+Asparagine synthase (glutamine-hydrolysing),1
+Asparagine synthetase,1
+Asparaginyl tRNA synthetase,1
+Aspartate 1-decarboxylase,1
+Aspartate carbamoyltransferase,1
+Aspartate kinase,1
+Aspartate transaminase,1
+Aspartate transport via proton symport (2 H) (periplasm),1
+Aspartate-semialdehyde dehydrogenase,1
+Aspartyl-tRNA synthetase,1
+Beta-alanine transport in via proton symport (periplasm),1
+Beta-ketoacyl-ACP synthase,1
+Beta-ketoacyl-ACP synthase (2),1
+Biomass equation from http://www.biomedcentral.com/1752-0509/3/38,1
+Biomass equation from http://www.biomedcentral.com/1752-0509/3/38 including metals from iAF1260 biomass function,1
+Biotin sulfoxide reductase,1
+Biotin synthase,1
+CDP 4 dehydro 6 deoxyglucose reductase ,1
+CDP abequose synthase ,1
+CDP glucose 4 6 dehydratase,1
+CDP-Diacylglycerol pyrophostatase (n-C12:0),1
+CDP-Diacylglycerol pyrophostatase (n-C14:0),1
+CDP-Diacylglycerol pyrophostatase (n-C14:1),1
+CDP-Diacylglycerol pyrophostatase (n-C16:0),1
+CDP-Diacylglycerol pyrophostatase (n-C16:1),1
+CDP-Diacylglycerol pyrophostatase (n-C18:0),1
+CDP-Diacylglycerol pyrophostatase (n-C18:1),1
+CDP-diacylglycerol synthetase (n-C12:0),1
+CDP-diacylglycerol synthetase (n-C14:0),1
+CDP-diacylglycerol synthetase (n-C14:1),1
+CDP-diacylglycerol synthetase (n-C16:0),1
+CDP-diacylglycerol synthetase (n-C16:1),1
+CDP-diacylglycerol synthetase (n-C18:0),1
+CDP-diacylglycerol synthetase (n-C18:1),1
+CMP nucleosidase,1
+CO2 transporter via diffusion (periplasm),1
+CTP synthase (glutamine),1
+Cadmium (+2) transport in via permease (no H+),1
+Cadmium (Cd+2) ABC transporter (periplasm),1
+Cadmium (Cd+2) transport out via proton antiport (periplasm),1
+Calcium (Ca+2) transport out via proton antiport (periplasm),1
+Calcium / sodium antiporter (1:1),1
+Carbamate kinase,1
+Carbamoyl-phosphate synthase (glutamine-hydrolysing),1
+Carnitine-CoA Ligase,1
+Carnitine-CoA racemase,1
+Carnitine/butyrobetaine antiporter (periplasm),1
+Carnityl-CoA dehydratse,1
+Catalase,1
+Chitobiose transport via PTS,1
+Chitobiose-6-phosphate hydrolase,1
+Chloride transport out via proton antiport (2:1) (periplasm),1
+Choline transport via ABC system (periplasm),1
+Chorismate mutase,1
+Chorismate pyruvate lyase,1
+Chorismate synthase,1
+Cisaconitate transport periplasm ,1
+Citrate lyase,1
+Citrate proton symport periplasm ,1
+Citrate synthase,1
+Citrate transport periplasm ,1
+Citrate transport via sodium symport periplasm ,1
+Citrate transport via succinate antiport (periplasm),1
+Cob I yrinate a c diamide adenosyltransferase 1,1
+Cob I yrinate a c diamide adenosyltransferase 2,1
+Cob II yrinate a c diamide reductase,1
+Cob(1)alamin transport via ABC system (periplasm),1
+Cob(1)alamin transport via ton system (extermal),1
+Cob(I)alamin adenosyltransferase,1
+Cobalt (Co+2) ABC transporter (periplasm),1
+Cobalt (Co+2) transport out via proton antiport (periplasm),1
+Cobalt II transport via ABC system periplasm I,1
+Cobalt precorrin 4 methyltransferase,1
+Cobalt precorrin 5a deacetylation,1
+Cobalt precorrin 5b methyltransferase,1
+Cobalt precorrin 6b methyltransferase,1
+Cobalt precorrin 7 methyltransferase decarboxylase,1
+Cobalt precorrin 8x isomerase,1
+Cobalt transport in via permease (no H+),1
+Cobinamide adenyltransferase,1
+Cobinamide transport via ABC system (uptake, periplasm),1
+Cobinamide transport via ton system (extermal),1
+Cobyrinate amidation,1
+Copper (Cu +1) ABC transporter (periplasm),1
+Copper (Cu+2) ABC transporter (periplasm),1
+Copper transport in via permease (no H+),1
+Coprogen transport via ABC system (periplasm),1
+Coprogen transport via ton system (extracellular),1
+Coprogen unloaded secretion,1
+Coprogen unloaded secretion (extracellular),1
+Coprogen(Fe(III)) reductase,1
+Coproporphyrinogen oxidase (O2 required),1
+Core oligosaccharide lipid A transport via ABC system (periplasm),1
+Cronobetaine outward transport (H+ antiport),1
+Crotonobetaine transport via ABC system (periplasm),1
+Crotonobetaine-CoA Ligase,1
+Crotonobetainyl-CoA: carnitine CoA transferase,1
+Cyanide sulfurtransferase,1
+Cyclopropane fatty acid synthase (Phosphatidylethanolamine, n-C16:0),1
+Cyclopropane fatty acid synthase (Phosphatidylethanolamine, n-C18:0),1
+Cyclopropane fatty acid synthase (Phosphatidylglycerol, n-C16:0),1
+Cyclopropane fatty acid synthase (Phosphatidylglycerol, n-C18:0),1
+Cystathionine b-lyase,1
+Cysteine Desulfhydrase,1
+Cysteine synthase,1
+Cysteinyl-tRNA synthetase,1
+Cytidine deaminase,1
+Cytidine hydrolase,1
+Cytidine kinase (GTP),1
+Cytidine transport in via proton symport (periplasm),1
+Cytidylate kinase (CMP),1
+Cytidylate kinase (dCMP),1
+Cytochrome oxidase bd (menaquinol-8: 2 protons) (periplasm),1
+Cytochrome oxidase bd (ubiquinol-8: 2 protons) (periplasm),1
+Cytochrome oxidase bo3 (ubiquinol-8: 4 protons) (periplasm),1
+Cytosine deaminase,1
+Cytosine transport in via proton symport (periplasm),1
+D Glycerate 2 phosphate phosphate antiporter periplasm ,1
+D Tagatose 1 phosphate kinase,1
+D Tagatose transport via PEPPyr PTS periplasm ,1
+D Tartrate facilitated transport periplasm ,1
+D(-)-tartrate dehydratase,1
+D-2,3-Diketo 4-deoxy-epi-inositol dehydratase,1
+D-Amino acid dehydrogenase,1
+D-Carnitine-CoA Ligase,1
+D-Glucosamine 6-phosphate transport via phosphate antiport (periplasm),1
+D-Lactaldehyde:NAD+ 1-oxidoreductase,1
+D-Malate transport via proton symport (2 H) (periplasm),1
+D-alanine transaminase,1
+D-alanine transport in via proton symport (periplasm),1
+D-alanine-D-alanine ligase (reversible),1
+D-alanyl-D-alanine (DalaDala) transport via ABC system (periplasm),1
+D-carnitine outward transport (H+ antiport),1
+D-carnitine transport via ABC system (periplasm),1
+D-fructose 6-phosphate phosphatase,1
+D-fructose transport via PEP:Pyr PTS (periplasm),1
+D-galactarte transport via proton symport, reversible (periplasm),1
+D-galactonate transport via proton symport (periplasm),1
+D-galactose transport in via proton symport (periplasm),1
+D-galactose transport via ABC system (periplasm),1
+D-galacturonate transport via proton symport, reversible (periplasm),1
+D-glucarate transport via proton symport, reversible (periplasm),1
+D-gluconate transport via proton symport, reversible (periplasm),1
+D-glucosamine transport via PEP:Pyr PTS (periplasm),1
+D-glucose O-acetyltransferase,1
+D-glucose transport in via proton symport (periplasm),1
+D-glucose transport via ABC system (periplasm),1
+D-glucose transport via PEP:Pyr PTS (periplasm),1
+D-glucuronate transport via proton symport, reversible (periplasm),1
+D-glycerate transport via proton symport, reversible (periplasm),1
+D-glycero-D-manno-hepose 1-phosphate adenyltransferase,1
+D-glycero-D-manno-heptose 1,7-bisphosphate phosphatase,1
+D-glycero-D-manno-heptose 7-phosphate kinase,1
+D-lactate dehydrogenase,1
+D-lactate transport via proton symport (periplasm),1
+D-mannonate hydrolyase,1
+D-mannose transport via PEP:Pyr PTS (periplasm),1
+D-methionine transport via ABC system (periplasm),1
+D-ribose transport via ABC system (periplasm),1
+D-serine deaminase,1
+D-serine dehydrogenase,1
+D-serine transport in via proton symport (periplasm),1
+D-sorbitol transport via PEP:Pyr PTS (periplasm),1
+D-xylose transport in via proton symport (periplasm),1
+DATP amine hydrolysis (spontaneous),1
+DCTP deaminase,1
+DMB synthase,1
+DTDP-4-amino-4,6-dideoxy-D-glucose acetyltransferase,1
+DTDP-4-amino-4,6-dideoxy-D-glucose transaminase,1
+DTDP-4-dehydrorhamnose 3,5-epimerase,1
+DTDP-4-dehydrorhamnose reductase,1
+DTDP-N-4-acetamido-4,6-dideoxy-D-galactose transferase,1
+DTDPglucose 4,6-dehydratase,1
+DTMP kinase,1
+DUTP diphosphatase,1
+Deoxy D ribose transport via proton symport periplasm ,1
+Deoxyadenosine deaminase,1
+Deoxyadenosine transport in via proton symport (periplasm),1
+Deoxyadenylate kinase,1
+Deoxycytidine deaminase,1
+Deoxycytidine transport in via proton symport (periplasm),1
+Deoxyguanosine transport in via proton symport (periplasm),1
+Deoxyguanylate kinase (dGMP:ATP),1
+Deoxyinosine transport in via proton symport (periplasm),1
+Deoxyribokinase,1
+Deoxyribose-phosphate aldolase,1
+Deoxyuridine kinase (ATP:Deoxyuridine),1
+Deoxyuridine phosphorylase,1
+Deoxyuridine transport in via proton symport (periplasm),1
+Dephospho-CoA kinase,1
+Dethiobiotin synthase,1
+Diacylglycerol kinase (n-C12:0),1
+Diacylglycerol kinase (n-C14:0),1
+Diacylglycerol kinase (n-C14:1),1
+Diacylglycerol kinase (n-C16:0),1
+Diacylglycerol kinase (n-C16:1),1
+Diacylglycerol kinase (n-C18:0),1
+Diacylglycerol kinase (n-C18:1),1
+Diaminohydroxyphosphoribosylaminopryrimidine deaminase (25drapp),1
+Diaminopimelate decarboxylase,1
+Diaminopimelate epimerase,1
+Dihydoorotic acid dehydrogenase (quinone8),1
+Dihydrodipicolinate reductase (NADPH),1
+Dihydrodipicolinate synthase,1
+Dihydrofolate reductase,1
+Dihydrofolate synthase,1
+Dihydroneopterin aldolase reversible,1
+Dihydroneopterin monophosphate dephosphorylase,1
+Dihydroneopterin triphosphate pyrophosphatase,1
+Dihydroorotase,1
+Dihydroorotic acid (menaquinone-8),1
+Dihydropteroate synthase,1
+Dihydroxy-acid dehydratase (2,3-dihydroxy-3-methylbutanoate),1
+Dihydroxy-acid dehydratase (2,3-dihydroxy-3-methylpentanoate),1
+Dihydroxyacetone transport via facilitated diffusion (periplasm),1
+Dimethyl sulfoxide reductase (Demethylmenaquinol 8) (periplasm),1
+Dimethyl sulfoxide reductase (Menaquinol 8) (periplasm),1
+Dimethylallyltranstransferase,1
+Dodecanoate transport via proton symport,1
+DsbA protein reoxidation reaction (aerobic),1
+DsbA protein reoxidation reaction (anaerobic),1
+DsbD reductase,1
+E. coli biomass objective function (iAF1260) - core - with 59.81 GAM estimate,1
+Endotoxin Synthesis (lauroyl transferase),1
+Endotoxin Synthesis (myristoyl transferase),1
+Endotoxin Synthesis (palmitoleoyl ACP),1
+Enolase,1
+Enoyl-[acyl-carrier-protein] reductase (NADH) (n-C10:0),1
+Enoyl-[acyl-carrier-protein] reductase (NADH) (n-C12:0),1
+Enoyl-[acyl-carrier-protein] reductase (NADH) (n-C12:1),1
+Enoyl-[acyl-carrier-protein] reductase (NADH) (n-C14:0),1
+Enoyl-[acyl-carrier-protein] reductase (NADH) (n-C14:1),1
+Enoyl-[acyl-carrier-protein] reductase (NADH) (n-C16:0),1
+Enoyl-[acyl-carrier-protein] reductase (NADH) (n-C16:1),1
+Enoyl-[acyl-carrier-protein] reductase (NADH) (n-C18:0),1
+Enoyl-[acyl-carrier-protein] reductase (NADH) (n-C18:1),1
+Enoyl-[acyl-carrier-protein] reductase (NADH) (n-C4:0),1
+Enoyl-[acyl-carrier-protein] reductase (NADH) (n-C6:0),1
+Enoyl-[acyl-carrier-protein] reductase (NADH) (n-C8:0),1
+Enoyl-[acyl-carrier-protein] reductase (NADPH) (n-C10:0),1
+Enoyl-[acyl-carrier-protein] reductase (NADPH) (n-C12:0),1
+Enoyl-[acyl-carrier-protein] reductase (NADPH) (n-C12:1),1
+Enoyl-[acyl-carrier-protein] reductase (NADPH) (n-C14:0),1
+Enoyl-[acyl-carrier-protein] reductase (NADPH) (n-C14:1),1
+Enoyl-[acyl-carrier-protein] reductase (NADPH) (n-C16:0),1
+Enoyl-[acyl-carrier-protein] reductase (NADPH) (n-C16:1),1
+Enoyl-[acyl-carrier-protein] reductase (NADPH) (n-C18:0),1
+Enoyl-[acyl-carrier-protein] reductase (NADPH) (n-C18:1),1
+Enoyl-[acyl-carrier-protein] reductase (NADPH) (n-C4:0),1
+Enoyl-[acyl-carrier-protein] reductase (NADPH) (n-C6:0),1
+Enoyl-[acyl-carrier-protein] reductase (NADPH) (n-C8:0),1
+Enterobacterial common antigen transferase (flippase, cytoplasm to periplasm),0
+Enterobactin hydrolase,0
+Enterochelin synthase,1
+Enterochelin transport (secretion periplasm),1
+Enterochelin transport (secretion),1
+Enterochelin transport2 via ABC system periplasm ,1
+Erythronate 4-phosphate (4per) dehydrogenase,1
+Erythrose 4-phosphate dehydrogenase,1
+Ethanol reversible transport via proton symport (periplasm),1
+Ethanolamine ammonia-lyase,1
+Ethanolamine transport in via proton symport,1
+FAD reductase,1
+FMN adenylyltransferase,1
+FMN reductase,1
+Fatty-acid-CoA ligase (decanoate transport via vectoral Co-A coupling),1
+Fatty-acid-CoA ligase (dodecanoate transport via vectoral Co-A coupling),1
+Fatty-acid-CoA ligase (hexadecanoate transport via vectoral Co-A coupling),1
+Fatty-acid-CoA ligase (hexadecenoate transport via vectoral Co-A coupling),1
+Fatty-acid-CoA ligase (hexanoate transport via vectoral Co-A coupling),1
+Fatty-acid-CoA ligase (octadecanoate transport via vectoral Co-A coupling),1
+Fatty-acid-CoA ligase (octadecenoate transport via vectoral Co-A coupling),1
+Fatty-acid-CoA ligase (octanoate transport via vectoral Co-A coupling),1
+Fatty-acid-CoA ligase (tetradecanoate transport via vectoral Co-A coupling),1
+Fatty-acid-CoA ligase (tetradecenoate transport via vectoral Co-A coupling),1
+Fatty-acid-CoA thioesterase (decanoate),1
+Fatty-acid-CoA thioesterase (dodecanoate),1
+Fatty-acid-CoA thioesterase (hexadecanoate),1
+Fatty-acid-CoA thioesterase (hexadecenoate),1
+Fatty-acid-CoA thioesterase (hexanoate),1
+Fatty-acid-CoA thioesterase (octadecanoate),1
+Fatty-acid-CoA thioesterase (octadecenoate),1
+Fatty-acid-CoA thioesterase (octanoate),1
+Fatty-acid-CoA thioesterase (tetradecanoate),1
+Fatty-acid-CoA thioesterase (tetradecenoate),1
+Fatty-acyl-ACP hydrolase,1
+Fe(III) reduction,1
+Fe(III)hydroxamate reductase,1
+Fe(III)hydroxamate unloaded secretion,1
+Fe(III)hydroxamate unloaded secretion (extracellular),1
+Fe(III)hydroxamine transport via ton system (extracellular),1
+Fe-enterobactin reduction (Fe(III)-unloading),1
+Fe-enterobactin transport via ABC system (periplasm),1
+Fe-enterobactin transport via ton system (extracellular),1
+Fe3dhbzs3 Fe III reduction and offloading,1
+Ferric 2,3-dihydroxybenzoylserine transport via ABC system (periplasm),1
+Ferric 2,3-dihydroxybenzoylserine transport via ton system (extracellular),1
+Ferric-dicitrate transport via ABC system (periplasm),1
+Ferrichrome (minus Fe) secretion (to extracellular),1
+Ferrichrome (minus Fe) secretion (to periplasm),1
+Ferrichrome reductase,1
+Ferrichrome transport via ABC system (periplasm),1
+Ferrichrome transport via ton system (extracellular),1
+Ferrioxamine B facilitated transport periplasm ,1
+Ferrioxamine B fe transport via ABC system periplasm ,1
+Ferrioxamine E facilitated transport periplasm ,1
+Ferrioxamine E fe transport via ABC system periplasm ,1
+Ferrioxamine Fe III reduction and offloading,1
+Ferrioxamine G facilitated transport periplasm ,1
+Ferrioxamine G fe transport via ABC system periplasm ,1
+Ferrioxamine G fe transport via ton system extermal ,1
+Ferrochelatase,1
+Ferroxamine (minus Fe3) secretion (to extracellular),1
+Ferroxamine (minus Fe3) secretion (to periplasm),1
+Ferroxamine reductase,1
+Ferroxamine transport via ABC system (periplasm),1
+Ferroxamine transport via ton system (extracellular),1
+Flavin reductase,1
+Flavin reductase (NAD),1
+Flavodoxin reductase (NADPH),1
+Formaldehyde dehydrogenase,1
+Formaldehyde glutathione ligase (spontaneous),1
+Formaldehyde transport via diffusion (periplasm),1
+Formamide transport,0
+Formate Dehydrogenase (menaquinone-8) (periplasm),1
+Formate dehydrogenase (quinone-8) (periplasm),1
+Formate transport via diffusion (cytoplasm to periplasm),0
+Formate transport via proton symport (uptake only, periplasm),1
+Formate-hydrogen lyase,1
+Formyltetrahydrofolate deformylase,1
+Fructose 6-phosphate aldolase,1
+Fructose transport via PEP:Pyr PTS (f6p generating) (periplasm),1
+Fructose-1-phosphate kinase,1
+Fructose-6-phosphate transport via phosphate antiport (periplasm),1
+Fructose-bisphosphatase,1
+Fructose-bisphosphate aldolase,1
+Fumarase,1
+Fumarate reductase,1
+Fumarate transport via proton symport (2 H) (periplasm),1
+Fumarate transport via proton symport (3 H) (periplasm),1
+GAR transformylase-T,1
+GDP diphosphokinase,1
+GDP-4-dehydro-6-deoxy-D-mannose epimerase,1
+GDP-4-oxo-L-fucose reductase,1
+GDP-D-mannose dehydratase,1
+GDP-mannose mannosyl hydrolase,1
+GDP-mannose phyrophosphatase,1
+GMP reductase,1
+GMP synthase,1
+GTP amine hydrolysis (spontaneous),1
+GTP cyclohydrolase I,1
+GTP cyclohydrolase II (25drapp),1
+GTP diphosphokinase,1
+Galactarate dehydratase,1
+Galactitol transport via PEP:Pyr PTS (periplasm),1
+Galactitol-1-phosphate dehydrogenase,1
+Galactokinase,1
+Galactonate dehydratase,1
+Galactosyltransferase I (LPS core synthesis),1
+Galactosyltransferase LPS O antigen biosynthesis ,1
+Gamma-butyrobetainyl-CoA: carnitine CoA transferase,1
+Gamma-glutamylcysteine synthetase,1
+Geranyltranstransferase,1
+GlcNAc-anhMurNAc tetrapeptide transport in via proton symport (periplasm),1
+GlcNAc-anhMurNAc transport in via proton symport (periplasm),1
+GlcNAc-anhMurNAc tripeptide transport in via proton symport (periplasm),1
+Glucarate dehydratase,1
+Gluconokinase,1
+Glucosamine-1-phosphate N-acetyltransferase,1
+Glucosamine-6-phosphate deaminase,1
+Glucose 6-phosphate dehydrogenase,1
+Glucose dehydrogenase (ubiquinone-8 as acceptor) (periplasm),1
+Glucose-1-phosphate adenylyltransferase,1
+Glucose-1-phosphate thymidylyltransferase,1
+Glucose-6-phosphate isomerase,1
+Glucose-6-phosphate phosphatase,1
+Glucose-6-phosphate transport via phosphate antiport (periplasm),1
+Glucosyltransferase I (LPS core synthesis),1
+Glucosyltransferase II (LPS core synthesis),1
+Glucosyltransferase III (LPS core synthesis),1
+Glucuronate isomerase (D-galacturonate),6
+Glucuronate isomerase (D-glucuronate),1
+Glutamate 5-kinase,1
+Glutamate dehydrogenase (NADP),1
+Glutamate racemase,1
+Glutamate synthase (NADPH),1
+Glutamate-1-semialdehyde aminotransferase,1
+Glutamate-5-semialdehyde dehydrogenase,1
+Glutaminase,1
+Glutamine phosphoribosyldiphosphate amidotransferase,1
+Glutamine synthetase,1
+Glutamine-fructose-6-phosphate transaminase,1
+Glutaminyl-tRNA synthetase,1
+Glutamyl-tRNA reductase,1
+Glutamyl-tRNA synthetase,1
+Glutaredoxin reductase,1
+Glutathione export via ABC system (cytoplasm to periplasm),1
+Glutathione oxidoreductase,1
+Glutathione peridoxase,1
+Glutathione synthetase,1
+Glutathionylspermidine amidase,1
+Glutathionylspermidine synthetase,1
+Glyceraldehyde facilitated diffusion (periplasm),1
+Glyceraldehyde-3-phosphate dehydrogenase,1
+Glycerate kinase,1
+Glycerol dehydrogenase,1
+Glycerol kinase,1
+Glycerol transport via channel (periplasm),0
+Glycerol-3-phosphatase,1
+Glycerol-3-phosphate : phosphate antiporter (periplasm),1
+Glycerol-3-phosphate acyltransferase (C12:0),1
+Glycerol-3-phosphate acyltransferase (C14:0),1
+Glycerol-3-phosphate acyltransferase (C14:1),1
+Glycerol-3-phosphate acyltransferase (C16:0),1
+Glycerol-3-phosphate acyltransferase (C16:1),1
+Glycerol-3-phosphate acyltransferase (C18:0),1
+Glycerol-3-phosphate acyltransferase (C18:1),1
+Glycerol-3-phosphate dehydrogenase (NADP),1
+Glycerol-3-phosphate dehydrogenase (demethylmenaquinone-8),1
+Glycerol-3-phosphate dehydrogenase (menaquinone-8),1
+Glycerol-3-phosphate dehydrogenase (ubiquinone-8),1
+Glycerophosphodiester phosphodiesterase (Glycerophosphocholine),1
+Glycerophosphodiester phosphodiesterase (Glycerophosphoethanolamine),1
+Glycerophosphodiester phosphodiesterase (Glycerophosphoglycerol),1
+Glycerophosphodiester phosphodiesterase (Glycerophosphoinositol),1
+Glycerophosphodiester phosphodiesterase (Glycerophosphoserine),1
+Glyceryl Transferase - murein,1
+Glycine C-acetyltransferase,1
+Glycine Cleavage System,1
+Glycine betaine transport via ABC system (periplasm),1
+Glycine betaine transport via proton symport (periplasm),1
+Glycine hydroxymethyltransferase, reversible,1
+Glycine transport in via proton symport (periplasm),1
+Glycogen debranching enzyme (bglycogen -> glycogen),1
+Glycogen phosphorylase,1
+Glycogen synthase (ADPGlc),1
+Glycolaldehyde dehydrogenase,1
+Glycolate dehydrogenase (NAD),1
+Glycolate dehydrogenase (NADP),1
+Glycolate oxidase,1
+Glycolate transport via proton symport, reversible (periplasm),1
+Glycolate transport via sodium symport (periplasm),1
+Glycosyl transferase,1
+Glycyl-tRNA synthetase,1
+Glyoxalase III,1
+Glyoxalate carboligase,1
+Gold Au 1 ABC transporter periplasm ,1
+Guanine phosphoribosyltransferase,1
+Guanine transport in via proton symport (periplasm),1
+Guanine transport via diffusion (periplasm),1
+Guanosine kinase,1
+Guanosine transport in via proton symport (periplasm),1
+Guanosine-3',5'-bis(diphosphate) 3'-diphosphatase,1
+Guanosine-5'-triphosphate,3'-diphosphate diphosphatase,1
+Guanylate kinase (GMP:ATP),1
+H2O transport via diffusion (periplasm),1
+H2s transport (periplasm),0
+HCO3 equilibration reaction,1
+Heme O synthase,1
+Heptosyltransferase I (LPS core synthesis),1
+Heptosyltransferase II (LPS core synthesis),1
+Heptosyltransferase III (LPS core synthesis),1
+Heptosyltransferase IV (LPS core synthesis),1
+Hexadecanoate transport via proton symport,1
+Hexanoate transport via proton symport, reversible (periplasm),1
+Hexokinase (D-fructose:ATP),1
+Hexokinase (D-glucose:ATP),1
+Hexokinase (D-mannose:ATP),1
+Histidase r,1
+Histidinol dehydrogenase,1
+Histidinol-phosphatase,1
+Histidinol-phosphate transaminase,1
+Histidyl-tRNA synthetase,1
+Homoserine O-succinyltransferase,1
+Homoserine dehydrogenase (NADPH),1
+Homoserine kinase,1
+Hydrogen peroxide reductase (thioredoxin),1
+Hydrogen sulfide oxidation,1
+Hydrogen transport diffusion (periplasm),1
+Hydrogenase (Demethylmenaquinone-8: 2 protons) (periplasm),1
+Hydrogenase (menaquinone8: 2 protons) (periplasm),1
+Hydrogenase (ubiquinone-8: 2 protons) (periplasm),1
+Hydroxyacylglutathione hydrolase,1
+Hydroxybenzoate octaprenyltransferase,1
+Hydroxyethylthiazole kinase,1
+Hydroxymethylbilane synthase,1
+Hydroxymethylpyrimidine kinase (ATP),1
+Hydroxypyruvate isomerase,1
+Hydroxypyruvate reductase (NADH),1
+Hydroxypyruvate reductase (NADPH),1
+Hypothetical enyme,1
+Hypoxanthine phosphoribosyltransferase (Hypoxanthine),1
+Hypoxanthine transport (periplasm),1
+IMP cyclohydrolase,1
+IMP dehydrogenase,1
+Imidazole-glycerol-3-phosphate synthase,1
+Imidazoleglycerol-phosphate dehydratase,1
+Indole transport via proton symport, irreversible (periplasm),0
+Indole transport via proton symport, reversible (periplasm),1
+Indole-3-glycerol-phosphate synthase,1
+Inorganic diphosphatase,1
+Inorganic triphosphatase,1
+Inosine hydrolase,1
+Inosine transport in via proton symport (periplasm),1
+Insosine kinase,1
+Iron (+2) transport in via permease (no H+),1
+Iron (II) transport in via proton symport (periplasm),1
+Iron (II) transport via ABC system (periplasm),1
+Isochorismatase,1
+Isochorismate synthase,1
+Isocitrate dehydrogenase (NADP),1
+Isocitrate lyase,1
+Isocitrate transport periplasm ,1
+Isoleucine transaminase,1
+Isoleucyl-tRNA synthetase,1
+Isopentenyl-diphosphate D-isomerase,1
+KDO(2)-lipid IV A transport via ABC system (periplasm),1
+Ketoinositol reductase,1
+Ketol-acid reductoisomerase (2,3-dihydroxy-3-methylbutanoate),1
+Ketol-acid reductoisomerase (2-Acetolactate),1
+L cystine uptake via ABC system periplasm ,1
+L threonine kinase,1
+L threonine phosphate decarboxylase,1
+L(+)-tartrate dehydratase,1
+L-2-amino-3-oxobutanoate decarboxylation (spontaneous),1
+L-Cysteinylglycine (Cys-Gly) transport via ABC system (periplasm),1
+L-Lactate dehydrogenase (menaquinone),1
+L-Lactate dehydrogenase (ubiquinone),1
+L-Lyxose transport via proton symport (periplasm),1
+L-Prolinylglycine (Pro-Gly) transport via ABC system (periplasm),1
+L-alanine transaminase,1
+L-alanine transport in via proton symport (periplasm),1
+L-alanine transport in via sodium symport (periplasm),1
+L-alanine transport via ABC system (periplasm),1
+L-alanyl-gamma-D-glutamyl-meso-diaminopimelate hydrolase,1
+L-alanyl-gamma-L-glutamate peptidase,1
+L-alanyl-gamma-glutamate epimerase,1
+L-allo-Threonine Aldolase,1
+L-allo-threonine dehydrogenase,1
+L-arabinose isomerase,1
+L-arabinose transport via proton antiport (periplasm),1
+L-arabinose transport via proton symport (periplasm),1
+L-arginine transport out via proton antiport (cytoplasm to periplasm),1
+L-arginine transport via ABC system (periplasm),1
+L-ascorbate 6-phosphate lactonase,1
+L-ascorbate transport via PEP:Pyr PTS (periplasm),1
+L-asparaginase,1
+L-asparagine reversible transport via proton symport (periplasm),1
+L-asparagine transport via ABC system (periplasm),1
+L-asparate transport via proton symport (3 H) (periplasm),1
+L-aspartase,1
+L-aspartate oxidase,1
+L-aspartate transport in via proton symport (periplasm),1
+L-aspartate transport via ABC system (periplasm),1
+L-carnitine outward transport (H+ antiport),1
+L-carnitine transport via ABC system (periplasm),1
+L-carnitine/D-carnitine antiporter (periplasm),1
+L-cysteine export via ABC system (cytoplasm to periplasm),1
+L-cysteine export via facilitated transport,0
+L-cysteine sulfinic acid desulfurase,1
+L-cysteine uptake via ABC system (periplasm),1
+L-fucose isomerase,1
+L-fucose transport via proton symport (periplasm),1
+L-fuculokinase,1
+L-fuculose 1-phosphate aldolase,1
+L-glutamate 5-semialdehyde dehydratase (spontaneous),1
+L-glutamate transport via ABC system (periplasm),1
+L-glutamate transport via proton symport, reversible (periplasm),1
+L-glutamine transport via ABC system (periplasm),1
+L-gulonate reductase,1
+L-gulonate transport,1
+L-histidine reversible transport via proton symport (periplasm),1
+L-histidine transport via ABC system (periplasm),1
+L-homoserineserine efflux via proton symport,1
+L-idonate 5-dehydrogenase,1
+L-idonate transport via proton symport, reversible (periplasm),1
+L-indonate 5-dehydrogenase (NADP),1
+L-isoleucine reversible transport via proton symport (periplasm),1
+L-isoleucine transport via ABC system (periplasm),1
+L-lactate reversible transport via proton symport (periplasm),1
+L-leucine reversible transport via proton symport (periplasm),1
+L-leucine transport in via sodium symport,1
+L-leucine transport via ABC system (periplasm),1
+L-lysine transport in via proton symport (periplasm),1
+L-lysine transport out via proton antiport (cytoplasm to periplasm),1
+L-lysine transport via ABC system (periplasm),1
+L-methionine R-oxide transport via ABC system (periplasm),1
+L-methionine S-oxide transport via ABC system (periplasm),1
+L-methionine transport via ABC system (periplasm),1
+L-methionine-R-sulfoxide reductase,1
+L-methionine-S-oxide reductase,1
+L-phenylalanine reversible transport via proton symport (periplasm),1
+L-proline transport via ABC system (periplasm),1
+L-rhamnose isomerase,1
+L-rhamnose transport via proton symport (periplasm),1
+L-ribulokinase (L-ribulose),1
+L-ribulose-phosphate 4-epimerase,1
+L-serine deaminase,1
+L-serine dehydrogenase,1
+L-serine reversible transport via proton symport (periplasm),1
+L-serine via sodium symport (periplasm),1
+L-threonine  via sodium symport (periplasm),1
+L-threonine deaminase,1
+L-threonine dehydrogenase,1
+L-threonine efflux transport via proton antiport (periplasm),1
+L-threonine reversible transport via proton symport (periplasm),1
+L-threonine transport via ABC system (periplasm),1
+L-tryptophan reversible transport via proton symport (periplasm),1
+L-tyrosine reversible transport via proton symport (periplasm),1
+L-valine reversible transport via proton symport (periplasm),1
+L-valine transport via ABC system (periplasm),1
+L-xylulokinase,1
+L-xylulose 5-phosphate 3-epimerase,1
+L-xylulose transport in via proton symport (periplasm),1
+LPS heptose kinase I (LPS core synthesis),1
+LPS heptose kinase II (LPS core synthesis),1
+Lacaldehyde reductase (R-propane-1,2-diol forming),1
+Lacaldehyde reductase (S-propane-1,2-diol forming),1
+Lactoylglutathione lyase,1
+Leucine transaminase (irreversible),1
+Leucyl-tRNA synthetase,1
+Lipid (cold) A transport via ABC system (periplasm),1
+Lipid A disaccaride synthase,1
+Lipid A transport via ABC system (periplasm),1
+Lpp signal peptidase - murein,0
+Lysine decarboxylase,1
+Lysine/Cadaverine antiporter (periplasm),1
+Lysophospholipase L2 (2-acylglycerophosphoethanolamine, n-C12:0),1
+Lysophospholipase L2 (2-acylglycerophosphoethanolamine, n-C14:0),1
+Lysophospholipase L2 (2-acylglycerophosphoethanolamine, n-C14:1),1
+Lysophospholipase L2 (2-acylglycerophosphoethanolamine, n-C16:0),1
+Lysophospholipase L2 (2-acylglycerophosphoethanolamine, n-C16:1),1
+Lysophospholipase L2 (2-acylglycerophosphoethanolamine, n-C18:0),1
+Lysophospholipase L2 (2-acylglycerophosphoethanolamine, n-C18:1),1
+Lysophospholipase L2 (2-acylglycerophosphoglycerol, n-C12:0),1
+Lysophospholipase L2 (2-acylglycerophosphoglycerol, n-C14:0),1
+Lysophospholipase L2 (2-acylglycerophosphoglycerol, n-C14:1),1
+Lysophospholipase L2 (2-acylglycerophosphoglycerol, n-C16:0),1
+Lysophospholipase L2 (2-acylglycerophosphoglycerol, n-C16:1),1
+Lysophospholipase L2 (2-acylglycerophosphoglycerol, n-C18:0),1
+Lysophospholipase L2 (2-acylglycerophosphoglycerol, n-C18:1),1
+Lysophospholipase L2 (2-acylglycerophosphotidate, n-C12:0),1
+Lysophospholipase L2 (2-acylglycerophosphotidate, n-C14:0),1
+Lysophospholipase L2 (2-acylglycerophosphotidate, n-C14:1),1
+Lysophospholipase L2 (2-acylglycerophosphotidate, n-C16:0),1
+Lysophospholipase L2 (2-acylglycerophosphotidate, n-C16:1),1
+Lysophospholipase L2 (2-acylglycerophosphotidate, n-C18:0),1
+Lysophospholipase L2 (2-acylglycerophosphotidate, n-C18:1),1
+Lysophospholipase L2 (acyltransferase, 2-acyl-glycerophosphoethanolamine, n-C12:0),1
+Lysophospholipase L2 (acyltransferase, 2-acyl-glycerophosphoethanolamine, n-C14:0),1
+Lysophospholipase L2 (acyltransferase, 2-acyl-glycerophosphoethanolamine, n-C14:1),1
+Lysophospholipase L2 (acyltransferase, 2-acyl-glycerophosphoethanolamine, n-C16:0),1
+Lysophospholipase L2 (acyltransferase, 2-acyl-glycerophosphoethanolamine, n-C16:1),1
+Lysophospholipase L2 (acyltransferase, 2-acyl-glycerophosphoethanolamine, n-C18:0),1
+Lysophospholipase L2 (acyltransferase, 2-acyl-glycerophosphoethanolamine, n-C18:1),1
+Lysophospholipase L2 (acyltransferase, 2-acyl-glycerophosphoglycerol, n-C12:0),1
+Lysophospholipase L2 (acyltransferase, 2-acyl-glycerophosphoglycerol, n-C14:0),1
+Lysophospholipase L2 (acyltransferase, 2-acyl-glycerophosphoglycerol, n-C14:1),1
+Lysophospholipase L2 (acyltransferase, 2-acyl-glycerophosphoglycerol, n-C16:0),1
+Lysophospholipase L2 (acyltransferase, 2-acyl-glycerophosphoglycerol, n-C16:1),1
+Lysophospholipase L2 (acyltransferase, 2-acyl-glycerophosphoglycerol, n-C18:0),1
+Lysophospholipase L2 (acyltransferase, 2-acyl-glycerophosphoglycerol, n-C18:1),1
+Lysyl-tRNA synthetase,1
+Lyxose isomerase,1
+M-diaminopimelic acid ABC transport (periplasm),1
+Magnesium (+2) transport in via diffusion,1
+Magnesium (Mg+2) ABC transporter (ubtake, periplasm),1
+Magnesium (Mg+2) transport in/out via proton antiport (periplasm),1
+Malate dehydrogenase,1
+Malate synthase,1
+Malate transport via proton symport (2 H) (periplasm),1
+Malate transport via proton symport (3 H) (periplasm),1
+Malic enzyme (NAD),1
+Malic enzyme (NADP),1
+Malonyl-ACP decarboxylase,1
+Malonyl-CoA-ACP transacylase,1
+Maltodextrin glucosidase (maltoheptaose),1
+Maltodextrin glucosidase (maltohexaose),1
+Maltodextrin glucosidase (maltopentaose),1
+Maltodextrin glucosidase (maltotetraose),1
+Maltodextrin glucosidase (maltotriose),1
+Maltodextrin phosphorylase (maltoheptaose),1
+Maltodextrin phosphorylase (maltohexaose),1
+Maltodextrin phosphorylase (maltopentaose),1
+Maltohexaose transport via ABC system (periplasm),1
+Maltopentaose transport via ABC system (periplasm),1
+Maltose O-acetyltransferase,1
+Maltose transport via ABC system (periplasm),1
+Maltose transport via PEP:Pyr PTS (periplasm),1
+Maltotetraose transport via ABC system (periplasm),1
+Maltotriose transport via ABC system (periplasm),1
+Manganese (Mn+2) transport in via proton symport (periplasm),1
+Manganese (Mn+2) transport out via proton antiport (periplasm),1
+Manganese Mn2 transport via ABC system periplasm ,1
+Manganese transport in via permease (no H+),1
+Mannitol transport via PEP:Pyr PTS (periplasm),1
+Mannitol-1-phosphate 5-dehydrogenase,1
+Mannonate oxidoreductase,1
+Mannose 6-phosphate phosphatase,1
+Mannose-1-phosphate guanylyltransferase (GDP),1
+Mannose-6-phosphate isomerase,1
+Mannose-6-phosphate transport via phosphate antiport (periplasm),1
+Mannosyl transferase,1
+Mannosyl transferase LPS O antigen biosynthesis ,1
+Melibiose transport in via antiport (periplasm),1
+Melibiose transport in via symport (periplasm),1
+Membrane phosphatidylserine composition based on http://www.biomedcentral.com/1752-0509/3/38,0
+Mercury (Hg+2) ABC transporter (periplasm),1
+Methenyltetrahydrofolate cyclohydrolase,1
+Methionine adenosyltransferase,1
+Methionine oxidation (spontaneous),1
+Methionine oxidation 2 (spontaneous),1
+Methionine synthase,1
+Methionyl-tRNA formyltransferase,1
+Methionyl-tRNA synthetase,1
+Methylenetetrahydrofolate dehydrogenase (NADP),1
+Methylglyoxal synthase,1
+Methylisocitrate lyase,1
+Methylmalonate-semialdehyde dehydrogenase (malonic semialdehyde),1
+Methylmalonate-semialdehyde dehydrogenase (propanol),1
+Methylmalonyl-CoA epimerase,4
+Methylthioadenosine nucleosidase,1
+Molybdate transport via ABC system (periplasm),1
+Murein polymerizing transglycosylase,1
+Murein polymerizing transglycosylase 2 (three linked units),1
+Myo-inositol 1-phosphatase,1
+Myo-inositol transport,1
+N Formimino L glutamate formiminohydrolase,1
+N-Acetyl-D-glucosamine transport via PEP:Pyr PTS  (periplasm),1
+N-Acetyl-D-glucosamine(anhydrous)N-Acetylmuramyl beta -1,4-N-acetylglucosaminidase,1
+N-Acetyl-D-glucosamine(anhydrous)N-Acetylmuramyl-tetrapeptide L,D-carboxypeptidase,1
+N-Acetyl-D-glucosamine(anhydrous)N-Acetylmuramyl-tetrapeptide amidase,1
+N-Acetyl-D-glucosamine(anhydrous)N-Acetylmuramyl-tetrapeptide beta -1,4-N-acetylglucosaminidase,1
+N-Acetyl-D-glucosamine(anhydrous)N-Acetylmuramyl-tripeptide amidase,1
+N-Acetyl-D-glucosamine(anhydrous)N-Acetylmuramyl-tripeptide beta -1,4-N-acetylglucosaminidase,1
+N-Acetylneuraminate lyase,1
+N-acetyl-D-mannosamine kinase,1
+N-acetyl-D-mannosamine transport via PTS  (periplasm),1
+N-acetyl-g-glutamyl-phosphate reductase,1
+N-acetylglucosamine kinase,1
+N-acetylglucosamine-6-phosphate deacetylase,1
+N-acetylglutamate synthase,1
+N-acetylmannosamine 6-phosphate epimerase,1
+N-acetylmuramate 6-phosphate hydrolase,1
+N-acetylneuraminate proton symport (periplasm),1
+N-acetylornithine deacetylase,1
+N-methyltryptophan oxidase,1
+NAD diphosphatase,1
+NAD kinase,1
+NAD nucleosidase,1
+NAD synthase (nh3),1
+NAD transhydrogenase,1
+NAD(P) transhydrogenase (periplasm),1
+NADH dehydrogenase (demethylmenaquinone-8 & 0 protons),1
+NADH dehydrogenase (demethylmenaquinone-8 & 3 protons) (periplasm),1
+NADH dehydrogenase (menaquinone-8 & 0 protons),1
+NADH dehydrogenase (menaquinone-8 & 3 protons) (periplasm),1
+NADH dehydrogenase (ubiquinone-8 & 3 protons) (periplasm),1
+NADH dehydrogenase (ubiquinone-8 ),1
+NADH:flavorubredoxin oxidoreductase,1
+NADP phosphatase,1
+NADPH Quinone Reductase (2-Demethylmenaquinone-8),1
+NADPH Quinone Reductase (Menaquinone-8),1
+NADPH Quinone Reductase (Ubiquinone-8),1
+NMN nucleosidase,1
+NMN permease (periplasm),1
+NMN transport via NMN glycohydrolase (periplasm),1
+NO transport (diffusion),1
+Na+/Acetate symport (periplasm),1
+Na+/Proline-L symporter (periplasm),1
+Na+/Propionate symporter (periplasm),1
+Na+/glutamate symport (periplasm),1
+Naphthoate synthase,1
+Nickel (+2) transport in via permease (no H+),1
+Nickel transport via ABC system (uptake, periplasm),1
+Nickle (Ni+2) ABC transporter (periplasm),1
+Nickle (Ni+2) transport out via proton antiport (periplasm),1
+Nicotinamidase,1
+Nicotinamide riboside transport,1
+Nicotinamide-nucleotide adenylyltransferase,1
+Nicotinamide-nucleotide amidase,1
+Nicotinate-nucleotide adenylyltransferase,1
+Nicotinate-nucleotide dimethylbenzimidazole phosphoribosyltransferase,1
+Nicotinate-nucleotide diphosphorylase (carboxylating),1
+Nicotinic acid mononucleotide pyrophosphorylase,1
+Nicotinic acid uptake (periplasm),1
+Nitrate reductase (Menaquinol-8) (periplasm),1
+Nitrate reductase (Ubiquinol-8),1
+Nitrate reductase (Ubiquinol-8) (periplasm),1
+Nitrate transport in via nitrite antiport (periplasm),1
+Nitric oxide dioxygenase,1
+Nitrious oxide transport (diffusion),1
+Nitrite Reductase (Menaquinole-8, periplasm),1
+Nitrite Reductase (NADH),1
+Nitrite Reductase (Ubiquinole-8, periplasm),1
+Nitrite transport in via proton symport, reversible (periplasm),1
+Nucleoside triphosphate pyrophosphorylase (atp),1
+Nucleoside triphosphate pyrophosphorylase (ctp),1
+Nucleoside triphosphate pyrophosphorylase (datp),1
+Nucleoside triphosphate pyrophosphorylase (dctp),1
+Nucleoside triphosphate pyrophosphorylase (dgtp),1
+Nucleoside triphosphate pyrophosphorylase (ditp),1
+Nucleoside triphosphate pyrophosphorylase (dttp),1
+Nucleoside triphosphate pyrophosphorylase (gtp),1
+Nucleoside triphosphate pyrophosphorylase (itp),1
+Nucleoside triphosphate pyrophosphorylase (utp),1
+Nucleoside triphosphate pyrophosphorylase (xtp),1
+Nucleoside triphosphate tripolyhydrolase,1
+Nucleoside-diphosphate kinase (ATP:CDP),1
+Nucleoside-diphosphate kinase (ATP:GDP),1
+Nucleoside-diphosphate kinase (ATP:UDP),1
+Nucleoside-diphosphate kinase (ATP:dADP),1
+Nucleoside-diphosphate kinase (ATP:dCDP),1
+Nucleoside-diphosphate kinase (ATP:dGDP),1
+Nucleoside-diphosphate kinase (ATP:dTDP),1
+Nucleoside-diphosphate kinase (ATP:dUDP),1
+Nucleoside-triphosphatase (ATP),1
+Nucleoside-triphosphatase (CTP),1
+Nucleoside-triphosphatase (GTP),1
+Nucleoside-triphosphatase (ITP),1
+Nucleoside-triphosphatase (XTP),1
+Nucleoside-triphosphatase (dITP),1
+O-Acetyl-L-serine export via facilitated transport,0
+O-Phospho-4-hydroxy-L-threonine:2-oxoglutarate aminotransferase,1
+O-acetyl-L-serine sulfhydrylase,1
+O-acyl Transferase - murein,1
+O-antigen Acetyl-Transferase,1
+O-antigen translocase,0
+O-antigen unit (O5) translocase,1
+O-succinylbenzoate-CoA ligase,1
+O-succinylbenzoate-CoA synthase,1
+O-succinylhomoserine lyase (L-cysteine),1
+O2 transport via diffusion (periplasm),1
+Octadecanoate transport via proton symport,1
+Octadecenoate transport via proton symport,1
+Octaprenyl pyrophosphate synthase,1
+Octaprenyl-hydroxybenzoate decarboxylase,1
+Ornithine Decarboxylase,1
+Ornithine carbamoyltransferase,1
+Ornithine transport via ABC system (periplasm),1
+Orotate phosphoribosyltransferase,1
+Orotate transport via proton symport (2 H) (periplasm),1
+Orotidine-5'-phosphate decarboxylase,1
+Oxaloacetate decarboxylase,1
+Oxaloacetate decarboxylase sodium pump,1
+Oxaloacetate transport via proton symport 2 H  periplasm ,1
+Oxamate transcarbamoylase,1
+Oxygen Independent coproporphyrinogen-III oxidase,1
+Pantetheine-phosphate adenylyltransferase,1
+Pantothenate kinase,1
+Pantothenate sodium symporter (periplasm),1
+Pantothenate synthase,1
+Phenylacetaldehyde reversible transport via proton symport (periplasm),1
+Phenylalanine transaminase,1
+Phenylalanyl-tRNA synthetase,1
+Phosphate acetyltransferase,1
+Phosphate reversible transport via symport (periplasm),1
+Phosphate transport via ABC system (uptake, periplasm),1
+Phosphatidate phosphatase (n-C12:0),1
+Phosphatidate phosphatase (n-C14:0),1
+Phosphatidate phosphatase (n-C14:1),1
+Phosphatidate phosphatase (n-C16:0),1
+Phosphatidate phosphatase (n-C16:1),1
+Phosphatidate phosphatase (n-C18:0),1
+Phosphatidate phosphatase (n-C18:1),1
+Phosphatidate transport via ABC system (n-C12:0, periplasm),1
+Phosphatidate transport via ABC system (n-C14:0, periplasm),1
+Phosphatidate transport via ABC system (n-C14:1, periplasm),1
+Phosphatidate transport via ABC system (n-C16:0, periplasm),1
+Phosphatidate transport via ABC system (n-C16:1, periplasm),1
+Phosphatidate transport via ABC system (n-C18:0, periplasm),1
+Phosphatidate transport via ABC system (n-C18:1, periplasm),1
+Phosphatidylethanolamine transport via ABC system (n-C12:0, periplasm),1
+Phosphatidylethanolamine transport via ABC system (n-C14:0, periplasm),1
+Phosphatidylethanolamine transport via ABC system (n-C14:1, periplasm),1
+Phosphatidylethanolamine transport via ABC system (n-C16:0, periplasm),1
+Phosphatidylethanolamine transport via ABC system (n-C16:1, periplasm),1
+Phosphatidylethanolamine transport via ABC system (n-C18:0, periplasm),1
+Phosphatidylethanolamine transport via ABC system (n-C18:1, periplasm),1
+Phosphatidylglycerol phosphate phosphatase (n-C14:0),1
+Phosphatidylglycerol phosphate phosphatase (n-C14:1),1
+Phosphatidylglycerol phosphate phosphatase (n-C16:0),1
+Phosphatidylglycerol phosphate phosphatase (n-C16:1),1
+Phosphatidylglycerol phosphate phosphatase (n-C18:0),1
+Phosphatidylglycerol phosphate phosphatase (n-C18:1),1
+Phosphatidylglycerol synthase (n-C12:0),1
+Phosphatidylglycerol synthase (n-C14:0),1
+Phosphatidylglycerol synthase (n-C14:1),1
+Phosphatidylglycerol synthase (n-C16:0),1
+Phosphatidylglycerol synthase (n-C16:1),1
+Phosphatidylglycerol synthase (n-C18:0),1
+Phosphatidylglycerol synthase (n-C18:1),1
+Phosphatidylglycerol transport via ABC system (n-C12:0, periplasm),1
+Phosphatidylglycerol transport via ABC system (n-C14:0, periplasm),1
+Phosphatidylglycerol transport via ABC system (n-C14:1, periplasm),1
+Phosphatidylglycerol transport via ABC system (n-C16:0, periplasm),1
+Phosphatidylglycerol transport via ABC system (n-C16:1, periplasm),1
+Phosphatidylglycerol transport via ABC system (n-C18:0, periplasm),1
+Phosphatidylglycerol transport via ABC system (n-C18:1, periplasm),1
+Phosphatidylglycerophosphate transport via ABC system (n-C12:0, periplasm),1
+Phosphatidylglycerophosphate transport via ABC system (n-C14:0, periplasm),1
+Phosphatidylglycerophosphate transport via ABC system (n-C14:1, periplasm),1
+Phosphatidylglycerophosphate transport via ABC system (n-C16:0, periplasm),1
+Phosphatidylglycerophosphate transport via ABC system (n-C16:1, periplasm),1
+Phosphatidylglycerophosphate transport via ABC system (n-C18:0, periplasm),1
+Phosphatidylglycerophosphate transport via ABC system (n-C18:1, periplasm),1
+Phosphatidylserine decarboxylase (n-C12:0),1
+Phosphatidylserine decarboxylase (n-C14:0),1
+Phosphatidylserine decarboxylase (n-C14:1),1
+Phosphatidylserine decarboxylase (n-C16:0),1
+Phosphatidylserine decarboxylase (n-C16:1),1
+Phosphatidylserine decarboxylase (n-C18:0),1
+Phosphatidylserine decarboxylase (n-C18:1),1
+Phosphatidylserine syntase (n-C12:0),1
+Phosphatidylserine syntase (n-C14:0),1
+Phosphatidylserine syntase (n-C14:1),1
+Phosphatidylserine syntase (n-C16:0),1
+Phosphatidylserine syntase (n-C16:1),1
+Phosphatidylserine syntase (n-C18:0),1
+Phosphatidylserine syntase (n-C18:1),1
+Phospho-N-acetylmuramoyl-pentapeptide-transferase (meso-2,6-diaminopimelate),1
+Phosphoadenylyl-sulfate reductase (glutaredoxin),1
+Phosphoadenylyl-sulfate reductase (thioredoxin),1
+Phosphoenolpyruvate carboxykinase,1
+Phosphoenolpyruvate carboxylase,1
+Phosphoenolpyruvate phosphate antiporter periplasm ,1
+Phosphoenolpyruvate synthase,1
+Phosphofructokinase,1
+Phosphoglucomutase,1
+Phosphogluconate dehydrogenase,1
+Phosphoglucosamine mutase,1
+Phosphoglycerate dehydrogenase,1
+Phosphoglycerate kinase,1
+Phosphoglycerate mutase,1
+Phosphoglycolate phosphatase,1
+Phosphomannomutase,1
+Phosphomethylpyrimidine kinase,1
+Phosphonoacetaldehyde hydrolase,1
+Phosphopantothenate-cysteine ligase,1
+Phosphopantothenoylcysteine decarboxylase,1
+Phosphopentomutase,1
+Phosphopentomutase 2 (deoxyribose),1
+Phosphoribosyl-AMP cyclohydrolase,1
+Phosphoribosyl-ATP pyrophosphatase,1
+Phosphoribosylaminoimidazole carboxylase,1
+Phosphoribosylaminoimidazole carboxylase (mutase rxn),1
+Phosphoribosylaminoimidazole synthase,1
+Phosphoribosylaminoimidazolecarboxamide formyltransferase,1
+Phosphoribosylaminoimidazolesuccinocarboxamide synthase,1
+Phosphoribosylanthranilate isomerase (irreversible),1
+Phosphoribosylformylglycinamidine synthase,1
+Phosphoribosylglycinamide formyltransferase,1
+Phosphoribosylglycinamide synthase,1
+Phosphoribosylpyrophosphate synthetase,1
+Phosphoserine phosphatase (L-serine),1
+Phosphoserine transaminase,1
+Phosphotransacetylase,1
+Polyphosphate kinase,1
+Porphobilinogen synthase,1
+Potassium ABC transporter (periplasm),1
+Potassium transport in via proton symport (periplasm),1
+Potassium transport out via proton antiport (periplasm),1
+Precorrin-2 C20-methyltransferase,1
+Precorrin-3B C17-methyltransferase,1
+Precorrin-6A reductase,1
+Prephenate dehydratase,1
+Prephenate dehydrogenase,1
+Proline dehydrogenase,1
+Prolyl-tRNA synthetase,1
+Propanal transport via channel (periplasm),0
+Propanediol dehydratase,1
+Propionate kinase,1
+Protoheme transport via ABC system (periplasm),1
+Protoporphyrinogen oxidase (aerobic),1
+Protoporphyrinogen oxidase (anaerobic),1
+Pseudouridylate synthase,1
+Purine-nucleoside phosphorylase (Adenosine),1
+Purine-nucleoside phosphorylase (Deoxyadenosine),1
+Purine-nucleoside phosphorylase (Deoxyguanosine),1
+Purine-nucleoside phosphorylase (Deoxyinosine),1
+Purine-nucleoside phosphorylase (Guanosine),1
+Purine-nucleoside phosphorylase (Inosine),1
+Purine-nucleoside phosphorylase (Xanthosine),1
+Putrescine Transaminase,1
+Putrescine transport in via proton symport,1
+Putrescine transport via ABC system (periplasm),1
+Putrescine/ornithine antiporter (periplasm),1
+Pyridoxal 5-phosphate phosphatase,1
+Pyridoxal import,1
+Pyridoxal kinase,1
+Pyridoxamine 5'-phosphate oxidase,1
+Pyridoxamine kinase,1
+Pyridoxine 5'-phosphate oxidase,1
+Pyridoxine 5'-phosphate oxidase (anaerboic,1
+Pyridoxine 5'-phosphate synthase,1
+Pyridoxine 5-phosphate phosphatase,1
+Pyridoxine import,1
+Pyridoxine kinase,1
+Pyrimidine phosphatase,1
+Pyrimidine-nucleoside phosphorylase (uracil),1
+Pyrroline-5-carboxylate reductase,1
+Pyruvate dehydrogenase,1
+Pyruvate flavodoxin oxidoreductase,1
+Pyruvate formate lyase,1
+Pyruvate kinase,1
+Pyruvate oxidase,1
+Pyruvate reversible transport via proton symport (periplasm),1
+Quinol monooxygenase (Ubiquinol-8),1
+Quinol monooxygenase (menaquinol 8),1
+Quinolinate synthase,1
+Reduced glutathione via ABC system (periplasm),1
+Release of Fe(III) from ferric 2,3-dihydroxybenzoylserine,1
+Residual atoms of reaction DMBZIDSYN facilitated transport periplasm ,5
+Rhamnosyl transferase,1
+Rhamnosyl transferase LPS O antigen biosynthesis ,1
+Rhamnosyltransferase I (LPS core biosynthesis),1
+Rhamnulokinase,1
+Rhamnulose-1-phosphate aldolase,1
+Riboflavin kinase,1
+Riboflavin synthase,1
+Ribokinase,1
+Ribonucleoside-diphosphate reductase (ADP),1
+Ribonucleoside-diphosphate reductase (ADP) (glutaredoxin),1
+Ribonucleoside-diphosphate reductase (CDP),1
+Ribonucleoside-diphosphate reductase (CDP) (glutaredoxin),1
+Ribonucleoside-diphosphate reductase (GDP),1
+Ribonucleoside-diphosphate reductase (GDP) (glutaredoxin),1
+Ribonucleoside-diphosphate reductase (UDP),1
+Ribonucleoside-diphosphate reductase (UDP) (glutaredoxin),1
+Ribonucleoside-triphosphate reductase (ATP) (flavodoxin),1
+Ribonucleoside-triphosphate reductase (CTP) (flavodoxin),1
+Ribonucleoside-triphosphate reductase (GTP) (flavodoxin),1
+Ribonucleoside-triphosphate reductase (UTP) (flavodoxin),1
+Ribose 5-phosphate phosphatase,1
+Ribose-5-phosphate isomerase,1
+Ribosylnicotinamide kinase,1
+Ribulose 5-phosphate 3-epimerase,1
+S-Formylglutathione hydralase,1
+S-adenosylhomocysteine nucleosidase,1
+S-adenosylmethione:2-demthylmenaquinole methyltransferase (menaquinone 8),1
+S-ribosylhomocysteine cleavage enzyme,1
+S-sulfo-L-cysteine sulfite lyase ,1
+SO2 transport via diffusion (periplasm),1
+Salmochelin S4 Fe III reduction Fe III unloading ,1
+Salmochelin S4 Fe III transport via ABC system periplasm ,1
+Salmochelin S4 Fe III transport via ton system extracellular ,1
+Salmochelin S4 transport secretion periplasm ,1
+Salmochelin S4 transport via ABC system periplasm ,1
+Salmochelin SX facilitated transport periplasm ,1
+Salmochelin s1 hydrolase,1
+Salmochelin s2 Fe III import,1
+Salmochelin s2 Fe III reduction and offloading,1
+Salmochelin s2 Fe III transport via ABC system periplasm,1
+Salmochelin s2 hydrolase,1
+Sarcosine oxidase,1
+Sedoheptulose 7-phosphate isomerase,1
+Selenocysteine synthase,1
+Selenophosphate synthase,1
+Serine O-acetyltransferase,1
+Seryl-tRNA synthetase,1
+Seryl-tRNA synthetase (selenocystein),1
+Shikimate dehydrogenase,1
+Shikimate kinase,1
+Sirohydrochlorin cobaltochelatase,1
+Sirohydrochlorin dehydrogenase (NAD),1
+Sirohydrochlorin ferrochelatase,1
+Sn-Glycerol 3-phosphate transport via ABC system (periplasm),1
+Sn-glycerol-3-phosphocholine transport via ABC system (periplasm),1
+Sn-glycerol-3-phosphoethanolamine transport via ABC system (periplasm),1
+Sn-glycerol-3-phosphoglycerol transport via ABC system (periplasm),1
+Sn-glycerol-3-phosphoserine transport via ABC system (periplasm),1
+Sodium proton antiporter (H:NA is 1.5) (periplasm),1
+Sodium proton antiporter (H:NA is 2) (periplasm),1
+Sodium transport out via proton antiport (cytoplasm to periplasm),1
+Sorbitol-6-phosphate dehydrogenase,1
+Spermidine acetyltransferase,1
+Spermidine acetyltransferase (N8),1
+Spermidine synthase,1
+Spermidine transport via ABC system (periplasm),1
+Succinate dehydrogenase (irreversible),1
+Succinate transport out via proton antiport (periplasm),1
+Succinate transport via proton symport (2 H) (periplasm),1
+Succinate-semialdehyde dehydrogenase (NAD),1
+Succinate-semialdehyde dehydrogenase (NADP),1
+Succinate:fumarate antiporter (periplasm),1
+Succintate transport via proton symport (3 H) (periplasm),1
+Succinyl-CoA synthetase (ADP-forming),1
+Succinyl-diaminopimelate desuccinylase,1
+Succinylarginine dihydrolase,1
+Succinyldiaminopimelate transaminase,1
+Succinylglutamate desuccinylase,1
+Succinylglutamic semialdehyde dehydrogenase,1
+Succinylornithine transaminase,1
+Sulfate adenyltransferase,1
+Sulfate transport via ABC system (periplasm),1
+Sulfite reductase ,1
+Sulfite reductase (NADPH2),1
+Superoxide dismutase,1
+Tagatose-bisphosphate aldolase,1
+Tartrate facilitated transport periplasm ,1
+Tartronate semialdehyde reductase,1
+Tetraacyldisaccharide 4'kinase,1
+Tetradecanoate transport via proton symport,1
+Tetrahydrodipicolinate succinylase,1
+Tetrapeptide (LalaDgluMdapDala) transport via ABC system (periplasm),1
+Tetrapeptide L,D-carboxypeptidase,1
+Tetrathionate Dehydrogenase Demethylmenaquinol 8 periplasm ,1
+Tetrathionate Dehydrogenase menaquinone 8  periplasm ,1
+Tetrathionate Dehydrogenase ubiquinone 8  periplasm ,1
+Thiamin pyrophosphatase,1
+Thiamine kinase,1
+Thiamine transport via ABC system (periplasm),1
+Thiamine-phosphate diphosphorylase,1
+Thiamine-phosphate kinase,1
+Thiazole phosphate synthesis,1
+Thiol:disulfide reductase (DsbC),1
+Thiol:disulfide reductase (DsbG),1
+Thioredoxin reductase (NADPH),1
+Thiosulfate Dehydrogenase Demethylmenaquinol 8  periplasm ,1
+Thiosulfate Dehydrogenase menaquinone 8  periplasm ,1
+Thiosulfate Dehydrogenase ubiquinone 8  periplasm ,1
+Thiosulfate transport via ABC system (periplasm),1
+Threonine aldolase,1
+Threonine synthase,1
+Threonyl-tRNA synthetase,1
+Thymidine kinase (ATP:thymidine),1
+Thymidine phosphorylase,1
+Thymidine transport in via proton symport (periplasm),1
+Thymidylate synthase,1
+Thymine transport out via proton antiport (periplasm),1
+Trans-2-decenoyl-ACP isomerase,1
+Transaldolase,1
+Transketolase,1
+Transport (cytoplasm to periplasm),0
+Trehalose transport via PEP:Pyr PTS (periplasm),1
+Trehalose-6-phosphate hydrolase,1
+Trehalose-phosphatase,1
+Tricarballylate oxidase,1
+Tricarballylate transport in via proton symport,1
+Trimethylamine N-oxide reductase (demethylmenaquinol 8) (periplasm),1
+Trimethylamine N-oxide reductase (menaquinol 8) (periplasm),1
+Triose-phosphate isomerase,1
+Tripeptide (LalaDgluMdap) transport via ABC system (periplasm),1
+Triphosphoribosyl-dephospho-CoA synthase,1
+Trithionate Reductase,1
+Tryptophan synthase (indole),1
+Tryptophan synthase (indoleglycerol phosphate),1
+Tryptophanyl-tRNA synthetase,1
+Tungstate transport via ABC system (periplasm),1
+Tyrosine transaminase,1
+Tyrosyl-tRNA synthetase,1
+UDP-3-O-(3-hydroxymyristoyl)glucosamine acyltransferase,1
+UDP-3-O-acetylglucosamine deacetylase,1
+UDP-4''-ketopentose:UDP-4-amino-4-deoxy-L-arabinose aminotransferase,1
+UDP-L-Ara4N formyltransferase,1
+UDP-N-acetyl-D-mannosamine oxidoreductase,1
+UDP-N-acetyl-D-mannosaminuronic acid transferase,1
+UDP-N-acetylenolpyruvoylglucosamine reductase,1
+UDP-N-acetylglucosamine 1-carboxyvinyltransferase,1
+UDP-N-acetylglucosamine 2-epimerase,1
+UDP-N-acetylglucosamine acyltransferase,1
+UDP-N-acetylglucosamine diphosphorylase,1
+UDP-N-acetylglucosamine-N-acetylmuramyl-(pentapeptide)pyrophosphoryl-undecaprenol N-acetylglucosamine transferase,1
+UDP-N-acetylglucosamine:undecaprenylphosphate N-acetylglucosamine -1-phosphate transferase,1
+UDP-N-acetylmuramate:L-alanyl-gamma-D-glutamyl-meso-diaminopimelate ligase,1
+UDP-N-acetylmuramate:L-alanyl-gamma-D-glutamyl-meso-diaminopimelate-D-alanine ligase,1
+UDP-N-acetylmuramoyl-L-alanine synthetase,1
+UDP-N-acetylmuramoyl-L-alanyl-D-gamma-glutamyl-meso-2,6-diaminopimelate-D-alanine L,D-carboxypeptidase,1
+UDP-N-acetylmuramoyl-L-alanyl-D-glutamate synthetase,1
+UDP-N-acetylmuramoyl-L-alanyl-D-glutamyl-meso-2,6-diaminopimelate synthetase,1
+UDP-N-acetylmuramoyl-L-alanyl-D-glutamyl-meso-2,6-diaminopimeloyl-D-alanyl-D-alanine synthetase,1
+UDP-glucuronate C-4'' decarboxylase,1
+UDP-sugar hydrolase,1
+UDPgalactopyranose mutase,7
+UDPglucose 4-epimerase,1
+UDPglucose 6-dehydrogenase,1
+UDPglucose--hexose-1-phosphate uridylyltransferase,1
+UMP kinase,1
+UTP-glucose-1-phosphate uridylyltransferase (irreversible),1
+Undecaprenol-phosphate galactosephosphotransferase,1
+Undecaprenyl diphosphate galactose rhamnose mannose abequose flippase cytoplasm to periplasm ,0
+Undecaprenyl diphosphate synthase,1
+Undecaprenyl phosphate 4-amino-4-deoxy L-arabinose synthase,1
+Undecaprenyl phosphate transport (cytoplasm to periplasm),1
+Undecaprenyl phosphate-L-Ara4FN formylase,1
+Undecaprenyl phosphate-L-Ara4FN transferase,1
+Undecaprenyl-diphosphatase,1
+Uracil phosphoribosyltransferase,1
+Uracil transport in via proton symport (periplasm),1
+Urea transport via facilitate diffusion (periplasm),1
+Ureidoglycolate dehydrogenase,1
+Ureidoglycolate hydrolase,1
+Uricase,1
+Uridine hydrolase,1
+Uridine kinase (GTP:Uridine),1
+Uridine transport in via proton symport (periplasm),1
+Uridylate kinase (dUMP),1
+Urocanase,1
+Uroporphyrinogen decarboxylase (uroporphyrinogen III),1
+Uroporphyrinogen methyltransferase,1
+Uroporphyrinogen-III synthase,1
+Valine transaminase,1
+Valine-pyruvate aminotransferase,1
+Valyl-tRNA synthetase,1
+Xanthine phosphoribosyltransferase,1
+Xanthine reversible transport (periplasm),1
+Xanthine transport in via proton symport (periplasm),1
+Xanthosine hydrolase,1
+Xanthosine transport via proton symport (periplasm),1
+Xylose isomerase,1
+Xylulokinase,1
+Zinc (Zn+2) ABC transporter, efflux (periplasm),1
+Zinc (Zn+2) transport out via proton antiport (periplasm),1
+Zinc (Zn+2) transport via ABC system (periplasm),1
+Zinc transport in via permease (no H+),1
