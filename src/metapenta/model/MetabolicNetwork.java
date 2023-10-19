@@ -270,13 +270,13 @@ public class MetabolicNetwork {
 		return reactionsUnBalanced;
 	}
 	
-	public Map<Reaction, String> reactionsUnbalancedReason(List<Reaction> reactionsUnbalanced){
+	public Map<Reaction, Map<String, String>> reactionsUnbalancedReason(List<Reaction> reactionsUnbalanced){
 		
-		Map<Reaction, String> reactionsUnbalancedReason = new HashMap<>();
+		Map<Reaction, Map<String, String>> reactionsUnbalancedReason = new HashMap<>();
 		
 		for (Reaction reaction: reactionsUnbalanced) {
 			
-			String reason =reaction.casesNoBalanced();
+			Map<String, String> reason =reaction.casesNoBalanced();
 			
 			reactionsUnbalancedReason.put(reaction, reason);
 		}

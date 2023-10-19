@@ -199,14 +199,34 @@ public class Reaction {
         return difference;
     } 
 	
-	public String casesNoBalanced() {
+	public Map<String, String> casesNoBalanced() {
 		
 		String reason = "";
+		String sumreactions = "";
+		Map<String, String> reasonSum = new HashMap<>();
 		List<Map<String, Integer>> listElemReactants = getListElements(reactants);
 		Map<String, Integer> sumlistElemReactants = getSumElements(listElemReactants);
 		
 		List<Map<String, Integer>> listElemProducts = getListElements(products);
 		Map<String, Integer> sumlistElemProducts = getSumElements(listElemProducts);
+		
+		//sumreactions = "Sum of stoichiometric coefficients(reactants): ";
+        for (Map.Entry<String, Integer> entry : sumlistElemReactants.entrySet()) {
+        	sumreactions = sumreactions + "{ "+entry.getKey() + ": " + entry.getValue()+ "}";
+        }
+        sumreactions = sumreactions + " | ";
+        //reason = reason + "Sum of stoichiometric coefficients(products): ";
+        for (Map.Entry<String, Integer> entry : sumlistElemProducts.entrySet()) {
+        	sumreactions = sumreactions + "{ "+entry.getKey() + ": " + entry.getValue()+ "} ";
+        }
+        sumreactions = sumreactions + " | ";
+        Map<String, Integer> difference = getDifference();
+        //reason = reason + "Difference between reactants and products: ";
+        for (Map.Entry<String, Integer> entry : difference.entrySet()) {
+        	sumreactions = sumreactions + "{ "+entry.getKey() + ": " + entry.getValue()+ "}";
+        }
+        sumreactions = sumreactions + " | ";
+        
 		
 		for(Map<String, Integer> elementReactants: listElemReactants) {
 			if(elementReactants == null) {
@@ -223,23 +243,15 @@ public class Reaction {
 			reason = "Reactants and product do not have the same elements ";
 		}
 		else {
-			reason = "Sum of stoichiometric coefficients(reactants): ";
-	        for (Map.Entry<String, Integer> entry : sumlistElemReactants.entrySet()) {
-	            reason = reason + "{ "+entry.getKey() + ": " + entry.getValue()+ "} ";
-	        }
-	        reason = reason + "Sum of stoichiometric coefficients(products): ";
-	        for (Map.Entry<String, Integer> entry : sumlistElemProducts.entrySet()) {
-	        	reason = reason + "{ "+entry.getKey() + ": " + entry.getValue()+ "} ";
-	        }
-	        Map<String, Integer> difference = getDifference();
-	        reason = reason + "Difference between reactants and products: ";
-	        for (Map.Entry<String, Integer> entry : difference.entrySet()) {
-	        	reason = reason + "{ "+entry.getKey() + ": " + entry.getValue()+ "} ";
-	        }
-			
+			reason = "The sum of coefficients is differents in each side";
 		}
 		
-		return reason;
+        
+        reasonSum.put(reason, sumreactions);
+			
+		
+		
+		return reasonSum;
 		
 	}
 	
