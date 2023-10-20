@@ -223,7 +223,7 @@ public class MetabolicNetworkXMLLoader {
 					String enzymeId = elem.getAttribute(ELEMENT_GENEPRODUCT);
 					if(enzymeId==null || enzymeId.length()==0) throw new IOException("Invalid enzyme for reaction "+reactionId);
 					GeneProduct enzyme = network.getGeneProduct(enzymeId);
-					if(enzyme==null) throw new IOException("Enzyme "+enzymeId+" not found for reaction "+reactionId);
+					//if(enzyme==null) throw new IOException("Enzyme "+enzymeId+" not found for reaction "+reactionId);
 					answer.add(enzyme);
 				} else {
 					answer.addAll(loadEnzymes(reactionId, elem, network));

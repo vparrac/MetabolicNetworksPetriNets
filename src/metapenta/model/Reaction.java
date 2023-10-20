@@ -1,5 +1,6 @@
 package metapenta.model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -238,13 +239,16 @@ public class Reaction {
 				reason = "At least one product does not have chemical formula ";
 			}
 		}
+		if(reason.equals("")) {
+			if(sumlistElemReactants.size() != sumlistElemProducts.size()) {
+				reason = "Reactants and product do not have the same elements ";
+			}
+			else {
+				reason = "The sum of coefficients is differents in each side";
+			}
+			
+		}
 		
-		if(sumlistElemReactants.size() != sumlistElemProducts.size()) {
-			reason = "Reactants and product do not have the same elements ";
-		}
-		else {
-			reason = "The sum of coefficients is differents in each side";
-		}
 		
         
         reasonSum.put(reason, sumreactions);
@@ -261,6 +265,8 @@ public class Reaction {
 		
 		List<Map<String, Integer>> listElemProducts = getListElements(products);
 		Map<String, Integer> sumlistElemProducts = getSumElements(listElemProducts);
+		
+		Map<String, Integer> diference = getDifference();
 		
 		int mcm = 0;
 		
@@ -335,6 +341,45 @@ public class Reaction {
 					
 				}
 			}
+		}
+		else if(diference.size() == 1) {
+			for (Map.Entry<String, Integer> entry : diference.entrySet()) {
+				String elem = entry.getKey();
+				Integer differenceNum = entry.getValue();
+				
+				
+				outerLoop:
+				for(ReactionComponent react : reactants) {
+					Map<String, Integer> chemicalFormula = react.getFormulaReactionComponent();
+					if(chemicalFormula.size() == 1) {
+						for (Map.Entry<String, Integer> formula : chemicalFormula.entrySet()) {
+							if(formula.getKey().equals(elem)) {
+								react.setStoichiometry(differenceNum);
+								break outerLoop;
+							}
+						}
+						
+					}
+					
+				}
+				outerLoop:
+				for(ReactionComponent product: products) {
+					Map<String, Integer> chemicalFormula = product.getFormulaReactionComponent();
+					if(chemicalFormula.size() == 1) {
+						for (Map.Entry<String, Integer> formula : chemicalFormula.entrySet()) {
+							if(formula.getKey().equals(elem)) {
+								product.setStoichiometry(differenceNum);
+								break outerLoop;
+							}
+						}
+						
+					}
+					
+				}
+				
+			}
+			
+			
 		}
 		
 		return sumlistElemReactants.equals(sumlistElemProducts);
