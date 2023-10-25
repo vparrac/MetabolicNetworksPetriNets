@@ -193,7 +193,10 @@ public class MetabolicNetworkXMLLoader {
 							}
 						}
 					}
-					if(reactants.size()==0) throw new IOException("No reactants found for reaction "+id);
+					if(reactants.size()==0) {
+						System.err.println("No reactants found for reaction "+id);
+						continue;
+					}
 					if(products.size()==0) {						
 						//System.err.println("No products found for reaction "+id);
 						continue;

@@ -1,0 +1,2 @@
+Reaction id | Name | Reason why it is unbalance | Sum of reactants coefficients | Sum of products coefficients | Difference between reactants and products | 
+ 
