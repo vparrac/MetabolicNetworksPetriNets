@@ -1,0 +1,1 @@
+R_34DHALDD 	 Aldehyde dehydrogenase  3 4 dihydroxyphenylacetaldehyde  NAD  	 R_HPA3MOFAD 	 RXN-8505 	 R_4HALDD_1 	  aldehyde dehydrogenase  4 hydroxyphenylacetaldehyde  NAD  	 R_HEPTA3 	  heptosyltransferase III  LPS core synthesis  	 

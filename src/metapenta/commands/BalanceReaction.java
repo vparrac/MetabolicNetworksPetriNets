@@ -41,8 +41,21 @@ public class BalanceReaction {
 
 			
 		}
+		try (PrintStream out2 = new PrintStream(args[2])) {
+			for (Entry<Reaction, Map<String, String>> entry : reactionsUnbalancedReason.entrySet()) {
+	            //System.out.println(entry.getKey() + ": " + entry.getValue());
+				Reaction r = entry.getKey();
+				if(r.balanceReaction()) {
+					out2.print(r.getId() + " \t "+ r.getName() + " \t ");
+				}
+				
+			
+		}
+		
+		
+	}
 	}
 	
 	
 
-}
+	}

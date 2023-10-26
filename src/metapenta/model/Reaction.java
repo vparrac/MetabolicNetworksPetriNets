@@ -123,6 +123,10 @@ public class Reaction {
 	public void setIsBalanced(boolean isBalanced) {
 		this.isBalanced = isBalanced;
 	}
+	
+	public void addProduct(ReactionComponent product) {
+		products.add(product);
+	}
 	/**
 	 * Method that makes a String with the information about the reactants
 	 * of the Reaction
@@ -268,6 +272,10 @@ public class Reaction {
 		
 		Map<String, Integer> diference = getDifference();
 		
+		List<Reaction> reactionsBalanced = new ArrayList<>();
+		
+		boolean changedToBalanced = false;
+		
 		int mcm = 0;
 		
 		for(Map<String, Integer> elementReactants: listElemReactants) {
@@ -332,6 +340,8 @@ public class Reaction {
 							reactant.setStoichiometry(mcm);
 							if(isBalanced()) {
 								setIsBalanced(true);
+								reactionsBalanced.add(this);
+								changedToBalanced = true;
 							}
 						}
 						
@@ -347,42 +357,88 @@ public class Reaction {
 				String elem = entry.getKey();
 				Integer differenceNum = entry.getValue();
 				
-				
-				outerLoop:
-				for(ReactionComponent react : reactants) {
-					Map<String, Integer> chemicalFormula = react.getFormulaReactionComponent();
-					if(chemicalFormula.size() == 1) {
-						for (Map.Entry<String, Integer> formula : chemicalFormula.entrySet()) {
-							if(formula.getKey().equals(elem)) {
-								react.setStoichiometry(differenceNum);
-								break outerLoop;
+				if (differenceNum > 0) {
+					outerLoop1:
+						for(ReactionComponent react : reactants) {
+							Map<String, Integer> chemicalFormula = react.getFormulaReactionComponent();
+							if(chemicalFormula.size() == 1) {
+								for (Map.Entry<String, Integer> formula : chemicalFormula.entrySet()) {
+									if(formula.getKey().equals(elem)) {
+										react.setStoichiometry(differenceNum);
+										reactionsBalanced.add(this);
+										changedToBalanced =  true;
+										break outerLoop1;
+									}
+								}
+								
 							}
+							
 						}
-						
-					}
-					
-				}
-				outerLoop:
+				}else {
+				outerLoop2:
 				for(ReactionComponent product: products) {
 					Map<String, Integer> chemicalFormula = product.getFormulaReactionComponent();
 					if(chemicalFormula.size() == 1) {
 						for (Map.Entry<String, Integer> formula : chemicalFormula.entrySet()) {
 							if(formula.getKey().equals(elem)) {
 								product.setStoichiometry(differenceNum);
-								break outerLoop;
+								reactionsBalanced.add(this);
+								changedToBalanced =  true;
+								break outerLoop2;
 							}
 						}
 						
 					}
-					
+					}
 				}
 				
 			}
 			
 			
 		}
+		else if(diference.size() > 1) {
+			boolean isEqual = false;
+			for(ReactionComponent react : reactants) {
+				Map<String, Integer> chemicalFormula = react.getFormulaReactionComponent();
+				if (chemicalFormula.keySet().equals(diference.keySet())) {
+					isEqual = true;
+				
+			}
+			}
+			for(ReactionComponent product: products) {
+				Map<String, Integer> chemicalFormulaProduct = product.getFormulaReactionComponent();
+				if (chemicalFormulaProduct.keySet().equals(diference.keySet())) {
+					isEqual = true;
+				
+			}
+				
+			}
+			
+			if(!isEqual) {
+				Metabolite meta = new Metabolite("new_id", "new_name", "c");
+				String formulaString = "";
+				for (Map.Entry<String, Integer> formula : diference.entrySet()) {
+					String elem = formula.getKey();
+					System.out.println(elem);
+					Integer num = formula.getValue();
+					System.out.println(num);
+					if(num > 0) {
+						formulaString = formulaString + elem + num;
+					}
+				}
+				System.out.println("OUT");
+				System.out.println(formulaString);
+				meta.setChemicalFormula(formulaString);
+				ReactionComponent reactionCom = new ReactionComponent(meta, 1);
+				reactionCom.setFormulaReactionComponent(meta);
+				addProduct(reactionCom);
+			}
+			
+		}
+			
 		
-		return sumlistElemReactants.equals(sumlistElemProducts);
+		return changedToBalanced;
+	
 		
 	}
 	
