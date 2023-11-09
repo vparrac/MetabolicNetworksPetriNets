@@ -17,7 +17,7 @@ import java.util.TreeSet;
 import metapenta.petrinet.Edge;
 import metapenta.petrinet.Place;
 import metapenta.petrinet.Transition;
-import metapenta.tools.DescribeNetworkWriter;
+import metapenta.tools.io.DescribeNetworkWriter;
 
 /**
  * Represents a metabolic network of reactions on metabolites

@@ -1,6 +1,4 @@
-package metapenta.tools;
-
-import java.util.SplittableRandom;
+package metapenta.tools.io;
 
 public class StringUtils {
 
