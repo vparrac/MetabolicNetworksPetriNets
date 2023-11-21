@@ -33,6 +33,13 @@ public class MetaPenta implements IMetaPenta{
         petriNet.getSinks();
     }
 
+    @Override
+    public ArrayList<Double> fluxVector(String outFilePrefix) throws Exception {
+
+        return null;
+    }
+
+
     private void loadPetriNet(MetabolicNetwork network){
         List<String> keysReaction = network.getReactionIds();
         for (String key : keysReaction) {
@@ -71,7 +78,7 @@ public class MetaPenta implements IMetaPenta{
                 place = createAndAddPlaceToNet(metabolite);
             }
 
-            Edge<Place> edge = new Edge<>(place, reactionComponent.getStoichiometry());
+            Edge<Place> edge = new Edge(place, reactionComponent.getStoichiometry());
             edges.add(edge);
         }
 

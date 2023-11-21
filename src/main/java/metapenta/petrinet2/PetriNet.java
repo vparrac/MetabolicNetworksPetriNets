@@ -3,7 +3,7 @@ package metapenta.petrinet2;
 import metapenta.model.Metabolite;
 import metapenta.model.Reaction;
 import metapenta.model.ReactionComponent;
-import metapenta.tools.DescribeNetworkWriter;
+import metapenta.tools.io.DescribeNetworkWriter;
 
 import java.util.*;
 

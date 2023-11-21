@@ -1,4 +1,4 @@
-package metapenta.tools;
+package metapenta.tools.io;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
