@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>uniandes.edu.co.flag.metapenta</groupId>
+    <groupId>uniandes.flag.edu.co.metapenta</groupId>
     <artifactId>metapenta</artifactId>
-    <version>3.0-SNAPSHOT</version>
+    <version>5.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -34,7 +34,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://github.com/FLAGlab/MetaPeNTA</url>
+            <url>https://maven.pkg.github.com/FLAGlab/MetaPeNTA</url>
         </repository>
     </distributionManagement>
 
