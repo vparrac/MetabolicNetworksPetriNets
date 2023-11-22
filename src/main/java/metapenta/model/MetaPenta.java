@@ -4,18 +4,18 @@ import metapenta.petrinet2.Edge;
 import metapenta.petrinet2.Place;
 import metapenta.petrinet2.Transition;
 import metapenta.petrinet2.PetriNet;
+import metapenta.service.ConnectedComponentsService;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class MetaPenta implements IMetaPenta{
-    private MetabolicNetworkXMLLoader loader;
-    private PetriNet petriNet;
+public class MetaPenta{
+    private MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
+    private PetriNet petriNet = new PetriNet();
     public MetaPenta(String networkFile){
         try {
-            loader = new MetabolicNetworkXMLLoader();
-            petriNet = new PetriNet();
             MetabolicNetwork network = loader.loadNetwork(networkFile);
             loadPetriNet(network);
         } catch (IOException e) {
@@ -23,22 +23,9 @@ public class MetaPenta implements IMetaPenta{
         }
     }
 
-    @Override
     public void describeMetabolicNetwork(String outFilePrefix) throws Exception {
         petriNet.describeMetabolicNetwork(outFilePrefix);
     }
-
-    @Override
-    public void getSinks(String outFilePrefix) throws Exception {
-        petriNet.getSinks();
-    }
-
-    @Override
-    public ArrayList<Double> fluxVector(String outFilePrefix) throws Exception {
-
-        return null;
-    }
-
 
     private void loadPetriNet(MetabolicNetwork network){
         List<String> keysReaction = network.getReactionIds();
@@ -92,5 +79,11 @@ public class MetaPenta implements IMetaPenta{
         return place;
     }
 
+
+    public ConnectedComponents connectedComponents() {
+        ConnectedComponentsService ccService = new ConnectedComponentsService(this.petriNet);
+
+        return ccService.getConnectedComponents();
+    }
 
 }

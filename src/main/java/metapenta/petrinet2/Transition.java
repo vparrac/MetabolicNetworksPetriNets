@@ -1,5 +1,7 @@
 package metapenta.petrinet2;
 
+import metapenta.model.Reaction;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +9,8 @@ public class Transition<A> {
     private String ID;
     private String label;
     private A object;
-    List<Edge> edgesIn;
-    List<Edge> edgesOut;
+    List<Edge<Place>> edgesIn;
+    List<Edge<Place>> edgesOut;
 
     public Transition(String id, String label, A object) {
         ID = id;
@@ -43,7 +45,7 @@ public class Transition<A> {
     }
 
     public void AddEdgeIn(Edge<?> edge){
-        this.edgesIn.add(edge);
+        this.edgesIn.add((Edge<Place>) edge);
     }
 
     public void AddEdgesIn(List<Edge<?>> edges){
@@ -52,13 +54,28 @@ public class Transition<A> {
         }
     }
     public void AddEdgeOut(Edge<?> transition){
-        this.edgesOut.add(transition);
+        this.edgesOut.add((Edge<Place>) transition);
     }
 
     public void AddEdgesOut(List<Edge> edgesOut){
         for(Edge edge: edgesOut){
             this.edgesOut.add(edge);
         }
+    }
+
+    public List<Edge<Place>> getEdgesOut() {
+        return edgesOut;
+    }
+
+    public List<Edge<Place>> getEdgesIn() {
+        return edgesOut;
+    }
+
+    public List<Edge<Place>> getAllEdges() {
+        List<Edge<Place>> allEdges = new ArrayList<>(edgesIn);
+        allEdges.addAll(edgesOut);
+
+        return allEdges;
     }
 
 }

@@ -153,11 +153,11 @@ public class FluxBalanceAnalysis {
 
 
     public static void main(String[] args) {
-        Metabolite a = new Metabolite("a", "a", "e");
-        Metabolite b = new Metabolite("b", "b", "e");
-        Metabolite c = new Metabolite("c", "c", "e");
-        Metabolite d = new Metabolite("d", "d", "e");
-        Metabolite e = new Metabolite("e", "e", "e");
+        Metabolite a = new Metabolite("a", "a", "e", 0);
+        Metabolite b = new Metabolite("b", "b", "e", 1);
+        Metabolite c = new Metabolite("c", "c", "e", 2);
+        Metabolite d = new Metabolite("d", "d", "e", 3);
+        Metabolite e = new Metabolite("e", "e", "e", 4);
 
         List<Reaction> reactions = new ArrayList<>();
 
@@ -173,7 +173,7 @@ public class FluxBalanceAnalysis {
         List<ReactionComponent> productsR1 = new ArrayList();
         productsR1.add(r1b);
 
-        Reaction r1 = new Reaction("r1", "r1", reactantsR1, productsR1);
+        Reaction r1 = new Reaction("r1", "r1", reactantsR1, productsR1, 0);
 
         //R2 Reaction
         ReactionComponent r2b = new ReactionComponent(b,2);
@@ -184,7 +184,7 @@ public class FluxBalanceAnalysis {
         List<ReactionComponent> productsR2 = new ArrayList();
         productsR2.add(r2e);
 
-        Reaction r2 = new Reaction("r2", "r2", reactantsR2, productsR2);
+        Reaction r2 = new Reaction("r2", "r2", reactantsR2, productsR2, 0);
 
         //R3 Reaction
         ReactionComponent r3e = new ReactionComponent(e,1);
@@ -195,7 +195,7 @@ public class FluxBalanceAnalysis {
         List<ReactionComponent> productsR3 = new ArrayList();
         productsR3.add(r3a);
 
-        Reaction r3 = new Reaction("r3", "r3", reactantsR3, productsR3);
+        Reaction r3 = new Reaction("r3", "r3", reactantsR3, productsR3, 1);
 
         //R4 Reaction
         ReactionComponent r4b = new ReactionComponent(b,1);
@@ -208,7 +208,7 @@ public class FluxBalanceAnalysis {
         List<ReactionComponent> productsR4 = new ArrayList();
         productsR4.add(r4c);
 
-        Reaction r4 = new Reaction("r4", "r4", reactantsR4, productsR4);
+        Reaction r4 = new Reaction("r4", "r4", reactantsR4, productsR4, 2);
 
 
         //R5 Reaction
@@ -216,7 +216,7 @@ public class FluxBalanceAnalysis {
         List<ReactionComponent> productsR5 = new ArrayList();
         productsR5.add(r5a);
 
-        Reaction r5 = new Reaction("r5", "r5", new ArrayList<>(), productsR5);
+        Reaction r5 = new Reaction("r5", "r5", new ArrayList<>(), productsR5, 3);
         r5.setReversible(true);
 
 
@@ -225,7 +225,7 @@ public class FluxBalanceAnalysis {
         List<ReactionComponent> productsR6 = new ArrayList();
         productsR6.add(r6d);
 
-        Reaction r6 = new Reaction("r6", "r6", new ArrayList<>(), productsR6);
+        Reaction r6 = new Reaction("r6", "r6", new ArrayList<>(), productsR6, 4);
         r6.setReversible(true);
 
         //R7 Reaction
@@ -233,7 +233,7 @@ public class FluxBalanceAnalysis {
         List<ReactionComponent> productsR7 = new ArrayList();
         productsR6.add(r7e);
 
-        Reaction r7 = new Reaction("r7", "r7", new ArrayList<>(), productsR7);
+        Reaction r7 = new Reaction("r7", "r7", new ArrayList<>(), productsR7, 5);
         r7.setReversible(true);
 
         // Create and load PetriNet

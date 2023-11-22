@@ -7,6 +7,8 @@ import java.util.List;
  * @author Jorge Duitama
  */
 public class Reaction {
+
+	private int nid;
 	private String id;
 	private String name;
 	private List<ReactionComponent> reactants;
@@ -22,12 +24,13 @@ public class Reaction {
 	 * @param reactants Metabolites that serve as input of the reaction
 	 * @param products Metabolites that serve as output of the reaction
 	 */
-	public Reaction(String id, String name, List<ReactionComponent> reactants, List<ReactionComponent> products) {
+	public Reaction(String id, String name, List<ReactionComponent> reactants, List<ReactionComponent> products, int nid) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.reactants = reactants;
 		this.products = products;
+		this.nid = nid;
 	}
 	/**
 	 * @return true if the reaction is reversible, false otherwise
@@ -145,6 +148,10 @@ public class Reaction {
 		return productString;
 	}
 
+	public int getNid() {
+		return nid;
+	}
+
 	@Override
 	public String toString() {
 		String jsonReaction="{";
@@ -160,7 +167,7 @@ public class Reaction {
 	}
 	
 	public Reaction clone() {
-		return new Reaction(id, name, reactants, products);
+		return new Reaction(id, name, reactants, products, nid);
 	}
 
 

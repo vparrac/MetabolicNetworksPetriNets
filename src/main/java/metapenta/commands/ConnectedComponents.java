@@ -4,6 +4,7 @@ import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Set;
 
+import metapenta.model.MetaPenta;
 import metapenta.model.MetabolicNetwork;
 import metapenta.model.MetabolicNetworkXMLLoader;
 /**
@@ -18,15 +19,7 @@ public class ConnectedComponents {
 	 * @throws Exception if exists any error of I/O
 	 */
 	public static void main(String[] args) throws Exception {
-		MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
-		MetabolicNetwork network = loader.loadNetwork(args[0]);
-		network.makeNet();
-		Map<String, Integer> connectedComponents = network.connectedComponents();
-		StringBuilder csv = new StringBuilder();
-		Set<String> reactionsSet = connectedComponents.keySet();
-		for (String reaction : reactionsSet) {
-			csv.append(reaction+","+connectedComponents.get(reaction)+"\n");
-		}
-		Files.write(Paths.get(args[1]), csv.toString().getBytes());
+		MetaPenta network = new MetaPenta(args[0]);
+		network.connectedComponents();
 	}
 }

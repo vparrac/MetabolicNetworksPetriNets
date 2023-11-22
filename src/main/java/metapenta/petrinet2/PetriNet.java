@@ -7,7 +7,7 @@ import metapenta.tools.io.DescribeNetworkWriter;
 
 import java.util.*;
 
-public class PetriNet implements IPetriNet {
+public class PetriNet {
     private Map<String, Place<Metabolite>> places;
     private Map<String, Transition<Reaction>> transitions;
 
@@ -23,30 +23,14 @@ public class PetriNet implements IPetriNet {
         return transitions.get(key);
     }
 
+
     public Map<String, Place<Metabolite>> getPlaces() {
         return places;
     }
 
-    public void AddPlace(String id, Place<Metabolite> place){
-        this.places.put(id, place);
-    }
 
     public void AddTransition(String id, Transition<Reaction> transition){
         this.transitions.put(id, transition);
-    }
-
-    public void setTransitions(Map<String, Transition<Reaction>> transitions) {
-        this.transitions = transitions;
-    }
-
-    @Override
-    public List<Place<?>> getSources() {
-        return getPlacesByStatus(Place.SOURCE);
-    }
-
-    @Override
-    public List<Place<?>> getSinks() {
-        return getPlacesByStatus(Place.SINK);
     }
 
 
@@ -56,17 +40,6 @@ public class PetriNet implements IPetriNet {
 
     public Place getPlace(String key){
         return places.get(key);
-    }
-
-
-    private List<Place<?>> getPlacesByStatus(String status){
-        List<Place<?>> sources = new ArrayList<>();
-        for (String key : places.keySet()) {
-            if (places.get(key).isStatus(status)){
-                sources.add(places.get(key));
-            }
-        }
-        return sources;
     }
 
 
@@ -111,6 +84,7 @@ public class PetriNet implements IPetriNet {
 
         gfw.Write();
     }
+
 
     public List<String> getMetaboliteIds(){
         List<String> metabolitesIds = new ArrayList();
@@ -163,7 +137,6 @@ public class PetriNet implements IPetriNet {
 
         return reactionIds;
     }
-
 
     public List<String> getReversibleReactionsIds(){
         List<String> reactionIds = new ArrayList();
