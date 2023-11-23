@@ -1,11 +1,9 @@
 package metapenta.commands;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Map;
-import java.util.Set;
 
-import metapenta.model.MetabolicNetwork;
-import metapenta.model.MetabolicNetworkXMLLoader;
+import metapenta.model.ConnectedComponentsDTO;
+import metapenta.model.MetaPenta;
+import metapenta.tools.io.ConnectedComponentsWriter;
+
 /**
  * Class to test connected components method
  * @author Valerie Parra Cort�s
@@ -18,15 +16,12 @@ public class ConnectedComponents {
 	 * @throws Exception if exists any error of I/O
 	 */
 	public static void main(String[] args) throws Exception {
-		MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
-		MetabolicNetwork network = loader.loadNetwork(args[0]);
-		network.makeNet();
-		Map<String, Integer> connectedComponents = network.connectedComponents();
-		StringBuilder csv = new StringBuilder();
-		Set<String> reactionsSet = connectedComponents.keySet();
-		for (String reaction : reactionsSet) {
-			csv.append(reaction+","+connectedComponents.get(reaction)+"\n");
-		}
-		Files.write(Paths.get(args[1]), csv.toString().getBytes());
+		MetaPenta network = new MetaPenta(args[0]);
+
+		ConnectedComponentsDTO connectedComponents = network.connectedComponents();
+
+		ConnectedComponentsWriter connectedComponentsWriter = new ConnectedComponentsWriter(connectedComponents, args[1]);
+		connectedComponentsWriter.write();
+
 	}
 }

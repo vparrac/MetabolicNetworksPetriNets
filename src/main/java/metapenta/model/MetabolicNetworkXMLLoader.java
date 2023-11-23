@@ -44,7 +44,10 @@ public class MetabolicNetworkXMLLoader {
 	private static final String ELEMENT_GENEPRODUCTREF = "fbc:geneProductRef";
 	private static final String ATTRIBUTE_FBC_LOWERBOUND = "fbc:lowerFluxBound";
 	private static final String ATTRIBUTE_FBC_UPPERBOUND = "fbc:upperFluxBound";
-	
+
+	private int metaboliteNumber = 0;
+	private int reactionNumber = 0;
+
 	/**
 	 * Loads a network from the file with the given name
 	 * @param filename Name of the file to load
@@ -147,7 +150,8 @@ public class MetabolicNetworkXMLLoader {
 					String compartment = elem.getAttribute(ATTRIBUTE_COMPARTMENT);
 					if(compartment==null || compartment.length()==0) throw new IOException("Invalid compartment for metabolite with id "+id);
 					String formula = elem.getAttribute(ATTRIBUTE_FBCFORMULA);
-					Metabolite metabolite = new Metabolite(id, name, compartment);
+					Metabolite metabolite = new Metabolite(id, name, compartment, metaboliteNumber);
+					metaboliteNumber ++;
 					if(formula!=null) metabolite.setChemicalFormula(formula);
 					network.addMetabolite(metabolite);
 				}
@@ -199,7 +203,8 @@ public class MetabolicNetworkXMLLoader {
 						continue;
 					}
 					
-					Reaction r = new Reaction(id, name, reactants, products);
+					Reaction r = new Reaction(id, name, reactants, products, reactionNumber);
+					this.reactionNumber++;
 					if("true".equals(reversibleStr)) r.setReversible(true);
 					r.setEnzymes(enzymes);
 					//TODO: Load bounds

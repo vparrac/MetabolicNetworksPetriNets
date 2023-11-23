@@ -110,6 +110,13 @@ public class MetabolicNetwork {
 	}
 
 
+	public  Map<String,Metabolite> getMetabolites(){
+		return metabolites;
+	}
+
+	public  Map<String,Reaction> getReactions(){
+		return reactions;
+	}
 
 	/**
 	 * @return List of metabolites in the network
@@ -1122,54 +1129,6 @@ public class MetabolicNetwork {
 		return reactionIds;
 	}
 
-	public Map<String, Integer> connectedComponents() {				
-		int[] metabolitesVisited = new int[places.size()+1];
-		int[] transitionsVisited = new int[transitions.size()+1];
-		int conectedComponentId =1;
-		int tiempo=0;
-
-		Set<String> keys = places.keySet();
-
-		for(String node: keys) {
-			if(metabolitesVisited[places.get(node).getMetaboliteNumber()]==0) {
-				visitNode(metabolitesVisited, transitionsVisited, node, tiempo, conectedComponentId);
-				conectedComponentId++;
-			}			
-		}
-		Map<String, Integer> connectedComponents = new TreeMap<String, Integer>();
-		Set<Integer> transitionsKeys = transitions.keySet();
-
-		for (Integer integer : transitionsKeys) {
-			connectedComponents.put(transitions.get(integer).getObject().getName(), transitionsVisited[integer]);
-		}				
-		return connectedComponents;
-	}
-
-	private void visitNode(int[] metabolitesVisited, int[] transitionsVisited, String node,  int tiempo, int conectedComponentId) {
-		metabolitesVisited[places.get(node).getMetaboliteNumber()] = 1;		
-		tiempo = tiempo+1;					
-		List<Edge<Transition< Metabolite, Reaction>>> neighbours = places.get(node).getInTransitions();
-		for (int i = 0; i < neighbours.size(); i++) {
-			Edge<Transition< Metabolite, Reaction>> reaction = neighbours.get(i);
-			transitionsVisited[reaction.getObject().getNumber()]=conectedComponentId;
-			List<Edge<Place< Metabolite, Reaction>>> in= reaction.getObject().getInPlaces();
-			List<Edge<Place< Metabolite, Reaction>>> out=reaction.getObject().getOutPlaces();
-			for (int j = 0; j < in.size(); j++) {
-				String node_1=in.get(j).getObject().getObject().getId();
-				if(metabolitesVisited[places.get(node_1).getMetaboliteNumber()]==0) {
-					visitNode(metabolitesVisited, transitionsVisited, node_1, tiempo, conectedComponentId);
-				}				
-			}
-			for (int j = 0; j < out.size(); j++) {
-				String node_2=out.get(j).getObject().getObject().getId();
-				if(metabolitesVisited[places.get(node_2).getMetaboliteNumber()]==0) {
-					visitNode(metabolitesVisited, transitionsVisited, node_2, tiempo, conectedComponentId);
-				}
-			}
-
-		}		
-	}
-
 	public List<Metabolite> commonMetabolites(MetabolicNetwork mn2){
 		List<Metabolite> commonMetabolites = new ArrayList<Metabolite>();
 		List<Metabolite> metabolitesNetwork2 = mn2.getMetabolitesAsList();		
@@ -1193,126 +1152,6 @@ public class MetabolicNetwork {
 		}		
 		return commonReactions;
 	}
+	
 
-	public Map<Integer, Transition<Metabolite, Reaction>> getTransitions() {
-		return transitions;
-	}
-
-	public Map<String, Place<Metabolite, Reaction>> getPlaces() {
-		return places;
-	}
-
-	public Map<Integer,Place<Metabolite, Reaction>> getPlacesbyNumber() {
-		return placesbyNumber;
-	}
-
-	
-	public Map<String,String> reactiosnMetboliteString(String metabolite) {
-		Map<String,List<Reaction>> reactions= getReactionOfMetabolite(metabolite);
-		Map<String, String> mapa = new TreeMap<String, String>();
-		List<Reaction> reactionsS = reactions.get("Substrates");
-		String isSubstrate ="";
-		for (int i = 0; i < reactionsS.size(); i++) {
-			isSubstrate+=reactionsS.get(i).getName()+"\n";
-		}
-		List<Reaction> productsS = reactions.get("Products");
-		String isProduct ="";
-		for (int i = 0; i < productsS.size(); i++) {
-			isProduct+=productsS.get(i).getName()+"\n";
-		}
-		
-		mapa.put("Substrates", isSubstrate);
-		mapa.put("Products", isProduct);
-		
-		return mapa;
-		
-	}
-	public void printInAFileReactionsOfMetabolite(String metabolite, String fileName) throws FileNotFoundException {
-		Map<String,List<Reaction>> reactions= getReactionOfMetabolite(metabolite);
-		try (PrintStream out = new PrintStream(fileName)) {			
-			List<Reaction> reactionsS = reactions.get("Substrates");
-			out.print("{");
-			if(!reactionsS.isEmpty()) {
-				out.print("\"isSubstrate\":[");
-				for (int i = 0; i < reactionsS.size(); i++) {
-					if(i==reactionsS.size()-1) {
-						out.print(reactionsS.get(i)+"");
-					}
-					else {
-						out.print(reactionsS.get(i)+", \n");
-					}										
-				}				
-				out.print("]\n");
-			}
-			List<Reaction> products = reactions.get("Products");
-			if(!products.isEmpty()) {
-				out.print(",");
-				out.print("\"isProduct\":[");
-				for (int i = 0; i < products.size(); i++) {
-					if(i==products.size()-1) {
-						out.print(products.get(i)+"");
-					}
-					else {
-						out.print(products.get(i)+", \n");
-					}										
-				}				
-				out.print("] \n");
-			}						
-			out.print("}");		
-			
-		}	
-	}
-	 
-	public void printsSinksInAFile(String filename) throws FileNotFoundException {		
-		List<Metabolite> sinks = findSinks();
-		try (PrintStream out = new PrintStream(filename)) {
-			out.print("{sinks:[");
-			for (int i = 0; i < sinks.size(); i++) {
-				if(i==sinks.size()-1) {
-					out.print(sinks.get(i).toString());
-				}
-				else {
-					out.print(sinks.get(i).toString()+",");
-				}				
-			}
-			out.print("]}");			
-		}		
-	}
-	
-	public void printsSourcesInAFile(String filename) throws FileNotFoundException {		
-		List<Metabolite> sinks = findSources();
-		try (PrintStream out = new PrintStream(filename)) {
-			out.print("{sinks:[");
-			for (int i = 0; i < sinks.size(); i++) {
-				if(i==sinks.size()-1) {
-					out.print(sinks.get(i).toString());
-				}
-				else {
-					out.print(sinks.get(i).toString()+",");
-				}				
-			}
-			out.print("]}");			
-		}		
-	}
-	
-	
-	public String getEnzymesAsString(String reaction) {
-		List<GeneProduct> enzymes = reactions.get(reaction).getEnzymes();
-		String enzymesString ="";
-		for (int i = 0; i < enzymes.size(); i++) {
-			enzymesString+=enzymes.get(0).getName()+"\n";
-		}
-		return enzymesString;
-	}
-	
-	public void printConnectedComponents(String filename) throws IOException {		
-		Map<String, Integer> connectedComponents = connectedComponents();
-		StringBuilder csv = new StringBuilder();
-		Set<String> reactionsSet = connectedComponents.keySet();
-		for (String reaction : reactionsSet) {
-			csv.append(reaction+","+connectedComponents.get(reaction)+"\n");
-		}
-		Files.write(Paths.get(filename), csv.toString().getBytes());
-	}
-	
 }

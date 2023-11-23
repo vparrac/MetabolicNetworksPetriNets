@@ -11,8 +11,8 @@ public class Place<O> {
     private String Id;
     private String label;
     private O object;
-    List<Edge<?>> edgesIn;
-    List<Edge<?>> edgesOut;
+    List<Edge<Transition>> edgesIn;
+    List<Edge<Transition>> edgesOut;
 
     public Place(String id, String label, O object) {
         Id = id;
@@ -38,11 +38,11 @@ public class Place<O> {
         return label;
     }
 
-    public List<Edge<?>> getEdgesIn() {
+    public List<Edge<Transition>> getEdgesIn() {
         return edgesIn;
     }
 
-    public List<Edge<?>> getEdgesOut() {
+    public List<Edge<Transition>> getEdgesOut() {
         return edgesOut;
     }
 
@@ -73,6 +73,35 @@ public class Place<O> {
 
     public boolean isSink(){
         return edgesOut.isEmpty();
+    }
+
+    public void addEdgeIn(Edge<Transition> edge) {
+        edgesIn.add(edge);
+    }
+
+    public void addEdgeOut(Edge<Transition> edge) {
+        edgesOut.add(edge);
+    }
+
+
+    public List<Transition> getTransitionsByCriteria(String criteria) {
+        List<Transition> places = new ArrayList<>();
+
+        for (Edge<Transition> edge: getEdgesByCriteria(criteria)) {
+            places.add(edge.getTarget());
+        }
+
+        return places;
+    }
+
+    private List<Edge<Transition>> getEdgesByCriteria(String criteria) {
+        switch (criteria) {
+            case "DOWN":
+                return edgesOut;
+            case "UP":
+                return edgesIn;
+        }
+        return null;
     }
 
 }

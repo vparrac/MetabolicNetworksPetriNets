@@ -4,18 +4,17 @@ import metapenta.petrinet2.Edge;
 import metapenta.petrinet2.Place;
 import metapenta.petrinet2.Transition;
 import metapenta.petrinet2.PetriNet;
+import metapenta.service.ConnectedComponentsService;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MetaPenta implements IMetaPenta{
-    private MetabolicNetworkXMLLoader loader;
-    private PetriNet petriNet;
+public class MetaPenta{
+    private MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
+    private PetriNet petriNet = new PetriNet();
     public MetaPenta(String networkFile){
         try {
-            loader = new MetabolicNetworkXMLLoader();
-            petriNet = new PetriNet();
             MetabolicNetwork network = loader.loadNetwork(networkFile);
             loadPetriNet(network);
         } catch (IOException e) {
@@ -23,39 +22,51 @@ public class MetaPenta implements IMetaPenta{
         }
     }
 
-    @Override
     public void describeMetabolicNetwork(String outFilePrefix) throws Exception {
         petriNet.describeMetabolicNetwork(outFilePrefix);
     }
 
-    @Override
-    public void getSinks(String outFilePrefix) throws Exception {
-        petriNet.getSinks();
-    }
-
-    @Override
-    public ArrayList<Double> fluxVector(String outFilePrefix) throws Exception {
-
-        return null;
-    }
-
-
     private void loadPetriNet(MetabolicNetwork network){
         List<String> keysReaction = network.getReactionIds();
         for (String key : keysReaction) {
-            Reaction reaction = network.getReaction(key);
-            Transition transition = this.createAndLoadTransitionToPetriNet(reaction);
-
-            List<ReactionComponent> reactants = reaction.getReactants();
-            List<Edge> edgesIn = this.loadMetabolitesAndCreateEdgeList(reactants);
-            transition.AddEdgesIn(edgesIn);
-
-
-            List<ReactionComponent> products = reaction.getProducts();
-            List<Edge> edgesOut = this.loadMetabolitesAndCreateEdgeList(products);
-            transition.AddEdgesOut(edgesOut);
+            loadReactionToPetriNet(network.getReaction(key));
         }
     }
+
+    private void loadReactionToPetriNet(Reaction reaction) {
+        Transition transition = this.createAndLoadTransitionToPetriNet(reaction);
+
+        List<Edge> edgesIn = this.loadMetabolitesAndCreateEdgeList(reaction.getReactants());
+        transition.AddEdgesIn(edgesIn);
+
+
+        List<Edge> edgesOut = this.loadMetabolitesAndCreateEdgeList(reaction.getProducts());
+        transition.AddEdgesOut(edgesOut);
+
+        loadOutEdgesInPlacesOfTransition(transition);
+        loadInEdgesInPlacesOfTransition(transition);
+    }
+
+
+    private void loadInEdgesInPlacesOfTransition(Transition transition) {
+        List<Edge<Place>> edges = transition.getEdgesOut();
+        for (Edge<Place> edge: edges) {
+            Place place = edge.getTarget();
+
+            Edge placeEdge = new Edge<>(transition, edge.getWeight());
+            place.addEdgeIn(placeEdge);
+        }
+    }
+    private void loadOutEdgesInPlacesOfTransition(Transition transition) {
+        List<Edge<Place>> edges = transition.getEdgesIn();
+        for (Edge<Place> edge: edges) {
+            Place place = edge.getTarget();
+
+            Edge placeEdge = new Edge<>(transition, edge.getWeight());
+            place.addEdgeOut(placeEdge);
+        }
+    }
+
 
     private Transition createAndLoadTransitionToPetriNet(Reaction reaction){
         Transition transition = petriNet.getTransition(reaction.getId());
@@ -85,6 +96,7 @@ public class MetaPenta implements IMetaPenta{
         return edges;
     }
 
+
     private Place createAndAddPlaceToNet(Metabolite metabolite){
         Place<Metabolite> place = new Place<>(metabolite.getId(), metabolite.getName(), metabolite);
         petriNet.addPlace(metabolite.getId(), place);
@@ -92,5 +104,11 @@ public class MetaPenta implements IMetaPenta{
         return place;
     }
 
+
+    public ConnectedComponentsDTO connectedComponents() {
+        ConnectedComponentsService connectedComponentsService = new ConnectedComponentsService(this.petriNet);
+
+        return connectedComponentsService.getConnectedComponents();
+    }
 
 }
