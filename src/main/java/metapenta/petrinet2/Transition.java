@@ -68,7 +68,7 @@ public class Transition<A> {
     }
 
     public List<Edge<Place>> getEdgesIn() {
-        return edgesOut;
+        return edgesIn;
     }
 
     public List<Edge<Place>> getAllEdges() {
@@ -76,6 +76,26 @@ public class Transition<A> {
         allEdges.addAll(edgesOut);
 
         return allEdges;
+    }
+
+    public List<Place> getPlacesByCriteria(String criteria) {
+        List<Place> places = new ArrayList<>();
+
+        for (Edge<Place> edge: getEdgesByCriteria(criteria)) {
+            places.add(edge.getTarget());
+        }
+
+        return places;
+    }
+
+    private List<Edge<Place>> getEdgesByCriteria(String criteria) {
+        switch (criteria) {
+            case "DOWN":
+                return edgesOut;
+            case "UP":
+                return edgesIn;
+        }
+        return null;
     }
 
 }

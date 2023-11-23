@@ -1,12 +1,9 @@
 package metapenta.commands;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Map;
-import java.util.Set;
 
+import metapenta.model.ConnectedComponentsDTO;
 import metapenta.model.MetaPenta;
-import metapenta.model.MetabolicNetwork;
-import metapenta.model.MetabolicNetworkXMLLoader;
+import metapenta.tools.io.ConnectedComponentsWriter;
+
 /**
  * Class to test connected components method
  * @author Valerie Parra Cort�s
@@ -20,6 +17,11 @@ public class ConnectedComponents {
 	 */
 	public static void main(String[] args) throws Exception {
 		MetaPenta network = new MetaPenta(args[0]);
-		network.connectedComponents();
+
+		ConnectedComponentsDTO connectedComponents = network.connectedComponents();
+
+		ConnectedComponentsWriter connectedComponentsWriter = new ConnectedComponentsWriter(connectedComponents, args[1]);
+		connectedComponentsWriter.write();
+
 	}
 }

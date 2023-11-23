@@ -151,7 +151,7 @@ public class MetabolicNetworkXMLLoader {
 					if(compartment==null || compartment.length()==0) throw new IOException("Invalid compartment for metabolite with id "+id);
 					String formula = elem.getAttribute(ATTRIBUTE_FBCFORMULA);
 					Metabolite metabolite = new Metabolite(id, name, compartment, metaboliteNumber);
-					this.metaboliteNumber = this.metaboliteNumber + 1;
+					metaboliteNumber ++;
 					if(formula!=null) metabolite.setChemicalFormula(formula);
 					network.addMetabolite(metabolite);
 				}

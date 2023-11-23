@@ -9,7 +9,6 @@ import metapenta.service.ConnectedComponentsService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class MetaPenta{
     private MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
@@ -30,19 +29,44 @@ public class MetaPenta{
     private void loadPetriNet(MetabolicNetwork network){
         List<String> keysReaction = network.getReactionIds();
         for (String key : keysReaction) {
-            Reaction reaction = network.getReaction(key);
-            Transition transition = this.createAndLoadTransitionToPetriNet(reaction);
-
-            List<ReactionComponent> reactants = reaction.getReactants();
-            List<Edge> edgesIn = this.loadMetabolitesAndCreateEdgeList(reactants);
-            transition.AddEdgesIn(edgesIn);
-
-
-            List<ReactionComponent> products = reaction.getProducts();
-            List<Edge> edgesOut = this.loadMetabolitesAndCreateEdgeList(products);
-            transition.AddEdgesOut(edgesOut);
+            loadReactionToPetriNet(network.getReaction(key));
         }
     }
+
+    private void loadReactionToPetriNet(Reaction reaction) {
+        Transition transition = this.createAndLoadTransitionToPetriNet(reaction);
+
+        List<Edge> edgesIn = this.loadMetabolitesAndCreateEdgeList(reaction.getReactants());
+        transition.AddEdgesIn(edgesIn);
+
+
+        List<Edge> edgesOut = this.loadMetabolitesAndCreateEdgeList(reaction.getProducts());
+        transition.AddEdgesOut(edgesOut);
+
+        loadOutEdgesInPlacesOfTransition(transition);
+        loadInEdgesInPlacesOfTransition(transition);
+    }
+
+
+    private void loadInEdgesInPlacesOfTransition(Transition transition) {
+        List<Edge<Place>> edges = transition.getEdgesOut();
+        for (Edge<Place> edge: edges) {
+            Place place = edge.getTarget();
+
+            Edge placeEdge = new Edge<>(transition, edge.getWeight());
+            place.addEdgeIn(placeEdge);
+        }
+    }
+    private void loadOutEdgesInPlacesOfTransition(Transition transition) {
+        List<Edge<Place>> edges = transition.getEdgesIn();
+        for (Edge<Place> edge: edges) {
+            Place place = edge.getTarget();
+
+            Edge placeEdge = new Edge<>(transition, edge.getWeight());
+            place.addEdgeOut(placeEdge);
+        }
+    }
+
 
     private Transition createAndLoadTransitionToPetriNet(Reaction reaction){
         Transition transition = petriNet.getTransition(reaction.getId());
@@ -72,6 +96,7 @@ public class MetaPenta{
         return edges;
     }
 
+
     private Place createAndAddPlaceToNet(Metabolite metabolite){
         Place<Metabolite> place = new Place<>(metabolite.getId(), metabolite.getName(), metabolite);
         petriNet.addPlace(metabolite.getId(), place);
@@ -80,10 +105,10 @@ public class MetaPenta{
     }
 
 
-    public ConnectedComponents connectedComponents() {
-        ConnectedComponentsService ccService = new ConnectedComponentsService(this.petriNet);
+    public ConnectedComponentsDTO connectedComponents() {
+        ConnectedComponentsService connectedComponentsService = new ConnectedComponentsService(this.petriNet);
 
-        return ccService.getConnectedComponents();
+        return connectedComponentsService.getConnectedComponents();
     }
 
 }

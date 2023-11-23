@@ -1,6 +1,6 @@
 package metapenta.service;
 
-import metapenta.model.ConnectedComponents;
+import metapenta.model.ConnectedComponentsDTO;
 import metapenta.model.Metabolite;
 import metapenta.model.Reaction;
 import metapenta.petrinet2.Edge;
@@ -14,41 +14,32 @@ public class ConnectedComponentsService {
     private static final String DOWN_CRITERIA = "DOWN";
 
     private static final String UP_CRITERIA = "UP";
-    private PetriNet petriNet;
     private Map<String, Transition<Reaction>> transitions;
-    private Map<String, Place<Metabolite>> places;
 
-    private Map<Integer, Place> connectedComponentsPlaces = new HashMap<>();
-    private Map<Integer, Transition> connectedComponentsTransitions = new HashMap<>();
+    private Map<Integer, List<Metabolite>> connectedComponentsPlaces = new HashMap<>();
+    private Map<Integer, List<Reaction>> connectedComponentsTransitions = new HashMap<>();
 
-    private int[] placesVisited;
     private int[] transitionsVisited;
 
     private int connectedComponentCurrentId = 0;
 
-    private Transition currentTransition;
 
     public ConnectedComponentsService(PetriNet petriNet){
-        this.petriNet = petriNet;
         this.transitions = petriNet.getTransitions();
-        this.places = petriNet.getPlaces();
-
-        this.placesVisited = new int[places.size()];
         this.transitionsVisited = new int[transitions.size()];
     }
 
-    public ConnectedComponents getConnectedComponents(){
+    public ConnectedComponentsDTO getConnectedComponents(){
         calculateConnectedComponents();
-        return new ConnectedComponents(connectedComponentsPlaces, connectedComponentsTransitions);
+        return new ConnectedComponentsDTO(connectedComponentsPlaces, connectedComponentsTransitions);
     }
 
 
 
     private void calculateConnectedComponents() {
-        Set<String> transitionsKeys = transitions.keySet();
-        for(String transitionId: transitionsKeys) {
+        for(String transitionId: transitions.keySet()) {
             Transition<Reaction> transition = transitions.get(transitionId);
-            if(placesVisited[transition.getObject().getNid()] == 0) {
+            if(transitionsVisited[transition.getObject().getNid()] == 0) {
                 visitTransition(transition);
                 connectedComponentCurrentId++;
             }
@@ -56,24 +47,49 @@ public class ConnectedComponentsService {
     }
 
     private void visitTransition(Transition transition) {
-        this.currentTransition = transition;
         markTransitionAsVisitedAndAssignGroupId(transition);
+        assignGroupIdToTransitionPlaces(transition);
         visitTransitions(transition, DOWN_CRITERIA);
         visitTransitions(transition, UP_CRITERIA);
-        assignGroupIdToTransitionPlaces(transition);
     }
 
     private void markTransitionAsVisitedAndAssignGroupId(Transition<Reaction> transition){
         transitionsVisited[transition.getObject().getNid()] = 1;
-        connectedComponentsTransitions.put(connectedComponentCurrentId, transition);
+
+        List<Reaction> reactionList = connectedComponentsTransitions.get(connectedComponentCurrentId);
+        if (reactionList == null) {
+            reactionList = new ArrayList<>();
+            connectedComponentsTransitions.put(connectedComponentCurrentId, reactionList);
+        }
+
+        connectedComponentsTransitions.put(connectedComponentCurrentId, reactionList);
     }
 
     private void visitTransitions(Transition<Reaction> transition, String criteria){
-        List<Transition> downTransitions = getTransitions(transition, criteria);
-        for(Transition downTransition: downTransitions) {
-            visitTransition(downTransition);
+        List<Transition<Reaction>> transitions = getTransitionsByCriteria(transition, criteria);
+        for(Transition<Reaction> nextTransition: transitions) {
+            if (transitionsVisited[nextTransition.getObject().getNid()] == 0) {
+                visitTransition(nextTransition);
+            }
         }
     }
+
+    private List<Transition<Reaction>> getTransitionsByCriteria(Transition<Reaction> transition, String criteria) {
+        List<Transition<Reaction>> transitions = new ArrayList<>();
+        List<Place> places = transition.getPlacesByCriteria(criteria);
+
+        for (Place place: places) {
+            transitions.addAll(place.getTransitionsByCriteria(criteria));
+        }
+
+        return transitions;
+    }
+
+    private void assignGroupIdToPlace(Place<Metabolite> place){
+        List<Metabolite> metaboliteList = connectedComponentsPlaces.computeIfAbsent(connectedComponentCurrentId, k -> new ArrayList<>());
+        metaboliteList.add(place.getObject());
+    }
+
     private void assignGroupIdToTransitionPlaces(Transition transition) {
         List<Edge<Place>> edgesIn = transition.getAllEdges();
 
@@ -81,36 +97,5 @@ public class ConnectedComponentsService {
             Place place = edge.getTarget();
             assignGroupIdToPlace(place);
         }
-    }
-
-    private void assignGroupIdToPlace(Place place){
-        connectedComponentsPlaces.put(connectedComponentCurrentId, place);
-    }
-
-    private List<Transition> getTransitions(Transition<Reaction> transition, String criteria) {
-        List<Transition> transitions = new ArrayList<>();
-
-        for (Edge edge: transition.getEdgesOut()) {
-            Place place = (Place) edge.getTarget();
-            List<Edge> placeEdges = getPlaceEdgeByCriteria(place, criteria);
-            for (Edge placeEdge: placeEdges) {
-                Transition t = (Transition) placeEdge.getTarget();
-                transitions.add(t);
-            }
-        }
-
-        return transitions;
-    }
-
-
-    private List<Edge> getPlaceEdgeByCriteria(Place place, String criteria) {
-        switch (criteria){
-            case DOWN_CRITERIA:
-               return place.getEdgesOut();
-            case UP_CRITERIA:
-               return place.getEdgesIn();
-        }
-
-        return null;
     }
 }
