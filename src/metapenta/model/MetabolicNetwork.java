@@ -1404,5 +1404,9 @@ public class MetabolicNetwork {
 		}
 		Files.write(Paths.get(filename), csv.toString().getBytes());
 	}
+	public GeneProduct[] getGeneProductsAsList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

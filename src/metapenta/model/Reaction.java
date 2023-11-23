@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
  * @author Jorge Duitama
  */
 public class Reaction {
+
+	private int nid;
 	private String id;
 	private String name;
 	private List<ReactionComponent> reactants;
@@ -38,6 +40,7 @@ public class Reaction {
 		if (isBalanced()) {
 			this.isBalanced = true;
 		}
+		//this.nid = nid;
 	}
 	/**
 	 * @return true if the reaction is reversible, false otherwise
@@ -146,7 +149,7 @@ public class Reaction {
 		return reactantSring;
 	}
 	
-	private List<Map<String, Integer>> getListElements(List<ReactionComponent> reactionsComponent) {
+	public List<Map<String, Integer>> getListElements(List<ReactionComponent> reactionsComponent) {
 		List<Map<String, Integer>> listElements = new ArrayList<>();
 		for(ReactionComponent reaction: reactionsComponent) {
 			Map<String, Integer> elements = reaction.getFormulaReactionComponent();
@@ -155,28 +158,32 @@ public class Reaction {
 			return listElements;
 	}
 	
-	private Map<String, Integer> getSumElements(List<Map<String, Integer>> listElements) {
+	public Map<String, Integer> getSumReactants() {
+		List<Map<String, Integer>> listElements = getListElements(reactants);
+		Map<String, Integer> sum = listElements.stream().flatMap(elements -> elements.entrySet().stream()).collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue,Integer::sum));
+		return sum;
+	}
+	public Map<String, Integer> getSumProducts() {
+		List<Map<String, Integer>> listElements = getListElements(products);
 		Map<String, Integer> sum = listElements.stream().flatMap(elements -> elements.entrySet().stream()).collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue,Integer::sum));
 		return sum;
 	}
 	
 	public boolean isBalanced() {
-		List<Map<String, Integer>> listElemReactants = getListElements(reactants);
-		Map<String, Integer> sumlistElemReactants = getSumElements(listElemReactants);
+		Map<String, Integer> sumlistElemReactants = getSumReactants();
 		
-		List<Map<String, Integer>> listElemProducts = getListElements(products);
-		Map<String, Integer> sumlistElemProducts = getSumElements(listElemProducts);
+		Map<String, Integer> sumlistElemProducts = getSumProducts();
 		
 		return sumlistElemReactants.equals(sumlistElemProducts);
 		
 	}
 	
 	public Map<String, Integer> getDifference() {
-        List<Map<String, Integer>> listElemReactants = getListElements(reactants);
-        Map<String, Integer> sumlistElemReactants = getSumElements(listElemReactants);
+		
 
-        List<Map<String, Integer>> listElemProducts = getListElements(products);
-        Map<String, Integer> sumlistElemProducts = getSumElements(listElemProducts);
+        Map<String, Integer> sumlistElemReactants = getSumReactants();
+
+        Map<String, Integer> sumlistElemProducts = getSumProducts();
 
         Map<String, Integer> difference = new HashMap<>();
 
@@ -209,11 +216,16 @@ public class Reaction {
 		String reason = "";
 		String sumreactions = "";
 		Map<String, String> reasonSum = new HashMap<>();
+
 		List<Map<String, Integer>> listElemReactants = getListElements(reactants);
-		Map<String, Integer> sumlistElemReactants = getSumElements(listElemReactants);
 		
 		List<Map<String, Integer>> listElemProducts = getListElements(products);
-		Map<String, Integer> sumlistElemProducts = getSumElements(listElemProducts);
+		
+		Map<String, Integer> sumlistElemReactants = getSumReactants();
+		
+		Map<String, Integer> sumlistElemProducts = getSumProducts();
+		
+
 		
 		//sumreactions = "Sum of stoichiometric coefficients(reactants): ";
         for (Map.Entry<String, Integer> entry : sumlistElemReactants.entrySet()) {
@@ -248,7 +260,7 @@ public class Reaction {
 				reason = "Reactants and product do not have the same elements ";
 			}
 			else {
-				reason = "The sum of coefficients is differents in each side";
+				reason = "The sum of coefficients is different on both sides";
 			}
 			
 		}
@@ -264,11 +276,14 @@ public class Reaction {
 	}
 	
 	public boolean balanceReaction() {
+		
 		List<Map<String, Integer>> listElemReactants = getListElements(reactants);
-		Map<String, Integer> sumlistElemReactants = getSumElements(listElemReactants);
 		
 		List<Map<String, Integer>> listElemProducts = getListElements(products);
-		Map<String, Integer> sumlistElemProducts = getSumElements(listElemProducts);
+
+		Map<String, Integer> sumlistElemReactants = getSumReactants();
+		
+		Map<String, Integer> sumlistElemProducts = getSumProducts();
 		
 		Map<String, Integer> diference = getDifference();
 		
@@ -277,6 +292,10 @@ public class Reaction {
 		boolean changedToBalanced = false;
 		
 		int mcm = 0;
+		
+//		RealMatrix coefficients = new Array2DRowRealMatrix(new double[][] { { 2, 3, -2 }, { -1, 7, 6 }, { 4, -3, -5 } },
+//			                       false);
+//			DecompositionSolver solver = new LUDecomposition(coefficients).getSolver();
 		
 		for(Map<String, Integer> elementReactants: listElemReactants) {
 			if(elementReactants == null) {
@@ -357,14 +376,18 @@ public class Reaction {
 				String elem = entry.getKey();
 				Integer differenceNum = entry.getValue();
 				
-				if (differenceNum > 0) {
+				if (differenceNum < 0) {
 					outerLoop1:
 						for(ReactionComponent react : reactants) {
 							Map<String, Integer> chemicalFormula = react.getFormulaReactionComponent();
 							if(chemicalFormula.size() == 1) {
 								for (Map.Entry<String, Integer> formula : chemicalFormula.entrySet()) {
 									if(formula.getKey().equals(elem)) {
+										Integer newStoich = (int) (Math.abs(differenceNum) + react.getStoichiometry());
+										react.setStoichiometry(Math.abs(newStoich));
 										react.setStoichiometry(differenceNum);
+										Metabolite m = react.getMetabolite();
+										react.setFormulaReactionComponent(m);
 										reactionsBalanced.add(this);
 										changedToBalanced =  true;
 										break outerLoop1;
@@ -381,7 +404,19 @@ public class Reaction {
 					if(chemicalFormula.size() == 1) {
 						for (Map.Entry<String, Integer> formula : chemicalFormula.entrySet()) {
 							if(formula.getKey().equals(elem)) {
-								product.setStoichiometry(differenceNum);
+								System.out.println("nueva Stoichiometry");
+								System.out.println(differenceNum);
+								Integer newStoich = (int) (differenceNum + product.getStoichiometry());
+								product.setStoichiometry(Math.abs(newStoich));
+								
+								Metabolite m = product.getMetabolite();
+								System.out.println(m.getName());
+								product.setFormulaReactionComponent(m);
+								Map<String, Integer> formulacambiada = product.getFormulaReactionComponent();
+								for (Map.Entry<String, Integer> formul : formulacambiada.entrySet()) {
+									System.out.println("FORMULA CAMBIADA");
+									System.out.println(formul.getKey() + ":" + formul.getValue());
+								}
 								reactionsBalanced.add(this);
 								changedToBalanced =  true;
 								break outerLoop2;
@@ -414,25 +449,25 @@ public class Reaction {
 				
 			}
 			
-			if(!isEqual) {
-				Metabolite meta = new Metabolite("new_id", "new_name", "c");
-				String formulaString = "";
-				for (Map.Entry<String, Integer> formula : diference.entrySet()) {
-					String elem = formula.getKey();
-					System.out.println(elem);
-					Integer num = formula.getValue();
-					System.out.println(num);
-					if(num > 0) {
-						formulaString = formulaString + elem + num;
-					}
-				}
-				System.out.println("OUT");
-				System.out.println(formulaString);
-				meta.setChemicalFormula(formulaString);
-				ReactionComponent reactionCom = new ReactionComponent(meta, 1);
-				reactionCom.setFormulaReactionComponent(meta);
-				addProduct(reactionCom);
-			}
+//			if(!isEqual) {
+//				Metabolite meta = new Metabolite("new_id", "new_name", "c");
+//				String formulaString = "";
+//				for (Map.Entry<String, Integer> formula : diference.entrySet()) {
+//					String elem = formula.getKey();
+//					System.out.println(elem);
+//					Integer num = formula.getValue();
+//					System.out.println(num);
+//					if(num > 0) {
+//						formulaString = formulaString + elem + num;
+//					}
+//				}
+//				System.out.println("OUT");
+//				System.out.println(formulaString);
+//				meta.setChemicalFormula(formulaString);
+//				ReactionComponent reactionCom = new ReactionComponent(meta, 1);
+//				reactionCom.setFormulaReactionComponent(meta);
+//				addProduct(reactionCom);
+//			}
 			
 		}
 			
@@ -493,6 +528,10 @@ public class Reaction {
 //		}
 //		return productString;
 //	}
+
+	public int getNid() {
+		return nid;
+	}
 
 	@Override
 	public String toString() {
