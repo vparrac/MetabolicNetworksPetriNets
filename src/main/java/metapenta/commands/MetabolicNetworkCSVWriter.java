@@ -5,7 +5,7 @@ import metapenta.model.MetabolicNetworkXMLLoader;
 
 /**
  * Class to test the metabolic network CSV Writer
- * @author Valerie Parra Cortés
+ * @author Valerie Parra Cortï¿½s
   */
 public class MetabolicNetworkCSVWriter {
 	/**
@@ -14,7 +14,7 @@ public class MetabolicNetworkCSVWriter {
 	 * @param args[1] Name of file out
 	 * @throws Exception if exists any error of I/O
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
 		MetabolicNetwork network = loader.loadNetwork(args[0]);
 		network.makeNet();

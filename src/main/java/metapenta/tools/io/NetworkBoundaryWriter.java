@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class NetworkBoundaryWriter {
+public class NetworkBoundaryWriter implements Writer{
 
     private static final String SINKS_JSON_KEY = "Sinks";
 

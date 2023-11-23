@@ -18,7 +18,7 @@ public class GapFindGams {
 	 */
 	
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
 		MetabolicNetwork network = loader.loadNetwork(args[0]);
 		List<Metabolite> metabolites = network.getMetabolitesAsList();

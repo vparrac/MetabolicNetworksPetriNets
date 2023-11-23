@@ -54,7 +54,7 @@ public class MetabolicNetworkXMLLoader {
 	 * @return MetabolicNetwork Network stored in the given file
 	 * @throws IOException If there is an error loading the file
 	 */
-	public MetabolicNetwork loadNetwork (String filename) throws IOException {
+	public MetabolicNetwork loadNetwork (String filename) throws Exception {
 		InputStream is = null;
 		MetabolicNetwork mn = null;
 		Document doc;
@@ -95,7 +95,7 @@ public class MetabolicNetworkXMLLoader {
 		throw new IOException("Malformed XML file. The element "+ELEMENT_MODEL+" could not be found");
 	}
 	
-	private MetabolicNetwork loadModel(Element modelElem) throws IOException {		
+	private MetabolicNetwork loadModel(Element modelElem) throws Exception {
 		MetabolicNetwork answer = new MetabolicNetwork();
 		NodeList offspring = modelElem.getChildNodes(); 
 		for(int i=0;i<offspring.getLength();i++){  
@@ -160,7 +160,7 @@ public class MetabolicNetworkXMLLoader {
 		
 	}
 
-	private void loadReactions(Element listElem, MetabolicNetwork network) throws IOException {
+	private void loadReactions(Element listElem, MetabolicNetwork network) throws Exception {
 		NodeList offspring = listElem.getChildNodes(); 
 		int k=0;
 		for(int i=0;i<offspring.getLength();i++){  
@@ -217,7 +217,7 @@ public class MetabolicNetworkXMLLoader {
 		
 	}
 
-	private List<GeneProduct> loadEnzymes(String reactionId, Element listElem, MetabolicNetwork network) throws IOException {
+	private List<GeneProduct> loadEnzymes(String reactionId, Element listElem, MetabolicNetwork network) throws Exception {
 		List<GeneProduct> answer = new ArrayList<GeneProduct>();
 		NodeList offspring = listElem.getChildNodes(); 
 		for(int i=0;i<offspring.getLength();i++){  
@@ -240,7 +240,7 @@ public class MetabolicNetworkXMLLoader {
 		return answer;
 	}
 
-	private List<ReactionComponent> loadReactionComponents(String reactionId, Element listElem, MetabolicNetwork network) throws IOException {
+	private List<ReactionComponent> loadReactionComponents(String reactionId, Element listElem, MetabolicNetwork network) throws Exception {
 		List<ReactionComponent> answer = new ArrayList<ReactionComponent>();
 		NodeList offspring = listElem.getChildNodes(); 
 		for(int i=0;i<offspring.getLength();i++){  
