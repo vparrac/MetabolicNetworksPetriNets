@@ -3,6 +3,7 @@ package metapenta.petrinet2;
 import metapenta.model.Metabolite;
 import metapenta.model.Reaction;
 import metapenta.model.ReactionComponent;
+import metapenta.model.dto.NetworkBoundaryDTO;
 import metapenta.tools.io.DescribeNetworkWriter;
 
 import java.util.*;
@@ -23,16 +24,13 @@ public class PetriNet {
         return transitions.get(key);
     }
 
-
     public Map<String, Place<Metabolite>> getPlaces() {
         return places;
     }
 
-
     public void AddTransition(String id, Transition<Reaction> transition){
         this.transitions.put(id, transition);
     }
-
 
     public void addPlace(String key, Place place){
         places.put(key, place);
@@ -85,7 +83,6 @@ public class PetriNet {
         gfw.Write();
     }
 
-
     public List<String> getMetaboliteIds(){
         List<String> metabolitesIds = new ArrayList();
         Set<String> metabolitesKeys = places.keySet();
@@ -111,7 +108,6 @@ public class PetriNet {
 
         return metabolitesIds;
     }
-
     public List<String> getCMetaboliteIds(){
         List<String> metabolitesIds = new ArrayList();
         Set<String> metabolitesKeys = places.keySet();
@@ -166,6 +162,27 @@ public class PetriNet {
         return reactionIds;
     }
 
+    public List<Place<Metabolite>> getSources() {
+        List<Place<Metabolite>> sourcePlaces = new ArrayList<>();
+        Set<String> placesKeys = places.keySet();
+        for(String placeKey: placesKeys) {
+            if (places.get(placeKey).isSource()){
+                sourcePlaces.add(places.get(placeKey));
+            }
+        }
 
+        return sourcePlaces;
+    }
 
+    public List<Place<Metabolite>> getSinks() {
+        List<Place<Metabolite>> sinkPlaces = new ArrayList<>();
+        Set<String> placesKeys = places.keySet();
+        for(String placeKey: placesKeys) {
+            if (places.get(placeKey).isSource()){
+                sinkPlaces.add(places.get(placeKey));
+            }
+        }
+
+        return sinkPlaces;
+    }
 }

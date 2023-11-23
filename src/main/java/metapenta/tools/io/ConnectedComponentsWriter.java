@@ -1,8 +1,7 @@
 package metapenta.tools.io;
 
-import metapenta.model.ConnectedComponentsDTO;
+import metapenta.model.dto.ConnectedComponentsDTO;
 import metapenta.model.Metabolite;
-import metapenta.petrinet2.Place;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
