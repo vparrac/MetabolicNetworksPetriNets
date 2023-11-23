@@ -16,7 +16,7 @@ import metapenta.model.Metabolite;
  * @author vparrac
  */
 public class GetCommonMetabolites {
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
 		MetabolicNetwork network1 = loader.loadNetwork(args[0]);
 		MetabolicNetwork network2 = loader.loadNetwork(args[1]);

@@ -14,6 +14,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import metapenta.model.dto.GeneProductReactionsDTO;
+import metapenta.model.errors.GeneProductDoesNotExitsException;
 import metapenta.petrinet.Edge;
 import metapenta.petrinet.Place;
 import metapenta.petrinet.Transition;
@@ -87,14 +89,7 @@ public class MetabolicNetwork {
 	public void addReaction(Reaction r) {
 		reactions.put(r.getId(),r);
 	}
-	/**
-	 * Returns the gene product with the given id
-	 * @param id of the product to search
-	 * @return GeneProduct with the given id
-	 */
-	public GeneProduct getGeneProduct (String id) {
-		return geneProducts.get(id);
-	}
+
 	/**
 	 * Returns the metabolite with the given id
 	 * @param id of the metabolite to search
@@ -125,18 +120,6 @@ public class MetabolicNetwork {
 		return new ArrayList<Metabolite>(metabolites.values());
 	}
 
-
-	/**
-	 * @return List of metabolites in the network
-	 */
-	public List<String> getMetabolitesAsListString() {
-		List<String> metabolitesString = new ArrayList<String>();
-		for (String string : metabolites.keySet()) {
-			metabolitesString.add(string);
-		}
-
-		return metabolitesString;
-	}
 
 	/**
 	 * @return List of reactions in the network
@@ -235,26 +218,42 @@ public class MetabolicNetwork {
 		reaction.put("Products", rproducts);
 		return reaction;
 	}
-	/**
-	 * Find the reactions where the enzyme is the catalyst
-	 * @param enzymeName the id of Enzume
-	 * @return a mapa whith the reactions
-	 */
 
-	public List<Reaction> getReactionsCatalyzedBy(String enzymeName){
-		List<Reaction> cata= new ArrayList<Reaction>();
-		Set<String> keys=reactions.keySet();		
+	private List<Reaction> getReactionsCatalyzedBy(String geneProductName){
+		List<Reaction> catalyzedReactions = new ArrayList();
+		Set<String> keys = reactions.keySet();
+
 		for (String key : keys) {
-			Reaction rea= reactions.get(key);
-			List<GeneProduct> enzymes=rea.getEnzymes();
+			Reaction reaction= reactions.get(key);
+			List<GeneProduct> enzymes= reaction.getEnzymes();
+
 			for (GeneProduct enzyme : enzymes) {				
-				if(enzyme.getName().equals(enzymeName)) {
-					cata.add(rea);
+				if(enzyme.getName().equals(geneProductName)) {
+					catalyzedReactions.add(reaction);
 					break;
 				}
 			}			
 		}
-		return cata;
+
+		return catalyzedReactions;
+	}
+
+
+	public GeneProductReactionsDTO getGeneProductReactions(String geneProductId) throws GeneProductDoesNotExitsException {
+		GeneProduct geneProduct = geneProducts.get(geneProductId);
+		List<Reaction> reactions = getReactionsCatalyzedBy(geneProductId);
+
+		return new GeneProductReactionsDTO(reactions, geneProduct);
+	}
+
+	public GeneProduct getGeneProduct(String geneProductId) throws GeneProductDoesNotExitsException {
+		GeneProduct geneProduct = geneProducts.get(geneProductId);
+
+		if (geneProduct == null){
+			throw new GeneProductDoesNotExitsException();
+		}
+
+		return geneProduct;
 	}
 
 	//-------------------------------------------------------------------
@@ -969,19 +968,6 @@ public class MetabolicNetwork {
 	//-------------------------------------------------
 	//---------------Inner auxiliar classes------------
 	//-------------------------------------------------
-
-
-	public List<String> getMetaboliteIds(){
-		List<String> metabolitesIds = new ArrayList();
-		Set<String> metabolitesKeys = places.keySet();
-
-		for(String key: metabolitesKeys) {
-			Metabolite metabolite = places.get(key).getObject();
-			metabolitesIds.add(metabolite.getId());
-		}
-
-		return metabolitesIds;
-	}
 
 
 	public List<String> getReactionIds(){

@@ -10,12 +10,12 @@ import metapenta.model.Reaction;
 
 /**
  * Returns the common reaction of two different metabolic networks
- * @param args[0] Path of metabolic network 1
- * @param args[0] Path of metabolic network 2
- * @author Valerie Parra Cortés
+ * @param args [0] Path of metabolic network 1
+ * @param arg [1] Path of metabolic network 2
+ * @author Valerie Parra Cortï¿½s
  */
 public class GetCommonReactions {
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
 		MetabolicNetwork network1 = loader.loadNetwork(args[0]);
 		MetabolicNetwork network2 = loader.loadNetwork(args[1]);

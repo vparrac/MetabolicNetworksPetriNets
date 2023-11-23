@@ -75,7 +75,7 @@ import metapenta.model.Reaction;
     }
   ]
 }
- @author Valerie Parra Cortés
+ @author Valerie Parra Cortï¿½s
  *
  */
 public class ReactionsOfMetabolite {
