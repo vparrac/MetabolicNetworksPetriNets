@@ -1,6 +1,6 @@
 package metapenta.service;
 
-import metapenta.model.ConnectedComponentsDTO;
+import metapenta.model.dto.ConnectedComponentsDTO;
 import metapenta.model.Metabolite;
 import metapenta.model.Reaction;
 import metapenta.petrinet2.Edge;
@@ -33,7 +33,6 @@ public class ConnectedComponentsService {
         calculateConnectedComponents();
         return new ConnectedComponentsDTO(connectedComponentsPlaces, connectedComponentsTransitions);
     }
-
 
 
     private void calculateConnectedComponents() {

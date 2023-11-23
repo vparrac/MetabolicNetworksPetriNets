@@ -1,10 +1,13 @@
 package metapenta.model;
 
+import metapenta.model.dto.ConnectedComponentsDTO;
+import metapenta.model.dto.NetworkBoundaryDTO;
 import metapenta.petrinet2.Edge;
 import metapenta.petrinet2.Place;
 import metapenta.petrinet2.Transition;
 import metapenta.petrinet2.PetriNet;
 import metapenta.service.ConnectedComponentsService;
+import metapenta.service.NetworkBoundaryService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,7 +70,6 @@ public class MetaPenta{
         }
     }
 
-
     private Transition createAndLoadTransitionToPetriNet(Reaction reaction){
         Transition transition = petriNet.getTransition(reaction.getId());
 
@@ -104,11 +106,16 @@ public class MetaPenta{
         return place;
     }
 
-
     public ConnectedComponentsDTO connectedComponents() {
         ConnectedComponentsService connectedComponentsService = new ConnectedComponentsService(this.petriNet);
 
         return connectedComponentsService.getConnectedComponents();
+    }
+
+    public NetworkBoundaryDTO findNetworkBoundary() {
+        NetworkBoundaryService networkBoundaryService = new NetworkBoundaryService(petriNet.getSinks(), petriNet.getSources());
+
+        return networkBoundaryService.getNetworkBoundary();
     }
 
 }

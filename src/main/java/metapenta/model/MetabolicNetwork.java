@@ -965,89 +965,11 @@ public class MetabolicNetwork {
 		}
 	}	
 
-	/**
-	 * Find the sinks of the net
-	 * @return List with sinks metabolites
-	 */
-	public List<Metabolite> findSinks() {	
-		List<Metabolite> sinks= new ArrayList<Metabolite>();
-		for (String key : metabolites.keySet()) {
-			Metabolite m = metabolites.get(key);
-			if(places.get(m.getId()).getOutTransitions().size()==0) {
-				sinks.add(m);
-			}
-		}
-		return sinks;
-	}
-
-	/**
-	 * Find the sinks of the net
-	 * @return List with sinks metabolites
-	 */
-	public List<Metabolite> findSources() {	
-		List<Metabolite> sinks= new ArrayList<Metabolite>();
-		for (String key : metabolites.keySet()) {
-			Metabolite m = metabolites.get(key);
-			if(places.get(m.getId()).getInTransitions().size()==0) {
-				sinks.add(m);
-			}
-		}
-		return sinks;
-	}
-
 
 	//-------------------------------------------------
 	//---------------Inner auxiliar classes------------
 	//-------------------------------------------------
 
-
-	/**
-	 * Construct the correspondent sub-net of the comparment 
-	 * @param prefixOut the output prefix
-	 */
-
-
-	public void describeNet(String prefixOut) throws Exception{
-		DescribeNetworkWriter gfw = new DescribeNetworkWriter(prefixOut);
-
-		List<String> metaboliteIds = getMetaboliteIds();
-		gfw.writeMetabolites(metaboliteIds);
-
-		List<String> eMetaboliteIds = getEMetaboliteIds();
-		gfw.writeEMetabolites(eMetaboliteIds);
-
-		List<String> cMetaboliteIds = getCMetaboliteIds();
-		gfw.writeCMetabolites(cMetaboliteIds);
-
-		List<String> reactionIds = getReactionIds();
-		gfw.writeReactions(reactionIds);
-
-		List<String> reversibleReactionsIds = getReversibleReactionsIds();
-		gfw.writeReversibleReactions(reversibleReactionsIds);
-
-		List<String> irreversibleReactionsIds = getIrreversibleReactionsIds();
-		gfw.writeIrreversibleReactions(irreversibleReactionsIds);
-
-		Set<Integer> keys = transitions.keySet();
-		for (Integer key: keys){
-			Transition<Metabolite,Reaction> transition = transitions.get(key);
-			Reaction reaction = transition.getObject();
-			List<ReactionComponent> reactants = reaction.getReactants();
-			for (ReactionComponent reactant: reactants){
-				Metabolite reactantMetabolite = reactant.getMetabolite();
-;				double reactantStoichiometry = - reactant.getStoichiometry();
-				gfw.WriteInSMatrix(reactantMetabolite.getId(), reactantStoichiometry);
-			}
-
-			List<ReactionComponent> products = reaction.getProducts();
-			for (ReactionComponent product: products){
-				Metabolite productMetabolite = product.getMetabolite();
-				gfw.WriteInSMatrix(productMetabolite.getId(), product.getStoichiometry());
-			}
-		}
-
-		gfw.Write();
-	}
 
 	public List<String> getMetaboliteIds(){
 		List<String> metabolitesIds = new ArrayList();
@@ -1061,33 +983,6 @@ public class MetabolicNetwork {
 		return metabolitesIds;
 	}
 
-	public List<String> getEMetaboliteIds(){
-		List<String> metabolitesIds = new ArrayList();
-		Set<String> metabolitesKeys = places.keySet();
-
-		for(String key: metabolitesKeys) {
-			Metabolite metabolite = places.get(key).getObject();
-			if (metabolite.getCompartment().equals("e")){
-				metabolitesIds.add(metabolite.getId());
-			}
-		}
-
-		return metabolitesIds;
-	}
-
-	public List<String> getCMetaboliteIds(){
-		List<String> metabolitesIds = new ArrayList();
-		Set<String> metabolitesKeys = places.keySet();
-
-		for(String key: metabolitesKeys) {
-			Metabolite metabolite = places.get(key).getObject();
-			if (!metabolite.getCompartment().equals("e")){
-				metabolitesIds.add(metabolite.getId());
-			}
-		}
-
-		return metabolitesIds;
-	}
 
 	public List<String> getReactionIds(){
 		List<String> reactionIds = new ArrayList();
@@ -1099,36 +994,6 @@ public class MetabolicNetwork {
 
 		return reactionIds;
 	}
-
-
-	public List<String> getReversibleReactionsIds(){
-		List<String> reactionIds = new ArrayList();
-		Set<Integer> keys = transitions.keySet();
-
-		for(Integer key: keys) {
-			Reaction reaction = transitions.get(key).getObject();
-			if(reaction.isReversible()){
-				reactionIds.add(reaction.getId());
-			}
-		}
-
-		return reactionIds;
-	}
-
-	public List<String> getIrreversibleReactionsIds(){
-		List<String> reactionIds = new ArrayList();
-		Set<Integer> keys = transitions.keySet();
-
-		for(Integer key: keys) {
-			Reaction reaction = transitions.get(key).getObject();
-			if(!reaction.isReversible()){
-				reactionIds.add(reaction.getId());
-			}
-		}
-
-		return reactionIds;
-	}
-
 	public List<Metabolite> commonMetabolites(MetabolicNetwork mn2){
 		List<Metabolite> commonMetabolites = new ArrayList<Metabolite>();
 		List<Metabolite> metabolitesNetwork2 = mn2.getMetabolitesAsList();		
