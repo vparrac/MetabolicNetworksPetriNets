@@ -1,9 +1,8 @@
 package metapenta.commands;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
 import metapenta.model.MetabolicNetwork;
-import metapenta.model.MetabolicNetworkXMLLoader;
+import metapenta.tools.io.MetabolicNetworkXMLLoader;
 import metapenta.model.Metabolite;
 import metapenta.model.Reaction;
 import metapenta.model.ReactionComponent;

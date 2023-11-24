@@ -1,7 +1,7 @@
 package metapenta.commands;
 
 import metapenta.model.MetabolicNetwork;
-import metapenta.model.MetabolicNetworkXMLLoader;
+import metapenta.tools.io.MetabolicNetworkXMLLoader;
 import metapenta.model.dto.GeneProductReactionsDTO;
 import metapenta.tools.io.GeneProductReactionsWriter;
 import metapenta.tools.io.Writer;

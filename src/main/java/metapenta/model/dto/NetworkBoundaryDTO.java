@@ -1,7 +1,6 @@
 package metapenta.model.dto;
 
 import metapenta.model.Metabolite;
-import metapenta.petrinet2.Place;
 
 import java.util.List;
 

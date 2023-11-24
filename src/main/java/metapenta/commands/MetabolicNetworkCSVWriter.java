@@ -1,7 +1,6 @@
 package metapenta.commands;
-import java.io.IOException;
 import metapenta.model.MetabolicNetwork;
-import metapenta.model.MetabolicNetworkXMLLoader;
+import metapenta.tools.io.MetabolicNetworkXMLLoader;
 
 /**
  * Class to test the metabolic network CSV Writer

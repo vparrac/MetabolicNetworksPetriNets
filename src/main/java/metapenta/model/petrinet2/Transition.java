@@ -1,6 +1,4 @@
-package metapenta.petrinet2;
-
-import metapenta.model.Reaction;
+package metapenta.model.petrinet2;
 
 import java.util.ArrayList;
 import java.util.List;

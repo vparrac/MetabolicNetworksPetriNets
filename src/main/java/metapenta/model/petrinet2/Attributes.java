@@ -1,4 +1,4 @@
-package metapenta.petrinet2;
+package metapenta.model.petrinet2;
 
 public interface Attributes {
     public boolean fieldValueMatch(String field, String value);

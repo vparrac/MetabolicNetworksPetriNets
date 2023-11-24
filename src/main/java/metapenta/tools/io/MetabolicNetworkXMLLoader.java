@@ -1,4 +1,4 @@
-package metapenta.model;
+package metapenta.tools.io;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,6 +9,7 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import metapenta.model.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

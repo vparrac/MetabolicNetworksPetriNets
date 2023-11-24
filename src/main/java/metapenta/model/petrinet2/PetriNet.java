@@ -1,9 +1,8 @@
-package metapenta.petrinet2;
+package metapenta.model.petrinet2;
 
 import metapenta.model.Metabolite;
 import metapenta.model.Reaction;
 import metapenta.model.ReactionComponent;
-import metapenta.model.dto.NetworkBoundaryDTO;
 import metapenta.tools.io.DescribeNetworkWriter;
 
 import java.util.*;

@@ -1,9 +1,12 @@
-package metapenta.model;
+package metapenta.service;
 
-import metapenta.petrinet2.Edge;
-import metapenta.petrinet2.Transition;
-import metapenta.petrinet2.PetriNet;
-import metapenta.petrinet2.Place;
+import metapenta.model.Metabolite;
+import metapenta.model.Reaction;
+import metapenta.model.ReactionComponent;
+import metapenta.model.petrinet2.Edge;
+import metapenta.model.petrinet2.Transition;
+import metapenta.model.petrinet2.PetriNet;
+import metapenta.model.petrinet2.Place;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.optim.*;
@@ -13,7 +16,7 @@ import org.apache.commons.math3.optim.nonlinear.scalar.MultivariateOptimizer;
 
 import java.util.*;
 
-public class FluxBalanceAnalysis {
+public class FluxBalanceAnalysisService {
     private RealMatrix stequiometryMatrix;
     private Map<String, Integer> rowsMetabolites = new HashMap<>();
     private Map<String, Integer> columnReactions = new HashMap<>();
@@ -25,7 +28,7 @@ public class FluxBalanceAnalysis {
     private static final double UPPER_LIMIT_RXN = 1000;
     private static final double LOWER_LIMIT_REVERSIBLE_RXN = -1000;
 
-    FluxBalanceAnalysis(PetriNet petriNet, String growthReactionID) {
+    FluxBalanceAnalysisService(PetriNet petriNet, String growthReactionID) {
         int actualColum = 0;
         Set<String> reactionsKeySet = petriNet.getTransitions().keySet();
         for (String reaction : reactionsKeySet) {
@@ -277,7 +280,7 @@ public class FluxBalanceAnalysis {
             pn.AddTransition(t.getID(), t);
         }
 
-        FluxBalanceAnalysis fba = new FluxBalanceAnalysis(pn, "r4");
+        FluxBalanceAnalysisService fba = new FluxBalanceAnalysisService(pn, "r4");
         fba.Optimize();
 
     }

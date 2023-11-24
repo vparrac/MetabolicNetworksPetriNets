@@ -3,10 +3,10 @@ package metapenta.service;
 import metapenta.model.dto.ConnectedComponentsDTO;
 import metapenta.model.Metabolite;
 import metapenta.model.Reaction;
-import metapenta.petrinet2.Edge;
-import metapenta.petrinet2.PetriNet;
-import metapenta.petrinet2.Place;
-import metapenta.petrinet2.Transition;
+import metapenta.model.petrinet2.Edge;
+import metapenta.model.petrinet2.PetriNet;
+import metapenta.model.petrinet2.Place;
+import metapenta.model.petrinet2.Transition;
 
 import java.util.*;
 
