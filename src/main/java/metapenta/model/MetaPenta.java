@@ -1,12 +1,15 @@
 package metapenta.model;
 
 import metapenta.model.dto.ConnectedComponentsDTO;
+import metapenta.model.dto.MetaboliteReactionsDTO;
 import metapenta.model.dto.NetworkBoundaryDTO;
+import metapenta.model.errors.MetaboliteDoesNotExistsException;
 import metapenta.petrinet2.Edge;
 import metapenta.petrinet2.Place;
 import metapenta.petrinet2.Transition;
 import metapenta.petrinet2.PetriNet;
 import metapenta.service.ConnectedComponentsService;
+import metapenta.service.MetaboliteReactionsService;
 import metapenta.service.NetworkBoundaryService;
 
 import java.io.IOException;
@@ -116,6 +119,23 @@ public class MetaPenta{
         NetworkBoundaryService networkBoundaryService = new NetworkBoundaryService(petriNet.getSinks(), petriNet.getSources());
 
         return networkBoundaryService.getNetworkBoundary();
+    }
+
+    public MetaboliteReactionsDTO getMetaboliteReactions(String metaboliteId) throws MetaboliteDoesNotExistsException{
+        Place<Metabolite> metabolitePlace = getPlace(metaboliteId);
+        MetaboliteReactionsService service = new MetaboliteReactionsService(petriNet, metabolitePlace.getObject());
+
+        return service.getMetaboliteReactions();
+    }
+
+    private Place getPlace(String placeId) throws MetaboliteDoesNotExistsException {
+        Place place = petriNet.getPlace(placeId);
+
+        if (place == null) {
+            throw new MetaboliteDoesNotExistsException();
+        }
+
+        return place;
     }
 
 }
