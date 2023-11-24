@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import metapenta.model.MetabolicNetwork;
-import metapenta.model.MetabolicNetworkXMLLoader;
+import metapenta.tools.io.MetabolicNetworkXMLLoader;
 /**
  * Class to test the shortes path by metabolites number
- * @author Valerie Parra Cortés
+ * @author Valerie Parra Cortï¿½s
   */
 public class ShortestPathByMetabolitesNumber {
 	/**

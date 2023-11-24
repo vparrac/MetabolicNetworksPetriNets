@@ -2,11 +2,11 @@ package metapenta.commands;
 import java.util.ArrayList;
 import java.util.List;
 import metapenta.model.MetabolicNetwork;
-import metapenta.model.MetabolicNetworkXMLLoader;
+import metapenta.tools.io.MetabolicNetworkXMLLoader;
 
 /**
  * Class to test get all paths of metabolic networks
- * @author Valerie Parra Cortés
+ * @author Valerie Parra Cortï¿½s
  */
 public class GetAllPaths {
 	/**

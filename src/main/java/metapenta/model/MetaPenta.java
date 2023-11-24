@@ -4,13 +4,14 @@ import metapenta.model.dto.ConnectedComponentsDTO;
 import metapenta.model.dto.MetaboliteReactionsDTO;
 import metapenta.model.dto.NetworkBoundaryDTO;
 import metapenta.model.errors.MetaboliteDoesNotExistsException;
-import metapenta.petrinet2.Edge;
-import metapenta.petrinet2.Place;
-import metapenta.petrinet2.Transition;
-import metapenta.petrinet2.PetriNet;
+import metapenta.model.petrinet2.Edge;
+import metapenta.model.petrinet2.Place;
+import metapenta.model.petrinet2.Transition;
+import metapenta.model.petrinet2.PetriNet;
 import metapenta.service.ConnectedComponentsService;
 import metapenta.service.MetaboliteReactionsService;
 import metapenta.service.NetworkBoundaryService;
+import metapenta.tools.io.MetabolicNetworkXMLLoader;
 
 import java.io.IOException;
 import java.util.ArrayList;
