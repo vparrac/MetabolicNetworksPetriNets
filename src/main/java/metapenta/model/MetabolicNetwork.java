@@ -15,6 +15,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import metapenta.model.dto.GeneProductReactionsDTO;
+import metapenta.model.dto.MetaboliteReactionsDTO;
 import metapenta.model.errors.GeneProductDoesNotExitsException;
 import metapenta.petrinet.Edge;
 import metapenta.petrinet.Place;
@@ -185,40 +186,6 @@ public class MetabolicNetwork {
 		}	
 	}
 
-	//-------------------------------------------------------------------
-	//-----------------------Metabolic Network --------------------------
-	//---------------------------As graph--------------------------------
-
-	/**
-	 * Method that find the reactions where a metabolite  
-	 * @param metaboliteKeyName the id of the metabolite
-	 * @return A map of the where reaction where metabolite is a substrate and where the metabolite is a product 
-	 */
-	public Map<String,List<Reaction>> getReactionOfMetabolite(String metaboliteKeyName) {
-		Map<String,List<Reaction>> reaction= new TreeMap<>();	
-		List<Reaction> rsubstrates= new ArrayList<>();
-		List<Reaction> rproducts=new ArrayList<>();
-		Set<String> keys=reactions.keySet();		
-		for (String key : keys) {
-			Reaction rea= reactions.get(key);
-			List<ReactionComponent> substrates= rea.getReactants();
-			List<ReactionComponent> products= rea.getProducts();			
-			for (int i = 0; i < substrates.size(); i++) {
-				if(substrates.get(i).getMetabolite().getId().equals(metaboliteKeyName)) {
-					rsubstrates.add(rea);					
-				}
-			}
-			for (int i = 0; i < products.size(); i++) {
-				if(products.get(i).getMetabolite().getId().equals(metaboliteKeyName)) {
-					rproducts.add(rea);					
-				}
-			}
-		}		
-		reaction.put("Substrates", rsubstrates);
-		reaction.put("Products", rproducts);
-		return reaction;
-	}
-
 	private List<Reaction> getReactionsCatalyzedBy(String geneProductName){
 		List<Reaction> catalyzedReactions = new ArrayList();
 		Set<String> keys = reactions.keySet();
@@ -255,11 +222,6 @@ public class MetabolicNetwork {
 
 		return geneProduct;
 	}
-
-	//-------------------------------------------------------------------
-	//-----------------------Metabolic Network --------------------------
-	//--------------------------As Petri Net-----------------------------
-
 
 	/**
 	 * Create the Petri Net that represent the metabolic network
