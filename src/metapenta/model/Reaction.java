@@ -3,9 +3,17 @@ package metapenta.model;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
+
+import org.apache.commons.math4.core.*;
+import org.apache.commons.math4.legacy.linear.*;
+//import org.apache.commons.math4.linear.DecompositionSolver;
+//import org.apache.commons.math4.linear.LUDecomposition;
+//import org.apache.commons.math4.linear.RealMatrix;
 
 /**
  * Represents a reaction between metabolites
@@ -178,6 +186,9 @@ public class Reaction {
 		
 	}
 	
+	
+	
+	
 	public Map<String, Integer> getDifference() {
 		
 
@@ -274,8 +285,93 @@ public class Reaction {
 		return reasonSum;
 		
 	}
+	public double[][] linarSystem(){
+		double[][] ecuaciones = new double[getSumReactants().size()][getSumReactants().size()];
+		
+		Set<String> elements = getSumReactants().keySet();
+		ArrayList<String> elementsList = new ArrayList<>(elements);
+		for(int e = 0; e < ecuaciones.length; e++) {
+			String element = elementsList.get(e);
+			
+			double[] lineaElem = new double[getSumReactants().size()];
+			for (int i = 0; i < lineaElem.length; i++) {
+				if(i < reactants.size()) {
+					ReactionComponent react = reactants.get(i);
+					Metabolite m = react.getMetabolite();
+					ChemicalFormula formula = m.getChemicalFormula();
+					Map<String, Integer> elems = formula.getElements();	
+					
+					if (elems.containsKey(element)) {
+						Integer coeff = elems.get(element);
+						lineaElem[i] = coeff;
+					}
+					
+				}
+				else {
+					if(i < reactants.size()+ products.size()) {
+						ReactionComponent product = products.get(i - reactants.size());
+						Metabolite m = product.getMetabolite();
+						ChemicalFormula formula = m.getChemicalFormula();
+						Map<String, Integer> elems = formula.getElements();	
+						
+						if (elems.containsKey(element)) {
+							Integer coeff = elems.get(element);
+							lineaElem[i] = -coeff;
+						}
+						
+					}
+				}
+				
+			}
+			
+			for (int i = 0; i < lineaElem.length; i++) {
+				ecuaciones[e][i] =lineaElem[i];
+			}
+		
+			
+
+			
+		}
+		
+		
+		
+		return ecuaciones;
+		
+	}
 	
-	public boolean balanceReaction() {
+	public double[] solutionSytem(double[][] ecuations){
+		
+		double[] solution_coeff = new double[getSumReactants().size()];
+		
+		try {
+		RealMatrix coefficients = new Array2DRowRealMatrix(ecuations,
+                false);
+		
+		double result[][] = new double[1][1];
+	    result[0][0] = (new LUDecomposition(coefficients)).getDeterminant();
+	    System.out.println(result[0][0]);
+	    if(result[0][0]!= 0) {
+	    	DecompositionSolver solver = new LUDecomposition(coefficients).getSolver();
+			RealVector constants = new ArrayRealVector(solution_coeff, false);
+			RealVector solution = solver.solve(constants);
+			
+			for (int i = 0; i < getSumReactants().size(); i++) {
+				solution_coeff[i] =solution.getEntry(i);
+			}
+	    }
+		
+		
+		
+		} catch (Exception e) {
+	        // Manejar otras excepciones si es necesario
+	        e.printStackTrace();
+	    }
+		
+		return solution_coeff;
+		
+	}
+	
+	public Map<Boolean, String> balanceReaction() {
 		
 		List<Map<String, Integer>> listElemReactants = getListElements(reactants);
 		
@@ -289,27 +385,32 @@ public class Reaction {
 		
 		List<Reaction> reactionsBalanced = new ArrayList<>();
 		
-		boolean changedToBalanced = false;
+		//boolean changedToBalanced = false;
 		
 		int mcm = 0;
 		
-//		RealMatrix coefficients = new Array2DRowRealMatrix(new double[][] { { 2, 3, -2 }, { -1, 7, 6 }, { 4, -3, -5 } },
-//			                       false);
-//			DecompositionSolver solver = new LUDecomposition(coefficients).getSolver();
+		Map<Boolean, String> result = new HashMap<>();
+		
+		
+		
+		
 		
 		for(Map<String, Integer> elementReactants: listElemReactants) {
 			if(elementReactants == null) {
 				setIsBalanced(false);
+				result.put(false, "");
 			}
 		}
 		for(Map<String, Integer> elementProducts: listElemProducts) {
 			if(elementProducts == null) {
 				setIsBalanced(false);
+				result.put(false, "");
 			}
 		}
 		
 		if(sumlistElemReactants.size() != sumlistElemProducts.size()) {
 			setIsBalanced(false);
+			result.put(false, "");
 		}
 		else if (reactants.size() == 1 && products.size()==1) {
 			if(reactants.get(0).getStoichiometry() == 1.0 && products.get(0).getStoichiometry() == 1.0) {
@@ -347,6 +448,7 @@ public class Reaction {
 		                }else {
 		                	if(mcmReactProduct != mcm) {
 		                		setIsBalanced(false);
+		                		result.put(false, "");
 		                		break;
 		                	}else {
 		                		contIgual++;
@@ -360,7 +462,8 @@ public class Reaction {
 							if(isBalanced()) {
 								setIsBalanced(true);
 								reactionsBalanced.add(this);
-								changedToBalanced = true;
+								result.put(true, "Modify stochiometry by MCM");
+								//changedToBalanced = true;
 							}
 						}
 						
@@ -389,8 +492,11 @@ public class Reaction {
 										Metabolite m = react.getMetabolite();
 										react.setFormulaReactionComponent(m);
 										reactionsBalanced.add(this);
-										changedToBalanced =  true;
+										result.put(true, "Adding atoms of one element in reactans");
 										break outerLoop1;
+									}
+									else {
+										result.put(false, "");
 									}
 								}
 								
@@ -410,7 +516,7 @@ public class Reaction {
 								product.setStoichiometry(Math.abs(newStoich));
 								
 								Metabolite m = product.getMetabolite();
-								System.out.println(m.getName());
+								//System.out.println(m.getName());
 								product.setFormulaReactionComponent(m);
 								Map<String, Integer> formulacambiada = product.getFormulaReactionComponent();
 								for (Map.Entry<String, Integer> formul : formulacambiada.entrySet()) {
@@ -418,8 +524,11 @@ public class Reaction {
 									System.out.println(formul.getKey() + ":" + formul.getValue());
 								}
 								reactionsBalanced.add(this);
-								changedToBalanced =  true;
+								result.put(true, "Adding atoms of one element in products");
 								break outerLoop2;
+							}
+							else {
+								result.put(false, "");
 							}
 						}
 						
@@ -431,51 +540,86 @@ public class Reaction {
 			
 			
 		}
-		else if(diference.size() > 1) {
-			boolean isEqual = false;
-			for(ReactionComponent react : reactants) {
-				Map<String, Integer> chemicalFormula = react.getFormulaReactionComponent();
-				if (chemicalFormula.keySet().equals(diference.keySet())) {
-					isEqual = true;
-				
-			}
-			}
-			for(ReactionComponent product: products) {
-				Map<String, Integer> chemicalFormulaProduct = product.getFormulaReactionComponent();
-				if (chemicalFormulaProduct.keySet().equals(diference.keySet())) {
-					isEqual = true;
-				
-			}
-				
+		else if((reactants.size()+ products.size()) <= sumlistElemReactants.size()) {
+			
+			System.out.println(getId());
+			
+			double[][] ecuaciones = linarSystem();
+			for (double[] filaEcuacion : ecuaciones) {
+	            for (double valor : filaEcuacion) {
+	                System.out.print(valor + " ");
+	            }
+	            System.out.println();
+	        }
+			
+			double[] solution = solutionSytem(ecuaciones);
+			
+			System.out.println("SOLUCION");
+			for (int i = 0; i < solution.length; i++) {
+				System.out.println(solution[i]);
 			}
 			
-//			if(!isEqual) {
-//				Metabolite meta = new Metabolite("new_id", "new_name", "c");
-//				String formulaString = "";
-//				for (Map.Entry<String, Integer> formula : diference.entrySet()) {
-//					String elem = formula.getKey();
-//					System.out.println(elem);
-//					Integer num = formula.getValue();
-//					System.out.println(num);
-//					if(num > 0) {
-//						formulaString = formulaString + elem + num;
-//					}
-//				}
-//				System.out.println("OUT");
-//				System.out.println(formulaString);
-//				meta.setChemicalFormula(formulaString);
-//				ReactionComponent reactionCom = new ReactionComponent(meta, 1);
-//				reactionCom.setFormulaReactionComponent(meta);
-//				addProduct(reactionCom);
-//			}
+			boolean allZeros = true;
+			for (double element : solution) {
+	            if (element != 0.0) {
+	                allZeros = false;
+	                break;  
+	            }
+	        }
+			if(allZeros) {
+				result.put(false, "Undefined solution by system of equations");
+			}
+			else {
+				result.put(true, "Solution by system of equations");
+				int multiplicador = changeDoubleIntResult(solution);
+				double[] resultFinal = new double[solution.length];
+				for (int i = 0; i < solution.length; i++) {
+					resultFinal[i] = solution[i] * multiplicador;
+		        }
+				
+				for (int i = 0; i < resultFinal.length; i++) {
+					if(i < reactants.size()) {
+						ReactionComponent react = reactants.get(i);
+						react.setStoichiometry(resultFinal[i]);
+						
+					}
+					else {
+						if(i < reactants.size()+ products.size()) {
+							ReactionComponent product = products.get(i - reactants.size());
+							product.setStoichiometry(resultFinal[i]);
+							
+						}
+					}
+				}
 			
+			}
 		}
-			
+		else if((reactants.size()+ products.size()) > sumlistElemReactants.size()) {
+			result.put(true, "Impossible to solve by a system of equations");
+		}
+		else {
+			result.put(false, "");
+		}
 		
-		return changedToBalanced;
+		
+		if (result.isEmpty()) {
+			result.put(false, "");
+        } 
+		
+		return result;
 	
 		
 	}
+	
+	public static int changeDoubleIntResult(double[] numeros) {
+        int multiplicador = (int) numeros[0];
+
+        for (int i = 1; i < numeros.length; i++) {
+            multiplicador = multiplicador * (int) numeros[i] / maximoComunDivisor(multiplicador, (int) numeros[i]);
+        }
+
+        return multiplicador;
+    }
 	
 	public static int maximoComunDivisor(int a, int b) {
         int temporal;

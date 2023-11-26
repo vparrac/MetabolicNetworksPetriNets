@@ -2,7 +2,6 @@ package metapenta.commands;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Map;
@@ -68,38 +67,46 @@ public class BalanceReaction {
 			        System.out.println(sum[0]);
 			        out.print(reasonUnbalanced + " \t " +  sum[0] + " \t " + sum[1] + " \t " +  sum[2] + " \t ");
 			    }
-				if(r.balanceReaction()) {
-					out.print("YES \t ");
-					out.print("YES \t ");
-					List<Map<String, Integer>> reacts = r.getListElements(r.getReactants());
-					Map<String, Integer> sumreacts = r.getSumReactants();
-					for (Entry<String, Integer> entry1 : sumreacts.entrySet()) {
-						out.print("{ "+ entry1.getKey() + ": " + entry1.getValue() + "}");
+				
+				for (Entry<Boolean, String> balanceEntry : r.balanceReaction().entrySet()) {
+					if(balanceEntry.getKey()) {
+						out.print("YES \t ");
+						out.print(balanceEntry.getValue()+ "\t ");
+						List<Map<String, Integer>> reacts = r.getListElements(r.getReactants());
+						Map<String, Integer> sumreacts = r.getSumReactants();
+						for (Entry<String, Integer> entry1 : sumreacts.entrySet()) {
+							out.print("{ "+ entry1.getKey() + ": " + entry1.getValue() + "}");
+						}
+						out.print(" \t ");
+						
+						List<Map<String, Integer>> products = r.getListElements(r.getProducts());
+						Map<String, Integer> sumproducts = r.getSumProducts();
+						for (Entry<String, Integer> entry2 : sumproducts.entrySet()) {
+							out.print("{ "+entry2.getKey() + ": " + entry2.getValue()+ "}");
+							System.out.println("PRODUCTS");
+							System.out.println("{ "+entry2.getKey() + ": " + entry2.getValue()+ "}");
+						}
+						out.print(" \t ");
+						
+						Map<String, Integer> difference = r.getDifference();
+						for (Entry<String, Integer> entry3 : difference.entrySet()) {
+							out.print("{ "+entry3.getKey() + ": " + entry3.getValue()+ "}");
+						}
+						
+						out.print(" \t \n");
+						
+						
 					}
-					out.print(" \t ");
-					
-					List<Map<String, Integer>> products = r.getListElements(r.getProducts());
-					Map<String, Integer> sumproducts = r.getSumProducts();
-					for (Entry<String, Integer> entry2 : sumproducts.entrySet()) {
-						out.print("{ "+entry2.getKey() + ": " + entry2.getValue()+ "}");
+					else {
+						out.print("NO \t ");
+						out.print(balanceEntry.getValue() + " \t ");
+						out.print(" - \t - \t - \t - \t \n");
+						break;
 					}
-					out.print(" \t ");
-					
-					Map<String, Integer> difference = r.getDifference();
-					for (Entry<String, Integer> entry3 : difference.entrySet()) {
-						out.print("{ "+entry3.getKey() + ": " + entry3.getValue()+ "}");
-					}
-					
-					out.print(" \t \n");
-				}
-				else {
-					out.print("NO \t - \t - \t - \t - \t \n");
 				}
 				
-				
-	        }
 			
-			
+			}
 
 			
 		}
