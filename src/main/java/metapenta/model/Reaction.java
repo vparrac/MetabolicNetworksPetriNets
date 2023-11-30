@@ -7,7 +7,6 @@ import java.util.List;
  * @author Jorge Duitama
  */
 public class Reaction {
-
 	private int nid;
 	private String id;
 	private String name;

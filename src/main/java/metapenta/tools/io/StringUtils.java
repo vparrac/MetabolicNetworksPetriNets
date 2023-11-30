@@ -4,7 +4,7 @@ public class StringUtils {
 
     private String string;
 
-    public StringUtils SetString(String string){
+    public StringUtils setString(String string){
         this.string = string;
         return this;
     }
