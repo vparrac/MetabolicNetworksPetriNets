@@ -19,7 +19,7 @@ import java.util.List;
 
 public class MetaPenta{
     private MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
-    private PetriNet petriNet = new PetriNet();
+    private MetabolicPetriNet petriNet = new MetabolicPetriNet();
     public MetaPenta(String networkFile) throws Exception{
         try {
             MetabolicNetwork network = loader.loadNetwork(networkFile);
@@ -27,10 +27,6 @@ public class MetaPenta{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void describeMetabolicNetwork(String outFilePrefix) throws Exception {
-        petriNet.describeMetabolicNetwork(outFilePrefix);
     }
 
     private void loadPetriNet(MetabolicNetwork network){
@@ -139,4 +135,7 @@ public class MetaPenta{
         return place;
     }
 
+    public MetabolicPetriNet getPetriNet() {
+        return petriNet;
+    }
 }
