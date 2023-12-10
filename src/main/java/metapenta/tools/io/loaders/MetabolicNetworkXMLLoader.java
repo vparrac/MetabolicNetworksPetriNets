@@ -1,4 +1,4 @@
-package metapenta.tools.io;
+package metapenta.tools.io.loaders;
 
 import java.io.FileInputStream;
 import java.io.IOException;

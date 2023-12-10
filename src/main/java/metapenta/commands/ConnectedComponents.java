@@ -2,7 +2,7 @@ package metapenta.commands;
 
 import metapenta.model.dto.ConnectedComponentsDTO;
 import metapenta.model.MetaPenta;
-import metapenta.tools.io.ConnectedComponentsWriter;
+import metapenta.tools.io.writers.ConnectedComponentsWriter;
 
 public class ConnectedComponents {
 	public static void main(String[] args) throws Exception {

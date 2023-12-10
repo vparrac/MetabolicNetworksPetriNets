@@ -1,4 +1,4 @@
-package metapenta.tools.io;
+package metapenta.tools.io.writers;
 
 import metapenta.model.Metabolite;
 import metapenta.model.dto.NetworkBoundaryDTO;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class NetworkBoundaryWriter implements Writer{
+public class NetworkBoundaryWriter implements Writer {
 
     private static final String SINKS_JSON_KEY = "Sinks";
 

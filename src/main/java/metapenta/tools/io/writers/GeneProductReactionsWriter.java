@@ -1,7 +1,7 @@
-package metapenta.tools.io;
+package metapenta.tools.io.writers;
 
-import metapenta.model.Reaction;
 import metapenta.model.dto.GeneProductReactionsDTO;
+import metapenta.tools.io.utils.MetabolicNetworkJSONUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -18,20 +18,10 @@ public class GeneProductReactionsWriter implements Writer {
         this.fileName = filename;
     }
 
-    private JSONArray getReactionsJsonArray() {
-        JSONArray reactionsJsonArray = new JSONArray();
-
-        for(Reaction reaction: geneProductReactions.getReactions()) {
-            reactionsJsonArray.add(reaction);
-        }
-
-        return reactionsJsonArray;
-    }
-
     public void write() throws IOException {
         JSONObject reactionsObject = new JSONObject();
 
-        JSONArray reactions = getReactionsJsonArray();
+        JSONArray reactions = MetabolicNetworkJSONUtils.getReactionsJsonArray(geneProductReactions.getReactions());
         reactionsObject.put(geneProductReactions.getGeneProduct().getName(), reactions);
 
         Files.write(Paths.get(this.fileName), reactionsObject.toJSONString().getBytes());

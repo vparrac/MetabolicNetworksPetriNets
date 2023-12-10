@@ -1,4 +1,4 @@
-package metapenta.tools.io;
+package metapenta.tools.io.utils;
 
 public class StringUtils {
 

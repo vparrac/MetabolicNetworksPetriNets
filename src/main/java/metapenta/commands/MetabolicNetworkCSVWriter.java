@@ -1,6 +1,6 @@
 package metapenta.commands;
 import metapenta.model.MetabolicNetwork;
-import metapenta.tools.io.MetabolicNetworkXMLLoader;
+import metapenta.tools.io.loaders.MetabolicNetworkXMLLoader;
 
 /**
  * Class to test the metabolic network CSV Writer
@@ -9,8 +9,8 @@ import metapenta.tools.io.MetabolicNetworkXMLLoader;
 public class MetabolicNetworkCSVWriter {
 	/**
 	 * The main method of class
-	 * @param args[0] the path of the XML file of metabolic network
-	 * @param args[1] Name of file out
+	 * args[0] the path of the XML file of metabolic network
+	 * args[1] Name of file out
 	 * @throws Exception if exists any error of I/O
 	 */
 	public static void main(String[] args) throws Exception {

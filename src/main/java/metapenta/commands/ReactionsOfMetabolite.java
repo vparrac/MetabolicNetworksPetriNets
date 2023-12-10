@@ -2,7 +2,7 @@ package metapenta.commands;
 
 import metapenta.model.MetaPenta;
 import metapenta.model.dto.MetaboliteReactionsDTO;
-import metapenta.tools.io.MetaboliteReactionsWriter;
+import metapenta.tools.io.writers.MetaboliteReactionsWriter;
 
 public class ReactionsOfMetabolite {
 	/**
