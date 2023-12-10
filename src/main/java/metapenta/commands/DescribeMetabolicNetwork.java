@@ -1,7 +1,7 @@
 package metapenta.commands;
 
 import metapenta.model.*;
-import metapenta.tools.io.DescribeNetworkWriter;
+import metapenta.tools.io.writers.DescribeNetworkWriter;
 
 /**
  * args[0]: Metabolic network file

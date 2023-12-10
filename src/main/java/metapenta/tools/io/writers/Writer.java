@@ -1,4 +1,4 @@
-package metapenta.tools.io;
+package metapenta.tools.io.writers;
 
 import java.io.IOException;
 

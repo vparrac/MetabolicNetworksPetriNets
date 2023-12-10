@@ -1,4 +1,4 @@
-package metapenta.tools.io;
+package metapenta.tools.io.writers;
 
 import metapenta.model.MetabolicNetwork;
 
@@ -14,8 +14,9 @@ public class MetabolicNetworkCSVWriter implements Writer {
     public MetabolicNetworkCSVWriter(MetabolicNetwork metabolicNetwork, String fileName){
         this.metabolicNetwork = metabolicNetwork;
         this.fileName = fileName;
-
     }
+
+
     @Override
     public void write() throws IOException {
 

@@ -1,4 +1,4 @@
-package metapenta.tools.io;
+package metapenta.tools.io.writers;
 
 import metapenta.model.dto.ConnectedComponentsDTO;
 import metapenta.model.Metabolite;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ConnectedComponentsWriter implements Writer{
+public class ConnectedComponentsWriter implements Writer {
     private ConnectedComponentsDTO connectedComponents;
 
     private String filename;

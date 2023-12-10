@@ -1,4 +1,4 @@
-package metapenta.service;
+package metapenta.services;
 
 import metapenta.model.Metabolite;
 import metapenta.model.Reaction;

@@ -1,10 +1,10 @@
 package metapenta.commands;
 
 import metapenta.model.MetabolicNetwork;
-import metapenta.tools.io.MetabolicNetworkXMLLoader;
+import metapenta.tools.io.loaders.MetabolicNetworkXMLLoader;
 import metapenta.model.dto.GeneProductReactionsDTO;
-import metapenta.tools.io.GeneProductReactionsWriter;
-import metapenta.tools.io.Writer;
+import metapenta.tools.io.writers.GeneProductReactionsWriter;
+import metapenta.tools.io.writers.Writer;
 
 /**
  * args[0] SMBL with metabolic network

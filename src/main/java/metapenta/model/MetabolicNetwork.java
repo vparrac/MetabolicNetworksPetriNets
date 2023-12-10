@@ -2,40 +2,28 @@ package metapenta.model;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.*;
 
 import metapenta.model.dto.GeneProductReactionsDTO;
-import metapenta.model.dto.MetaboliteReactionsDTO;
 import metapenta.model.errors.GeneProductDoesNotExitsException;
 import metapenta.petrinet.Edge;
 import metapenta.petrinet.Place;
 import metapenta.petrinet.Transition;
-import metapenta.tools.io.DescribeNetworkWriter;
 
 /**
  * Represents a metabolic network of reactions on metabolites
  * @author Jorge Duitama
  */
 public class MetabolicNetwork {
-	private Map<String,GeneProduct> geneProducts = new TreeMap<String,GeneProduct>();
+	private Map<String,GeneProduct> geneProducts = new TreeMap();
 	private String name;
 
 	/**
 	 * Metabolites of  the metabolic Network
 	 */
-	private Map<String,Metabolite> metabolites = new TreeMap<String,Metabolite>();
+	private Map<String,Metabolite> metabolites = new TreeMap();
 	private Set<String> compartments = new TreeSet<String>();
-	private Map<String,Reaction> reactions = new TreeMap<String,Reaction>();
+	private Map<String,Reaction> reactions = new TreeMap();
 
 	//------------------------------------------------
 	//.----------------Petri Net----------------------
@@ -52,50 +40,30 @@ public class MetabolicNetwork {
 	 */
 	private  Map<String,Place<Metabolite, Reaction>> places = new TreeMap<String, Place<Metabolite,Reaction>>();
 
+	private int[][] graph;
 
 	private  Map<Integer,Place<Metabolite, Reaction>> placesbyNumber = new TreeMap<Integer, Place<Metabolite,Reaction>>();
 
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-	/**
-	 * Represents the infinite distance between 2 metabolites
-	 */
 	public static final int INFINITE=100000;
-	/**
-	 * String with the value of comma (,) to generate the csv
-	 */
+
 	public static final String COMMA=",";
-	/**F
-	 * Adds a new gene product that can catalyze reactions
-	 * @param product New gene product
-	 */
+
 	public void addGeneProduct(GeneProduct product) {
 		geneProducts.put(product.getId(), product);
 	}
-	/**
-	 * Adds a new metabolite. If a metabolite with the given name is already added, it 
-	 * @param metabolite New metabolite
-	 */
+
 	public void addMetabolite(Metabolite metabolite) {
 		metabolites.put(metabolite.getId(), metabolite);
 		compartments.add(metabolite.getCompartment());
 	}
-	/**
-	 * Adds a new reaction
-	 * @param r New reaction between metabolites
-	 */
+
 	public void addReaction(Reaction r) {
 		reactions.put(r.getId(),r);
 	}
 
-	/**
-	 * Returns the metabolite with the given id
-	 * @param id of the metabolite to search
-	 * @return Metabolite with the given id
-	 */
 	public Metabolite getMetabolite (String id) {
 		return metabolites.get(id);
 	}
@@ -114,26 +82,16 @@ public class MetabolicNetwork {
 		return reactions;
 	}
 
-	/**
-	 * @return List of metabolites in the network
-	 */
-	public List<Metabolite> getMetabolitesAsList() {
-		return new ArrayList<Metabolite>(metabolites.values());
-	}
-
-
-	/**
-	 * @return List of reactions in the network
-	 */
-	public List<Reaction> getReactionsAsList () {
-		return new ArrayList<Reaction>(reactions.values());
-	}
 	
+	public MetabolicNetwork(Map<String,Metabolite> metabolites, Map<String,Reaction> reactions) {
+		this.metabolites = metabolites;
+		this.reactions = reactions;
+	}
+
 	public MetabolicNetwork() {
-		
+
 	}
-	
-	private int[][] graph;
+
 	
 	public MetabolicNetwork(Map<String,Reaction> reactions) {
 		int numberMetabolites=1,numberTransition=1;		
@@ -575,13 +533,6 @@ public class MetabolicNetwork {
 		printReactionsGraphInCSV(graph, fileName2);
 		printCatalystOfMethabolicPath(graph, fileName3);
 		return graph;
-	}	
-
-	
-	public void printShortestPath(String fileName1, String fileName2, String fileName3, List<String> first, String last) throws FileNotFoundException {
-		printMetabolicNetworkInCSV(graph, fileName1, first,last);
-		printReactionsGraphInCSV(graph, fileName2);
-		printCatalystOfMethabolicPath(graph, fileName3);
 	}
 	
 
@@ -646,24 +597,6 @@ public class MetabolicNetwork {
 		}				
 		return reactionss;
 	}	
-
-	/**
-	 * Print the adjacency matrix of a graph 
-	 * @param nameOfFile the path of the file
-	 * @param graph the graph 
-	 * @throws Exception in errors of I/O
-	 */
-
-	public void writeGraph(String nameOfFile,int[][] graph) throws Exception {
-		try (PrintStream out = new PrintStream(nameOfFile)) {
-			for (int i = 0; i < graph.length; i++) {
-				for (int j = 0; j < graph.length; j++) {
-					out.print(graph[i][j]);
-				}
-				out.print("\n");
-			}
-		}
-	}
 
 	/**
 	 * Wtrite
@@ -942,28 +875,36 @@ public class MetabolicNetwork {
 
 		return reactionIds;
 	}
-	public List<Metabolite> commonMetabolites(MetabolicNetwork mn2){
-		List<Metabolite> commonMetabolites = new ArrayList<Metabolite>();
-		List<Metabolite> metabolitesNetwork2 = mn2.getMetabolitesAsList();		
-		for (Metabolite metabolite : metabolitesNetwork2) {	
-			Metabolite place = this.metabolites.get(metabolite.getId());
-			if(place!=null) {
-				commonMetabolites.add(metabolite);
-			}
-		}		
-		return commonMetabolites;
+
+	public MetabolicNetwork interception(MetabolicNetwork metabolicNetwork){
+		Map<String, Metabolite> metabolites = interceptionMetabolites(metabolicNetwork);
+		Map<String, Reaction> reactions = interceptionReactions(metabolicNetwork);
+
+		return new MetabolicNetwork(metabolites, reactions);
 	}
 
-	public List<Reaction> commonReactions(MetabolicNetwork mn2){
-		List<Reaction> commonReactions = new ArrayList<Reaction>();
-		List<Reaction> metabolitesNetwork2 = mn2.getReactionsAsList();		
-		for (Reaction reaction : metabolitesNetwork2) {
-			Reaction transicion = reactions.get(reaction.getId());
-			if(transicion!=null) {
-				commonReactions.add(reaction);
+	private Map<String, Metabolite> interceptionMetabolites(MetabolicNetwork metabolicNetwork){
+		Map<String, Metabolite> metabolites = new HashMap<>();
+		Set<String> metabolitesKeys = metabolicNetwork.getMetabolites().keySet();
+		for (String metaboliteID : metabolitesKeys) {
+			Metabolite metabolite = this.metabolites.get(metaboliteID);
+			if( metabolite != null ) {
+				metabolites.put(metaboliteID, metabolite);
 			}
 		}		
-		return commonReactions;
+		return metabolites;
+	}
+
+	private Map<String, Reaction> interceptionReactions(MetabolicNetwork metabolicNetwork){
+		Map<String, Reaction> reactions = new HashMap<>();
+		Set<String> reactionIds = metabolicNetwork.getReactions().keySet();
+		for (String reactionId : reactionIds) {
+			Reaction reaction = reactions.get(reactionId);
+			if( reaction!=null ) {
+				reactions.put(reactionId, reaction);
+			}
+		}		
+		return reactions;
 	}
 	
 
