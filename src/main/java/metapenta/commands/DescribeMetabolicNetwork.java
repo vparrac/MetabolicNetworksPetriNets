@@ -5,7 +5,7 @@ import metapenta.tools.io.writers.DescribeNetworkWriter;
 
 /**
  * args[0]: Metabolic network file
- * args[1]: Ouput file prefixes
+ * args[1]: Output file prefixes
  */
 public class DescribeMetabolicNetwork {
     public static void main(String[] args) throws Exception {

@@ -500,38 +500,6 @@ public class MetabolicNetwork {
 		}
 	}
 
-	/**
-	 * Print the graph entered by parameter in a CSV
-	 * @throws Exception in errors of I/O
-	 */
-	public void printAllMetabolicNetworkInCSV(String fileName) throws IOException{
-		try (PrintStream out = new PrintStream(fileName)) {
-			out.println("source,target,interaction,directed,symbol,value");
-			Set<Integer> keys= transitions.keySet();
-			for (Integer integer : keys) {				
-				printATransitionInCSVToAllNetwork(transitions.get(integer),out);
-			}	
-		}
-	}
-
-
-	/**
-	 * Method that print the transition in the CSV entered by parameter 
-	 * @param t the transiton to be printed
-	 * @param out the Stream of the CSV
-	 */
-	private void printATransitionInCSVToAllNetwork(Transition< Metabolite, Reaction> t, PrintStream out) {
-		List<Edge<Place< Metabolite, Reaction>>> metaInTransition = t.getInPlaces();		
-		for (Edge<Place< Metabolite, Reaction>> edge : metaInTransition) {
-			String nameOfMeta = edge.getObject().getObject().getId();		
-			out.println(nameOfMeta+COMMA+t.getObject().getId()+",PP,TRUE,abc"+",1.234");
-		}
-		metaInTransition = t.getOutPlaces();		
-		for (Edge<Place< Metabolite, Reaction>> edge : metaInTransition) {
-			String nameOfMeta = edge.getObject().getObject().getId();		
-			out.println(t.getObject().getId()+COMMA+nameOfMeta+",PP,TRUE,abc"+",1.234");
-		}
-	}	
 
 	/**
 	 * Method that print the transition in the CSV entered by parameter 
@@ -582,10 +550,7 @@ public class MetabolicNetwork {
 	public List<String> getReactionIds(){
 		List<String> reactionIds = new ArrayList();
 		Set<String> keys = reactions.keySet();
-
-		for(String key: keys) {
-			reactionIds.add(key);
-		}
+		reactionIds.addAll(keys);
 
 		return reactionIds;
 	}
