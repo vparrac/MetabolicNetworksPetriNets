@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Transition<A> {
+
+    public static final String DOWN_CRITERIA = "DOWN";
+
+    public static final String UP_CRITERIA = "UP";
     private String ID;
     private String label;
     private A object;
@@ -88,9 +92,9 @@ public class Transition<A> {
 
     private List<Edge<Place>> getEdgesByCriteria(String criteria) {
         switch (criteria) {
-            case "DOWN":
+            case DOWN_CRITERIA:
                 return edgesOut;
-            case "UP":
+            case UP_CRITERIA:
                 return edgesIn;
         }
         return null;

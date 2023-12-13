@@ -17,8 +17,4 @@ public class ConnectedComponentsDTO {
     public Map<Integer, List<Metabolite>> getConnectedMetabolites() {
         return connectedComponentsPlaces;
     }
-
-    public Map<Integer, List<Reaction>> getConnectedComponentsTransitions() {
-        return connectedComponentsTransitions;
-    }
 }
