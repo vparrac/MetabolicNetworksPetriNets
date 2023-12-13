@@ -6,6 +6,11 @@ import java.util.List;
 public class Place<O> {
     public static final String SINK = "SINK";
     public static final String SOURCE = "SOURCE";
+
+    public static final String DOWN_CRITERIA = "DOWN";
+
+    public static final String UP_CRITERIA = "UP";
+
     private String Id;
     private String label;
     private O object;
@@ -94,9 +99,9 @@ public class Place<O> {
 
     private List<Edge<Transition>> getEdgesByCriteria(String criteria) {
         switch (criteria) {
-            case "DOWN":
+            case DOWN_CRITERIA:
                 return edgesOut;
-            case "UP":
+            case UP_CRITERIA:
                 return edgesIn;
         }
         return null;

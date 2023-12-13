@@ -55,11 +55,7 @@ public class ConnectedComponentsService {
     private void markTransitionAsVisitedAndAssignGroupId(Transition<Reaction> transition){
         transitionsVisited[transition.getObject().getNid()] = 1;
 
-        List<Reaction> reactionList = connectedComponentsTransitions.get(connectedComponentCurrentId);
-        if (reactionList == null) {
-            reactionList = new ArrayList<>();
-            connectedComponentsTransitions.put(connectedComponentCurrentId, reactionList);
-        }
+        List<Reaction> reactionList = connectedComponentsTransitions.computeIfAbsent(connectedComponentCurrentId, k -> new ArrayList<>());
 
         connectedComponentsTransitions.put(connectedComponentCurrentId, reactionList);
     }
@@ -67,10 +63,14 @@ public class ConnectedComponentsService {
     private void visitTransitions(Transition<Reaction> transition, String criteria){
         List<Transition<Reaction>> transitions = getTransitionsByCriteria(transition, criteria);
         for(Transition<Reaction> nextTransition: transitions) {
-            if (transitionsVisited[nextTransition.getObject().getNid()] == 0) {
+            if (transitionsHasNotBeenVisited(nextTransition)) {
                 visitTransition(nextTransition);
             }
         }
+    }
+
+    private boolean transitionsHasNotBeenVisited(Transition<Reaction> transition) {
+        return transitionsVisited[transition.getObject().getNid()] == 0;
     }
 
     private List<Transition<Reaction>> getTransitionsByCriteria(Transition<Reaction> transition, String criteria) {
