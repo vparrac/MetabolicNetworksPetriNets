@@ -25,6 +25,7 @@ public class Place<O> {
         this.edgesOut = new ArrayList<>();
     }
     public void setLabel(String label) {
+    	
         this.label = label;
     }
     public void setId(String ID) {
@@ -63,11 +64,10 @@ public class Place<O> {
     }
 
     public boolean isStatus(String status){
-        return switch (status) {
-            case SINK -> isSource();
-            case SOURCE -> isSink();
-            default -> false;
-        };
+    	if (SINK.equals(status)) return isSource();
+    	if (SOURCE.equals(status)) return isSink();
+    	return false;
+        
     }
 
     public boolean isSource(){

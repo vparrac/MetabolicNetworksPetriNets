@@ -10,22 +10,25 @@ public class Metabolite {
 	private String id;
 	private String name;
 	private String compartment;
-	private String chemicalFormula;	
+	private ChemicalFormula chemicalFormula;
 
 	public Metabolite(String id, String name, String compartment, int nid) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.compartment = compartment;
 		this.nid = nid;
+		this.compartment = compartment;
 	}
-
-	public String getChemicalFormula() {
+	/**
+	 * @return String chemical formula of this metabolite 
+	 */
+	public ChemicalFormula getChemicalFormula() {
 		return chemicalFormula;
 	}
 
 	public void setChemicalFormula(String chemicalFormula) {
-		this.chemicalFormula = chemicalFormula;
+		ChemicalFormula formula = new ChemicalFormula(chemicalFormula);
+		this.chemicalFormula = formula;
 	}
 
 	public String getId() {

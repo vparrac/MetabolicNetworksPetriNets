@@ -198,7 +198,10 @@ public class MetabolicNetworkXMLLoader {
 							}
 						}
 					}
-					if(reactants.size()==0) throw new IOException("No reactants found for reaction "+id);
+					if(reactants.size()==0) {
+						System.err.println("No reactants found for reaction "+id);
+						continue;
+					}
 					if(products.size()==0) {						
 						//System.err.println("No products found for reaction "+id);
 						continue;
@@ -229,7 +232,7 @@ public class MetabolicNetworkXMLLoader {
 					String enzymeId = elem.getAttribute(ELEMENT_GENEPRODUCT);
 					if(enzymeId==null || enzymeId.length()==0) throw new IOException("Invalid enzyme for reaction "+reactionId);
 					GeneProduct enzyme = network.getGeneProduct(enzymeId);
-					if(enzyme==null) throw new IOException("Enzyme "+enzymeId+" not found for reaction "+reactionId);
+					//if(enzyme==null) throw new IOException("Enzyme "+enzymeId+" not found for reaction "+reactionId);
 					answer.add(enzyme);
 				} else {
 					answer.addAll(loadEnzymes(reactionId, elem, network));
@@ -263,6 +266,7 @@ public class MetabolicNetworkXMLLoader {
 						throw new IOException("Invalid stoichiometry "+stchmStr+" for metabolite "+metabId+" in reaction "+reactionId,e);
 					}
 					ReactionComponent component = new ReactionComponent(m, stoichiometry);
+					component.setFormulaReactionComponent(m);
 					answer.add(component);
 				}
 			}

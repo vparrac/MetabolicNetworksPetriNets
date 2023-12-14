@@ -92,8 +92,69 @@ public class MetabolicNetwork {
 
 	}
 
-	
-	public MetabolicNetwork(Map<String,Reaction> reactions) {
+	public List<Reaction> getReactionsUnbalanced() {
+		List<Reaction> reactionsUnBalanced = new ArrayList<>();
+
+		Set<String> keys=reactions.keySet();
+		for (String key : keys) {
+			Reaction reaction = reactions.get(key);
+			boolean isBalance = reaction.getIsBalanced();
+
+			if(!isBalance) {
+				reactionsUnBalanced.add(reaction);
+			}
+		}
+		return reactionsUnBalanced;
+	}
+
+	public Map<Reaction, Map<String, String>> reactionsUnbalancedReason(List<Reaction> reactionsUnbalanced){
+
+		Map<Reaction, Map<String, String>> reactionsUnbalancedReason = new HashMap<>();
+
+		for (Reaction reaction: reactionsUnbalanced) {
+
+			Map<String, String> reason =reaction.casesNoBalanced();
+
+			reactionsUnbalancedReason.put(reaction, reason);
+		}
+
+		return reactionsUnbalancedReason;
+
+
+	}
+
+	public void testBalanceo() {
+		List<Reaction> reactions = getReactionsUnbalanced();
+		for (Reaction r : reactions) {
+			//Reaction r = reactions.get(1);
+			r.getDifference();
+			List<ReactionComponent> reactants= r.getReactants();
+			List<ReactionComponent> products= r.getProducts();
+			System.out.println("REACTANTES: ");
+			for(ReactionComponent reactant: reactants) {
+				//reactant.getDetailFormula();
+				Map<String, Integer> formula = reactant.getMetabolite().getChemicalFormula().getElements();
+				System.out.println("stoichimoetry: " + reactant.getStoichiometry());
+				for (Map.Entry<String, Integer> entry : formula.entrySet()) {
+					System.out.println(entry.getKey() + ": " + entry.getValue());
+				}
+			}
+			System.out.println("PRODUCTOS: ");
+			for(ReactionComponent product: products) {
+
+				Map<String, Integer> formula = product.getMetabolite().getChemicalFormula().getElements();
+				System.out.println("stoichimoetry: " + product.getStoichiometry());
+				for (Map.Entry<String, Integer> entry : formula.entrySet()) {
+					System.out.println(entry.getKey() + ": " + entry.getValue());
+				}
+
+			}
+
+		}
+	}
+
+
+	 public MetabolicNetwork(Map<String,Reaction> reactions) {
 		int numberMetabolites=1,numberTransition=1;		
 		placesbyNumber = new TreeMap<Integer, Place<Metabolite,Reaction>>();
 		transitions= new TreeMap<Integer, Transition<Metabolite, Reaction>>();		
@@ -585,6 +646,20 @@ public class MetabolicNetwork {
 		}		
 		return reactions;
 	}
-	
+
+
+	public GeneProduct[] getGeneProductsAsList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Metabolite> getMetabolitesAsList() {
+		return new ArrayList<Metabolite>(metabolites.values());
+	}
+
+
+	public List<Reaction> getReactionsAsList () {
+		return new ArrayList<Reaction>(reactions.values());
+	}
 
 }
