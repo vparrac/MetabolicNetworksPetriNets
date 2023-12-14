@@ -10,7 +10,7 @@ public class Metabolite {
 	private String id;
 	private String name;
 	private String compartment;
-	private String chemicalFormula;	
+	private ChemicalFormula chemicalFormula;
 
 	public Metabolite(String id, String name, String compartment, int nid) {
 		super();

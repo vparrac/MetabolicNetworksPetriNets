@@ -1,6 +1,9 @@
 package metapenta.model;
 
-import java.util.List;
+import org.apache.commons.math3.linear.*;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Represents a reaction between metabolites
@@ -645,9 +648,6 @@ public class Reaction {
 		return nid;
 	}
 
-	public int getNid() {
-		return nid;
-	}
 
 	@Override
 	public String toString() {

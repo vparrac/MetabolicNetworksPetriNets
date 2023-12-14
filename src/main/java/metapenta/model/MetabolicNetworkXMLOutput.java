@@ -2,6 +2,7 @@ package metapenta.model;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -171,7 +172,6 @@ public class MetabolicNetworkXMLOutput {
 
 	    return listComponentsElement;
 	}
-
 
 
 	

@@ -1,7 +1,5 @@
 package metapenta.commands;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Map;
@@ -9,14 +7,12 @@ import java.util.Map.Entry;
 
 import metapenta.model.MetabolicNetworkXMLOutput;
 import metapenta.model.MetabolicNetwork;
-import metapenta.model.MetabolicNetworkXMLLoader;
 import metapenta.model.Reaction;
+import metapenta.tools.io.loaders.MetabolicNetworkXMLLoader;
 
-public class BalanceReaction {
+public class BalanceReactions {
 	private String networkFile;
 	private String outPrefix;
-	
-	
 	
 	public String getNetworkFile() {
 		return networkFile;
@@ -34,20 +30,20 @@ public class BalanceReaction {
 		this.outPrefix = outPrefix;
 	}
 
+	/**
+	 * args[0]: Metabolic network in XML format
+	 * args[1]: Output
+	 */
 	public static void main(String[] args) throws Exception{
-		BalanceReaction instance = new BalanceReaction();
+		BalanceReactions instance = new BalanceReactions();
 		instance.networkFile = args[0];
 		instance.outPrefix = args[1];
 		instance.run();
-		
-		
-
 	}
 
-	public void run() throws IOException {
+	public void run() throws Exception {
 		MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
 		MetabolicNetwork network = loader.loadNetwork(networkFile);
-		//List<Reaction> reactionsBalanced = network.getReactionsBalanced();
 		List<Reaction> reactionsUnbalanced = network.getReactionsUnbalanced();
 		Map<Reaction, Map<String, String>> reactionsUnbalancedReason = network.reactionsUnbalancedReason(reactionsUnbalanced);
 		String reportFile = outPrefix+"_report.tsv";
