@@ -1,10 +1,10 @@
 package metapenta.tools.io.writers;
 
 import metapenta.model.MetabolicPetriNet;
-import metapenta.model.Metabolite;
-import metapenta.model.Reaction;
-import metapenta.model.ReactionComponent;
-import metapenta.model.petrinet2.Transition;
+import metapenta.model.metabolic.network.Metabolite;
+import metapenta.model.metabolic.network.Reaction;
+import metapenta.model.metabolic.network.ReactionComponent;
+import metapenta.model.petrinet.Transition;
 import metapenta.tools.io.utils.StringUtils;
 
 import java.io.IOException;

@@ -5,6 +5,10 @@ import metapenta.tools.io.loaders.MetabolicNetworkXMLLoader;
 import metapenta.tools.io.writers.MetabolicNetworkJSONWriter;
 import metapenta.tools.io.writers.Writer;
 
+/**
+ * args[0]: First metabolic network in XML format
+ * args[1]: Second metabolic network in XML format
+ */
 public class GetMetabolicNetworkInterception {
 
     public static void main(String[] args) throws Exception {
@@ -15,7 +19,7 @@ public class GetMetabolicNetworkInterception {
 
         MetabolicNetwork resultNetwork = firstNetwork.interception(secondNetwork);
 
-        Writer metabolicNetworkWriter = new MetabolicNetworkJSONWriter(resultNetwork, args[3]);
+        Writer metabolicNetworkWriter = new MetabolicNetworkJSONWriter(resultNetwork, args[2]);
         metabolicNetworkWriter.write();
     }
 }

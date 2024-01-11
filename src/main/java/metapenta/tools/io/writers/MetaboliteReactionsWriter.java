@@ -1,6 +1,6 @@
 package metapenta.tools.io.writers;
 
-import metapenta.model.Reaction;
+import metapenta.model.metabolic.network.Reaction;
 import metapenta.model.dto.MetaboliteReactionsDTO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

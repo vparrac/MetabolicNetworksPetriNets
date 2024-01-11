@@ -1,7 +1,7 @@
 package metapenta.tools.io.utils;
 
-import metapenta.model.Metabolite;
-import metapenta.model.Reaction;
+import metapenta.model.metabolic.network.Metabolite;
+import metapenta.model.metabolic.network.Reaction;
 import org.json.simple.JSONArray;
 
 import java.util.Collection;

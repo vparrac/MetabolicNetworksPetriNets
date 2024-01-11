@@ -1,4 +1,4 @@
-package metapenta.model.petrinet2;
+package metapenta.model.petrinet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +23,14 @@ public class Place<O> {
         this.object = object;
         this.edgesIn = new ArrayList<>();
         this.edgesOut = new ArrayList<>();
+    }
+
+    public Place(Place<O> place) {
+        Id = place.getID();
+        this.label = place.getLabel();
+        this.object = place.getObject();
+        this.edgesIn = place.getEdgesIn();
+        this.edgesOut = place.getEdgesOut();
     }
     public void setLabel(String label) {
     	
@@ -88,13 +96,13 @@ public class Place<O> {
 
 
     public List<Transition> getTransitionsByCriteria(String criteria) {
-        List<Transition> places = new ArrayList<>();
+        List<Transition> transitions = new ArrayList<>();
 
         for (Edge<Transition> edge: getEdgesByCriteria(criteria)) {
-            places.add(edge.getTarget());
+            transitions.add(edge.getTarget());
         }
 
-        return places;
+        return transitions;
     }
 
     private List<Edge<Transition>> getEdgesByCriteria(String criteria) {
@@ -106,5 +114,22 @@ public class Place<O> {
         }
         return null;
     }
+
+    public List<Place<O>> getNeighbourDownEdgesgetNeighbourDownEdges() {
+        List<Place<O>> neighbourEdges = new ArrayList<>();
+
+        for (Edge<Transition> edge: getEdgesByCriteria(DOWN_CRITERIA)) {
+            Transition transition = edge.getTarget();
+
+            List<Edge<Place>> edgesOut = transition.getEdgesOut();
+            for (Edge<Place> edgePlace : edgesOut){
+                neighbourEdges.add(edgePlace.getTarget());
+            }
+        }
+
+
+        return neighbourEdges;
+    }
+
 
 }

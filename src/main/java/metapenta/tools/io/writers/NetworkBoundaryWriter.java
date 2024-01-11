@@ -1,6 +1,6 @@
 package metapenta.tools.io.writers;
 
-import metapenta.model.Metabolite;
+import metapenta.model.metabolic.network.Metabolite;
 import metapenta.model.dto.NetworkBoundaryDTO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

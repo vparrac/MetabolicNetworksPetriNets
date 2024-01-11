@@ -2,7 +2,6 @@ package metapenta.model;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -15,11 +14,14 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import metapenta.model.metabolic.network.GeneProduct;
+import metapenta.model.metabolic.network.Metabolite;
+import metapenta.model.metabolic.network.Reaction;
+import metapenta.model.metabolic.network.ReactionComponent;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class MetabolicNetworkXMLOutput {
-	
 	private static final String ELEMENT_NOTES = "notes";
 	private static final String ELEMENT_MODEL = "model";
 	private static final String ELEMENT_LISTPRODUCTS = "listOfGeneProducts";
@@ -86,23 +88,6 @@ public class MetabolicNetworkXMLOutput {
 
 	    return modelElement;
 	}
-
-	
-	private Element saveGeneProducts(MetabolicNetwork network, Document doc) {
-	    Element listProductsElement = doc.createElement(ELEMENT_LISTPRODUCTS);
-
-	    for (GeneProduct product : network.getGeneProductsAsList()) {
-	        Element geneProductElement = doc.createElement(ELEMENT_GENEPRODUCT);
-	        geneProductElement.setAttribute(ATTRIBUTE_FBCID, product.getId());
-	        geneProductElement.setAttribute(ATTRIBUTE_FBCNAME, product.getName());
-	        geneProductElement.setAttribute(ATTRIBUTE_FBCLABEL, product.getLabel());
-
-	        listProductsElement.appendChild(geneProductElement);
-	    }
-
-	    return listProductsElement;
-	}
-	
 	
 	private Element saveMetabolites(MetabolicNetwork network, Document doc) {
 	    Element listMetabolitesElement = doc.createElement(ELEMENT_LISTMETABOLITES);
@@ -145,7 +130,7 @@ public class MetabolicNetworkXMLOutput {
 	    return listReactionsElement;
 	}
 	
-	private Element saveEnzymes(String name,List<GeneProduct> enzymes, Document doc) {
+	private Element saveEnzymes(String name, List<GeneProduct> enzymes, Document doc) {
 	    Element listEnzymesElement = doc.createElement(name);
 
 	    for (GeneProduct enzyme : enzymes) {
@@ -165,7 +150,6 @@ public class MetabolicNetworkXMLOutput {
 	        Element componentElement = doc.createElement(ELEMENT_METABREF);
 	        componentElement.setAttribute(ELEMENT_METABOLITE, component.getMetabolite().getId());
 	        componentElement.setAttribute(ATTRIBUTE_STOICHIOMETRY, Double.toString(component.getStoichiometry()));
-
 
 	        listComponentsElement.appendChild(componentElement);
 	    }

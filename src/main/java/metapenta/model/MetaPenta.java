@@ -1,25 +1,14 @@
 package metapenta.model;
 
-import metapenta.model.dto.ConnectedComponentsDTO;
-import metapenta.model.dto.MetaboliteReactionsDTO;
-import metapenta.model.dto.NetworkBoundaryDTO;
-import metapenta.model.dto.PathsDTO;
+import metapenta.model.dto.*;
 import metapenta.model.errors.MetaboliteDoesNotExistsException;
 import metapenta.model.errors.SourceAndTargetPlacesAreEqualException;
+import metapenta.model.metabolic.network.Metabolite;
 import metapenta.model.params.FindAllPathsParams;
-import metapenta.model.petrinet2.Edge;
-import metapenta.model.petrinet2.Place;
-import metapenta.model.petrinet2.Transition;
-import metapenta.services.AllPathsService;
-import metapenta.services.ConnectedComponentsService;
-import metapenta.services.MetaboliteReactionsService;
-import metapenta.services.NetworkBoundaryService;
+import metapenta.model.petrinet.Place;
+import metapenta.services.*;
 import metapenta.tools.io.loaders.MetabolicNetworkXMLLoader;
 import metapenta.tools.io.loaders.MetabolicPetriNetLoader;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MetaPenta{
     private MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
@@ -46,6 +35,14 @@ public class MetaPenta{
         MetaboliteReactionsService service = new MetaboliteReactionsService(petriNet, metabolitePlace.getObject());
 
         return service.getMetaboliteReactions();
+    }
+
+
+    public ShortestPathsDTO getShortestPaths(String metaboliteId) throws MetaboliteDoesNotExistsException {
+        Place<Metabolite> origin = getPlace(metaboliteId);
+        ShortestPathByTransitionNumberService service = new ShortestPathByTransitionNumberService(petriNet, origin);
+
+        return service.getShortestPath();
     }
 
     private Place getPlace(String placeId) throws MetaboliteDoesNotExistsException {

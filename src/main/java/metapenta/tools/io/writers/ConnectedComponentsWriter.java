@@ -1,7 +1,7 @@
 package metapenta.tools.io.writers;
 
 import metapenta.model.dto.ConnectedComponentsDTO;
-import metapenta.model.Metabolite;
+import metapenta.model.metabolic.network.Metabolite;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
