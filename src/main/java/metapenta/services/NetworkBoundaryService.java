@@ -1,8 +1,8 @@
 package metapenta.services;
 
-import metapenta.model.Metabolite;
+import metapenta.model.metabolic.network.Metabolite;
 import metapenta.model.dto.NetworkBoundaryDTO;
-import metapenta.model.petrinet2.Place;
+import metapenta.model.petrinet.Place;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,7 @@
 package metapenta.model.dto;
 
-import metapenta.model.Metabolite;
-import metapenta.model.Reaction;
-import metapenta.model.petrinet2.Place;
-import metapenta.model.petrinet2.Transition;
+import metapenta.model.petrinet.Place;
+import metapenta.model.petrinet.Transition;
 
 import java.util.ArrayList;
 import java.util.List;

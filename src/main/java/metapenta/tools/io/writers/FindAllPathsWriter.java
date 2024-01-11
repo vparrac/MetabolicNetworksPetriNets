@@ -1,8 +1,8 @@
 package metapenta.tools.io.writers;
 
-import metapenta.model.Reaction;
+import metapenta.model.metabolic.network.Reaction;
 import metapenta.model.dto.PathsDTO;
-import metapenta.model.petrinet2.Transition;
+import metapenta.model.petrinet.Transition;
 import metapenta.tools.io.utils.MetabolicNetworkJSONUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -22,6 +22,11 @@ public class FindAllPathsWriter implements Writer{
     public FindAllPathsWriter(String outFile, PathsDTO paths){
         this.outFile = outFile;
         this.paths = paths;
+    }
+    @Override
+    public void write() throws IOException {
+        addPathsToJsonObject();
+        Files.write(Paths.get(this.outFile), pathsObject.toJSONString().getBytes());
     }
 
     private void addPathsToJsonObject() {
@@ -46,12 +51,5 @@ public class FindAllPathsWriter implements Writer{
         }
 
         return reactions;
-    }
-
-
-    @Override
-    public void write() throws IOException {
-        addPathsToJsonObject();
-        Files.write(Paths.get(this.outFile), pathsObject.toJSONString().getBytes());
     }
 }

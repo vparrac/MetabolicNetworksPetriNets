@@ -1,8 +1,7 @@
-package metapenta.model;
+package metapenta.model.metabolic.network;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * This represents the data related to a metabolite within a reaction

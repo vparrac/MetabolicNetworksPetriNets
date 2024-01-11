@@ -7,29 +7,12 @@ import java.util.Map.Entry;
 
 import metapenta.model.MetabolicNetworkXMLOutput;
 import metapenta.model.MetabolicNetwork;
-import metapenta.model.Reaction;
+import metapenta.model.metabolic.network.Reaction;
 import metapenta.tools.io.loaders.MetabolicNetworkXMLLoader;
 
 public class BalanceReactions {
 	private String networkFile;
 	private String outPrefix;
-	
-	public String getNetworkFile() {
-		return networkFile;
-	}
-
-	public void setNetworkFile(String networkFile) {
-		this.networkFile = networkFile;
-	}
-
-	public String getOutPrefix() {
-		return outPrefix;
-	}
-
-	public void setOutPrefix(String outPrefix) {
-		this.outPrefix = outPrefix;
-	}
-
 	/**
 	 * args[0]: Metabolic network in XML format
 	 * args[1]: Output
@@ -109,11 +92,5 @@ public class BalanceReactions {
 		
 		MetabolicNetworkXMLOutput output = new MetabolicNetworkXMLOutput();
 		output.saveNetwork(network, outPrefix+"_network.xml");
-			
-			
-		
 	}
-	
-	
-
 }

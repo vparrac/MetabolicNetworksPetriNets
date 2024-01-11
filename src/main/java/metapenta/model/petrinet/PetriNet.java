@@ -1,7 +1,7 @@
-package metapenta.model.petrinet2;
+package metapenta.model.petrinet;
 
-import metapenta.model.Metabolite;
-import metapenta.model.Reaction;
+import metapenta.model.metabolic.network.Metabolite;
+import metapenta.model.metabolic.network.Reaction;
 
 import java.util.*;
 

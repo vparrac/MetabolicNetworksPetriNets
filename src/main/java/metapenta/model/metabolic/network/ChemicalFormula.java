@@ -1,4 +1,4 @@
-package metapenta.model;
+package metapenta.model.metabolic.network;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -76,32 +76,14 @@ public class ChemicalFormula {
 	            }
 				if( num == chemformula.length() || Character.isUpperCase(chemformula.charAt(num))) {
 					stoichiom.append('1');
-					
 				}
-				System.out.println(chemformula);
-//				System.out.println(element);
-//				System.out.println(stoichiom);
+
 				i = terminaElemen;
 				stoichiometry =Integer.parseInt(stoichiom.toString());
 				elements.put(element.toString(), stoichiometry);
 			}
-			
-			
-			
-			
-			
 		}
-		for (Map.Entry<String, Integer> entry : elements.entrySet()) {
-			System.out.println("Formula: " + chemformula);
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
 		
 		return elements;
 	}
-	
-	
-
-
-
-
 }

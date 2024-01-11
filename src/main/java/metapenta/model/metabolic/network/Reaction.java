@@ -1,4 +1,4 @@
-package metapenta.model;
+package metapenta.model.metabolic.network;
 
 import org.apache.commons.math3.linear.*;
 

@@ -1,4 +1,4 @@
-package metapenta.model;
+package metapenta.model.metabolic.network;
 
 /**
  * Represents a metabolite that participates in chemical reactions

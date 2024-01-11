@@ -1,13 +1,13 @@
 package metapenta.services;
 
 import metapenta.model.MetabolicPetriNet;
-import metapenta.model.Metabolite;
-import metapenta.model.Reaction;
+import metapenta.model.metabolic.network.Metabolite;
+import metapenta.model.metabolic.network.Reaction;
 import metapenta.model.dto.PathsDTO;
 import metapenta.model.errors.SourceAndTargetPlacesAreEqualException;
 import metapenta.model.params.FindAllPathsParams;
-import metapenta.model.petrinet2.Place;
-import metapenta.model.petrinet2.Transition;
+import metapenta.model.petrinet.Place;
+import metapenta.model.petrinet.Transition;
 
 import java.util.ArrayList;
 import java.util.List;

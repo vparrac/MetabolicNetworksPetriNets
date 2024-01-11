@@ -2,8 +2,8 @@ package metapenta.tools.io.writers;
 
 import com.opencsv.CSVWriter;
 import metapenta.model.MetabolicNetwork;
-import metapenta.model.Reaction;
-import metapenta.model.ReactionComponent;
+import metapenta.model.metabolic.network.Reaction;
+import metapenta.model.metabolic.network.ReactionComponent;
 
 import java.io.FileWriter;
 import java.io.IOException;

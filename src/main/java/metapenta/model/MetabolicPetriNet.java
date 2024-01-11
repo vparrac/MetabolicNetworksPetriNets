@@ -1,6 +1,9 @@
 package metapenta.model;
 
-import metapenta.model.petrinet2.PetriNet;
+import metapenta.model.metabolic.network.Metabolite;
+import metapenta.model.metabolic.network.Reaction;
+import metapenta.model.petrinet.PetriNet;
+import metapenta.model.petrinet.Place;
 
 import java.util.*;
 
@@ -51,6 +54,18 @@ public class MetabolicPetriNet extends PetriNet {
         }
 
         return metabolitesByCompartment;
+    }
+
+    public Place<Metabolite> getPlaceByNid(int nid) {
+        for(String placeID: getPlaces().keySet()){
+            Place<Metabolite> place = getPlace(placeID);
+
+            if (place.getObject().getNid() == nid) {
+                return place;
+            }
+
+        }
+        return null;
     }
 
 }

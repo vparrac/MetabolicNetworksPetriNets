@@ -1,12 +1,12 @@
 package metapenta.services;
 
-import metapenta.model.Metabolite;
-import metapenta.model.Reaction;
-import metapenta.model.ReactionComponent;
-import metapenta.model.petrinet2.Edge;
-import metapenta.model.petrinet2.Transition;
-import metapenta.model.petrinet2.PetriNet;
-import metapenta.model.petrinet2.Place;
+import metapenta.model.metabolic.network.Metabolite;
+import metapenta.model.metabolic.network.Reaction;
+import metapenta.model.metabolic.network.ReactionComponent;
+import metapenta.model.petrinet.Edge;
+import metapenta.model.petrinet.Transition;
+import metapenta.model.petrinet.PetriNet;
+import metapenta.model.petrinet.Place;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.optim.*;

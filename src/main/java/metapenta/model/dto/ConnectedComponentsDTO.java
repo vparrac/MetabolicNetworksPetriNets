@@ -1,7 +1,7 @@
 package metapenta.model.dto;
 
-import metapenta.model.Metabolite;
-import metapenta.model.Reaction;
+import metapenta.model.metabolic.network.Metabolite;
+import metapenta.model.metabolic.network.Reaction;
 
 import java.util.List;
 import java.util.Map;

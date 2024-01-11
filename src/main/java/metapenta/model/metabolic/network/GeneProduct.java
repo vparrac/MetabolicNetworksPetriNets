@@ -1,4 +1,4 @@
-package metapenta.model;
+package metapenta.model.metabolic.network;
 
 /**
  * Represents a gene product (usually an enzyme) that participates in one reaction
